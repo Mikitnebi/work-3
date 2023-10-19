@@ -1,0 +1,56 @@
+.overlay-style11{
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-Color: rgba(0, 0, 0, .7);
+    z-Index: 1000;
+}
+.modal-styles11{
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-Color: #fff;
+    padding: 30px;
+    padding-top: 35px;
+    z-Index: 1000;
+    width: 460px;
+    height: 400px;
+    border-radius: 5px;
+
+}
+.button-x11{
+    position: absolute;
+    top: 0px;
+    left: 93%;
+    background-color: white;
+    border: none;
+}
+.ttt{
+    color: red;
+    font-size: 40px;
+}
+/* @media only screen and (max-width: 1200px){
+
+}
+@media only screen and (max-width: 1023px){
+    .button-x{
+        left: 94.4%;
+    }
+
+
+}
+@media only screen and (max-width: 767px){
+    .button-x{
+        left: 93.1%;
+    }
+
+}
+@media only screen and (max-width: 480px){
+    .button-x{
+        left: 90%;
+    }
+
+} */

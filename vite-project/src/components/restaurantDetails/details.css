@@ -1,0 +1,28 @@
+/* select.css */
+.select-container {
+    margin: 20px;
+  }
+  .detailes-div{
+    margin-top: 10%;
+    margin-left: 10%;
+    display: grid;
+    gap: 50px 50px;
+    grid-template-columns: auto auto auto;    
+  }
+  .custom-select {
+    width: 200px;
+    height: 150px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    overflow-y: auto;
+  }
+  
+  .custom-select option {
+    padding: 5px;
+  }
+  
+  .custom-select option.selected {
+    background-color: #3498db;
+    color: #fff;
+  }
+  

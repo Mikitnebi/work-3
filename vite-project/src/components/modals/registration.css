@@ -1,0 +1,33 @@
+
+.modal-styles{
+    width: 450px;
+    height: 545px;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-Color: #fff;
+    padding: 30px;
+    padding-top: 35px;
+    z-Index: 1000;
+    scrollbar-width: none;
+    border-radius: 5px;
+    font-family: cursive;
+
+
+}
+
+.button-x{
+    position: absolute;
+    top: 0px;
+    left: 93%;
+    background-color: white;
+    border: none;
+}
+
+.register-title{
+    color: brown;
+    font-size: 16px;
+    font-family: cursive;
+}
+

@@ -1,0 +1,110 @@
+/* Tables.css */
+
+/* Style the container div */
+.table-flex{
+    position: absolute;
+    top: 5%;
+    left: 30%;
+    width: 40%;
+    display: flex;
+    justify-content: space-between;
+}
+.tables-container {
+    position: absolute;
+    top: 15%;
+    left: 30%;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    overflow: scroll;
+    width: 40%;
+  }
+  
+  /* Style labels */
+  .input-section label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+  }
+  
+  /* Style input fields */
+  .table-count-input,
+  .seats-count-input {
+    width: 100%;
+    padding: 5px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+  }
+  
+  /* Style the "Add Table" button */
+  .add-table-button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 3px;
+    padding: 10px 20px;
+    cursor: pointer;
+  }
+  
+  /* Style the table information display */
+  .table-info-section {
+    margin-top: 20px;
+  }
+  
+  /* Style individual table entries */
+  .table-info {
+    margin-bottom: 30px;
+    background-color: #f9f9f9;
+    padding: 10px;
+    border-radius: 3px;
+    position: relative; /* For button positioning */
+    cursor: pointer;
+  }
+  .table-info:hover{
+    background-color: #f0a3ab;
+    transition: 0.5s;
+  }
+  
+  /* Style "Edit" and "Delete" buttons */
+  .delete-button {
+    position: absolute;
+    top: 7px;
+    right: 5px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 3px;
+    padding: 5px 10px;
+    cursor: pointer;
+    margin-left: 5px;
+  }
+  .edit-button{
+    position: absolute;
+    top: 7px;
+    right: 70px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 3px;
+    padding: 5px 10px;
+    cursor: pointer;
+    margin-left: 5px;
+  }
+
+  .delete-button {
+    background-color: #dc3545;
+  }
+  .edit-button:hover,
+  .delete-button:hover{
+    transform: scale(1.1);
+    transition: 0.5s;
+  }
+  
+  /* Clear floated elements */
+  .clearfix::after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+  

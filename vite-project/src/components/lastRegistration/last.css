@@ -1,0 +1,21 @@
+ .last-registration{
+    position: absolute;
+    display: flex;
+    top: 3%;
+    left: 5%;
+
+    width: 90%;
+    height: 95%;
+    background-color: #fff;
+    border-radius: 10px;
+    overflow:scroll;
+
+ }
+
+ .button-x-last{
+    position: absolute;
+    top: 0px;
+    left: 96%;
+    background-color: white;
+    border: none;
+ }
