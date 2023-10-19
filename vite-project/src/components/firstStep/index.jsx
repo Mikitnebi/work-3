@@ -9,10 +9,19 @@ import React, { useMemo, useState, useEffect } from "react";
 import { GoogleMap, useLoadScript, Marker } from "@react-google-maps/api";
 import axios from "axios";
 import LocationSearchInput from "./localSearch";
-import PlacesAutocomplete, {
-  geocodeByAddress,
+import usePlacesAutocomplete, {
+  getGeocode,
   getLatLng,
-} from "react-places-autocomplete";
+  
+} from "use-places-autocomplete";
+import {
+  Combobox,
+  ComboboxInput,
+  ComboboxPopover,
+  ComboboxList,
+  ComboboxOption,
+} from "@reach/combobox";
+import "@reach/combobox/styles.css";
 
 export const FirstStep = function ({ chooseStep, nextStep }) {
   const [street, setStreet] = useState('');
@@ -57,13 +66,15 @@ async function getLocationInfo(lat, lng) {
     }
   }
 }
-function Map() {
-  const center = useMemo(() => ({ lat: 41.6938, lng: 44.8015 }), []);
-  const zoom = 12;
 
-  const [marker, setMarker] = useState(null);
+function Map() {
+  const center = useMemo(() => ({ lat: 42, lng: 44.5 }), []);
+  const zoom = 6;
+
+  const [selected, setSelected] = useState(null);
   const [clickedPosition, setClickedPosition] = useState(center);
   const [searchValue, setSearchValue] = useState("");
+  const [map, setMap] = useState(null); // Add a state variable to store the map object
 
   const handleMapClick = (event) => {
     const newMarker = {
@@ -71,7 +82,7 @@ function Map() {
       lng: event.latLng.lng(),
     };
     let {lat,lng} = newMarker
-    setMarker(newMarker);
+    setSelected(newMarker);
     setClickedPosition(newMarker);
     getLocationInfo(lat=lat, lng=lng)
   };
@@ -82,16 +93,16 @@ function Map() {
     setClickedPosition(center);
   }, []);
 
-  const handleSelect = async (address) => {
-    try {
-      const results = await geocodeByAddress(address);
-      const latLng = await getLatLng(results[0]);
-      setClickedPosition(latLng);
-      setSearchValue(address);
-    } catch (error) {
-      console.error("Error selecting address: ", error);
-    }
-  };
+  // const handleSelect = async (address) => {
+  //   try {
+  //     const results = await geocodeByAddress(address);
+  //     const latLng = await getLatLng(results[0]);
+  //     setClickedPosition(latLng);
+  //     setSearchValue(address);
+  //   } catch (error) {
+  //     console.error("Error selecting address: ", error);
+  //   }
+  // };
   
   return (
     <div>
@@ -125,18 +136,69 @@ function Map() {
         )}
       </PlacesAutocomplete> */}
 
+
+      <div className="places-container">
+        <PlacesAutocomplete setSelected={setSelected} map={map}/>
+      </div>
+
       <GoogleMap
         zoom={zoom}
         center={center}
         mapContainerStyle={{zIndex:"5",position:"absolute",top:'0%',left:'35%',borderRadius:"20px", height: "300px", width: "500px" }}
         mapContainerClassName="map-container"
-        onClick={handleMapClick}
-      >
-        {marker && <Marker position={marker} />}
+        onLoad={(map) => setMap(map)} // Store the map object when it loads
+        onClick={handleMapClick}      >
+        {selected && <Marker position={selected} />}
       </GoogleMap>
     </div>
-  );
+  );  
 }
+const PlacesAutocomplete = ({ setSelected, map }) => {
+  const {
+    ready,
+    value,
+    setValue,
+    suggestions: { status, data },
+    clearSuggestions,
+  } = usePlacesAutocomplete();
+
+  const handleSelect = async (address) => {
+    setValue(address, false);
+    clearSuggestions();
+
+    const results = await getGeocode({ address });
+    const { lat, lng } = getLatLng(results[0]);
+    setSelected({ lat, lng });
+
+    // Set the zoom level and pan to the selected location
+    map.setZoom(10); // Adjust the zoom level as needed
+    map.panTo({ lat, lng });
+
+    formattedAddressRef.current = address; // Store the value in the ref
+  };
+
+  return (
+    <Combobox onSelect={handleSelect}>
+      <ComboboxInput
+        value={value}
+        onChange={(e) => setValue(e.target.value)}
+        disabled={!ready}
+        className="combobox-input"
+        placeholder="Search an address"
+        style={{width:'60%',borderRadius:'20px',position:"absolute", left:'60%'}}
+      />
+      <ComboboxPopover>
+        <ComboboxList>
+          {status === "OK" &&
+            data.map(({ place_id, description }) => (
+              <ComboboxOption key={place_id} value={description} />
+            ))}
+        </ComboboxList>
+      </ComboboxPopover>
+    </Combobox>
+  );
+};
+
 let schema;
 
 if (!stateRestaurant?.is24) {
@@ -304,7 +366,7 @@ if (!stateRestaurant?.is24) {
     //     value: data.image2[0],
     //   });
     // }
- 
+
     // if (data.image3[0]) {
     //   dispatchRestaurant({
     //     type: "changePrimitiveType",
