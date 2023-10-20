@@ -8,10 +8,15 @@ import { LastStep } from '../lastStep';
 import { Tables } from '../addTables';
 import { Details } from '../restaurantDetails';
 import ImagesInput from '../imagesInput/imagesInput';
+import ParentMenuModal from '../modals/parentMenuModal';
+import ParentMenu from '../lastStep/parentMenu';
 
 
 export const LastRegistration = function () {
     const navigate = useNavigate();
+
+    // const [selectedSections, setSelectedSections] = useState([]);
+    // const [selectedItems, setSelectedItems] = useState([]);
 
     const [isChecked,setIsChecked] = useState(false);
     const [step, setStep] = useState(1);
@@ -36,11 +41,19 @@ export const LastRegistration = function () {
           [field]: value,
         });
       };
+      const [isParent,setIsParent] = useState(false)
+
+      const [isOpenParentMenu,setIsOpenParentMenu] = useState(false)
     
+      // const onSelectionChange = (selectedSections, selectedItems) => {
+      //   setSelectedSections(selectedSections);
+      //   setSelectedItems(selectedItems);
+      // };
+
     return (
         <section className='last-registration'>
             <button className='button-x-last' onClick={(e) => navigate("..")} ><ion-icon className='icon-modal' size='large' name="close"></ion-icon></button>
-
+          
            {
             !isChecked ? <FinalChecker setCheck={setIsChecked}/> : <><div>
             {step === 1 && (
@@ -71,7 +84,14 @@ export const LastRegistration = function () {
                 handleChange={handleChange}
                 prevStep={prevStep}
                 nextStep={nextStep}
-
+                isParent={isParent}
+                setIsParent={setIsParent}
+                open={setIsOpenParentMenu}
+                // selectedSections={selectedSections}
+                // setSelectedSections={setSelectedSections}
+                // selectedItems={selectedItems}
+                // setSelectedItems={setSelectedItems}
+                // onSelectionChange={onSelectionChange}
               />
             )}
             {step === 5 && (

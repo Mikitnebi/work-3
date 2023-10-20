@@ -62,7 +62,7 @@ function App() {
             <Route path='/finalRegistration' element={<LastRegistration/>}/>
 
           </Routes>
-
+          
     </StoreContextRecipe.Provider>
 
     </>

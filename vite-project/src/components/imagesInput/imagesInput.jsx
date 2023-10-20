@@ -7,6 +7,8 @@ import { yupResolver } from "@hookform/resolvers/yup";
 
 export default function ImagesInput ({prevStep,nextStep}) {
 
+    
+
     const schema = yup.object().shape({
         image1: yup
           .mixed()
@@ -68,12 +70,15 @@ export default function ImagesInput ({prevStep,nextStep}) {
       }
 
     return (
+
+
         <div style={{top:'10%'}} className="first-box">
 
-        <div className="menu-flex">
+        <div style={{left:'20%'}} className="menu-flex">
         <button className="last-step-button1" onClick={(e) => prevStep()}>
           Back
         </button>
+        <div>Restaurant's main pictures</div>
         <button className="final-save-button1" onClick={(e) => nextStep()}>
           Next
         </button>
