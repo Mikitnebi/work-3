@@ -14,6 +14,7 @@ import ParentMenu from '../lastStep/parentMenu';
 
 export const LastRegistration = function () {
     const navigate = useNavigate();
+    const [isParent1, setIsParent1 ] = useState(false)
 
     // const [selectedSections, setSelectedSections] = useState([]);
     // const [selectedItems, setSelectedItems] = useState([]);
@@ -49,6 +50,44 @@ export const LastRegistration = function () {
       //   setSelectedSections(selectedSections);
       //   setSelectedItems(selectedItems);
       // };
+      const [menuData,setMenuData] = useState ([
+        {
+          title: "Appetizers",
+          items: [
+            { name: "Item 1", price: 10, image: "", description: "sdfs", ingredients: "sdfsdf" },
+            { name: "Item 2", price: 10, image: "", description: "fsdfsd", ingredients: "dsfs" },
+            { name: "Item 3", price: 10, image: "", description: "fsdfsd", ingredients: "dsfs" },
+            { name: "Item 4", price: 10, image: "", description: "fsdfsd", ingredients: "dsfs" },
+    
+          ],
+        },
+        {
+          title: "Main Courses",
+          items: [
+            { name: "dish 1", price: 10, image: "", description: "qweqw", ingredients: "sdfsd" },
+            { name: "dish 2", price: 10, image: "", description: "imompp", ingredients: "shjfgh" },
+            { name: "dish 3", price: 10, image: "", description: "imompp", ingredients: "shjfgh" },
+            { name: "dish 4", price: 10, image: "", description: "imompp", ingredients: "shjfgh" },
+    
+          ],
+        },
+        {
+          title: "civebi",
+          items: [
+            { name: "option 1", price: 10, image: "", description: "qweqw", ingredients: "sdfsd" },
+            { name: "option 2", price: 10, image: "", description: "imompp", ingredients: "shjfgh" },
+          ],
+        },
+        {
+          title: "cxelebi",
+          items: [
+            { name: "supe 1", price: 10, image: "", description: "qweqw", ingredients: "sdfsd" },
+            { name: "supe 2", price: 10, image: "", description: "imompp", ingredients: "shjfgh" },
+          ],
+        },
+      
+    
+      ]);
 
     return (
         <section className='last-registration'>
@@ -87,6 +126,10 @@ export const LastRegistration = function () {
                 isParent={isParent}
                 setIsParent={setIsParent}
                 open={setIsOpenParentMenu}
+                isParent1={isParent1}
+                setIsParent1={setIsParent1}
+                menuData={menuData}
+                setMenuData={setMenuData}
                 // selectedSections={selectedSections}
                 // setSelectedSections={setSelectedSections}
                 // selectedItems={selectedItems}

@@ -7,8 +7,90 @@ import ParentChecker from "../finalChecker/parentChecker";
 import ParentMenuModal from "../modals/parentMenuModal";
 import ParentMenu from "./parentMenu";
 
-export const LastStep = function ({ chooseStep, prevStep, nextStep,isParent,setIsParent }) {
+export const LastStep = function ({ chooseStep, prevStep, nextStep,isParent,setIsParent,isParent1,setIsParent1,menuData,setMenuData }) {
   const [parentMenu, setParentMenu] = useState([]);
+
+  const [parentMenu1, setParentMenu1] = useState([]);
+
+  const [menuData1, setMenuData1] = useState(JSON.parse(localStorage.getItem("menuData1")) || []);  
+
+  const [selectedSections, setSelectedSections] = useState([]);
+  const [selectedItems, setSelectedItems] = useState([]);
+  
+  
+  const toggleSectionSelection = (section) => {
+    const isAlreadySelected = isSectionInSelectedSections(section);
+  
+    if (isAlreadySelected) {
+      // Section is already selected, uncheck it and remove its items from selectedItems
+      setSelectedSections(selectedSections.filter((selected) => selected.title !== section.title));
+      setSelectedItems((prevSelectedItems) => prevSelectedItems.filter(
+        (selectedItem) => selectedItem.title !== section.title
+      ));
+    } else {
+      setSelectedSections([...selectedSections, section]);
+
+      // Filter out items that are already in selectedItems
+      const newItems = section.items.filter((item) => !selectedItems.some(
+        (selectedItem) =>
+          selectedItem.name === item.name && selectedItem.title === section.title
+      ));
+  
+      setSelectedItems((prevSelectedItems) => [
+        ...prevSelectedItems,
+        ...newItems.map((item) => ({
+          ...item,
+          title: section.title,
+        })),
+      ]);
+    }
+
+  };
+  
+  
+
+  const toggleItemSelection = (section, item) => {
+    const isAlreadySelected = selectedItems.some(
+      (selectedItem) =>
+        selectedItem.name === item.name && selectedItem.title === section.title
+    );
+
+    setSelectedItems((prevSelectedItems) => {
+      if (isAlreadySelected) {
+        return prevSelectedItems.filter(
+          (selectedItem) =>
+            selectedItem.name !== item.name || selectedItem.title !== section.title
+        );
+      } else {
+        return [...prevSelectedItems, { ...item, title: section.title }];
+      }
+    });
+
+    const areAllItemsSelected = section.items.every((sectionItem) =>
+      selectedItems.some(
+        (selectedItem) =>
+          selectedItem.name === sectionItem.name && selectedItem.title === section.title
+      )
+    );
+
+    setSelectedSections((prevSelectedSections) => {
+      if (areAllItemsSelected) {
+        return Array.from(new Set([...prevSelectedSections, section]));
+      } else {
+        return prevSelectedSections.filter((selected) => selected.title !== section.title);
+      }
+    });
+
+  };
+
+  const isSectionInSelectedSections = (section) => {
+    return section.items.every((sectionItem) =>
+      selectedItems.some(
+        (selectedItem) =>
+          selectedItem.name === sectionItem.name && selectedItem.title === section.title
+      )
+    );
+  };
 
 
   const [menuSections, setMenuSections] = useState(
@@ -30,12 +112,60 @@ export const LastStep = function ({ chooseStep, prevStep, nextStep,isParent,setI
       
     ]
   );
-
   const handleMoveSelectedItems = (selectedItems, selectedSections) => {
-    const updatedMenuSections = [...menuSections];
+    const updatedMenuData1 = [...menuData1];
+  
+    // Loop through each section in parentMenu and add their items to menuData1
+    parentMenu.forEach((section) => {
+      // Find the corresponding section in menuData1 or create a new one
+      const existingSectionIndex = updatedMenuData1.findIndex(
+        (menuSection) => menuSection.title === section.title
+      );
+  
+      if (existingSectionIndex !== -1) {
+        // If the section already exists, add the items to it, avoiding duplicates
+        section.items.forEach((item) => {
+          const existingItemIndex = updatedMenuData1[existingSectionIndex].items.findIndex(
+            (existingItem) => existingItem.name === item.name
+          );
+  
+          if (existingItemIndex === -1) {
+            // Item doesn't exist, so add it
+            updatedMenuData1[existingSectionIndex].items.push(item);
+          }
+        });
+      } else {
+        // If the section doesn't exist, create a new one and add the items
+        updatedMenuData1.push({ title: section.title, items: [...section.items] });
+      }
+    });
+  
+    setMenuData1(updatedMenuData1);
+  };
+
+  const filterMenuData = (data, parentMenu) => {
+    return data.map((section) => {
+      const items = section.items.filter((item) => {
+        // Check if the item exists in parentMenu
+        const itemInParentMenu = parentMenu.some((parentSection) =>
+          parentSection.items.some((parentItem) => parentItem.name === item.name)
+        );
+  
+        // Keep the item only if it's not in parentMenu or if the section still has other items
+        return !itemInParentMenu;
+      });
+  
+      // Update the items in the section
+      return { ...section, items };
+    }).filter((section) => section.items.length > 0);
+  };
+
+
+  const handleMoveSelectedItems1 = (selectedItems, selectedSections) => {
+    const updatedMenuSections = [...menuData];
 
     // Loop through each section in parentMenu and add their items to menuSections
-    parentMenu.forEach((section) => {
+    parentMenu1.forEach((section) => {
       // Find the corresponding section in menuSections or create a new one
       const existingSectionIndex = updatedMenuSections.findIndex(
         (menuSection) => menuSection.title === section.title
@@ -51,8 +181,9 @@ export const LastStep = function ({ chooseStep, prevStep, nextStep,isParent,setI
 
       }
     });
-    setMenuSections(updatedMenuSections);
-    
+    setMenuData(updatedMenuSections);
+  };
+
     // // Add the selectedItems to the menuSections state
     // const updatedMenuSections = [...menuSections];
   
@@ -100,7 +231,29 @@ export const LastStep = function ({ chooseStep, prevStep, nextStep,isParent,setI
     // // console.log(menuSections)
     // console.log(selectedItems)
 
-  };
+
+
+  useEffect(() => {
+    const updatedParentMenu = [];
+  
+    // Group selected items by title
+    selectedItems.forEach((selectedItem) => {
+      const { title, ...itemInfo } = selectedItem;
+  
+      // Check if there is an entry with the same title
+      const sectionEntry = updatedParentMenu.find((entry) => entry.title === title);
+  
+      if (sectionEntry) {
+        // Add itemInfo to the existing section entry
+        sectionEntry.items.push(itemInfo);
+      } else {
+        // Create a new section entry
+        updatedParentMenu.push({ title, items: [itemInfo] });
+      }
+    });
+  
+    setParentMenu1(updatedParentMenu);
+  }, [selectedItems]);
 
 
   const handleSelectionChange = (selectedSections, selectedItems) => {
@@ -145,6 +298,12 @@ export const LastStep = function ({ chooseStep, prevStep, nextStep,isParent,setI
     const newMenuSections = [...menuSections];
     newMenuSections[index].items.push({ name: "", price: "", image: "", description: "", ingredients: "" });
     setMenuSections(newMenuSections);
+  };
+
+  const addMenuItem1 = (index) => {
+    const newMenuSections = [...menuData1];
+    newMenuSections[index].items.push({ name: "", price: "", image: "", description: "", ingredients: "" });
+    setMenuData1(newMenuSections);
   };
 
   const deleteMenuItem = (sectionIndex, itemIndex) => {
@@ -221,46 +380,62 @@ export const LastStep = function ({ chooseStep, prevStep, nextStep,isParent,setI
   };
   const [isOpenRegistration, setIsOpenRegistration] = useState(false)
   const [isOpenParentMenu,setIsOpenParentMenu] = useState(false)
-  const [menuData,setMenuData] = useState ([
-    {
-      title: "Appetizers",
-      items: [
-        { name: "Item 1", price: 10, image: "", description: "sdfs", ingredients: "sdfsdf" },
-        { name: "Item 2", price: 10, image: "", description: "fsdfsd", ingredients: "dsfs" },
-        { name: "Item 3", price: 10, image: "", description: "fsdfsd", ingredients: "dsfs" },
-        { name: "Item 4", price: 10, image: "", description: "fsdfsd", ingredients: "dsfs" },
 
-      ],
-    },
-    {
-      title: "Main Courses",
-      items: [
-        { name: "dish 1", price: 10, image: "", description: "qweqw", ingredients: "sdfsd" },
-        { name: "dish 2", price: 10, image: "", description: "imompp", ingredients: "shjfgh" },
-        { name: "dish 3", price: 10, image: "", description: "imompp", ingredients: "shjfgh" },
-        { name: "dish 4", price: 10, image: "", description: "imompp", ingredients: "shjfgh" },
 
-      ],
-    },
-    {
-      title: "civebi",
-      items: [
-        { name: "option 1", price: 10, image: "", description: "qweqw", ingredients: "sdfsd" },
-        { name: "option 2", price: 10, image: "", description: "imompp", ingredients: "shjfgh" },
-      ],
-    },
-    {
-      title: "cxelebi",
-      items: [
-        { name: "supe 1", price: 10, image: "", description: "qweqw", ingredients: "sdfsd" },
-        { name: "supe 2", price: 10, image: "", description: "imompp", ingredients: "shjfgh" },
-      ],
-    },
+  useEffect(()=>{
+    console.log(menuData1)
+    // console.log(parentMenu1)s
+  },[menuData1])
+
+  const deleteParentMenuItems = () => {
+    // Create a copy of the selectedSections and selectedItems arrays
+    let updatedSelectedSections = [...selectedSections];
+    let updatedSelectedItems = [...selectedItems];
+  
+    // Iterate through the parentMenu1 and remove corresponding sections and items
+    parentMenu1.forEach((section) => {
+      // Remove the section from selectedSections
+      updatedSelectedSections = updatedSelectedSections.filter(
+        (selectedSection) => selectedSection.title !== section.title
+      );
+  
+      // Remove items from selectedItems that belong to the removed section
+      updatedSelectedItems = updatedSelectedItems.filter(
+        (selectedItem) => selectedItem.title !== section.title
+      );
+    });
+  
+    // Update the state with the modified selectedSections and selectedItems
+    setSelectedSections(updatedSelectedSections);
+    setSelectedItems(updatedSelectedItems);
+  };
+  
+  
+  const deleteParentMenuSections = () => {
+    // Create a copy of the selectedSections array
+    let updatedSelectedSections = [...selectedSections];
+  
+    // Iterate through the parentMenu1 and remove corresponding sections
+    parentMenu1.forEach((section) => {
+      // Remove the section from updatedSelectedSections
+      updatedSelectedSections = updatedSelectedSections.filter(
+        (selectedSection) => selectedSection.title !== section.title
+      );
+    });
+  
+    // Update the state with the modified selectedSections
+    setSelectedSections(updatedSelectedSections);
+  };
   
 
-  ]);
-
-  const [isParent1, setIsParent1 ] = useState(false)
+  const submit = () => {
+    setMenuData1(filterMenuData(menuData1, parentMenu1))
+    deleteParentMenuItems()
+    deleteParentMenuSections()
+    handleMoveSelectedItems1(selectedItems,selectedSections)
+    // handleMoveSelectedItems(selectedItems, selectedSections);
+    // console.log(menuData)
+  };
 
   return (
 
@@ -332,8 +507,13 @@ export const LastStep = function ({ chooseStep, prevStep, nextStep,isParent,setI
         <button className="final-save-button" onClick={(e) => {
           handleFinalSave();
           localStorage.setItem("menuSections", JSON.stringify(menuSections));
+          localStorage.setItem("menuData1", JSON.stringify(menuData1));
+
         }}>
           Final Save
+        </button>
+        <button style={{position:'absolute',right:'-20%'}}  className="final-save-button"  onClick={()=>submit()}>
+        Return 
         </button>
       </div>
 
@@ -474,6 +654,108 @@ export const LastStep = function ({ chooseStep, prevStep, nextStep,isParent,setI
             >
               Delete Section
             </button>
+            {combinedErrors[`sectionTitle${sectionIndex}`] && (
+              <div className="error-message2">
+                {combinedErrors[`sectionTitle${sectionIndex}`]}
+              </div>
+            )}
+            {combinedErrors[`sectionItems${sectionIndex}`] && (
+              <div className="error-message2">
+                {combinedErrors[`sectionItems${sectionIndex}`]}
+              </div>
+            )}
+          </div>
+        ))}
+        {menuData1.map((section, sectionIndex) => (
+          <div className="menu-section" key={sectionIndex}>
+            <input
+              type="text"
+              placeholder="Section Title"
+              value={section.title}
+              disabled={true}
+            />
+            <input
+                  type="checkbox"
+                  onChange={() => toggleSectionSelection(section)}
+                  checked={!isSectionInSelectedSections(section)}
+                />
+            <ul className="ul-last">
+              {section.items.map((item, itemIndex) => (
+                <li key={itemIndex}>
+                  <input
+                        type="checkbox"
+                        onChange={() => toggleItemSelection(section, item)}
+                        checked={!selectedItems.some(
+                          (selectedItem) =>
+                            selectedItem.name === item.name && selectedItem.title === section.title
+                        )}
+                      />
+                  <div className="menu-item">
+                    <input
+                      type="text"
+                      placeholder="Dish Name"
+                      value={item.name}
+                      disabled={true}
+                    />
+                    {simpleErrors[`itemName${sectionIndex}-${itemIndex}`] && 
+                      <div className="error-message">
+                        Dish Name is required
+                      </div>
+                    }
+                    <input
+                      type="number"
+                      placeholder="Dish Price"
+                      value={item.price}
+                      disabled={true}
+                    />
+                    {simpleErrors[`itemPrice${sectionIndex}-${itemIndex}`] && 
+                      <div className="error-message">
+                        Dish Price is required
+                      </div>
+                    }
+                  <textarea
+  placeholder="Dish Description"
+  value={item.description}
+  disabled={true}
+  style={{ width: "100%", height: "60px" }} // You can adjust the width and height as needed
+/>
+{simpleErrors[`itemDescription${sectionIndex}-${itemIndex}`] && 
+  <div className="error-message">
+    Dish Description is required
+  </div>
+}
+
+<textarea
+  placeholder="Ingredients"
+  value={item.ingredients}
+  disabled={true}
+  style={{ width: '100%', height: "60px" }} // You can adjust the width and height as needed
+/>
+{simpleErrors[`itemIngredients${sectionIndex}-${itemIndex}`] && 
+  <div className="error-message">
+    Ingredients are required
+  </div>
+}
+                    <input
+                      type="file"
+                      accept=".jpg, .jpeg, .png, .gif"
+                      disabled={true}
+                    />
+                    {simpleErrors[`itemImage${sectionIndex}-${itemIndex}`] && 
+                      <div className="error-message">Dish Image is required</div>
+                    }
+                    
+                  </div>
+                </li>
+              ))}
+            </ul>
+            <button
+              className="add-item-button"
+              onClick={() => addMenuItem1(sectionIndex)}
+            >
+              Add Dish
+            </button>
+            
             {combinedErrors[`sectionTitle${sectionIndex}`] && (
               <div className="error-message2">
                 {combinedErrors[`sectionTitle${sectionIndex}`]}

@@ -24,7 +24,6 @@ const ParentMenu = ({ menuData, handleMoveSelectedItems,parentMenu, setParentMen
   };
   let updatedMenuData = menuData ;
 
-
   const onSelectionChange = (selectedSections) => {
     setSelectedSections(selectedSections);
   };
@@ -146,7 +145,7 @@ const ParentMenu = ({ menuData, handleMoveSelectedItems,parentMenu, setParentMen
   const submit = () => {
     setMenuData(filterMenuData(menuData, parentMenu))
     handleMoveSelectedItems(selectedItems, selectedSections);
-    console.log(menuData)
+    // console.log(menuData)
   };
 
   return (
