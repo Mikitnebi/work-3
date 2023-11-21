@@ -1,0 +1,205 @@
+.reservation-interface{
+    display: flex;
+    background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)),
+    url("../WordPress-Table-Reservation-plugin-1000x562-1.webp");
+  height: 100vh;
+    background-size: cover;
+    background-position: center;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .frame{
+    background-color: rgba(255, 255, 255, 0.573);
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .button-x-last5 {
+    position: fixed;
+    top: 3%;
+    left: 95%;
+    background-color: transparent;
+    border: none;
+    z-index: 999; /* Adjust the z-index as needed */
+ }
+.reservation-options{
+  display: flex;
+  width: 60%;
+  justify-content: space-between;
+  margin-top: 15px;
+}
+.reservation-options a {
+  border: 1px grey solid;
+  padding: 5px;
+  font-size: 18px;
+  font-family: cursive;
+  border-radius: 5px;
+  background-color: white;
+  color: navy;
+}
+
+.reservation-options a.active-option {
+  background-color: navy;
+  color: white;
+}
+
+.reservation-options a:hover{
+  border: 1px grey solid;
+  padding: 5px;
+  font-size: 18px;
+  background-color: navy;
+  color:white
+}
+
+.choosen-reservation{
+  width: 70%;
+  height: 80%;
+  border: 4px #3498db solid;
+
+  border-radius: 5px;
+  margin-top: 3%;
+  overflow: auto;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
+.choosen-reservation::-webkit-scrollbar {
+  width: 8px; /* Set the width of the scrollbar */
+}
+
+.choosen-reservation::-webkit-scrollbar-thumb {
+  background-color: #3498db; /* Set the color of the scrollbar thumb */
+  border-radius: 2px; /* Optional: Set the border-radius of the thumb */
+}
+
+.choosen-reservation::-webkit-scrollbar-track {
+  background-color: rgba(255, 255, 255, 0.1); /* Set the color of the scrollbar track */
+  border-radius: 2px; /* Optional: Set the border-radius of the track */
+}
+
+
+
+
+.likes {
+  position: relative;
+  align-self: stretch;
+  padding: 0 !important; }
+  .likes__field {
+  cursor: pointer;
+  padding: 0 4rem;
+  display: flex;
+  align-items: center;
+  height: 100%;
+  transition: all .3s; }
+  .likes__field:hover {
+      background-color: #F2EFEE; }
+  .likes__panel:hover,
+  .likes__field:hover + .likes__panel {
+    visibility: visible;
+    opacity: 1; }
+  .likes__icon {
+    fill: #F59A83;
+    height: 3.75rem;
+    width: 3.75rem; }
+  .likes__panel {
+     
+    z-index: 15;
+    padding: 1rem 0;
+    width: 100%;
+    background-color: #fff;
+    box-shadow: 0 0.8rem 5rem 2rem rgba(101, 90, 86, 0.1);
+    transition: all .5s .2s; 
+    border-radius: 5px;
+    margin-bottom: 20px;
+    margin-top: 20px;
+  }
+.likes {
+padding: 3rem 0; 
+
+}
+
+.likes__list {
+  display: flex;
+    flex-direction: column;
+  list-style: none; 
+}
+
+.likes__link:link,
+.likes__link:visited {
+  display: flex;
+  align-items: center;
+  padding: 1.5rem 3rem;
+  transition: all .3s;
+  border-right: 1px solid #fff;
+  text-decoration: none;
+ }
+.likes__link:hover {
+  background-color: #F9F5F3;
+  transform: translateY(-2px); }
+.likes__link--active {
+  
+  background-color: #F9F5F3; }
+ 
+.likes__fig {
+  flex: 0 0 5.5rem;
+  border-radius: 50%;
+  overflow: hidden;
+  height: 5.5rem;
+  width: 5.5rem;
+  margin-right: 2rem;
+  position: relative;
+  backface-visibility: hidden; }
+  .likes__fig::before {
+    content: '';
+    display: block;
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    /* background-image: linear-gradient(to right bottom, #FBDB89, #F48982); */
+    opacity: .4; }
+  .likes__fig img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: all .3s; }
+.likes__name {
+  font-size: 1.3rem;
+  color: #F59A83;
+  text-transform: uppercase;
+  font-weight: 600;
+  margin-bottom: .3rem; }
+.likes__author {
+  font-size: 1.1rem;
+  color: #968B87;
+  text-transform: uppercase;
+  font-weight: 600; }
+.likes__pages {
+  margin-top: 3rem;
+  padding: 0 3rem; }
+  .likes__pages::after {
+    content: "";
+    display: table;
+    clear: both; }
+.likes__btn--prev {
+  float: left;
+  flex-direction: row-reverse; }
+.likes__btn--next {
+  float: right; }
+
+.fav-error{
+position: absolute;
+left: 38%;
+top: 30%;
+font-size: 23px;
+}
+.likes-goal{
+display: flex;
+align-items: center;
+}

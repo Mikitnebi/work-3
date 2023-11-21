@@ -10,6 +10,7 @@ import { Details } from '../restaurantDetails';
 import ImagesInput from '../imagesInput/imagesInput';
 import ParentMenuModal from '../modals/parentMenuModal';
 import ParentMenu from '../lastStep/parentMenu';
+import { v4 as uuidv4 } from 'uuid';
 
 
 export const LastRegistration = function () {
@@ -53,36 +54,40 @@ export const LastRegistration = function () {
       const [menuData,setMenuData] = useState ([
         {
           title: "Appetizers",
+          georgianTitle:'აპეტაიზერი',
           items: [
-            { name: "Item 1", price: 10, image: "", description: "sdfs", ingredients: "sdfsdf" },
-            { name: "Item 2", price: 10, image: "", description: "fsdfsd", ingredients: "dsfs" },
-            { name: "Item 3", price: 10, image: "", description: "fsdfsd", ingredients: "dsfs" },
-            { name: "Item 4", price: 10, image: "", description: "fsdfsd", ingredients: "dsfs" },
+            {id: uuidv4(), name: "Item 1",georgianName: "კერძი 1", price: 10, image: "../public/jason-leung-poI7DelFiVA-unsplash.jpg", description: "sdfs",georgianDescription: "ქართული აღწერა", ingredients: "sdfsdf", georgianIngredients: "ქართული ინგრედიენტები"},
+            {id: uuidv4(), name: "Item 2",georgianName: "კერძი 2", price: 10, image: "../public/jason-leung-poI7DelFiVA-unsplash.jpg", description: "fsdfsd",georgianDescription: "ქართული აღწერა", ingredients: "dsfs", georgianIngredients: "ქართული ინგრედიენტები"},
+            {id: uuidv4(), name: "Item 3",georgianName: "კერძი 3", price: 10, image: "../public/jason-leung-poI7DelFiVA-unsplash.jpg", description: "fsdfsd",georgianDescription: "ქართული აღწერა", ingredients: "dsfs", georgianIngredients: "ქართული ინგრედიენტები"},
+            {id: uuidv4(), name: "Item 4",georgianName: "კერძი 4", price: 10, image: "../public/jason-leung-poI7DelFiVA-unsplash.jpg", description: "fsdfsd",georgianDescription: "ქართული აღწერა", ingredients: "dsfs", georgianIngredients: "ქართული ინგრედიენტები"},
     
           ],
         },
         {
           title: "Main Courses",
+          georgianTitle:'მთავარი კურსი',
           items: [
-            { name: "dish 1", price: 10, image: "", description: "qweqw", ingredients: "sdfsd" },
-            { name: "dish 2", price: 10, image: "", description: "imompp", ingredients: "shjfgh" },
-            { name: "dish 3", price: 10, image: "", description: "imompp", ingredients: "shjfgh" },
-            { name: "dish 4", price: 10, image: "", description: "imompp", ingredients: "shjfgh" },
+            {id: uuidv4(), name: "dish 1",georgianName: "საჭმელი 1", price: 10, image: "../public/jason-leung-poI7DelFiVA-unsplash.jpg", description: "qweqw",georgianDescription: "ქართული აღწერა", ingredients: "sdfsd", georgianIngredients: "ქართული ინგრედიენტები"},
+            {id: uuidv4(), name: "dish 2",georgianName: "საჭმელი 2", price: 10, image: "../public/jason-leung-poI7DelFiVA-unsplash.jpg", description: "imompp",georgianDescription: "ქართული აღწერა", ingredients: "shjfgh", georgianIngredients: "ქართული ინგრედიენტები"},
+            {id: uuidv4(), name: "dish 3",georgianName: "საჭმელი 3", price: 10, image: "../public/jason-leung-poI7DelFiVA-unsplash.jpg", description: "imompp",georgianDescription: "ქართული აღწერა", ingredients: "shjfgh", georgianIngredients: "ქართული ინგრედიენტები"},
+            {id: uuidv4(), name: "dish 4",georgianName: "საჭმელი 4", price: 10, image: "../public/jason-leung-poI7DelFiVA-unsplash.jpg", description: "imompp",georgianDescription: "ქართული აღწერა", ingredients: "shjfgh", georgianIngredients: "ქართული ინგრედიენტები"},
     
           ],
         },
         {
           title: "civebi",
+          georgianTitle:'ცივები',
           items: [
-            { name: "option 1", price: 10, image: "", description: "qweqw", ingredients: "sdfsd" },
-            { name: "option 2", price: 10, image: "", description: "imompp", ingredients: "shjfgh" },
+            {id: uuidv4(), name: "option 1",georgianName: "ოფცია 1", price: 10, image: "../public/jason-leung-poI7DelFiVA-unsplash.jpg", description: "qweqw",georgianDescription: "ქართული აღწერა", ingredients: "sdfsd", georgianIngredients: "ქართული ინგრედიენტები"},
+            {id: uuidv4(), name: "option 2",georgianName: "ოფცია 2", price: 10, image: "../public/jason-leung-poI7DelFiVA-unsplash.jpg", description: "imompp",georgianDescription: "ქართული აღწერა", ingredients: "shjfgh", georgianIngredients: "ქართული ინგრედიენტები"},
           ],
         },
         {
           title: "cxelebi",
+          georgianTitle:"ცხელები",
           items: [
-            { name: "supe 1", price: 10, image: "", description: "qweqw", ingredients: "sdfsd" },
-            { name: "supe 2", price: 10, image: "", description: "imompp", ingredients: "shjfgh" },
+            {id: uuidv4(), name: "supe 1",georgianName: "სუპი 1", price: 10, image: "../public/jason-leung-poI7DelFiVA-unsplash.jpg", description: "qweqw",georgianDescription: "ქართული აღწერა", ingredients: "sdfsd", georgianIngredients: "ქართული ინგრედიენტები"},
+            {id: uuidv4(), name: "supe 2",georgianName: "სუპი 2", price: 10, image: "../public/jason-leung-poI7DelFiVA-unsplash.jpg", description: "imompp",georgianDescription: "ქართული აღწერა", ingredients: "shjfgh", georgianIngredients: "ქართული ინგრედიენტები"},
           ],
         },
       

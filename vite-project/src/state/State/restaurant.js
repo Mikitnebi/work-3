@@ -1,5 +1,4 @@
 export const restaurantState = {
-    name: "",
     location: "",
     description: "",
     cupeQuantity: 0,
@@ -10,10 +9,14 @@ export const restaurantState = {
     kitchenStart: '',
     kitchenEnd:'',
     is24:false,
+    is24Hall:false,
     musicStart: '',
     musicEnd : '',
     corporative: false,
-    doubleSecurity: false
+    doubleSecurity: false,
+    lat:'',
+    lng:'',
+    parent: false
     // image1: null,
     // image2: null,
     // image3: null,

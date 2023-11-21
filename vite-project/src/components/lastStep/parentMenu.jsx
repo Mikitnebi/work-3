@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./lastStep.css";
 
-const ParentMenu = ({ menuData, handleMoveSelectedItems,parentMenu, setParentMenu,setMenuData }) => {
+const ParentMenu = ({ menuData, handleMoveSelectedItems,parentMenu, setParentMenu,setMenuData,handleMoveSelectedItems2 }) => {
   const [selectedSections, setSelectedSections] = useState([]);
   const [selectedItems, setSelectedItems] = useState([]);
 
@@ -50,6 +50,8 @@ const ParentMenu = ({ menuData, handleMoveSelectedItems,parentMenu, setParentMen
         ...newItems.map((item) => ({
           ...item,
           title: section.title,
+          georgianTitle: section.georgianTitle,
+          parent: true
         })),
       ]);
     }
@@ -70,7 +72,7 @@ const ParentMenu = ({ menuData, handleMoveSelectedItems,parentMenu, setParentMen
             selectedItem.name !== item.name || selectedItem.title !== section.title
         );
       } else {
-        return [...prevSelectedItems, { ...item, title: section.title }];
+        return [...prevSelectedItems, { ...item,georgianTitle:section.georgianTitle, title: section.title, parent: true }];
       }
     });
 
@@ -105,8 +107,9 @@ const ParentMenu = ({ menuData, handleMoveSelectedItems,parentMenu, setParentMen
   
     // Group selected items by title
     selectedItems.forEach((selectedItem) => {
-      const { title, ...itemInfo } = selectedItem;
-  
+      const {georgianTitle, title, ...itemInfo } = selectedItem;
+
+
       // Check if there is an entry with the same title
       const sectionEntry = updatedParentMenu.find((entry) => entry.title === title);
   
@@ -115,7 +118,7 @@ const ParentMenu = ({ menuData, handleMoveSelectedItems,parentMenu, setParentMen
         sectionEntry.items.push(itemInfo);
       } else {
         // Create a new section entry
-        updatedParentMenu.push({ title, items: [itemInfo] });
+        updatedParentMenu.push({ parent: true,georgianTitle,title, items: [itemInfo] });
       }
     });
   
@@ -125,9 +128,11 @@ const ParentMenu = ({ menuData, handleMoveSelectedItems,parentMenu, setParentMen
   // Use another useEffect to log the updated parentMenu
 
 
-  // useEffect(() => {
+  useEffect(() => {
   //  console.log(filterMenuData(menuData, parentMenu));
-  // }, [parentMenu]);
+  //  console.log(parentMenu)
+   
+  }, [parentMenu]);
   
 
   
@@ -144,7 +149,8 @@ const ParentMenu = ({ menuData, handleMoveSelectedItems,parentMenu, setParentMen
 
   const submit = () => {
     setMenuData(filterMenuData(menuData, parentMenu))
-    handleMoveSelectedItems(selectedItems, selectedSections);
+    // handleMoveSelectedItems(selectedItems, selectedSections);
+    handleMoveSelectedItems2(selectedItems,selectedSections)
     // console.log(menuData)
   };
 
@@ -164,6 +170,7 @@ const ParentMenu = ({ menuData, handleMoveSelectedItems,parentMenu, setParentMen
                 />
                 {section.title}
               </h3>
+              <h3>{section.georgianTitle}</h3>
               <ul className="ul-last">
                 {section.items.map((item, itemIndex) => (
                   <li key={itemIndex}>
@@ -177,10 +184,15 @@ const ParentMenu = ({ menuData, handleMoveSelectedItems,parentMenu, setParentMen
                         )}
                       />
                       <h4>{item.name}</h4>
+                      <h4>{item.georgianName}</h4>
+
                       <p>Price: {item.price}</p>
                       <p>Description: {item.description}</p>
+                      <p>Georgian Description: {item.georgianDescription}</p>
+
                       <p>Ingredients: {item.ingredients}</p>
-                      <img src={item.image} alt={item.name} />
+                      <p>Georgian Ingredients: {item.georgianIngredients}</p>
+                      <img style={{width:'30px',height:'30px', borderRadius:'20px'}} src={item.image} alt={item.name} />
                     </div>
                   </li>
                 ))}

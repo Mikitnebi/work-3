@@ -1,7 +1,11 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import './details.css'; // Import your custom CSS for styling
+import { useNavigate } from 'react-router-dom';
+import { StoreContextRecipe } from '../../App';
 
 export const Details = function ({ prevStep, nextStep }) {
+  const { isSearchVisible, setIsSearchVisible,stateRestaurant, dispatchRestaurant,stateUser, dispatchUser, stateRecipe, dispatchRecipe } = useContext(StoreContextRecipe);
+
   const [selectedOptions, setSelectedOptions] = useState({
     select1: [],
     select2: [],
@@ -9,6 +13,7 @@ export const Details = function ({ prevStep, nextStep }) {
     select4: [],
     select5: [],
   });
+  const navigate = useNavigate();
 
   const handleSelectChange = (selectName, selectedValue) => {
     setSelectedOptions((prevState) => {
@@ -61,8 +66,12 @@ export const Details = function ({ prevStep, nextStep }) {
   const handleDone = () => {
     // You can access the selected options from the selectedOptions object
     console.log('Selected Options:', selectedOptions);
-    // Perform any other actions as needed
-    nextStep();
+    dispatchUser({
+      type: "changeUserInformation",
+      propertyId: "isRegistered",
+      value: true
+  })
+    navigate("..")
   };
 
   return (

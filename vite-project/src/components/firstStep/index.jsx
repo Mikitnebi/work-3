@@ -47,10 +47,15 @@ export const FirstStep = function ({ chooseStep, nextStep }) {
 
 const GEOCODING_API_KEY = "AIzaSyDf4PZPy98nRtr-8mo2LPwq9wzHjC2TpDU";
 
-const formattedAddressRef = useRef(null);
+const formattedAddressRef = useRef(stateRestaurant.location || null);
+const Lng = useRef(stateRestaurant.lng || null);
+const Lat = useRef(stateRestaurant.lat || null);
+
 
 
 async function getLocationInfo(lat, lng) {
+  Lng.current=lng
+  Lat.current=lat
   const response = await axios.get(
     `https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lng}&key=${GEOCODING_API_KEY}`
   );
@@ -85,6 +90,8 @@ function Map() {
     setSelected(newMarker);
     setClickedPosition(newMarker);
     getLocationInfo(lat=lat, lng=lng)
+    // setLat(lat)
+    // setLng(lng)
   };
 
   useEffect(() => {
@@ -185,7 +192,7 @@ const PlacesAutocomplete = ({ setSelected, map }) => {
         disabled={!ready}
         className="combobox-input"
         placeholder="Search an address"
-        style={{width:'60%',borderRadius:'20px',position:"absolute", left:'60%'}}
+        style={{width:'60%',borderRadius:'20px',position:"absolute", left:'80%'}}
       />
       <ComboboxPopover>
         <ComboboxList>
@@ -202,70 +209,83 @@ const PlacesAutocomplete = ({ setSelected, map }) => {
 let schema;
 
 if (!stateRestaurant?.is24) {
-  schema = yup.object().shape({
-    restaurantName: yup.string().max(50).required(),
-    description: yup.string().max(500).required(),
-    cupeQuantity: yup.number().min(0, 'Number must be greater than or equal to 0'),
-    tableQuantity: yup.number().min(-1, 'Number must be greater than or equal to 0').required(),
-    terraceQuantity: yup.number().min(0, 'Number must be greater than or equal to 0'),
-    hallStart: yup.string(),
-    hallEnd: yup.string(),
-    kitchenStart: yup.string().matches(
-      /^([01]\d|2[0-3]):[0-5]\d$/,
-      'Invalid time format (HH:MM)'
-    ).required('Time is required'),
-    kitchenEnd: yup.string().matches(
-      /^([01]\d|2[0-3]):[0-5]\d$/,
-      'Invalid time format (HH:MM)'
-    ).required('Time is required'),
-  });
+  if(!stateRestaurant?.is24Hall){
+    schema = yup.object().shape({
+      // restaurantName: yup.string().max(50).required(),
+      description: yup.string().max(500).required(),
+      cupeQuantity: yup.number().min(0, 'Number must be greater than or equal to 0'),
+      tableQuantity: yup.number().min(-1, 'Number must be greater than or equal to 0').required(),
+      terraceQuantity: yup.number().min(0, 'Number must be greater than or equal to 0'),
+      hallStart: yup.string().matches(
+        /^([01]\d|2[0-3]):[0-5]\d$/,
+        'Invalid time format (HH:MM)'
+      ).required('Time is required'),
+      hallEnd:  yup.string().matches(
+        /^([01]\d|2[0-3]):[0-5]\d$/,
+        'Invalid time format (HH:MM)'
+      ).required('Time is required'),
+      kitchenStart: yup.string().matches(
+        /^([01]\d|2[0-3]):[0-5]\d$/,
+        'Invalid time format (HH:MM)'
+      ).required('Time is required'),
+      kitchenEnd: yup.string().matches(
+        /^([01]\d|2[0-3]):[0-5]\d$/,
+        'Invalid time format (HH:MM)'
+      ).required('Time is required'),
+    });
+  } else{
+    schema = yup.object().shape({
+      // restaurantName: yup.string().max(50).required(),
+      description: yup.string().max(500).required(),
+      cupeQuantity: yup.number().min(0, 'Number must be greater than or equal to 0'),
+      tableQuantity: yup.number().min(-1, 'Number must be greater than or equal to 0').required(),
+      terraceQuantity: yup.number().min(0, 'Number must be greater than or equal to 0'),
+      kitchenStart: yup.string().matches(
+        /^([01]\d|2[0-3]):[0-5]\d$/,
+        'Invalid time format (HH:MM)'
+      ).required('Time is required'),
+      kitchenEnd: yup.string().matches(
+        /^([01]\d|2[0-3]):[0-5]\d$/,
+        'Invalid time format (HH:MM)'
+      ).required('Time is required'),
+    });
+  }
+  
 } else {
-  schema = yup.object().shape({
-    restaurantName: yup.string().max(50).required(),
-    description: yup.string().max(500).required(),
-    cupeQuantity: yup.number().min(0, 'Number must be greater than or equal to 0').required(),
-    tableQuantity: yup.number().min(-1, 'Number must be greater than 0').required(),
-    terraceQuantity: yup.number().min(0, 'Number must be greater than or equal to 0').required(),
-    hallStart: yup.string(),
-    hallEnd: yup.string(),
-    // image1: yup
-    //   .mixed()
-    //   .required("Image 1 is required")
-    //   .test("fileType", "Only image files are allowed", (value) => {
-    //     if (!value || !value[0]) return false; // Field is required, so return false if empty
-    //     return (
-    //       ["image/jpeg", "image/png", "image/gif"].includes(value[0].type) &&
-    //       value[0].size <= 10485760 // Max 10MB
-    //     );
-    //   }),
-    // image2: yup
-    //   .mixed()
-    //   .required("Image 2 is required")
-    //   .test("fileType", "Only image files are allowed", (value) => {
-    //     if (!value || !value[0]) return false; // Field is required, so return false if empty
-    //     return (
-    //       ["image/jpeg", "image/png", "image/gif"].includes(value[0].type) &&
-    //       value[0].size <= 10485760 // Max 10MB
-    //     );
-    //   }),
-    // image3: yup
-    //   .mixed()
-    //   .required("Image 3 is required")
-    //   .test("fileType", "Only image files are allowed", (value) => {
-    //     if (!value || !value[0]) return false; // Field is required, so return false if empty
-    //     return (
-    //       ["image/jpeg", "image/png", "image/gif"].includes(value[0].type) &&
-    //       value[0].size <= 10485760 // Max 10MB
-    //     );
-    //   }),
-  });
+  if(stateRestaurant?.is24Hall){
+    schema = yup.object().shape({
+      // restaurantName: yup.string().max(50).required(),
+      description: yup.string().max(500).required(),
+      cupeQuantity: yup.number().min(0, 'Number must be greater than or equal to 0').required(),
+      tableQuantity: yup.number().min(-1, 'Number must be greater than 0').required(),
+      terraceQuantity: yup.number().min(0, 'Number must be greater than or equal to 0').required(),
+    });
+  } else {
+    schema = yup.object().shape({
+      // restaurantName: yup.string().max(50).required(),
+      description: yup.string().max(500).required(),
+      cupeQuantity: yup.number().min(0, 'Number must be greater than or equal to 0').required(),
+      tableQuantity: yup.number().min(-1, 'Number must be greater than 0').required(),
+      terraceQuantity: yup.number().min(0, 'Number must be greater than or equal to 0').required(),
+      hallStart: yup.string().matches(
+        /^([01]\d|2[0-3]):[0-5]\d$/,
+        'Invalid time format (HH:MM)'
+      ).required('Time is required'),
+      hallEnd:  yup.string().matches(
+        /^([01]\d|2[0-3]):[0-5]\d$/,
+        'Invalid time format (HH:MM)'
+      ).required('Time is required'),
+      
+    });
+  }
+  
 }
 
  
   const { register, handleSubmit, formState: { errors } } = useForm({
     resolver: yupResolver(schema),
     defaultValues: {
-      restaurantName: stateRestaurant?.name || '',
+      // restaurantName: stateRestaurant?.name || '',
       description: stateRestaurant?.description || '',
       location: stateRestaurant?.location || '',
       cupeQuantity: stateRestaurant?.cupeQuantity || 0,
@@ -283,73 +303,159 @@ if (!stateRestaurant?.is24) {
       musicEnd:  stateRestaurant?.musicEnd || '',
     },
   });
+  // console.log(stateRestaurant)
 
   const onSubmit = (data) => {
-    nextStep();
 
-    dispatchRestaurant({
-      type: "changePrimitiveType",
-      propertyId: "name",
-      value: data.restaurantName,
-    });
+   
+    let hallStartHour
+    let hallStartMinute
+    let hallEndHour 
+    let hallEndMinute 
+    let kitchenStartHour
+    let kitchenStartMinute
+    let kitchenEndHour 
+    let kitchenEndMinute 
+    let [musicStartHour, musicStartMinute] = data.musicStart && data.musicStart.split(":");
+    let [musicEndHour, musicEndMinute] = data.musicEnd && data.musicEnd.split(":");
+  
+    // console.log(musicStartHour)
+    // console.log(musicStartMinute)
+    // console.log(musicEndHour)
+    // console.log(musicEndMinute)
 
-    dispatchRestaurant({
-      type: "changePrimitiveType",
-      propertyId: "location",
-      value: formattedAddressRef.current,
-    });
+    if(stateRestaurant.is24){
+      kitchenStartHour=24
+      kitchenEndHour=24
+      kitchenStartMinute=0
+      kitchenEndMinute=0
+    }
+    else{
+      [kitchenStartHour,kitchenStartMinute]= data.kitchenStart.split(":")
+      [kitchenEndMinute,kitchenEndMinute] =  data.kitchenEnd.split(":")
+    }
+    if(stateRestaurant.is24Hall){
+      hallStartHour=24
+      hallEndHour=24
+      hallStartMinute=0
+      hallEndHour=0
+    }
+    else{
+     [hallStartHour, hallStartMinute] = data.hallStart.split(":");
+     [hallEndHour, hallEndMinute] =   data.hallEnd.split(":");
+    }
 
-    dispatchRestaurant({
-      type: "changePrimitiveType",
-      propertyId: "description",
-      value: data.description,
-    });
-    dispatchRestaurant({
-      type: "changePrimitiveType",
-      propertyId: "cupeQuantity",
-      value: data.cupeQuantity,
-    });
-    dispatchRestaurant({
-      type: "changePrimitiveType",
-      propertyId: "tableQuantity",
-      value: data.tableQuantity,
-    });
-    dispatchRestaurant({
-      type: "changePrimitiveType",
-      propertyId: "terraceQuantity",
-      value: data.terraceQuantity,
-    });
-    dispatchRestaurant({
-      type: "changePrimitiveType",
-      propertyId: "hallStart",
-      value: data.hallStart,
-    });
-    dispatchRestaurant({
-      type: "changePrimitiveType",
-      propertyId: "hallEnd",
-      value: data.hallEnd,
-    });
-    dispatchRestaurant({
-      type: "changePrimitiveType",
-      propertyId: "kitchenStart",
-      value: data.kitchenStart,
-    });
-    dispatchRestaurant({
-      type: "changePrimitiveType",
-      propertyId: "kitchenEnd",
-      value: data.kitchenEnd,
-    });
-    dispatchRestaurant({
-      type: "changePrimitiveType",
-      propertyId: "musicStart",
-      value: data.musicStart,
-    });
-    dispatchRestaurant({
-      type: "changePrimitiveType",
-      propertyId: "musicEnd",
-      value: data.musicEnd,
-    });
 
+    // axios
+    //     .post("http://3.66.89.33/Restaurant/registration/StarterInfo",{
+    //       locationX: Lng.current,
+    //       locationY: Lat.current,
+    //       address: formattedAddressRef.current,
+    //       businessTypeId: 0,
+    //       coupeQuantity: data.cupeQuantity,
+    //       tableQuantity: data.tableQuantity,
+    //       terraceQuantity: data.terraceQuantity,
+    //       hallStartHour: hallStartHour*1,
+    //       hallEndHour: hallEndHour*1,
+    //       hallStartMinute: hallStartMinute*1,
+    //       hallEndMinute: hallEndMinute*1,
+    //       kitchenStartHour: kitchenStartHour*1,
+    //       kitchenEndHour: kitchenEndHour*1,
+    //       kitchenStartMinute: kitchenEndMinute*1,
+    //       kitchenEndMinute: kitchenEndMinute*1,
+    //       musicStartHour: musicStartHour*1,
+    //       musicEndHour: musicEndHour*1,
+    //       musicStartMinute: musicStartMinute*1,
+    //       musicEndMinute: musicEndMinute*1,
+    //       forCorporateEvents: stateRestaurant.corporative,
+    //       description: data.description,
+    //       activeStatusId: 1,
+    //       twoStepAuth: stateRestaurant.doubleSecurity
+    //     })
+    //     .then(response =>{
+            
+   
+        // })
+        // .catch(error =>{
+        //     console.log(error);
+           
+        // })
+        // .finally(() => {
+        //     console.log(stateRestaurant)
+
+        // });
+
+
+       
+       if(formattedAddressRef.current){
+        dispatchRestaurant({
+          type: "changePrimitiveType",
+          propertyId: "location",
+          value: formattedAddressRef.current,
+        });
+     dispatchRestaurant({
+          type: "changePrimitiveType",
+          propertyId: "lat",
+          value: Lat.current,
+        });
+        dispatchRestaurant({
+          type: "changePrimitiveType",
+          propertyId: "lng",
+          value: Lng.current,
+        });
+        dispatchRestaurant({
+          type: "changePrimitiveType",
+          propertyId: "description",
+          value: data.description,
+        });
+        dispatchRestaurant({
+          type: "changePrimitiveType",
+          propertyId: "cupeQuantity",
+          value: data.cupeQuantity,
+        });
+        dispatchRestaurant({
+          type: "changePrimitiveType",
+          propertyId: "tableQuantity",
+          value: data.tableQuantity,
+        });
+        dispatchRestaurant({
+          type: "changePrimitiveType",
+          propertyId: "terraceQuantity",
+          value: data.terraceQuantity,
+        });
+        dispatchRestaurant({
+          type: "changePrimitiveType",
+          propertyId: "hallStart",
+          value: data.hallStart,
+        });
+        dispatchRestaurant({
+          type: "changePrimitiveType",
+          propertyId: "hallEnd",
+          value: data.hallEnd,
+        });
+        dispatchRestaurant({
+          type: "changePrimitiveType",
+          propertyId: "kitchenStart",
+          value: data.kitchenStart,
+        });
+        dispatchRestaurant({
+          type: "changePrimitiveType",
+          propertyId: "kitchenEnd",
+          value: data.kitchenEnd,
+        });
+        dispatchRestaurant({
+          type: "changePrimitiveType",
+          propertyId: "musicStart",
+          value: data.musicStart,
+        });
+        dispatchRestaurant({
+          type: "changePrimitiveType",
+          propertyId: "musicEnd",
+          value: data.musicEnd,
+        });
+        nextStep();
+
+       }
 
     // if (data.image1[0]) {
     //   dispatchRestaurant({
@@ -379,12 +485,12 @@ if (!stateRestaurant?.is24) {
   return (
     <div className="first-box">
       <form onSubmit={handleSubmit(onSubmit)} action="" className="form" id="form">
-          <div className="form-control-first">
+          {/* <div className="form-control-first">
             <label> Restaurant name 
               <input type="text" id="name" placeholder="Enter restaurant name" {...register("restaurantName")} />
             </label>
             <small>{errors.restaurantName?.message }</small>
-          </div>
+          </div> */}
           <div className="form-control-first">
 <label >description    
 <textarea type="text" id="discription"  placeholder="Enter restaurant's description" {...register("description")}/>
@@ -401,6 +507,7 @@ if (!stateRestaurant?.is24) {
 }}> Restaurant location
 <ion-icon  name="location-outline" size={'large'}/>
 </div>
+{!formattedAddressRef.current && <small style={{ color: 'red' }}>{'Select your location '}</small>}
 <li>Chosen location :<span style={{color:"#ec0f6f"}}>{formattedAddressRef.current}</span> </li>
 
 {
@@ -427,19 +534,44 @@ if (!stateRestaurant?.is24) {
 <small>{errors.terraceQuantity?.message }</small>
 </div>
 
-<div className="first-flex">
+<div  style={{alignItems:'center', width:'100%'}} className="first-flex">
 <div style={{marginTop:"20px"}} className="form-control-first">
 <label >Hall starting time    
-<input style={{width:"100%"}} type="time"  id="hallStart"  {...register("hallStart")}/>
+<input style={{width:"100%"}} type="time"  id="hallStart"  disabled={stateRestaurant?.is24Hall}   {...register("hallStart")}/>
 </label>
 <small style={{bottom:'-20%'}}>{errors.hallStart?.message }</small>
 </div>
 
 <div style={{marginTop:"20px"}} className="form-control-first">
 <label >Hall ending time    
-<input style={{width:"100%"}} type="time"  id="hallEnd"  {...register("hallEnd")}/>
+<input style={{width:"100%"}} type="time"  id="hallEnd"  disabled={stateRestaurant?.is24Hall}   {...register("hallEnd")}/>
 </label>
 <small style={{bottom:'-20%'}}>{errors.hallEnd?.message }</small>
+</div>
+<div style={{marginTop:"20px" }} className="form-control-first">
+<label  style={{display:'flex' ,width:'100%'}}>24 Hour hall    
+<input
+  style={{ width: '20px', marginLeft: '10px' }}
+  type="checkbox"
+   // Set the checked state based on stateRestaurant?.is24
+  onChange={() => {
+    if (stateRestaurant?.is24Hall) {
+      dispatchRestaurant({
+        type: "changePrimitiveType",
+        propertyId: "is24Hall",
+        value: false,
+      });
+    } else {
+      dispatchRestaurant({
+        type: "changePrimitiveType",
+        propertyId: "is24Hall",
+        value: true,
+      });
+    }
+  }}
+  defaultChecked={stateRestaurant?.is24Hall}
+/>
+</label>
 </div>
 </div>
 
@@ -602,7 +734,7 @@ style={{width:'20px', marginLeft:'10px'}} type="checkbox"    />
           />
           <small>{errors.image3?.message}</small>
         </div> */}
-        <button className="first-step-button" type="submit">
+        <button className="first-step-button" type="submit" >
           Next
         </button>
       </form>

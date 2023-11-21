@@ -103,7 +103,19 @@ export const RegisterCompany = ({onClose,openPincode, setIsOpenPincode ,setInfor
       };
 
       const schema = yup.object().shape({
-        name: yup.string().min(5).max(15).required(),
+        name: yup
+        .string()
+        .matches(/^[a-zA-Z]+$/, 'English name must contain only English letters')
+        .min(5,'Company name must be at least 5 characters')
+        .max(15,'Company name must be less then  15 characters')
+        .required('Company name is required'),
+      name1: yup
+        .string()
+        .matches(/^[\u10A0-\u10FF]+$/, 'Georgian name must contain only Georgian letters')
+        .min(5,'Company name must be at least 5 characters')
+        .max(15,'Company name must be less then  15 characters')
+        .required('Company name is required'),
+
         email: yup.string().email().required(),
         // password: yup.string().min(5).max(10).required(),
         // confirmPassword: yup
@@ -127,32 +139,53 @@ export const RegisterCompany = ({onClose,openPincode, setIsOpenPincode ,setInfor
    
     const onSubmit = (date) =>{
        
-        setIsLoading(true)
+        // setIsLoading(true)
 
-        axios
-            .post("http://3.66.89.33/Restaurant/registration",
-            {
-                businessName:date.name,
-                phoneNumber:date.card + "",
-                emailAddress:date.email,
-                regionId:1
-            })
-            .then(response =>{
-                console.log(response)
-                // dispatchUser({
-        //     type: "changeUserInformation",
-        //     propertyId: "isRegistered",
-        //     value: true
-        // })
-        // setPast('company')
-        onClose()
-        openPincode(true);
-        // setIsOpenPincode(true);
-        // setInformation(true);
+        // axios
+        //     .post("http://3.66.89.33/Restaurant/registration",
+        //     {
+        //         businessNameGeo:date.name1,
+        //         businessNameEng:date.name,
+        //         phoneNumber:date.card + "",
+        //         emailAddress:date.email,
+        //         regionId:1
+        //     })
+        //     .then(response =>{
+        //         console.log(response)
+        //         // dispatchUser({
+        // //     type: "changeUserInformation",
+        // //     propertyId: "isRegistered",
+        // //     value: true
+        // // })
+        // // setPast('company')
+        // onClose()
+        // openPincode(true);
+        // // setIsOpenPincode(true);
+        // // setInformation(true);
+        
+        // // dispatchUser({
+        // //     type: "changeUserInformation",
+        // //     propertyId: "password",
+        // //     value: date.password
+        // // })
+        
+        //     })
+        //     .catch(error =>{
+        //         console.log(error);
+        //     })
+        //     .finally(() => {
+        //         setIsLoading(false);
+                
+        //     });
         dispatchUser({
             type: "changeUserInformation",
             propertyId: "name",
             value: date.name
+        })
+        dispatchUser({
+            type: "changeUserInformation",
+            propertyId: "name1",
+            value: date.name1
         })
         dispatchUser({
             type: "changeUserInformation",
@@ -164,19 +197,12 @@ export const RegisterCompany = ({onClose,openPincode, setIsOpenPincode ,setInfor
             propertyId: "number",
             value: date.card
         })
-        // dispatchUser({
-        //     type: "changeUserInformation",
-        //     propertyId: "password",
-        //     value: date.password
-        // })
-        
-            })
-            .catch(error =>{
-                console.log(error);
-            })
-            .finally(() => {
-                setIsLoading(false);
-            });
+        dispatchUser({
+            type: "changeUserInformation",
+            propertyId: "isRegistered",
+            value: true
+        })
+        // console.log(stateUser.name)
     }
 
    
@@ -199,10 +225,16 @@ export const RegisterCompany = ({onClose,openPincode, setIsOpenPincode ,setInfor
 
         <form onSubmit={handleSubmit(onSubmit)} action="" className="form" id="form" >
             <div className="form-control">
-                <label >Company Name     <ion-icon name="person-outline"></ion-icon>
-                <input type="text" id="username" placeholder="Enter Company name" {...register("name")}/>
+                <label >Company Name in english    <ion-icon name="person-outline"></ion-icon>
+                <input type="text" id="username" placeholder="Enter Company name in english" {...register("name")}/>
                 </label>  
                 <small>{ errors.name?.message }</small>
+            </div>
+            <div className="form-control">
+                <label >Company Name in georgian    <ion-icon name="person-outline"></ion-icon>
+                <input type="text" id="username" placeholder="Enter Company name in georgian" {...register("name1")}/>
+                </label>  
+                <small>{ errors.name1?.message }</small>
             </div>
             
             <div className="form-control">

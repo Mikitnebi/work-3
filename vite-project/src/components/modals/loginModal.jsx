@@ -4,7 +4,7 @@ import './registration.css'
 
 
 
-export default function RegistrationModal({ open, children, onClose }) {
+export default function LoginModal({ open, children, onClose }) {
   if (!open) return null
 
   return ReactDom.createPortal(
@@ -13,13 +13,13 @@ export default function RegistrationModal({ open, children, onClose }) {
         <div className='modal-styles' >
             <button className='button-x32' onClick={onClose}><ion-icon className='icon-modal' size='large' name="close"></ion-icon></button>
                 <h1 className='register-title' >
-                  Welcome to Mikitani.com
+                    Welcome to Mikitani.com
                 </h1>
             {
                 children
             }
         </div>
     </>,
-    document.getElementById('portal')
+    document.getElementById('portal5')
   )
 }

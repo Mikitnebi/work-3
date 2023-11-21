@@ -67,6 +67,7 @@ export default function ImagesInput ({prevStep,nextStep}) {
       })
 
       const onSubmit = (data) => {
+        nextStep()
       }
 
     return (
@@ -74,16 +75,17 @@ export default function ImagesInput ({prevStep,nextStep}) {
 
         <div style={{top:'10%'}} className="first-box">
 
-        <div style={{left:'20%'}} className="menu-flex">
-        <button className="last-step-button1" onClick={(e) => prevStep()}>
+        
+        <form style={{marginTop:'40px'}} onSubmit={handleSubmit(onSubmit)} action="" className="form" id="form">
+        <div style={{left:'20%'}} className="menu-flex1">
+        <button style={{width:'40%'}} className="last-step-button1" onClick={(e) => prevStep()}>
           Back
         </button>
-        <div>Restaurant's main pictures</div>
-        <button className="final-save-button1" onClick={(e) => nextStep()}>
+        <button style={{width:'40%'}} className="final-save-button1" type="submit">
           Next
         </button>
         </div>
-        <form style={{marginTop:'40px'}} onSubmit={handleSubmit(onSubmit)} action="" className="form" id="form">
+        <div style={{fontSize:'20px',marginBottom:'20px'}}>Restaurant's main pictures</div>
 
              <div className="form-control-first">
           <label htmlFor="image1">Image 1</label>
@@ -116,24 +118,24 @@ export default function ImagesInput ({prevStep,nextStep}) {
           <small>{errors.image3?.message}</small>
         </div>
         <div className="form-control-first">
-          <label htmlFor="image3">Image 3</label>
+          <label htmlFor="image4">Image 4</label>
           <input
             type="file"
-            id="image3"
+            id="image4"
             accept=".jpg, .jpeg, .png, .gif"
             {...register("image4", { validate: value => value[0] !== undefined })}
           />
-          <small>{errors.image3?.message}</small>
+          <small>{errors.image4?.message}</small>
         </div>
         <div className="form-control-first">
-          <label htmlFor="image3">Image 3</label>
+          <label htmlFor="image5">Image 5</label>
           <input
             type="file"
-            id="image3"
+            id="image5"
             accept=".jpg, .jpeg, .png, .gif"
             {...register("image5", { validate: value => value[0] !== undefined })}
           />
-          <small>{errors.image3?.message}</small>
+          <small>{errors.image5?.message}</small>
         </div>
 
          <button className="first-step-button" type="submit">

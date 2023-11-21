@@ -1,0 +1,9 @@
+.menu-flex1{
+    position: absolute;
+    top: 3%;
+    left: 25%;
+    display: flex;
+    justify-content: space-between;
+    width: 60%;
+
+}

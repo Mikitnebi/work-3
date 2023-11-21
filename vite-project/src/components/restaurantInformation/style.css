@@ -1,0 +1,142 @@
+@import url('https://fonts.googleapis.com/css?family=Poppins:200,300,400,500,600,700,800,900&display=swap');
+
+.last-registration2{
+    position: absolute;
+    display: flex;
+    top: 3%;
+    left: 3%;
+
+    width: 95%;
+    height: 95%;
+    background-color: #fff;
+    border-radius: 10px;
+    overflow:scroll;
+    flex-direction: column;
+ }
+
+
+ion-icon{
+    color: navy;
+  }
+.first-box{
+    position: absolute;
+    top: 65%; 
+    left: 20%; 
+    margin-top: 23%;
+    margin-left: 30%;
+    transform: translate(-50%, -50%);
+    background-color: #fff;
+    border-radius: 5px;
+    width: 800px;
+    font-family: cursive;
+    border: 2px #dadada solid;
+    border-radius: 10px;
+    overflow: scroll;
+}
+
+
+.form-control-first{
+    margin-bottom: 0px;
+    padding-bottom: 15px;
+    position: relative;
+}
+.form-control-first label{
+    color: #777;
+    display: block;
+    margin-bottom: 5px;
+}
+.form-control-first input{
+    border: 2px solid #f0f0f0;
+    display: block;
+    border-radius: 4px;
+    width: 100%;
+    padding: 8px;
+    font-size: 12px;
+}
+.form-control-first input:focus{
+    outline: none;
+    border-color: #777;
+
+} 
+.first-flex{
+  width: 500px;
+  display: flex;
+  justify-content: space-between;
+}
+.form-control-first textarea{
+  border: 2px solid #f0f0f0;
+    display: block;
+    border-radius: 4px;
+    width: 100%;
+    padding: 8px;
+    font-size: 12px;
+}
+.form-control-first textarea:focus{
+  outline: none;
+  border-color: #777;
+
+}
+
+
+.form-control-first small{
+    color: red;
+    position: absolute;
+    bottom: 0%;
+    left: 0;
+    font-size: 12px;
+}
+
+
+.form button:hover{
+    transform: scale(1.1);
+    transition: 0.3s;
+  }
+
+
+.enter-span{
+    cursor: pointer;
+    display: block;
+    margin-top: 5px;
+    color: #8600fb;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+
+  .places-container {
+    position: absolute;
+    top: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 10;
+    width: 300px;
+  }
+  
+  .map-container {
+    width: 100%;
+    height: 100vh;
+  }
+  
+  .combobox-input {
+    width: 100%;
+    padding: 0.5rem;
+    
+  }
+
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+  
+  * {
+    box-sizing: border-box;
+  }
+
+  .profile-menu-div{
+    overflow: scroll;
+    width: 900px;
+    height: 800px;
+    border-radius: 5px;
+  } 

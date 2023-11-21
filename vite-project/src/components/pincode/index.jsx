@@ -81,7 +81,8 @@ export const PinCode =({close,isPut, parent,setInformation}) =>{
         axios
         .post("http://3.66.89.33/Restaurant/registration",
         {
-            businessName:stateUser.name,
+            businessNameGeo:stateUser.name1,
+            businessNameEng:stateUser.name,
             phoneNumber:stateUser.number + "",
             emailAddress:stateUser.email,
             regionId:1

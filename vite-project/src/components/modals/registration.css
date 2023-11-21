@@ -1,4 +1,12 @@
-
+.overlay-style{
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-Color: rgba(62, 61, 61, 0.7);
+    z-Index: 1000;
+}
 .modal-styles{
     width: 450px;
     height: 545px;
@@ -17,14 +25,14 @@
 
 }
 
-.button-x{
-    position: absolute;
+.button-x32 {
+    position: fixed;
     top: 0px;
-    left: 93%;
+    right: 0;
     background-color: white;
     border: none;
+    z-index: 1001; /* Adjust the z-index as needed, make sure it's higher than the modal's z-index */
 }
-
 .register-title{
     color: brown;
     font-size: 16px;

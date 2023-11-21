@@ -28,6 +28,28 @@ export function recipeReducer(state, action){
                     state.requests.push(action.value)
                 }
                 return { ...state }
+
+                case 'acceptRequst':
+                    const requestId = action.value.id;
+                    const updatedRequests = state.requests.map(request =>
+                      request.id === requestId ? { ...request, status: false } : request
+                    );
+              
+                    return { ...state, requests: updatedRequests };
+                    case 'rejectRequest':
+                        const requestId1 = action.value.id;
+                        const updatedRequests1 = state.requests.map(request =>
+                          request.id === requestId1 ? { ...request, position: false } : request
+                        );
+                  
+                        return { ...state, requests: updatedRequests1 };
+                        case 'chooseTable':
+                        const requestId2 = action.value.id;
+                        const updatedRequests2 = state.requests.map(request =>
+                          request.id === requestId2 ? { ...request, tableNumber: action.value.number } : request
+                        );
+                  
+                        return { ...state, requests: updatedRequests2 };
         // case "addUserInformation":
         //     console.log(action.propertyId.username)
         //     return {...state, [action.propertyId] : action.value}

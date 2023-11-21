@@ -1,0 +1,203 @@
+.overlay-style{
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-Color: rgba(0, 0, 0, .7);
+    z-Index: 1000;
+}
+
+.button-x{
+    position: absolute;
+    top: 0px;
+    left: 95.5%;
+    background-color: white;
+    border: none;
+}
+.modal-styles-manu{
+    width: 850px;
+    height: 545px;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-Color: #fff;
+    padding: 30px;
+    padding-top: 35px;
+    z-Index: 1000;
+    scrollbar-width: none;
+    border-radius: 5px;
+    overflow: scroll;
+
+}
+.restaurants-view-manu{
+    margin-top: 2%;
+    display: grid;
+    gap: 40px 10px;
+    grid-template-columns: auto auto ;
+    padding: 0px;
+}
+.results__btn--prev-manu{
+    position: absolute;
+    top: 2%;
+    right: 80px;
+}
+.results__btn--next-manu{
+    position: absolute;
+    top: 2%;
+    left: 70px;
+}
+.results__pages-manu h2{
+    position: absolute;
+    left: 45%;
+}
+.results__pages-manu{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.restaurants-view-manu form {
+    margin-top: 5%;
+    display: grid;
+    gap: 50px 10px;
+    grid-template-columns: auto auto ;
+    padding: 0px;
+}
+.restaurants-view-manu form input{
+    outline: none;
+    padding: 2px;
+}
+.restaurant__fig-manu img{
+    width: 7vh;
+    height: 7vh;
+    border-radius: 50%;
+}
+.restaurant__fig-manu{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.restaurant-manu{
+    text-decoration: none;
+    display: flex;
+    justify-content: space-between;
+    width: 250px;
+    align-items: center;
+}
+.restaurant-card-manu {
+
+    list-style: none;
+   
+
+  }
+.manu-input{
+    width: 50px;
+}
+
+.manu-type{
+    position: absolute;
+    left: 45%;
+}
+
+.loader {
+    margin: 5rem auto;
+    text-align: center; }
+    .loader svg {
+      height: 5.5rem;
+      width: 5.5rem;
+      fill: #f36721;
+      transform-origin: 44% 50%;
+      animation: rotate 1.5s infinite linear; }
+  
+  @keyframes rotate {
+    0% {
+      transform: rotate(0); }
+    100% {
+      transform: rotate(360deg); } }
+  
+      .btn-inline {
+        box-shadow: 0px 2px 2px #efefef;
+        font-family: cursive;
+        color: #F59A83;
+        font-size: 1.2rem;
+        border: none;
+        background-color: #F9F5F3;
+        padding: .8rem 1.2rem;
+        border-radius: 10rem;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        transition: all .2s; }
+        .btn-inline svg {
+          height: 1.5rem;
+          width: 1.5rem;
+          fill: currentColor;
+          margin: 0 .2rem; }
+        .btn-inline span {
+          margin: 0 .4rem; }
+        .btn-inline:hover {
+          color: #F48982;
+          background-color: #F2EFEE; }
+        .btn-inline:focus {
+          outline: none; }
+
+
+
+          .chek-div{
+            width: 440px;
+            height: 480px;
+            border: 1.5px black solid;
+            padding: 20px;
+            overflow:scroll;
+            display: flex;
+            flex-direction: column;
+            margin-left: 20%;
+            margin-top: 20px;
+        }
+        .chek-dishes{
+            margin-bottom: 10px;
+            color: red;
+            display: flex;
+            align-items: center;    
+            justify-content: center;
+        }
+        .payment{
+            width: 380px;
+            border-top: 1px black solid;
+            padding-left: 70%;
+        }
+        .delete-dish{
+            width: 20px;
+            height: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-left: 5px;
+            outline: none;
+        }
+         .button-x-check{
+            position: absolute;
+            top: 0px;
+            background-color: white;
+            border: none;
+                left: 93.5%;
+            }
+
+@media only screen and (max-width: 1200px){
+
+}
+@media only screen and (max-width: 1023px){
+   
+
+}
+@media only screen and (max-width: 767px){
+ 
+
+}
+@media only screen and (max-width: 480px){
+   
+    
+
+}

@@ -12,10 +12,11 @@
 
  }
 
- .button-x-last{
-    position: absolute;
-    top: 0px;
-    left: 96%;
-    background-color: white;
-    border: none;
- }
+ .button-x-last {
+   position: fixed;
+   top: 5%;
+   left: 91%;
+   background-color: transparent;
+   border: none;
+   z-index: 999; /* Adjust the z-index as needed */
+}

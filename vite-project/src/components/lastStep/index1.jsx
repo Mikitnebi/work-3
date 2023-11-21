@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import "./lastStep.css";
+import React, { useContext, useEffect, useState } from "react";
+import "./lastStep1.css";
 import * as yup from "yup";
 import RegistrationModal from "../modals/registrationModal";
 import { FinalChecker } from "../finalChecker";
@@ -8,10 +8,54 @@ import ParentMenuModal from "../modals/parentMenuModal";
 import ParentMenu from "./parentMenu";
 import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
 import { v4 as uuidv4 } from 'uuid';
-export const LastStep = function ({ chooseStep, prevStep, nextStep,isParent,setIsParent,isParent1,setIsParent1,menuData,setMenuData }) {
-  const [parentMenu, setParentMenu] = useState([]);
+import { StoreContextRecipe } from "../../App";
 
+export const LastStep1 = function ({ chooseStep, prevStep, nextStep,isParent,setIsParent,isParent1,setIsParent1 }) {
+  const [parentMenu, setParentMenu] = useState([]);
+  const [menuData,setMenuData] = useState ([
+    {
+      title: "Appetizers",
+      georgianTitle:'აპეტაიზერი',
+      items: [
+        {id: uuidv4(), name: "Item 1",georgianName: "კერძი 1", price: 10, image: "../public/jason-leung-poI7DelFiVA-unsplash.jpg", description: "sdfs",georgianDescription: "ქართული აღწერა", ingredients: "sdfsdf", georgianIngredients: "ქართული ინგრედიენტები"},
+        {id: uuidv4(), name: "Item 2",georgianName: "კერძი 2", price: 10, image: "../public/jason-leung-poI7DelFiVA-unsplash.jpg", description: "fsdfsd",georgianDescription: "ქართული აღწერა", ingredients: "dsfs", georgianIngredients: "ქართული ინგრედიენტები"},
+        {id: uuidv4(), name: "Item 3",georgianName: "კერძი 3", price: 10, image: "../public/jason-leung-poI7DelFiVA-unsplash.jpg", description: "fsdfsd",georgianDescription: "ქართული აღწერა", ingredients: "dsfs", georgianIngredients: "ქართული ინგრედიენტები"},
+        {id: uuidv4(), name: "Item 4",georgianName: "კერძი 4", price: 10, image: "../public/jason-leung-poI7DelFiVA-unsplash.jpg", description: "fsdfsd",georgianDescription: "ქართული აღწერა", ingredients: "dsfs", georgianIngredients: "ქართული ინგრედიენტები"},
+
+      ],
+    },
+    {
+      title: "Main Courses",
+      georgianTitle:'მთავარი კურსი',
+      items: [
+        {id: uuidv4(), name: "dish 1",georgianName: "საჭმელი 1", price: 10, image: "../public/jason-leung-poI7DelFiVA-unsplash.jpg", description: "qweqw",georgianDescription: "ქართული აღწერა", ingredients: "sdfsd", georgianIngredients: "ქართული ინგრედიენტები"},
+        {id: uuidv4(), name: "dish 2",georgianName: "საჭმელი 2", price: 10, image: "../public/jason-leung-poI7DelFiVA-unsplash.jpg", description: "imompp",georgianDescription: "ქართული აღწერა", ingredients: "shjfgh", georgianIngredients: "ქართული ინგრედიენტები"},
+        {id: uuidv4(), name: "dish 3",georgianName: "საჭმელი 3", price: 10, image: "../public/jason-leung-poI7DelFiVA-unsplash.jpg", description: "imompp",georgianDescription: "ქართული აღწერა", ingredients: "shjfgh", georgianIngredients: "ქართული ინგრედიენტები"},
+        {id: uuidv4(), name: "dish 4",georgianName: "საჭმელი 4", price: 10, image: "../public/jason-leung-poI7DelFiVA-unsplash.jpg", description: "imompp",georgianDescription: "ქართული აღწერა", ingredients: "shjfgh", georgianIngredients: "ქართული ინგრედიენტები"},
+
+      ],
+    },
+    {
+      title: "civebi",
+      georgianTitle:'ცივები',
+      items: [
+        {id: uuidv4(), name: "option 1",georgianName: "ოფცია 1", price: 10, image: "../public/jason-leung-poI7DelFiVA-unsplash.jpg", description: "qweqw",georgianDescription: "ქართული აღწერა", ingredients: "sdfsd", georgianIngredients: "ქართული ინგრედიენტები"},
+        {id: uuidv4(), name: "option 2",georgianName: "ოფცია 2", price: 10, image: "../public/jason-leung-poI7DelFiVA-unsplash.jpg", description: "imompp",georgianDescription: "ქართული აღწერა", ingredients: "shjfgh", georgianIngredients: "ქართული ინგრედიენტები"},
+      ],
+    },
+    {
+      title: "cxelebi",
+      georgianTitle:"ცხელები",
+      items: [
+        {id: uuidv4(), name: "supe 1",georgianName: "სუპი 1", price: 10, image: "../public/jason-leung-poI7DelFiVA-unsplash.jpg", description: "qweqw",georgianDescription: "ქართული აღწერა", ingredients: "sdfsd", georgianIngredients: "ქართული ინგრედიენტები"},
+        {id: uuidv4(), name: "supe 2",georgianName: "სუპი 2", price: 10, image: "../public/jason-leung-poI7DelFiVA-unsplash.jpg", description: "imompp",georgianDescription: "ქართული აღწერა", ingredients: "shjfgh", georgianIngredients: "ქართული ინგრედიენტები"},
+      ],
+    },
+  
+
+  ]);
   const [parentMenu1, setParentMenu1] = useState([]);
+  const { isSearchVisible, setIsSearchVisible,stateRestaurant, dispatchRestaurant,stateUser, dispatchUser, stateRecipe, dispatchRecipe } = useContext(StoreContextRecipe);
 
   const [menuData1, setMenuData1] = useState(JSON.parse(localStorage.getItem("menuData1")) || []);  
 
@@ -435,11 +479,9 @@ export const LastStep = function ({ chooseStep, prevStep, nextStep,isParent,setI
     if (isValid) {
       // Perform the final save logic here
       // This function will handle all of your sections and items
-      localStorage.setItem("menuSections", JSON.stringify(menuSections));
-      localStorage.setItem("menuData1", JSON.stringify(menuData1));
+
       // For demonstration purposes, let's just log the menuSections
       console.log("Final Save Data:", menuSections);
-      nextStep();
     }
   };
 
@@ -447,20 +489,20 @@ export const LastStep = function ({ chooseStep, prevStep, nextStep,isParent,setI
     const newCombinedErrors = {}; // Store detailed validation errors for combined-errors section
     const newSimpleErrors = {}; // Store simple validation errors for menu-grid
   
-    const englishLettersWithSpacesAndTabsRegex = /^[A-Za-z \t]+$/;
-    const georgianLettersWithSpacesAndTabsRegex = /^[\u10A0-\u10FF \t]+$/;
+    const georgianLettersRegex = /^[\u10A0-\u10FF]+$/; // Regular expression for Georgian letters
+    const englishLettersRegex = /^[A-Za-z]+$/; // Regular expression for English letters
   
     // Validate sections
     menuSections.forEach((section, sectionIndex) => {
-      if (!section.title || !englishLettersWithSpacesAndTabsRegex.test(section.title)) {
+      if (!section.title || !englishLettersRegex.test(section.title)) {
         newCombinedErrors[`sectionTitle${sectionIndex}`] = `Section ${sectionIndex + 1} Title is required and must contain only English letters`;
       }
-      if (!section.georgianTitle || !georgianLettersWithSpacesAndTabsRegex.test(section.georgianTitle)) {
+      if (!section.georgianTitle || !georgianLettersRegex.test(section.georgianTitle)) {
         newCombinedErrors[`sectionGeorgianTitle${sectionIndex}`] = `Section ${sectionIndex + 1} Georgian Title is required and must contain only Georgian letters`;
       }
   
       section.items.forEach((item, itemIndex) => {
-        if (!item.name || !englishLettersWithSpacesAndTabsRegex.test(item.name)) {
+        if (!item.name || !englishLettersRegex.test(item.name)) {
           newSimpleErrors[`itemName${sectionIndex}-${itemIndex}`] = true;
           newCombinedErrors[`itemName${sectionIndex}-${itemIndex}`] = `Section ${sectionIndex + 1}, Item ${itemIndex + 1}: Dish Name is required and must contain only English letters`;
         }
@@ -475,27 +517,27 @@ export const LastStep = function ({ chooseStep, prevStep, nextStep,isParent,setI
           newCombinedErrors[`itemImage${sectionIndex}-${itemIndex}`] = `Section ${sectionIndex + 1}, Item ${itemIndex + 1}: Dish Image is required`;
         }
   
-        if (!item.description || !englishLettersWithSpacesAndTabsRegex.test(item.description)) {
+        if (!item.description || !englishLettersRegex.test(item.description)) {
           newSimpleErrors[`itemDescription${sectionIndex}-${itemIndex}`] = true;
           newCombinedErrors[`itemDescription${sectionIndex}-${itemIndex}`] = `Section ${sectionIndex + 1}, Item ${itemIndex + 1}: Dish Description is required and must contain only English letters`;
         }
   
-        if (!item.ingredients || !englishLettersWithSpacesAndTabsRegex.test(item.ingredients)) {
+        if (!item.ingredients || !englishLettersRegex.test(item.ingredients)) {
           newSimpleErrors[`itemIngredients${sectionIndex}-${itemIndex}`] = true;
           newCombinedErrors[`itemIngredients${sectionIndex}-${itemIndex}`] = `Section ${sectionIndex + 1}, Item ${itemIndex + 1}: Ingredients are required and must contain only English letters`;
         }
   
-        if (!item.georgianName || !georgianLettersWithSpacesAndTabsRegex.test(item.georgianName)) {
+        if (!item.georgianName || !georgianLettersRegex.test(item.georgianName)) {
           newSimpleErrors[`itemGeorgianName${sectionIndex}-${itemIndex}`] = true;
           newCombinedErrors[`itemGeorgianName${sectionIndex}-${itemIndex}`] = `Section ${sectionIndex + 1}, Item ${itemIndex + 1}: Georgian Dish Name is required and must contain only Georgian letters`;
         }
   
-        if (!item.georgianIngredients || !georgianLettersWithSpacesAndTabsRegex.test(item.georgianIngredients)) {
+        if (!item.georgianIngredients || !georgianLettersRegex.test(item.georgianIngredients)) {
           newSimpleErrors[`itemGeorgianIngredients${sectionIndex}-${itemIndex}`] = true;
           newCombinedErrors[`itemGeorgianIngredients${sectionIndex}-${itemIndex}`] = `Section ${sectionIndex + 1}, Item ${itemIndex + 1}: Georgian Ingredients are required and must contain only Georgian letters`;
         }
   
-        if (!item.georgianDescription || !georgianLettersWithSpacesAndTabsRegex.test(item.georgianDescription)) {
+        if (!item.georgianDescription || !georgianLettersRegex.test(item.georgianDescription)) {
           newSimpleErrors[`itemGeorgianDescription${sectionIndex}-${itemIndex}`] = true;
           newCombinedErrors[`itemGeorgianDescription${sectionIndex}-${itemIndex}`] = `Section ${sectionIndex + 1}, Item ${itemIndex + 1}: Georgian Dish Description is required and must contain only Georgian letters`;
         }
@@ -583,34 +625,18 @@ export const LastStep = function ({ chooseStep, prevStep, nextStep,isParent,setI
 
   return (
 
-    !isParent ? 
-      
-    <div style={{position: 'absolute',
-      top: '40%',
-      left: '50%',
-      transform: 'translate(-50%, -50%)'}}>
-        
-       { 
-       !isOpenRegistration ?
-      <div >
-        Do your restaurant have parent restaurant? 
-        
-        <span onClick={()=>{setIsOpenRegistration(true);setIsParent1(true)}}  style={{cursor:'pointer',fontSize:'18px',color:"#0ad60a", marginLeft:'10px'}}>Yes</span> 
-        <span onClick={() => {setIsParent(true); setIsParent1(false)}} style={{cursor:'pointer',fontSize:'18px',color:'red', marginLeft:'10px'}}>No</span>  
-      </div>
-      : 
-      <ParentChecker   setIsParent={setIsParent}/>
-        }
-    </div> 
-      
-    :
 
-    <div className="last-step">
-      <div className="menu-flex">
+    <div className="last-step1">
+      <div style={{  display: 'flex' , justifyContent: 'space-evenly',width: '60%',marginLeft:"10%" }}>
 
         {
-          isParent1 ?
-            <button onClick={() => setIsOpenParentMenu(true)}  style={{marginRight:'10px',position:'absolute',left:'-30%',backgroundColor:'purple'}} className="last-step-button1">Parent Menu</button>
+          stateRestaurant.parent ?
+          <>
+            <button onClick={() => setIsOpenParentMenu(true)}  style={{marginRight:'10px',backgroundColor:'purple'}} className="last-step-button1">Parent Menu</button>
+            <button  className="final-save-button"  onClick={()=>submit()}>
+        Return 
+        </button>
+          </>
             :
             <></>
         }
@@ -631,9 +657,7 @@ export const LastStep = function ({ chooseStep, prevStep, nextStep,isParent,setI
    
             </ParentMenuModal>
 
-        <button className="last-step-button1" onClick={(e) => prevStep()}>
-          Back
-        </button>
+       
         <button className="add-section-button" onClick={addMenuSection}>
           Add Menu Section
         </button>
@@ -652,13 +676,13 @@ export const LastStep = function ({ chooseStep, prevStep, nextStep,isParent,setI
         </button> */}
         <button className="final-save-button" onClick={(e) => {
           handleFinalSave();
-          
+          localStorage.setItem("menuSections", JSON.stringify(menuSections));
+          localStorage.setItem("menuData1", JSON.stringify(menuData1));
         }}>
-          Next
+          Save Changes
         </button>
-        <button  className="final-save-button"  onClick={()=>submit()}>
-        Return 
-        </button>
+        
+     
       </div>
 
       {/* Display combined-errors */}

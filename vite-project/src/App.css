@@ -2,7 +2,79 @@
   margin: 0;
   padding: 0;
 }
+body::-webkit-scrollbar {
+  width: 10px; 
+}
 
+body::-webkit-scrollbar-thumb {
+  background-color: #3498db; 
+}
+
+body::-webkit-scrollbar-track {
+  background-color: rgba(255, 255, 255, 0.1); 
+}
+.userName{
+  display: flex;
+  align-items: center;
+  
+}
+
+.register h3{
+  margin-left: 2px;
+  color: white;
+  cursor: pointer;
+  font-family:  'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+
+}
+
+.main-words{
+  position: absolute;
+  top: 40%;
+  left: 54%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 120px;
+  width: 70%;
+
+}
+.main-words h1{
+  color: white;
+letter-spacing: 5px;
+font-size: 40px;
+font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+.book-button{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  top: 60%;
+  left: 40%;
+  /* transform: translate(-50%, -50%); */
+  width: 200px;
+  height: 40px;
+  outline: none;
+  background-color: rgb(234, 178, 11);
+  border: 1px solid rgb(234, 178, 11);
+  border-radius: 10px;
+  color: white;
+  text-decoration: none;
+  font-size: 15px;
+  letter-spacing: 1px;
+
+}
+
+.book-button:hover{
+  transform: scale(1.1);
+  transition: 0.3s; 
+} 
+
+.book-button:hover{
+  color: black;
+  transition: 0.3s;
+}
 .restaurant-interface{
   background-image: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)),url("../public/jason-leung-poI7DelFiVA-unsplash.jpg");
   height: 100vh;
@@ -10,6 +82,39 @@
   background-size: cover;
   background-position: center;
   background-attachment: fixed;
+}
+.register,.enter,.requests,.favorites,.home,.book,.login-nav{
+  text-decoration: none;
+  color: white;
+  font-size: 20px;
+  padding-bottom: 26px;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+
+}
+.register:hover,.requests:hover,.favorites:hover,.home:hover,.book:hover,.login-nav:hover{
+  transition: 0.3s;
+  color: rgb(234, 178, 11);
+}
+.stick{
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 12.5%;
+  background-color: #fff;
+  box-shadow: 0 2px 2px #efefef;
+  z-index: 20;
+  transition: 0.5s;
+}
+.stick .line{
+  border-bottom: white;
+}
+.waypointSpan{
+  position: absolute;
+  top: 480px;
+}
+.stick .title{
+  margin-top: 1%;
 }
 
 .line{
@@ -39,9 +144,9 @@
   margin-right: 10px;
 }
 
-.registration{
+.register{
   position: absolute;
-  top: 6%;
+  top: 5%;
   right: 11.5%;
   color: white;
   cursor: pointer;
@@ -57,7 +162,7 @@
 .login-nav{
   color: white;
   position: absolute;
-  top: 6%;
+  top: 5%;
   right: 5%;
   color: white;
   cursor: pointer;
@@ -65,12 +170,48 @@
 }
 .login-nav:hover{
   color: rgb(234, 178, 11);
-  transform: scale(1.1);
-  transition: 1s;
+  
 }
 .slash{
   color: white;
   position: absolute;
   top: 5%;
   right: 10%;
+}
+
+.ul-tt-1{
+  position: absolute;
+  left: 30%;
+  top: 4.5%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  list-style: none;
+
+} 
+.ul-tt-1 li{
+  text-decoration: none;
+  margin-left: 50px;
+  height: 50px;
+}
+.stick .ul-tt-1{
+  top:30%
+}
+
+.stick .login-nav,.stick .register,.stick .slash,.stick .requests,.stick .favorites,.stick .home,.stick .book,.stick .title span ,.stick .ul-tt span,.stick .usernameForShow{
+  color: black;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  top:30%
+
+}
+.stick .login-nav:hover,.stick .register:hover:hover,.stick .requests:hover,.stick .favorites:hover,.stick .home:hover,.stick .book:hover,.stick .title span ,.stick .ul-tt span{
+color: rgb(171, 133, 18);
+}
+nav{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  height: 100px;
+  align-items: center;
 }
