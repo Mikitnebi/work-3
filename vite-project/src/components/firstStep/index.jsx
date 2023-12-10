@@ -192,7 +192,7 @@ const PlacesAutocomplete = ({ setSelected, map }) => {
         disabled={!ready}
         className="combobox-input"
         placeholder="Search an address"
-        style={{width:'60%',borderRadius:'20px',position:"absolute", left:'80%'}}
+        style={{width:'60%',borderRadius:'20px',position:"absolute", left:'60%'}}
       />
       <ComboboxPopover>
         <ComboboxList>

@@ -696,7 +696,7 @@ export const LastStep1 = function ({ chooseStep, prevStep, nextStep,isParent,set
         </div>
       )}
 
-      <div className="menu-grid">
+      <div className="menu-grid" style={{marginTop:'10px'}}>
       <DragDropContext onDragEnd={onDragEnd}>
 
         {menuSections.map((section, sectionIndex) => (

@@ -1,3 +1,4 @@
+import 'animate.css';
 import { createContext, useEffect, useReducer, useState } from 'react'
 import { Link, NavLink, Route, Routes, } from 'react-router-dom';
 import { Link as ScrollLink, Element } from 'react-scroll';
@@ -23,6 +24,7 @@ import Tables from './components/tables';
 import Reservations from './components/reservations';
 import MainScreen from '.';
 import Profile from './components/restaurantInformation';
+import HomePage from './homePage';
 
 export const StoreContextRecipe = createContext({});
 
@@ -58,10 +60,11 @@ function App() {
 
           <Routes>
             <Route path='/finalRegistration' element={<LastRegistration/>}/>
-            <Route path='/' element={<MainScreen stateRestaurant={stateRestaurant}/>}/>
+            <Route path='/home' element={<MainScreen stateRestaurant={stateRestaurant}/>}/>
             <Route path='/Profile' element={<Profile stateRestaurant={stateRestaurant}/>}/>
             <Route path='/book' element={<Reservations/>}/>
             <Route path='/table' element={<Tables/>}/>
+            <Route path='/' element={<HomePage/>}/>
 
           </Routes>
           

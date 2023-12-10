@@ -59,8 +59,8 @@ const navigate = useNavigate()
 
   return (
     <div id="table" className="table-interface">
-                  <button className='button-x-last5' onClick={(e) => navigate("..")} ><ion-icon className='icon-modal' size='large' name="close"></ion-icon></button>
-
+                  <button className='button-x-last5' onClick={(e) => navigate("/home")} ><ion-icon className='icon-modal' size='large' name="close"></ion-icon></button>
+                  
       <Waypoint onEnter={() => setIsSearchVisible(true)}>
         <span className="search-spane"></span>
       </Waypoint>
@@ -95,7 +95,7 @@ const navigate = useNavigate()
 
         </div>
         <h1 style={{marginTop:'30%'}}>Tables</h1>
-        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center',marginTop:'6%' }}>
+        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center',marginTop:'27%' }}>
           {tablesInfo.map((tableGroup, rowIndex) => (
             <div key={rowIndex} className="table-group">
               <p className="group-label">{`${tableGroup.tableCount} Tables with ${tableGroup.seatsCount} Seats`}</p>

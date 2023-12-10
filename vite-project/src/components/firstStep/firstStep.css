@@ -9,19 +9,19 @@ ion-icon{
     color: blue;
   }
 .first-box{
-    position: absolute;
-    top: 65%; 
+     position: absolute;
+   /* top: 65%; 
     left: 20%; 
     margin-top: 23%;
-    margin-left: 30%;
-    transform: translate(-50%, -50%);
+    margin-left: 30%; */
+    /* transform: translate(-50%, -50%); */
     background-color: #fff;
     border-radius: 5px;
-    width: 800px;
+    width: 100%;
     font-family: cursive;
-    border: 2px #dadada solid;
-    border-radius: 10px;
-    overflow: scroll;
+    /* border: 2px #dadada solid; */
+    /* border-radius: 10px; */
+    /* overflow: scroll; */
 }
 
 

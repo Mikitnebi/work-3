@@ -76,7 +76,7 @@ export default function ImagesInput ({prevStep,nextStep}) {
         <div style={{top:'10%'}} className="first-box">
 
         
-        <form style={{marginTop:'40px'}} onSubmit={handleSubmit(onSubmit)} action="" className="form" id="form">
+        <form style={{marginTop:'0px'}} onSubmit={handleSubmit(onSubmit)} action="" className="form" id="form">
         <div style={{left:'20%'}} className="menu-flex1">
         <button style={{width:'40%'}} className="last-step-button1" onClick={(e) => prevStep()}>
           Back
@@ -85,7 +85,7 @@ export default function ImagesInput ({prevStep,nextStep}) {
           Next
         </button>
         </div>
-        <div style={{fontSize:'20px',marginBottom:'20px'}}>Restaurant's main pictures</div>
+        <div style={{fontSize:'20px',marginBottom:'20px',color:'navy'}}>Restaurant's main pictures</div>
 
              <div className="form-control-first">
           <label htmlFor="image1">Image 1</label>

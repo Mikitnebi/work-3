@@ -21,7 +21,7 @@ export const LastRegistration = function () {
     // const [selectedItems, setSelectedItems] = useState([]);
 
     const [isChecked,setIsChecked] = useState(false);
-    const [step, setStep] = useState(1);
+    const [step, setStep] = useState(3);
     const [formData, setFormData] = useState({
       restaurantName: "",
       restaurantDescription: "",
@@ -95,12 +95,13 @@ export const LastRegistration = function () {
       ]);
 
     return (
+
         <section className='last-registration'>
-            <button className='button-x-last' onClick={(e) => navigate("..")} ><ion-icon className='icon-modal' size='large' name="close"></ion-icon></button>
+            <button className='button-x-last' onClick={(e) => navigate("/home")} ><ion-icon className='icon-modal' size='large' name="close"></ion-icon></button>
           
            {
             !isChecked ? <FinalChecker setCheck={setIsChecked}/> : <><div>
-            {step === 1 && (
+            {/* {step === 1 && (
               <FirstStep
                 formData={formData}
                 handleChange={handleChange}
@@ -112,7 +113,7 @@ export const LastRegistration = function () {
                 prevStep={prevStep}
                 nextStep={nextStep}
               />
-            )}
+            )} */}
             {step === 3 && (
               <Tables
                 formData={formData}
@@ -122,7 +123,7 @@ export const LastRegistration = function () {
 
               />
             )}
-             {step === 4 && (
+             {/* {step === 4 && (
               <LastStep
                 formData={formData}
                 handleChange={handleChange}
@@ -149,7 +150,7 @@ export const LastRegistration = function () {
               prevStep={prevStep}
               nextStep={nextStep}
             />
-            )}
+            )} */}
       
             {/* {step < 2 && (
               <button onClick={nextStep}>Next</button>

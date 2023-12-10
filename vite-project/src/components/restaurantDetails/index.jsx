@@ -71,7 +71,7 @@ export const Details = function ({ prevStep, nextStep }) {
       propertyId: "isRegistered",
       value: true
   })
-    navigate("..")
+    navigate("/home")
   };
 
   return (

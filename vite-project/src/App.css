@@ -1,7 +1,9 @@
 *{
   margin: 0;
   padding: 0;
+
 }
+
 body::-webkit-scrollbar {
   width: 10px; 
 }
@@ -29,9 +31,8 @@ body::-webkit-scrollbar-track {
 
 .main-words{
   position: absolute;
-  top: 40%;
-  left: 54%;
-  transform: translate(-50%, -50%);
+  top: 30%;
+  left: 20%;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -39,10 +40,29 @@ body::-webkit-scrollbar-track {
   width: 70%;
 
 }
-.main-words h1{
+.main-words1{
+  position: absolute;
+  top: 30%;
+  left: 28%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 120px;
+  width: 70%;
+
+}
+.bookButons{
+  display: flex;
+  justify-content: space-between;
+  width: 500px;
+  position: absolute;
+  top: 60%;
+  left: 30%
+}
+.main-words h1,.main-words1 h1{
   color: white;
-letter-spacing: 5px;
-font-size: 40px;
+letter-spacing: 5px; 
+font-size: 30px;
 font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
 .book-button{
@@ -69,21 +89,110 @@ font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 .book-button:hover{
   transform: scale(1.1);
   transition: 0.3s; 
+  color: black;
+
 } 
 
-.book-button:hover{
-  color: black;
-  transition: 0.3s;
+
+
+
+.book-button1{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+ 
+  /* transform: translate(-50%, -50%); */
+  width: 200px;
+  height: 50px;
+  outline: none;
+  background-color: rgb(234, 178, 11);
+  border: 1px solid rgb(234, 178, 11);
+  border-radius: 10px;
+  color: white;
+  text-decoration: none;
+  font-size: 15px;
+  letter-spacing: 1px;
 }
-.restaurant-interface{
-  background-image: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)),url("../public/jason-leung-poI7DelFiVA-unsplash.jpg");
+.book-button2{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+ 
+  /* transform: translate(-50%, -50%); */
+  width: 200px;
+  height: 50px;
+  outline: none;
+  background-color: rgb(237, 219, 166);
+  border: 1px solid rgb(208, 157, 3);
+  border-radius: 10px;
+  color: black;
+  text-decoration: none;
+  font-size: 15px;
+  letter-spacing: 1px;
+}
+
+.book-button1:hover{
+  transform: scale(1.1);
+  transition: 0.3s; 
+  color: black;
+
+}
+.book-button2:hover{
+  transform: scale(1.1);
+  transition: 0.3s; 
+  color: white;
+  background-color: rgb(234, 178, 11);
+
+}
+/* Add this to your existing CSS or create a new stylesheet */
+.restaurant-interface {
   height: 100vh;
-    
   background-size: cover;
   background-position: center;
   background-attachment: fixed;
+  transition:  0.5s ease-in-out, opacity 1s ease-in-out;
 }
-.register,.enter,.requests,.favorites,.home,.book,.login-nav{
+
+.restaurant-interface.fade-in {
+  opacity: 0.8;
+  transition: 0.5s;
+}
+
+.slider {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  z-index: 2;
+}
+
+.arrow-button {
+  background: none;
+  border: none;
+  font-size: 24px;
+  color: white;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.left-arrow {
+  transform: scaleX(-1);
+  margin-right: 10px;
+}
+
+.right-arrow {
+  margin-left: 10px;
+}
+
+.arrow-button:hover {
+  color: #ffc107;
+
+}
+
+
+.register,.enter,.requests,.favorites,.home,.book,.login-nav,.register1{
   text-decoration: none;
   color: white;
   font-size: 20px;
@@ -91,7 +200,7 @@ font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
   font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 
 }
-.register:hover,.requests:hover,.favorites:hover,.home:hover,.book:hover,.login-nav:hover{
+.register:hover,.register1:hover,.requests:hover,.favorites:hover,.home:hover,.book:hover,.login-nav:hover{
   transition: 0.3s;
   color: rgb(234, 178, 11);
 }
@@ -152,6 +261,14 @@ font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
   cursor: pointer;
   font-size: 20px;
 }
+.register1{
+  position: absolute;
+  top: 5%;
+  right: 5.5%;
+  color: white;
+  cursor: pointer;
+  font-size: 20px;
+}
 
 .registration:hover{
   color: rgb(234, 178, 11);
@@ -176,7 +293,8 @@ font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
   color: white;
   position: absolute;
   top: 5%;
-  right: 10%;
+  right: 10.3%;
+  font-size: 25px;
 }
 
 .ul-tt-1{
@@ -199,13 +317,13 @@ font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
   top:30%
 }
 
-.stick .login-nav,.stick .register,.stick .slash,.stick .requests,.stick .favorites,.stick .home,.stick .book,.stick .title span ,.stick .ul-tt span,.stick .usernameForShow{
+.stick .login-nav,.stick .register,.stick .register1,.stick .slash,.stick .requests,.stick .favorites,.stick .home,.stick .book,.stick .title span ,.stick .ul-tt span,.stick .usernameForShow{
   color: black;
   font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
   top:30%
 
 }
-.stick .login-nav:hover,.stick .register:hover:hover,.stick .requests:hover,.stick .favorites:hover,.stick .home:hover,.stick .book:hover,.stick .title span ,.stick .ul-tt span{
+.stick .login-nav:hover,.stick .register1:hover,.stick .register:hover:hover,.stick .requests:hover,.stick .favorites:hover,.stick .home:hover,.stick .book:hover,.stick .title span ,.stick .ul-tt span{
 color: rgb(171, 133, 18);
 }
 nav{
@@ -215,3 +333,4 @@ nav{
   height: 100px;
   align-items: center;
 }
+

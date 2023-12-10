@@ -29,7 +29,7 @@ export default function Reservations() {
   return (
     <div id='book' className="reservation-interface">
       <div className='frame'>
-        <button className='button-x-last5' onClick={(e) => navigate("..")}>
+        <button className='button-x-last5' onClick={(e) => navigate("/home")}>
           <ion-icon className='icon-modal' size='large' name="close"></ion-icon>
         </button>
 

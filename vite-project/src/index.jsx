@@ -37,8 +37,7 @@ export default function MainScreen () {
 console.log(stateUser)
     return(
         <>
-           <header id='home' className='restaurant-interface'>
-        
+           <header style={{backgroundImage:'linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url(../public/jay-wennington-N_Y88TWmGwA-unsplash.jpg)'}}  id='home' className='restaurant-interface'>
         <nav className={p ? "stick" : ""} >
         <div  className='line'></div>
         <ScrollLink
@@ -132,7 +131,7 @@ Log In
           <h1>For the love of delicious food...</h1> 
           <h1>Where every flavor tells a story...</h1>
         </div> 
-    <Link className='book-button' to="table"   >See Your Tables</Link>
+    <Link className='book-button' to="/table"   >See Your Tables</Link>
 
       
         <LoginModal open={isOpenLogin} onClose={() => setIsOpenLogin(false)}>

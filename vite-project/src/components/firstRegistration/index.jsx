@@ -8,6 +8,7 @@ import SelectInput from '../selecter'
 import axios from 'axios'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSpinner } from '@fortawesome/free-solid-svg-icons'
+import { useNavigate } from 'react-router-dom'
 
 
 
@@ -18,7 +19,7 @@ import { faSpinner } from '@fortawesome/free-solid-svg-icons'
 export const RegisterCompany = ({onClose,openPincode, setIsOpenPincode ,setInformation, }) =>{
     const {dispatchUser,stateUser } = useContext(StoreContextRecipe);
     const [isLoading, setIsLoading] = useState(false);
-
+const navigation = useNavigate()
     const options = ['თბილისი', 'ქუთაისი', 'ბათუმი',"თელავი","ზუგდიდი","მცხეთა","მესტია","სიღნაღი","სხვა"];
     // const [region, setRegion] = useState('');
     const handleOptionChange = (selectedValue) => {
@@ -203,6 +204,8 @@ export const RegisterCompany = ({onClose,openPincode, setIsOpenPincode ,setInfor
             value: true
         })
         // console.log(stateUser.name)
+                onClose()
+        navigation('/home')
     }
 
    

@@ -10,7 +10,7 @@
     height: 95%;
     background-color: #fff;
     border-radius: 10px;
-    overflow:scroll;
+    /* overflow:scroll; */
     flex-direction: column;
  }
 
@@ -18,7 +18,7 @@
 ion-icon{
     color: navy;
   }
-.first-box{
+/* .first-box{
     position: absolute;
     top: 65%; 
     left: 20%; 
@@ -27,12 +27,12 @@ ion-icon{
     transform: translate(-50%, -50%);
     background-color: #fff;
     border-radius: 5px;
-    width: 800px;
+    width: 200%;
     font-family: cursive;
     border: 2px #dadada solid;
     border-radius: 10px;
     overflow: scroll;
-}
+} */
 
 
 .form-control-first{

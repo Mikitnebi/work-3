@@ -1,139 +1,514 @@
-import React, { useEffect, useState } from 'react';
-import './tables.css'; // Import your CSS file
+import React, { useState, useEffect } from 'react';
+import { v4 as uuidv4 } from 'uuid';
+import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
+import Select from 'react-select';
+import './Tables.css';
+import { ResizableBox } from 'react-resizable'; // Import ResizableBox
 
-export const Tables = function ({ prevStep, nextStep }) {
-  const [tableCount, setTableCount] = useState('');
-  const [seatsCount, setSeatsCount] = useState('');
-  const [tablesInfo, setTablesInfo] = useState([]);
-  const [editingIndex, setEditingIndex] = useState(-1);
 
-  // Load data from localStorage when the component mounts
-  useEffect(() => {
-    const storedData = localStorage.getItem('tablesInfo');
-    if (storedData) {
-      setTablesInfo(JSON.parse(storedData));
-    }
-  }, []);
+const DetailsForm = ({ table, onSave, onRemove, onCancel }) => {
+  const [tableNumber, setTableNumber] = useState(table.number || '');
+  const [seatingCapacity, setSeatingCapacity] = useState(table.seatingCapacity || '');
+  const [selectedTags, setSelectedTags] = useState(table.tags || []);
 
-  const addTable = () => {
-    const tableCountValue = parseInt(tableCount, 10);
-    const seatsCountValue = parseInt(seatsCount, 10);
-  
-    if (isNaN(tableCountValue) || isNaN(seatsCountValue) || tableCountValue <= 0 || seatsCountValue <= 0) {
-      alert('Please enter valid values for table count and seats count.');
+  const tagOptions = [
+    { value: '#ფანჯარასთან ახლოს', label: '#ფანჯარასთან ახლოს' },
+    { value: '#მყუდრო', label: '#მყუდრო' },
+    { value: '#რომანტიული', label: '#რომანტიული' },
+    { value: '#ღიაცისქვეშ', label: '#ღიაცისქვეშ' },
+  ];
+
+  const handleSave = () => {
+    // Convert input values to numbers
+    const tableNumberValue = parseInt(tableNumber, 10);
+    const seatingCapacityValue = parseInt(seatingCapacity, 10);
+
+    // Validate table number and seating capacity
+    if (isNaN(tableNumberValue) || tableNumberValue < 0) {
+      // Show alert for invalid table number
+      alert('Invalid table number. Please enter a valid non-negative number.');
+
+      // Clear bad table number field
+      setTableNumber('');
       return;
     }
-  
-    // Check if the same seat count already exists
-    const existingTableIndex = tablesInfo.findIndex((table) => table.seatsCount === seatsCountValue);
-  
-    if (existingTableIndex !== -1) {
-      const confirmUpdate = window.confirm(
-        `Seats count ${seatsCountValue} already exists. Do you want to update the table count to ${tableCountValue}?`
-      );
-  
-      if (confirmUpdate) {
-        const updatedTables = [...tablesInfo];
-        updatedTables[existingTableIndex].tableCount = tableCountValue;
-        setTablesInfo(updatedTables);
-        setTableCount('');
-        setSeatsCount('');
-        setEditingIndex(-1);
 
-      } else {
-        // Clear the input fields
-        setTableCount('');
-        setSeatsCount('');
-      }
-    } else {
-      const newTable = {
-        tableCount: tableCountValue,
-        seatsCount: seatsCountValue,
-      };
-  
-      if (editingIndex !== -1) {
-        const updatedTables = [...tablesInfo];
-        updatedTables[editingIndex] = newTable;
-        setTablesInfo(updatedTables);
-        setEditingIndex(-1);
-      } else {
-        setTablesInfo([...tablesInfo, newTable]);
-      }
-  
-      setTableCount('');
-      setSeatsCount('');
+    if (isNaN(seatingCapacityValue) || seatingCapacityValue < 0 || seatingCapacityValue === 0) {
+      // Show alert for invalid seating capacity
+      alert('Invalid seating capacity. Please enter a valid non-negative number greater than 0.');
+
+      // Clear bad seating capacity field
+      setSeatingCapacity('');
+      return;
     }
+
+    // Call the onSave callback with the validated details
+    onSave(table.id, {
+      number: tableNumberValue,
+      seatingCapacity: seatingCapacityValue,
+      tags: selectedTags,
+    });
   };
 
-  const deleteTable = (index) => {
-    const updatedTables = [...tablesInfo];
-    updatedTables.splice(index, 1);
-    setTablesInfo(updatedTables);
+  const handleRemove = () => {
+    onRemove(table.id);
   };
 
-  const editTable = (index) => {
-    const tableToEdit = tablesInfo[index];
-    setTableCount(tableToEdit.tableCount);
-    setSeatsCount(tableToEdit.seatsCount);
-    setEditingIndex(index);
-  };
-
-  const handleSaveAndNext = () => {
-    // Save the data to localStorage (you may add additional logic if needed)
-    localStorage.setItem('tablesInfo', JSON.stringify(tablesInfo));
-
-    // Proceed to the next step
-    // nextStep();
+  const handleTagChange = (selectedOptions) => {
+    setSelectedTags(selectedOptions.map((option) => option.value));
   };
 
   return (
-    <>
-      <div className='table-flex'>
-        <button className="last-step-button1" onClick={(e) => prevStep()}>
-          Back
-        </button>
-        <button className="save-button" onClick={handleSaveAndNext}>
-          Save
-        </button>
-        <button className='final-save-button' onClick={(e) => nextStep()}>
-          Next
-        </button>
-      </div>
-
-      <div className="tables-container">
-        <div className="input-section">
-          <label htmlFor="tableCount">Table Count:</label>
-          <input
-            type="number"
-            id="tableCount"
-            className="table-count-input"
-            placeholder="Enter Table Count"
-            value={tableCount}
-            onChange={(e) => setTableCount(e.target.value.replace(/^0+/, ''))}
-          />
-          <label htmlFor="seatsCount">Seats Per Table:</label>
-          <input
-            type="number"
-            id="seatsCount"
-            className="seats-count-input"
-            placeholder="Enter Seats Per Table"
-            value={seatsCount}
-            onChange={(e) => setSeatsCount(e.target.value.replace(/^0+/, ''))}
-          />
-          <button className="add-table-button" onClick={addTable}>
-            {editingIndex === -1 ? 'Add Table' : 'Update Table'}
-          </button>
-        </div>
-        <div className="table-info-section">
-          {tablesInfo.map((table, index) => (
-            <div className="table-info" key={index}>
-              {table.tableCount} tables, with {table.seatsCount} seats per table
-              <button className="edit-button" onClick={() => editTable(index)}>Edit</button>
-              <button className="delete-button" onClick={() => deleteTable(index)}>Delete</button>
-            </div>
-          ))}
-        </div>
-      </div>
-    </>
+    <div className="details-form">
+      <label>
+        Table Number:
+        <input type="number" value={tableNumber} onChange={(e) => setTableNumber(e.target.value)} />
+      </label>
+      <label>
+        Seating Capacity:
+        <input type="number" value={seatingCapacity} onChange={(e) => setSeatingCapacity(e.target.value)} />
+      </label>
+      <label style={{maxWidth:'300px'}}>
+        Tags:
+        <Select
+          value={tagOptions.filter((option) => selectedTags.includes(option.value))}
+          onChange={handleTagChange}
+          options={tagOptions}
+          isMulti
+          styles={{
+            control: (baseStyles, state) => ({
+              ...baseStyles,
+              color:'red'
+            }),
+          }}
+        />
+      </label>
+      <button onClick={handleSave}>Save</button>
+      <button onClick={handleRemove}>Remove</button>
+      <button onClick={onCancel}>Cancel</button>
+    </div>
   );
 };
+const Table = ({ type, index, onClick }) => {
+  return (
+    <Draggable draggableId={type} index={index}>
+      {(provided, snapshot) => (
+        <div
+          {...provided.draggableProps}
+          {...provided.dragHandleProps}
+          ref={provided.innerRef}
+          className={`table ${type}`}
+          style={{
+            ...provided.draggableProps.style,
+            opacity: snapshot.isDragging ? 0.5 : 1,
+          }}
+          onClick={onClick}
+        />
+      )}
+    </Draggable>
+  );
+};
+
+
+export const Tables = () => {
+  const [initialTables] = useState(['circle', 'square', 'rectangle', 'rectangleUpsideDown', 'octagon']);
+  const [tablesOnFloor, setTablesOnFloor] = useState([]);
+  const [selectedTable, setSelectedTable] = useState(null);
+  const [isDetailsOpen, setIsDetailsOpen] = useState(false);
+
+  const [tablePositions, setTablePositions] = useState({});
+  const [lastMousePosition, setLastMousePosition] = useState({ x: 0, y: 0 });
+  const [floors, setFloors] = useState([{ id: uuidv4(), tables: [] }]);
+  const [currentFloorIndex, setCurrentFloorIndex] = useState(0);
+  const [isEditingFloor, setIsEditingFloor] = useState(false);
+  const [screenWidth, setScreenWidth] = useState(window.innerWidth);
+  const [screenHeight, setScreenHeight] = useState(window.innerHeight);
+
+  // Update dimensions when the window is resized
+  const handleResize = () => {
+    setScreenWidth(window.innerWidth);
+    setScreenHeight(window.innerHeight);
+  };
+
+  useEffect(() => {
+    const handlePointerMove = (event) => {
+      const clientX = event.clientX || (event.touches && event.touches[0].clientX);
+      const clientY = event.clientY || (event.touches && event.touches[0].clientY);
+      
+      setLastMousePosition({ x: clientX, y: clientY });
+    };
+  
+    document.addEventListener('mousemove', handlePointerMove);
+    document.addEventListener('touchmove', handlePointerMove);
+  
+    return () => {
+      document.removeEventListener('mousemove', handlePointerMove);
+      document.removeEventListener('touchmove', handlePointerMove);
+    };
+  }, []);
+
+  useEffect(() => {
+    // Initial dimensions setup
+    setScreenWidth(window.innerWidth);
+    setScreenHeight(window.innerHeight);
+
+    // Add event listener for window resize
+    window.addEventListener('resize', handleResize);
+
+    // Cleanup event listener on component unmount
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
+  useEffect(() => {
+  console.log(screenHeight)
+  }, [screenHeight]);
+
+  useEffect(() => {
+    console.log(screenWidth)
+    }, [screenWidth]);
+  useEffect(() => {
+    // Update the tablesOnFloor state and table positions for the selected floor
+    setTablesOnFloor(floors[currentFloorIndex]?.tables || []);
+    setTablePositions(floors[currentFloorIndex]?.tablePositions || []);
+  }, [floors, currentFloorIndex]);
+  const handleAddFloor = () => {
+    setFloors((prevFloors) => [
+      ...prevFloors,
+      {
+        id: uuidv4(),
+        tables: [], // Initialize tables array
+        tablePositions: {}, // Initialize table positions
+      },
+    ]);
+    setCurrentFloorIndex(floors.length); // Switch to the newly added floor
+  };
+  
+  
+  const handleDeleteFloor = () => {
+    if (floors.length > 1) {
+      setFloors((prevFloors) => {
+        const newFloors = [...prevFloors];
+        newFloors.splice(currentFloorIndex, 1);
+        return newFloors;
+      });
+
+      // Switch to the previous floor if the current one is deleted
+      setCurrentFloorIndex((prevIndex) => Math.max(prevIndex - 1, 0));
+    }
+  };
+  const handleNavigateFloor = (index) => {
+    setCurrentFloorIndex(index);
+  
+    // Set tablesOnFloor and table positions for the selected floor
+    const selectedFloor = floors[index] || { tables: [], tablePositions: {} };
+    setTablesOnFloor(selectedFloor.tables || []);
+    setTablePositions(selectedFloor.tablePositions || {});
+  };
+  
+  // Function to handle editing the current floor
+  const handleEditFloor = () => {
+    setIsEditingFloor(true);
+  };
+
+  // Function to save the edited floor
+  const handleSaveDetails = (tableId, details) => {
+    setFloors((prevFloors) =>
+      prevFloors.map((floor, index) =>
+        index === currentFloorIndex
+          ? {
+              ...floor,
+              tables: floor.tables.map((table) =>
+                table.id === tableId ? { ...table, ...details } : table
+              ),
+            }
+          : floor
+      )
+    );
+    setSelectedTable(null);
+    setIsDetailsOpen(false); // Close the details form
+  };
+  
+  const handleRemoveDetails = (tableId) => {
+    setFloors((prevFloors) =>
+      prevFloors.map((floor, index) =>
+        index === currentFloorIndex
+          ? {
+              ...floor,
+              tables: floor.tables.filter((table) => table.id !== tableId),
+            }
+          : floor
+      )
+    );
+    setSelectedTable(null);
+    setIsDetailsOpen(false); // Close the details form
+  };
+  
+  
+  useEffect(() => {
+    const handleMouseMove = (event) => {
+      setLastMousePosition({ x: event.clientX, y: event.clientY });
+    };
+
+    document.addEventListener('mousemove', handleMouseMove);
+
+    return () => {
+      document.removeEventListener('mousemove', handleMouseMove);
+    };
+  }, []); // Run effect only once on mount
+
+  const handleShapeClick = (tableId) => {
+    const clickedTable = tablesOnFloor.find((table) => table.id === tableId);
+
+    const isSameTable = selectedTable && selectedTable.id === tableId;
+
+    // Close the existing details form if it's open
+    if(isSameTable){
+      setTimeout(() => {
+        // Open the details form for the clicked shape
+        setSelectedTable(null);
+        setIsDetailsOpen(true);
+      }, 10);
+    } else{
+    if (isDetailsOpen ) {
+      setSelectedTable(null);
+      setIsDetailsOpen(false);
+  
+      // Use setTimeout to wait for the details form to close before opening the new one
+      setTimeout(() => {
+        // Open the details form for the clicked shape
+        setSelectedTable(clickedTable);
+        setIsDetailsOpen(true);
+      }, 10); // Adjust the timeout duration as needed
+    } else {
+
+      // Open the details form for the clicked shape directly if it's not open
+      setSelectedTable(clickedTable);
+      setIsDetailsOpen(true);
+    }
+  }
+  };
+  
+  const handleCancelDetails = () => {
+    setSelectedTable(null);
+    setIsDetailsOpen(false); // Close the details form
+  };
+
+  const handleDragEnd = (result) => {
+    if (!result.destination) return; // dropped outside the list
+  
+    const sourceTable = result.source.droppableId;
+    const destinationTable = result.destination.droppableId;
+  
+    if (destinationTable === 'tables') {
+      // Shape was accidentally placed on the table-selection div
+      // Revert the shape to its original position in table-selection
+      const movedTable = initialTables[result.source.index];
+      const mouseX = lastMousePosition.x;
+      const mouseY = lastMousePosition.y;
+  
+      setTablePositions((prevPositions) => ({
+        ...prevPositions,
+        [movedTable]: {
+          x: mouseX,
+          y: mouseY,
+        },
+      }));
+  
+      return;
+    } else if (sourceTable === destinationTable) {
+      // Extract the moved table from the tablesOnFloor array
+      const movedTable = tablesOnFloor[result.source.index];
+    
+      // Remove the table from its current position
+      const updatedTables = [...tablesOnFloor];
+      updatedTables.splice(result.source.index, 1);
+    
+      // Insert the table at its new position
+      updatedTables.splice(result.destination.index, 0, {
+        ...movedTable,
+        x: lastMousePosition.x,
+        y: lastMousePosition.y,
+      });
+    
+      // Update the state with the new order of tables on the floor
+      // setTablesOnFloor(updatedTables);
+    
+      // Update the position of the moved table in the tablePositions state
+      // setTablePositions((prevPositions) => ({
+      //   ...prevPositions,
+      //   [movedTable.id]: {
+      //     x: lastMousePosition.x,
+      //     y: lastMousePosition.y,
+      //   },
+      // }));
+    
+      // Update the floor state for the moved table
+      setFloors((prevFloors) =>
+    prevFloors.map((floor, index) =>
+      index === currentFloorIndex
+        ? {
+            ...floor,
+            tables: floor.tables.map((table) =>
+              table.id === movedTable.id ? { ...table, ...movedTable, x: lastMousePosition.x, y: lastMousePosition.y } : table
+            ),
+          }
+        : floor
+    )
+  );
+    
+      return;
+    }
+  
+    // If source and destination tables are different, update positions and add to tablesOnFloor
+    const movedTable = initialTables[result.source.index];
+    const tableId = uuidv4();
+    const mouseX = lastMousePosition.x;
+    const mouseY = lastMousePosition.y;
+    const floorWidth = 800; // Change this value based on your floor's width
+    const floorHeight = 400; // Change this value based on your floor's height
+  
+    // Update the tables on the floor state
+    if (
+      // mouseX - 20 < floorWidth &&
+      // mouseY - 50 < floorHeight &&
+      // mouseY - 90 > 0 &&
+      // mouseX - 50 > 0
+      0<1
+    ) {
+      console.log(`Placing ${movedTable} on floor with id ${tableId}`);
+      const placedTable = { type: movedTable, id: tableId, x: mouseX, y: mouseY };
+  
+      // setTablesOnFloor((prevTables) => [...prevTables, placedTable]);
+  
+      // setTablePositions((prevPositions) => ({
+      //   ...prevPositions,
+      //   [tableId]: {
+      //     x: mouseX,
+      //     y: mouseY,
+      //   },
+      // }));
+  
+      setFloors((prevFloors) =>
+        prevFloors.map((floor, index) =>
+          index === currentFloorIndex
+            ? {
+                ...floor,
+                tables: [...floor.tables, placedTable],
+                tablePositions: {
+                  ...floor.tablePositions,
+                  [tableId]: {
+                    x: mouseX,
+                    y: mouseY,
+                  },
+                },
+              }
+            : floor
+        )
+      );
+  
+      setSelectedTable(placedTable);
+      setIsDetailsOpen(true);
+    } else {
+      // Revert to the previous position if the new position is outside the floor's boundaries
+      console.log(`Failed to place ${movedTable} on floor. Position is outside boundaries.`);
+      setTablePositions((prevPositions) => prevPositions);
+    }
+  };
+  
+  
+  
+  useEffect(()=>{
+    console.log(floors)
+  }
+  ,[floors])
+
+  return (
+    <div className="tables-container">
+      <DragDropContext onDragEnd={handleDragEnd} dragThreshold={10}>
+        <Droppable droppableId="tables" direction="horizontal">
+          {(provided) => (
+            <div {...provided.droppableProps} ref={provided.innerRef} className="table-selection">
+              {initialTables.map((table, index) => (
+                <Table key={table} type={table} index={index} onClick={() => handleShapeClick(table)} />
+              ))}
+              {provided.placeholder}
+            </div>
+          )}
+        </Droppable>
+        <Droppable droppableId="restaurant-floors" direction="horizontal">
+          {(provided) => (
+            <div {...provided.droppableProps} ref={provided.innerRef} style={{position:'absolute',right:'30%',top:"10%"}} className="restaurant-floors-container">
+              {floors.map((floor, index) => (
+                <button key={floor.id} onClick={() => handleNavigateFloor(index)}>
+                  Floor {index + 1}
+                </button>
+              ))}
+              <button onClick={handleAddFloor}>Add Floor</button>
+              <button onClick={handleDeleteFloor}>Delete Floor</button>
+              {/* <button onClick={handleEditFloor}>Edit Floor</button> */}
+              {provided.placeholder}
+            </div>
+          )}
+        </Droppable>
+        <Droppable droppableId={`restaurant-floor-${currentFloorIndex}`} direction="horizontal">
+          {(provided) => (
+            <div {...provided.droppableProps} ref={provided.innerRef} className="restaurant-container">
+            <div className="restaurant-floor">
+            {[...Array(10)].map((_, rowIndex) => (
+    <div key={`row-${rowIndex}`} className="row">
+      {[...Array(20)].map((_, colIndex) => (
+        <React.Fragment key={`col-${colIndex}`}>
+          <div className="column"></div>
+        </React.Fragment>
+      ))}
+    </div>
+  ))}
+
+{tablesOnFloor.map((table, index) => {
+                const tableKey = table.id;
+
+                return (
+                  <Draggable key={tableKey} draggableId={tableKey} index={index}>
+                    {(provided, snapshot) => (
+                      <div
+                        {...provided.draggableProps}
+                        {...provided.dragHandleProps}
+                        ref={provided.innerRef}
+                        className={`table ${table.type}`}
+                        style={{
+                          ...provided.draggableProps.style,
+                          position: 'absolute',
+                          opacity: snapshot.isDragging ? 0.5 : 1,
+                          top: `${(table.y / screenHeight) * 100 || 0}%`,
+                          left: `${(table.x / screenWidth) * 100 || 0}%`,
+                        }}
+                        onClick={() => handleShapeClick(tableKey)}
+                        >
+                          {table.number && (
+                            <span className="table-number" style={{ color: 'white' }}>
+                              {table.number}
+                            </span>
+                          )}
+                        </div>
+                      )}
+                    </Draggable>
+                  );
+                })}
+              </div>
+              {provided.placeholder}
+            </div>
+          )}
+        </Droppable>
+      </DragDropContext>
+      {selectedTable && (
+          <DetailsForm
+          table={selectedTable}
+          onSave={handleSaveDetails}
+          onRemove={handleRemoveDetails} // Pass the removal function
+          onCancel={handleCancelDetails}
+        />
+      )}
+    </div>
+  );
+} 

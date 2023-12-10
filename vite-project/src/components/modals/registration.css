@@ -22,8 +22,21 @@
     border-radius: 5px;
     font-family: cursive;
     /* border: 2px solid red; */
-
+    transition: 2s;
+    
 }
+.modal-styles::-webkit-scrollbar {
+    width: 5px; 
+    height: 10px;
+  }
+  
+  .modal-styles::-webkit-scrollbar-thumb {
+    background-color: #3498db; 
+  }
+  
+  .modal-styles::-webkit-scrollbar-track {
+    background-color: rgba(255, 255, 255, 0.1); 
+  }
 
 .button-x32 {
     position: fixed;
@@ -39,3 +52,11 @@
     font-family: cursive;
 }
 
+.button-x33 {
+    position: fixed;
+    top: 2%;
+    left: 95%;
+    background-color: transparent;
+    border: none;
+    z-index: -99; /* Adjust the z-index as needed */
+ }

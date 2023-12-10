@@ -1,6 +1,4 @@
-/* Tables.css */
-
-/* Style the container div */
+/* 
 .table-flex{
     position: absolute;
     top: 5%;
@@ -20,14 +18,12 @@
     width: 40%;
   }
   
-  /* Style labels */
   .input-section label {
     display: block;
     margin-bottom: 5px;
     font-weight: bold;
   }
   
-  /* Style input fields */
   .table-count-input,
   .seats-count-input {
     width: 100%;
@@ -37,7 +33,6 @@
     border-radius: 3px;
   }
   
-  /* Style the "Add Table" button */
   .add-table-button {
     background-color: #007bff;
     color: white;
@@ -47,18 +42,16 @@
     cursor: pointer;
   }
   
-  /* Style the table information display */
   .table-info-section {
     margin-top: 20px;
   }
   
-  /* Style individual table entries */
   .table-info {
     margin-bottom: 30px;
     background-color: #f9f9f9;
     padding: 10px;
     border-radius: 3px;
-    position: relative; /* For button positioning */
+    position: relative; 
     cursor: pointer;
   }
   .table-info:hover{
@@ -66,7 +59,6 @@
     transition: 0.5s;
   }
   
-  /* Style "Edit" and "Delete" buttons */
   .delete-button {
     position: absolute;
     top: 7px;
@@ -101,10 +93,125 @@
     transition: 0.5s;
   }
   
-  /* Clear floated elements */
   .clearfix::after {
     content: "";
     display: table;
     clear: both;
+  }
+   */
+   .restaurant-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin: 20px;
+  }
+  
+  .table-selection {
+    display: flex;
+    gap: 10px;
+    margin: 10px;
+    align-items: center;
+    width: 50%;
+  }
+  
+  .table {
+    width: 50px;
+    height: 50px;
+    cursor: grab;
+    background-color: #8dc76f;
+    z-index: 2;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-weight: bold;
+  }
+  
+  .restaurant-floor {
+    width: 800px;
+    height: 400px;
+    background-color: #f0f0f0;
+    border: 1px solid #ccc;
+  }
+  
+  .row {
+    display: flex;
+    border: 1px solid #9a5d5d;
+
+  }
+  
+  .column {
+    width: 40px; /* Adjust the width of each column */
+    height: 100%;
+    border-right: 1px solid #9a5d5d;
+  }
+  
+
+  .circle {
+    background-color: #8dc76f;
+    border-radius: 50%;
+  }
+  
+  .square {
+    background-color: #8dc76f;
+    border-radius: 0;
+  }
+  
+  .rectangle {
+    background-color: #8dc76f;
+    width: 100px;
+    height: 50px;
+  }
+  
+  .rectangleUpsideDown {
+    width: 50px;
+    height: 100px;
+    background-color: #8dc76f;
+    z-index: 2;
+  }
+  
+  .octagon {
+    width: 50px;
+    height: 50px;
+    background-color: #8dc76f;
+    clip-path: polygon(0 15%, 15% 0, 85% 0, 100% 15%, 100% 85%, 85% 100%, 15% 100%, 0 85%);
+    z-index: 2;
+  }
+  
+  .details-form {
+    background-color: #f0f0f0;
+    padding: 10px;
+    border: 1px solid #ccc;
+    position: fixed;
+    right: 20px;
+    top: 20%;
+    z-index: 3;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .resizable-table {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: move;
+    border: 2px solid #007bff;
+    background-color: rgba(0, 123, 255, 0.2);
+  }
+  
+  .react-resizable {
+    position: relative;
+  }
+  
+  .react-resizable-handle {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    background-color: #007bff;
+    bottom: 0;
+    right: 0;
+    cursor: se-resize;
   }
   

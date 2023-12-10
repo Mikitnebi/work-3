@@ -481,9 +481,9 @@ const navigate = useNavigate()
     };
   
 
-    return(
+    return( 
         <section className='last-registration2'>
-                      <button className='button-x-last' onClick={(e) => navigate("..")} ><ion-icon className='icon-modal' size='large' name="close"></ion-icon></button>
+                      <button className='button-x-last' onClick={(e) => navigate("/home")} ><ion-icon className='icon-modal' size='large' name="close"></ion-icon></button>
 
             <h3 style={{marginLeft:"36%",marginTop:"3%",color:'navy',fontWeight:'bold',fontSize:"25px"}}>Your Restaurant Information</h3>
             <form onSubmit={handleSubmit(onSubmit)} action="" className="form" id="form">

@@ -157,9 +157,10 @@ const ParentMenu = ({ menuData, handleMoveSelectedItems,parentMenu, setParentMen
   return (
     <div className="last-step">
       <div style={{left:'10%'}}  className="menu-flex">
-        <span onClick={() => submit()}>Move Selected</span>
 
-        <div className="menu-grid">
+        <span style={{cursor:'pointer'}} onClick={() => submit()}>Move Selected</span>
+
+        <div className="menu-grid" style={{marginLeft:'-100px',marginTop:'40px'}}>
           {menuData.map((section, sectionIndex) => (
             <div className="menu-section" key={sectionIndex}>
               <h3>

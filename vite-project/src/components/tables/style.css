@@ -66,31 +66,60 @@
 .group-label {
   font-size: 18px;
   font-weight: bold;
-  margin-bottom: 10px;
+  margin-bottom: 30px;
 }
 
 .table-row {
   margin-top: 10px;
   display: grid;
-  gap: 5px 5px;
-  grid-template-columns:   auto auto auto auto auto auto auto auto auto;
+  gap: 60px 50px;
+  grid-template-columns:   auto auto auto auto auto auto ;
   font-family: cursive;
 }
 
 /* Update your existing CSS file */
 /* ... */
-
 .table-item {
+  position: relative;
   width: 50px;
   height: 50px;
-  border-radius: 5px;
-  margin: 0 5px;
+  margin: 0 10px;
   display: flex;
   justify-content: center;
   align-items: center;
   cursor: pointer;
-  background-color: #2ecc71; /* Green color for free tables */
+  background-color: #3498db; /* Blue color for free tables */
+  border-radius: 10px;
+  color: #fff;
+  font-size: 18px;
+  font-weight: bold;
 }
+
+.table-item.taken {
+  background-color: #e74c3c; /* Red color for taken tables */
+}
+/* .table-item::before,
+.table-item::after {
+  content: '';
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background-color: #552ecc; 
+}
+
+.table-item::before {
+  top: 55px;
+  left: 16px;
+}
+
+.table-item::after {
+  top: -55%;
+  right: 16px;
+} */
+
+/* Additional pseudo-elements for the bottom seats */
+
 .squaresForShow1{
   width: 50px;
   height: 50px;
@@ -151,3 +180,7 @@
   margin-left: 5%;
 }
 /* ... */
+
+
+
+
