@@ -140,72 +140,73 @@ const navigation = useNavigate()
    
     const onSubmit = (date) =>{
        
-        // setIsLoading(true)
+        setIsLoading(true)
 
-        // axios
-        //     .post("http://3.66.89.33/Restaurant/registration",
-        //     {
-        //         businessNameGeo:date.name1,
-        //         businessNameEng:date.name,
-        //         phoneNumber:date.card + "",
-        //         emailAddress:date.email,
-        //         regionId:1
-        //     })
-        //     .then(response =>{
-        //         console.log(response)
-        //         // dispatchUser({
-        // //     type: "changeUserInformation",
-        // //     propertyId: "isRegistered",
-        // //     value: true
-        // // })
-        // // setPast('company')
-        // onClose()
-        // openPincode(true);
-        // // setIsOpenPincode(true);
-        // // setInformation(true);
-        
-        // // dispatchUser({
-        // //     type: "changeUserInformation",
-        // //     propertyId: "password",
-        // //     value: date.password
-        // // })
-        
-        //     })
-        //     .catch(error =>{
-        //         console.log(error);
-        //     })
-        //     .finally(() => {
-        //         setIsLoading(false);
+        axios
+            .post("http://54.93.212.178/Restaurant/registration",
+            {
+                businessNameGeo:date.name1,
+                businessNameEng:date.name,
+                phoneNumber:date.card + "",
+                emailAddress:date.email,
+                regionId:1
+            })
+            .then(response =>{
+                console.log(response)
                 
-        //     });
-        dispatchUser({
-            type: "changeUserInformation",
-            propertyId: "name",
-            value: date.name
-        })
-        dispatchUser({
-            type: "changeUserInformation",
-            propertyId: "name1",
-            value: date.name1
-        })
-        dispatchUser({
-            type: "changeUserInformation",
-            propertyId: "email",
-            value: date.email
-        })
-        dispatchUser({
-            type: "changeUserInformation",
-            propertyId: "number",
-            value: date.card
-        })
-        dispatchUser({
+                dispatchUser({
             type: "changeUserInformation",
             propertyId: "isRegistered",
             value: true
         })
-        // console.log(stateUser.name)
-                onClose()
-        navigation('/home')
+        // setPast('company')
+        onClose()
+        openPincode(true);
+        setIsOpenPincode(true);
+        setInformation(true);
+        
+        dispatchUser({
+            type: "changeUserInformation",
+            propertyId: "password",
+            value: date.password
+        })
+         dispatchUser({
+                type: "changeUserInformation",
+                propertyId: "name",
+                value: date.name
+            })
+            dispatchUser({
+                type: "changeUserInformation",
+                propertyId: "name1",
+                value: date.name1
+            })
+            dispatchUser({
+                type: "changeUserInformation",
+                propertyId: "email",
+                value: date.email
+            })
+            dispatchUser({
+                type: "changeUserInformation",
+                propertyId: "number",
+                value: date.card
+            })
+            
+        
+            })
+            .catch(error =>{
+                console.log(error);
+            })
+            .finally(() => {
+                setIsLoading(false);
+                
+            });
+       
+
+
+           
+            // // console.log(stateUser.name)
+            //         onClose()
+            // navigation('/home')
     }
 
    

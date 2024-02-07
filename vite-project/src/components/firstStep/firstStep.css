@@ -75,8 +75,6 @@ ion-icon{
     left: 0;
     font-size: 12px;
 }
-
-
 .form button:hover{
     transform: scale(1.1);
     transition: 0.3s;
@@ -97,9 +95,9 @@ ion-icon{
 
   .places-container {
     position: absolute;
-    top: 10px;
+    top: 1000px;
     left: 50%;
-    transform: translateX(-50%);
+    /* transform: translateX(-50%); */
     z-index: 10;
     width: 300px;
   }

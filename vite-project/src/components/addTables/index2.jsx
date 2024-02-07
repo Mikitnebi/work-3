@@ -5,6 +5,7 @@ import Select from 'react-select';
 import './Tables.css';
 import { ResizableBox } from 'react-resizable'; // Import ResizableBox
 
+
 const DetailsForm = ({ table, onSave, onRemove, onCancel, }) => {
   const [tableNumber, setTableNumber] = useState(table.number || '');
   const [seatingCapacity, setSeatingCapacity] = useState(table.seatingCapacity || '');
@@ -58,7 +59,7 @@ const DetailsForm = ({ table, onSave, onRemove, onCancel, }) => {
   };
 
   return (
-    <div className="details-form">
+    <div style={{position:'absolute'}}  className="details-form">
       <label>
         Table Number:
         <input type="number" value={tableNumber} onChange={(e) => setTableNumber(e.target.value)} />
@@ -109,7 +110,7 @@ const Table = ({ type, index, onClick }) => {
 };
 
 
-export const Tables = ({prevStep,nextStep}) => {
+export const TablesForProfile = ({prevStep,nextStep}) => {
   const [initialTables] = useState(['circle', 'square', 'rectangle', 'rectangleUpsideDown', 'octagon']);
   const [tablesOnFloor, setTablesOnFloor] = useState([]);
   const [selectedTable, setSelectedTable] = useState(null);
@@ -213,8 +214,6 @@ export const Tables = ({prevStep,nextStep}) => {
     // Save the current floors state to local storage
     localStorage.setItem('floors', JSON.stringify(floors));
 
-    // Navigate to the next step
-    nextStep();
   };
 
   const handleBackAndSave = () => {
@@ -280,6 +279,7 @@ export const Tables = ({prevStep,nextStep}) => {
     setSelectedTable(null);
     setIsDetailsOpen(false); // Close the details form
   };
+  
   
   const handleRemoveDetails = (tableId) => {
     setFloors((prevFloors) =>
@@ -469,20 +469,16 @@ export const Tables = ({prevStep,nextStep}) => {
   };
   
   
-  // useEffect(() => {
-  //   // Save floors to local storage whenever the floors state changes
-  //   localStorage.setItem('floors', JSON.stringify(floors));
-  // }, [floors]);
+//   useEffect(() => {
+//     // Save floors to local storage whenever the floors state changes
+//     localStorage.setItem('floors', JSON.stringify(floors));
+//   }, [floors]);
 
   return (
-    <div className="tables-container">
+    <div style={{border:'2px #784a4a solid',marginTop:'5%',borderRadius:'5px',position:'relative'}} className="tables-container">
        <div style={{position:'absolute',right:"5%",width:"20%"}} className='table-flex1'>
-      
-       <button style={{ width: '40%' }} className="last-step-button1" onClick={handleBackAndSave}>
-          Back
-        </button>
         <button style={{ width: '40%' }} className="final-save-button1" type="submit" onClick={handleSaveAndNavigate}>
-          Next
+          Save Changes
         </button>
     </div>
       <DragDropContext onDragEnd={handleDragEnd} dragThreshold={10}>
@@ -514,9 +510,9 @@ export const Tables = ({prevStep,nextStep}) => {
         <Droppable droppableId={`restaurant-floor-${currentFloorIndex}`} direction="horizontal">
           {(provided) => (
             <div {...provided.droppableProps} ref={provided.innerRef} className="restaurant-container">
-            <div className="restaurant-floor">
+            <div  className="restaurant-floor">
             {[...Array(10)].map((_, rowIndex) => (
-    <div key={`row-${rowIndex}`} className="row">
+    <div key={`row-${rowIndex}`} className="row10">
       {[...Array(20)].map((_, colIndex) => (
         <React.Fragment key={`col-${colIndex}`}>
           <div className="column"></div>

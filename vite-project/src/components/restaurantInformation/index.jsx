@@ -12,19 +12,21 @@ import usePlacesAutocomplete, {
   getLatLng,
   
 } from "use-places-autocomplete";
-import {
-  Combobox,
-  ComboboxInput,
-  ComboboxPopover,
-  ComboboxList,
-  ComboboxOption,
-} from "@reach/combobox";
-import "@reach/combobox/styles.css";
+// import {
+//   Combobox,
+//   ComboboxInput,
+//   ComboboxPopover,
+//   ComboboxList,
+//   ComboboxOption,
+// } from "@reach/combobox";
+// import "@reach/combobox/styles.css";
 import { LastStep } from "../lastStep";
 import { LastStep1 } from "../lastStep/index1";
 import { Tables } from "../addTables";
 import { Tables1 } from "../addTables/index1";
 import { useNavigate, useNavigation } from "react-router-dom";
+import { TablesForProfile } from "../addTables/index2";
+import RestaurantFloorForDetails from "../addTables/restaurantFloorsForDetails";
 
 
 export default function Profile () {
@@ -149,9 +151,9 @@ const navigate = useNavigate()
         </PlacesAutocomplete> */}
   
   
-        <div className="places-container">
+        {/* <div className="places-container">
           <PlacesAutocomplete setSelected={setSelected} map={map}/>
-        </div>
+        </div> */}
   
         <GoogleMap
           zoom={zoom}
@@ -483,9 +485,9 @@ const navigate = useNavigate()
 
     return( 
         <section className='last-registration2'>
-                      <button className='button-x-last' onClick={(e) => navigate("/home")} ><ion-icon className='icon-modal' size='large' name="close"></ion-icon></button>
+                      <button  className='button-x-last' onClick={(e) => navigate("/home")} ><ion-icon className='icon-modal' size='large' name="close"></ion-icon></button>
 
-            <h3 style={{marginLeft:"36%",marginTop:"3%",color:'navy',fontWeight:'bold',fontSize:"25px"}}>Your Restaurant Information</h3>
+            <h3  style={{marginLeft:"30%",marginTop:"3%",color:'navy',fontWeight:'bold',fontSize:"25px"}}>Your Restaurant Information</h3>
             <form onSubmit={handleSubmit(onSubmit)} action="" className="form" id="form">
             <button type="submit">Save changes</button>
     
@@ -704,7 +706,7 @@ style={{width:'20px', marginLeft:'10px'}} type="checkbox"    />
        
       </form>
       <LastStep1/>
-      <Tables1/>
+      <RestaurantFloorForDetails/>
         </section>
 
     )

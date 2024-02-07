@@ -331,7 +331,7 @@ export const LastStep = function ({ chooseStep, prevStep, nextStep,isParent,setI
 
       } else {
         // If the section doesn't exist, create a new one and add the items
-        updatedMenuSections.push({parent:section.parent, title: section.title, items: section.items });
+        updatedMenuSections.push({parent:section.parent, title: section.title, items: section.items, georgianTitle:section.georgianTitle});
 
       }
 
@@ -449,7 +449,7 @@ export const LastStep = function ({ chooseStep, prevStep, nextStep,isParent,setI
   
     const englishLettersWithSpacesAndTabsRegex = /^[A-Za-z \t]+$/;
     const georgianLettersWithSpacesAndTabsRegex = /^[\u10A0-\u10FF \t]+$/;
-  
+  console.log(menuSections)
     // Validate sections
     menuSections.forEach((section, sectionIndex) => {
       if (!section.title || !englishLettersWithSpacesAndTabsRegex.test(section.title)) {
@@ -525,7 +525,7 @@ export const LastStep = function ({ chooseStep, prevStep, nextStep,isParent,setI
   //   console.log(selectedSections)
   //   console.log(parentMenu1)
 
-  // },[selectedItems,selectedSections,parentMenu1])
+  // },[selectedItems,selectedSections,parentMenu1]) 
 
   const deleteParentMenuItems = () => {
     // Create a copy of the selectedSections and selectedItems arrays
@@ -656,9 +656,15 @@ export const LastStep = function ({ chooseStep, prevStep, nextStep,isParent,setI
         }}>
           Next
         </button>
-        <button  className="final-save-button"  onClick={()=>submit()}>
+        {
+          isParent1 ?
+<button  className="final-save-button"  onClick={()=>submit()}>
         Return 
         </button>
+        :
+        <></>
+        }
+        
       </div>
 
       {/* Display combined-errors */}

@@ -5,6 +5,7 @@ import Select from 'react-select';
 import './Tables.css';
 import { ResizableBox } from 'react-resizable'; // Import ResizableBox
 
+
 const DetailsForm = ({ table, onSave, onRemove, onCancel, }) => {
   const [tableNumber, setTableNumber] = useState(table.number || '');
   const [seatingCapacity, setSeatingCapacity] = useState(table.seatingCapacity || '');
@@ -58,7 +59,7 @@ const DetailsForm = ({ table, onSave, onRemove, onCancel, }) => {
   };
 
   return (
-    <div className="details-form">
+    <div style={{position:'absolute'}}  className="details-form">
       <label>
         Table Number:
         <input type="number" value={tableNumber} onChange={(e) => setTableNumber(e.target.value)} />
@@ -71,7 +72,6 @@ const DetailsForm = ({ table, onSave, onRemove, onCancel, }) => {
         Tags:
         <Select
           value={tagOptions.filter((option) => selectedTags.includes(option.value))}
-          onChange={handleTagChange}
           options={tagOptions}
           isMulti
           styles={{
@@ -82,9 +82,9 @@ const DetailsForm = ({ table, onSave, onRemove, onCancel, }) => {
           }}
         />
       </label>
-      <button onClick={handleSave}>Save</button>
+      {/* <button onClick={handleSave}>Save</button>
       <button onClick={handleRemove}>Remove</button>
-      <button onClick={onCancel}>Cancel</button>
+      <button onClick={onCancel}>Cancel</button> */}
     </div>
   );
 };
@@ -109,7 +109,7 @@ const Table = ({ type, index, onClick }) => {
 };
 
 
-export const Tables = ({prevStep,nextStep}) => {
+export const TablesForUse = ({prevStep,nextStep}) => {
   const [initialTables] = useState(['circle', 'square', 'rectangle', 'rectangleUpsideDown', 'octagon']);
   const [tablesOnFloor, setTablesOnFloor] = useState([]);
   const [selectedTable, setSelectedTable] = useState(null);
@@ -213,8 +213,6 @@ export const Tables = ({prevStep,nextStep}) => {
     // Save the current floors state to local storage
     localStorage.setItem('floors', JSON.stringify(floors));
 
-    // Navigate to the next step
-    nextStep();
   };
 
   const handleBackAndSave = () => {
@@ -232,38 +230,6 @@ export const Tables = ({prevStep,nextStep}) => {
 
   // Function to save the edited floor
   const handleSaveDetails = (tableId, details) => {
-    // Validate table number, seating capacity, and tags
-    if (!details.number || !details.seatingCapacity || details.tags.length === 0) {
-      alert('Please enter table number, seating capacity, and at least one tag.');
-      return;
-    }
-  
-    // Convert input values to numbers
-    const tableNumberValue = parseInt(details.number, 10);
-    const seatingCapacityValue = parseInt(details.seatingCapacity, 10);
-  
-    // Validate table number and seating capacity
-    if (isNaN(tableNumberValue) || tableNumberValue < 0) {
-      alert('Invalid table number. Please enter a valid non-negative number.');
-      return;
-    }
-  
-    if (isNaN(seatingCapacityValue) || seatingCapacityValue < 0 || seatingCapacityValue === 0) {
-      alert('Invalid seating capacity. Please enter a valid non-negative number greater than 0.');
-      return;
-    }
-  
-    // Check if the table number is unique
-    const isTableNumberUnique = floors[currentFloorIndex]?.tables.every(
-      (table) => table.number !== tableNumberValue
-    );
-  
-    if (!isTableNumberUnique) {
-      alert('Table number must be unique. Please choose a different table number.');
-      return;
-    }
-  
-    // Update the floors state with the validated details
     setFloors((prevFloors) =>
       prevFloors.map((floor, index) =>
         index === currentFloorIndex
@@ -276,7 +242,6 @@ export const Tables = ({prevStep,nextStep}) => {
           : floor
       )
     );
-  
     setSelectedTable(null);
     setIsDetailsOpen(false); // Close the details form
   };
@@ -469,43 +434,25 @@ export const Tables = ({prevStep,nextStep}) => {
   };
   
   
-  // useEffect(() => {
-  //   // Save floors to local storage whenever the floors state changes
-  //   localStorage.setItem('floors', JSON.stringify(floors));
-  // }, [floors]);
+//   useEffect(() => {
+//     // Save floors to local storage whenever the floors state changes
+//     localStorage.setItem('floors', JSON.stringify(floors));
+//   }, [floors]);
 
   return (
-    <div className="tables-container">
-       <div style={{position:'absolute',right:"5%",width:"20%"}} className='table-flex1'>
-      
-       <button style={{ width: '40%' }} className="last-step-button1" onClick={handleBackAndSave}>
-          Back
-        </button>
-        <button style={{ width: '40%' }} className="final-save-button1" type="submit" onClick={handleSaveAndNavigate}>
-          Next
-        </button>
-    </div>
+    <div style={{position:'relative'}} className="tables-container">
+       
       <DragDropContext onDragEnd={handleDragEnd} dragThreshold={10}>
-        <Droppable droppableId="tables" direction="horizontal">
-          {(provided) => (
-            <div {...provided.droppableProps} ref={provided.innerRef} className="table-selection">
-              {initialTables.map((table, index) => (
-                <Table key={table} type={table} index={index} onClick={() => handleShapeClick(table)} />
-              ))}
-              {provided.placeholder}
-            </div>
-          )}
-        </Droppable>
         <Droppable droppableId="restaurant-floors" direction="horizontal">
           {(provided) => (
-            <div {...provided.droppableProps} ref={provided.innerRef} style={{position:'absolute',right:'30%',top:"10%"}} className="restaurant-floors-container">
+            <div {...provided.droppableProps} ref={provided.innerRef} style={{position:'absolute',right:'0%',top:"-10%"}} className="restaurant-floors-container">
               {floors.map((floor, index) => (
                 <button key={floor.id} onClick={() => handleNavigateFloor(index)}>
                   Floor {index + 1}
                 </button>
               ))}
-              <button onClick={handleAddFloor}>Add Floor</button>
-              <button onClick={handleDeleteFloor}>Delete Floor</button>
+              {/* <button onClick={handleAddFloor}>Add Floor</button> */}
+              {/* <button onClick={handleDeleteFloor}>Delete Floor</button> */}
               {/* <button onClick={handleEditFloor}>Edit Floor</button> */}
               {provided.placeholder}
             </div>
@@ -516,7 +463,7 @@ export const Tables = ({prevStep,nextStep}) => {
             <div {...provided.droppableProps} ref={provided.innerRef} className="restaurant-container">
             <div className="restaurant-floor">
             {[...Array(10)].map((_, rowIndex) => (
-    <div key={`row-${rowIndex}`} className="row">
+    <div key={`row-${rowIndex}`} className="row10">
       {[...Array(20)].map((_, colIndex) => (
         <React.Fragment key={`col-${colIndex}`}>
           <div className="column"></div>
@@ -529,30 +476,24 @@ export const Tables = ({prevStep,nextStep}) => {
                 const tableKey = table.id;
 
                 return (
-                  <Draggable key={tableKey} draggableId={tableKey} index={index}>
-                    {(provided, snapshot) => (
-                      <div
-                        {...provided.draggableProps}
-                        {...provided.dragHandleProps}
-                        ref={provided.innerRef}
-                        className={`table ${table.type}`}
-                        style={{
-                          ...provided.draggableProps.style,
-                          position: 'absolute',
-                          opacity: snapshot.isDragging ? 0.5 : 1,
-                          top: `${(table.y / screenHeight) * 100 || 0}%`,
-                          left: `${(table.x / screenWidth) * 100 || 0}%`,
-                        }}
-                        onClick={() => handleShapeClick(tableKey)}
-                        >
-                          {table.number && (
-                            <span className="table-number" style={{ color: 'white' }}>
-                              {table.number}
-                            </span>
-                          )}
-                        </div>
-                      )}
-                    </Draggable>
+                
+                     <div
+                     key={tableKey}
+                     className={`table ${table.type}`}
+                     style={{
+                       position: 'absolute',
+                       top: `${(table.y / screenHeight) * 100 || 0}%`,
+                       left: `${(table.x / screenWidth) * 100 || 0}%`,
+                     }}
+                    //  onClick={() => handleShapeClick(tableKey)}
+                   >
+                     {table.number && (
+                       <span className="table-number" style={{ color: 'white' }}>
+                         {table.number}
+                       </span>
+                     )}
+                   </div>
+                    
                   );
                 })}
               </div>

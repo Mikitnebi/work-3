@@ -87,7 +87,7 @@ font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
 
 .book-button:hover{
-  transform: scale(1.1);
+  transform: scale(1.01);
   transition: 0.3s; 
   color: black;
 
@@ -132,13 +132,13 @@ font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
 
 .book-button1:hover{
-  transform: scale(1.1);
+  transform: scale(1.01);
   transition: 0.3s; 
   color: black;
 
 }
 .book-button2:hover{
-  transform: scale(1.1);
+  transform: scale(1.01);
   transition: 0.3s; 
   color: white;
   background-color: rgb(234, 178, 11);

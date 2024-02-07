@@ -11,6 +11,7 @@ import ImagesInput from '../imagesInput/imagesInput';
 import ParentMenuModal from '../modals/parentMenuModal';
 import ParentMenu from '../lastStep/parentMenu';
 import { v4 as uuidv4 } from 'uuid';
+import RestaurantFloor from '../addTables/restaurantFloors';
 
 
 export const LastRegistration = function () {
@@ -21,7 +22,7 @@ export const LastRegistration = function () {
     // const [selectedItems, setSelectedItems] = useState([]);
 
     const [isChecked,setIsChecked] = useState(false);
-    const [step, setStep] = useState(3);
+    const [step, setStep] = useState(1);
     const [formData, setFormData] = useState({
       restaurantName: "",
       restaurantDescription: "",
@@ -78,7 +79,7 @@ export const LastRegistration = function () {
           title: "civebi",
           georgianTitle:'ცივები',
           items: [
-            {id: uuidv4(), name: "option 1",georgianName: "ოფცია 1", price: 10, image: "../public/jason-leung-poI7DelFiVA-unsplash.jpg", description: "qweqw",georgianDescription: "ქართული აღწერა", ingredients: "sdfsd", georgianIngredients: "ქართული ინგრედიენტები"},
+            {id: uuidv4(), name: "option",georgianName: "ოფცია", price: 10, image: "../public/jason-leung-poI7DelFiVA-unsplash.jpg", description: "qweqw",georgianDescription: "ქართული აღწერა", ingredients: "sdfsd", georgianIngredients: "ქართული ინგრედიენტები"},
             {id: uuidv4(), name: "option 2",georgianName: "ოფცია 2", price: 10, image: "../public/jason-leung-poI7DelFiVA-unsplash.jpg", description: "imompp",georgianDescription: "ქართული აღწერა", ingredients: "shjfgh", georgianIngredients: "ქართული ინგრედიენტები"},
           ],
         },
@@ -101,7 +102,7 @@ export const LastRegistration = function () {
           
            {
             !isChecked ? <FinalChecker setCheck={setIsChecked}/> : <><div>
-            {/* {step === 1 && (
+            {step === 3 && (
               <FirstStep
                 formData={formData}
                 handleChange={handleChange}
@@ -113,17 +114,21 @@ export const LastRegistration = function () {
                 prevStep={prevStep}
                 nextStep={nextStep}
               />
-            )} */}
-            {step === 3 && (
-              <Tables
-                formData={formData}
-                handleChange={handleChange}
+            )}
+            {step === 1 && (
+              // <Tables
+              //   formData={formData}
+              //   handleChange={handleChange}
+              //   prevStep={prevStep}
+              //   nextStep={nextStep}
+
+              // />
+              <RestaurantFloor
                 prevStep={prevStep}
                 nextStep={nextStep}
-
               />
             )}
-             {/* {step === 4 && (
+             {step === 4 && (
               <LastStep
                 formData={formData}
                 handleChange={handleChange}
@@ -150,7 +155,7 @@ export const LastRegistration = function () {
               prevStep={prevStep}
               nextStep={nextStep}
             />
-            )} */}
+            )}
       
             {/* {step < 2 && (
               <button onClick={nextStep}>Next</button>

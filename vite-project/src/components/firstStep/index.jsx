@@ -14,14 +14,14 @@ import usePlacesAutocomplete, {
   getLatLng,
   
 } from "use-places-autocomplete";
-import {
-  Combobox,
-  ComboboxInput,
-  ComboboxPopover,
-  ComboboxList,
-  ComboboxOption,
-} from "@reach/combobox";
-import "@reach/combobox/styles.css";
+// import {
+//   Combobox,
+//   ComboboxInput,
+//   ComboboxPopover,
+//   ComboboxList,
+//   ComboboxOption,
+// } from "@reach/combobox";
+// import "@reach/combobox/styles.css";
 
 export const FirstStep = function ({ chooseStep, nextStep }) {
   const [street, setStreet] = useState('');
@@ -142,11 +142,11 @@ function Map() {
           </div>
         )}
       </PlacesAutocomplete> */}
+ 
 
-
-      <div className="places-container">
+      {/* <div className="places-container">
         <PlacesAutocomplete setSelected={setSelected} map={map}/>
-      </div>
+      </div> */}
 
       <GoogleMap
         zoom={zoom}
@@ -195,7 +195,7 @@ const PlacesAutocomplete = ({ setSelected, map }) => {
         style={{width:'60%',borderRadius:'20px',position:"absolute", left:'60%'}}
       />
       <ComboboxPopover>
-        <ComboboxList>
+        <ComboboxList style={{position:'absolute',top:'10px',left:'-40%',width:'300px',zIndex:'11',backgroundColor:'white'}}>
           {status === "OK" &&
             data.map(({ place_id, description }) => (
               <ComboboxOption key={place_id} value={description} />
