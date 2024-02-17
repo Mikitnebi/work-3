@@ -17,9 +17,13 @@ const RestaurantFloor = ({ prevStep, nextStep }) => {
   const [selectedShapeIndex, setSelectedShapeIndex] = useState(null);
   const [selectedShapeDetails, setSelectedShapeDetails] = useState({
     tableNumber: '',
-    tableCapacity: '',
+    maxPeopleAmount: '',
+    minPeopleAmount: '',
     selectedTag: null,
+    width: 0,
+    height: 0,
   });
+
 
   const currentFloor = floors[currentFloorIndex];
   const shapes = currentFloor.shapes;
@@ -36,8 +40,12 @@ const RestaurantFloor = ({ prevStep, nextStep }) => {
         if (shapeIndex !== -1) {
           setSelectedShapeDetails({
             tableNumber: `Table ${shapeIndex + 1}`,
-            capacity: shapes[shapeIndex].capacity || '',
+            maxPeopleAmount: shapes[index].maxPeopleAmount || '',
+            minPeopleAmount: shapes[index].minPeopleAmount || '',
             selectedTag: shapes[shapeIndex].selectedTag || null,
+            width: shapes[index].width || '',
+            height: shapes[index].height || '',
+
           });
           setSelectedShapeIndex(shapeIndex);
         }
@@ -115,8 +123,11 @@ const RestaurantFloor = ({ prevStep, nextStep }) => {
     setSelectedShapeIndex(newShapeIndex);
     setSelectedShapeDetails({
       tableNumber: `Table ${newShapeIndex + 1}`,
-      tableCapacity: '',
+      maxPeopleAmount: '',
+      minPeopleAmount: '',
       selectedTag: null,
+      width: 0,
+      height: 0,
     });
   };
 
@@ -135,9 +146,13 @@ const RestaurantFloor = ({ prevStep, nextStep }) => {
     const shape = shapes[index];
     setSelectedShapeDetails({
       tableNumber: shape.tableNumber || '',
-      tableCapacity: shape.tableCapacity || '',
+      maxPeopleAmount: shape.maxPeopleAmount || '',
+      minPeopleAmount: shape.minPeopleAmount || '',
       selectedTag: shape.selectedTag || null,
+      width: shape.width || 0, // Set default width
+      height: shape.height || 0, // Set default height
     });
+    
   };
 
   const handleTableDetailsChange = (field, value) => {
@@ -145,60 +160,92 @@ const RestaurantFloor = ({ prevStep, nextStep }) => {
       ...prevDetails,
       [field]: value,
     }));
+  
+    // If the changed field is width or height, update the selected shape
+    if (field === 'width' || field === 'height') {
+      const newShapes = shapes.map((shape, index) => {
+        if (index === selectedShapeIndex) {
+          return {
+            ...shape,
+            [field]: value,
+          };
+        }
+        return shape;
+      });
+  
+      setFloors((prevFloors) => {
+        const newFloors = [...prevFloors];
+        newFloors[currentFloorIndex] = { ...currentFloor, shapes: newShapes };
+        return newFloors;
+      });
+    }
   };
-
   const handleSaveTable = () => {
-    const { tableNumber, tableCapacity, selectedTag } = selectedShapeDetails;
-
-    if (!/^\d+$/.test(tableNumber) || parseInt(tableNumber) < 0) {
-      alert('Please enter a non-negative table number.');
-      return;
+    const { tableNumber, maxPeopleAmount, minPeopleAmount, selectedTag, width, height } = selectedShapeDetails;
+  
+    const currentShape = shapes[selectedShapeIndex];
+  
+    // Check if table number is modified
+    if (tableNumber !== currentShape.tableNumber) {
+      // Check if table number is unique across all floors
+      const isTableNumberUnique = floors.every((floor) =>
+        floor.shapes.every((shape) => shape.tableNumber !== tableNumber)
+      );
+  
+      if (!isTableNumberUnique) {
+        alert('Table number is already used. Please enter a unique table number.');
+        return;
+      }
     }
-
-    if (!/^\d+$/.test(tableCapacity) || parseInt(tableCapacity) < 0) {
-      alert('Please enter a non-negative table capacity.');
-      return;
-    }
-
-    // Check if the table number is unique across all floors and shapes
-    const isTableNumberUnique = floors.every((floor) =>
-      floor.shapes.every(
-        (shape) =>
-          shape.tableNumber !== tableNumber ||
-          floor === currentFloor
-      )
-    );
-
-    if (!isTableNumberUnique) {
-      alert('Table number is already used. Please enter a unique table number.');
-      return;
-    }
-
+  
     if (!selectedTag || selectedTag.length === 0) {
       alert('Please select at least one tag.');
       return;
     }
-
+  
+    // Validate maxPeopleAmount and minPeopleAmount
+    if (!maxPeopleAmount || !minPeopleAmount) {
+      alert('Please enter both maximum and minimum people amount.');
+      return;
+    }
+  
+    // Convert the values to numbers for comparison
+    const maxPeople = parseInt(maxPeopleAmount);
+    const minPeople = parseInt(minPeopleAmount);
+  
+    // Check if maxPeopleAmount is greater than or equal to minPeopleAmount
+    if (maxPeople <= minPeople) {
+      alert('Maximum people amount must be greater than minimum people amount.');
+      return;
+    }
+  
     const newShapes = shapes.map((shape, index) => {
       if (index === selectedShapeIndex) {
         return {
           ...shape,
           tableNumber,
-          tableCapacity,
+          maxPeopleAmount,
+          minPeopleAmount,
           selectedTag,
+          width,
+          height,
         };
       }
       return shape;
     });
-
+  
     setFloors((prevFloors) => {
       const newFloors = [...prevFloors];
       newFloors[currentFloorIndex] = { ...currentFloor, shapes: newShapes };
       return newFloors;
     });
-
+  
     setSelectedShapeIndex(null);
   };
+  
+  
+
+  
 
 
   const handleCancelTable = () => {
@@ -275,13 +322,14 @@ const RestaurantFloor = ({ prevStep, nextStep }) => {
     return shapes.map((shape, index) => {
       const isSelected = index === selectedShapeIndex;
       const { x, y, type, tableNumber } = shape;
-
+      let width =shape?.width
+      let height = shape?.height
       if (tableNumber) {
         return (
           <Text
             key={`tableNumber${index}`}
-            x={x + (type === 'circle' ? 20 : 20)}  // Adjust position based on shape type
-            y={y - (type === 'circle' ? -20 : -20)}
+            x={x + (type === 'circle' ? width/2.5 : width/2.5)}  // Adjust position based on shape type
+            y={y - (type === 'circle' ? -height/2.5 : -height/2.5)}
             text={tableNumber}
             fontSize={14}
             fill={isSelected ? 'white' : 'white'}
@@ -303,9 +351,13 @@ const RestaurantFloor = ({ prevStep, nextStep }) => {
     const shape = shapes[index];
     setSelectedShapeDetails({
       tableNumber: shape.tableNumber || '',
-      tableCapacity: shape.tableCapacity || '',
+      maxPeopleAmount: shape.maxPeopleAmount || '',
+      minPeopleAmount: shape.minPeopleAmount || '',
       selectedTag: shape.selectedTag || null,
+      width: shape.width || 0, // Set default width
+      height: shape.height || 0, // Set default height
     });
+    
   };
   const saveToLocalStorage = () => {
     localStorage.setItem('restaurantFloors', JSON.stringify(floors));
@@ -321,27 +373,43 @@ const RestaurantFloor = ({ prevStep, nextStep }) => {
 
   const handleFinalSave = () => {
     // Check if any table is left with no details
-    const tableWithoutDetails = shapes.find((shape) => !shape.tableNumber || !shape.tableCapacity || !shape.selectedTag);
-
+    const tableWithoutDetails = shapes.find((shape) => !shape.tableNumber || !shape.maxPeopleAmount || !shape.selectedTag || !shape.minPeopleAmount);
+  
     if (tableWithoutDetails) {
       alert('Please fill in all details for each table.');
       return;
     }
-
+  
     // Check if any floor doesn't have any tables
     const floorWithoutTables = floors.find((floor) => floor.shapes.length === 0);
-
+  
     if (floorWithoutTables) {
       alert('Please add tables to all floors.');
       return;
     }
-
+  
+    // Check uniqueness of table numbers across all floors and shapes
+    // const isTableNumberUnique = floors.every((floor, floorIndex) =>
+    //   floor.shapes.every(
+    //     (shape) =>
+    //       shape.tableNumber !==  shape.selectedShapeDetails.tableNumber || // Here is the fix
+    //       (floorIndex === currentFloorIndex && shapes.indexOf(shape) === selectedShapeIndex)
+    //   )
+    // );
+  
+    // if (!isTableNumberUnique) {
+    //   alert('Table number is already used. Please enter a unique table number.');
+    //   return;
+    // }
+  
     // Save to local storage
     saveToLocalStorage();
-
+  
     // Perform your final save logic here
-    nextStep()
+    nextStep();
   };
+  
+  
 
   useEffect(() => {
     // Load data from local storage on component mount
@@ -353,12 +421,18 @@ const RestaurantFloor = ({ prevStep, nextStep }) => {
     if (selectedShapeIndex !== null) {
       const shape = shapes[selectedShapeIndex];
       setSelectedShapeDetails({
-        tableNumber: shape.tableNumber || '',
-        tableCapacity: shape.tableCapacity || '',
-        selectedTag: shape.selectedTag || null,
+        tableNumber: shape?.tableNumber || '',
+        maxPeopleAmount: shape?.maxPeopleAmount || '',
+        minPeopleAmount: shape?.minPeopleAmount || '',
+        selectedTag: shape?.selectedTag || null,
+        width: shape?.width || 0, // Set default width
+        height: shape?.height || 0, // Set default height
       });
+      
     }
   }, [selectedShapeIndex, shapes]);
+
+  
   const backgroundImage = new Image();
   const backgroundImage1 = new Image();
   const backgroundImage2 = new Image();
@@ -409,8 +483,8 @@ const RestaurantFloor = ({ prevStep, nextStep }) => {
                   stroke={isSelected ? 'blue' : 'black'}
                   cornerRadius={10} // Set the border radius to 10px
                   fillPatternImage={backgroundImage}
-                  fillPatternScaleX={1 / 30} // djust as needed
-                  fillPatternScaleY={1 / 50}
+                  fillPatternScaleX={shape.width/2500} // djust as needed
+                  fillPatternScaleY={shape.height / 2500}
                   fillPatternRepeat="no-repeat" // Prevent the image from repeating 
                   />
                 )}
@@ -426,8 +500,8 @@ const RestaurantFloor = ({ prevStep, nextStep }) => {
                     stroke={isSelected ? 'blue' : 'black'}
                     cornerRadius={10} // Set the border radius to 10px
                     fillPatternImage={backgroundImage2}
-                    fillPatternScaleX={1 / 20} // djust as needed
-                    fillPatternScaleY={1 / 20}
+                    fillPatternScaleX={shape.width/1400} // djust as needed
+                    fillPatternScaleY={shape.height/1400}
                     fillPatternRepeat="no-repeat" // Prevent the image from repeating 
                   />
                 )}
@@ -443,8 +517,8 @@ const RestaurantFloor = ({ prevStep, nextStep }) => {
                     stroke={isSelected ? 'blue' : 'black'}
                     cornerRadius={10} // Set the border radius to 10px
                     fillPatternImage={backgroundImage1}
-                    fillPatternScaleX={1 / 23} // Adjust as needed
-                    fillPatternScaleY={1 / 23}
+                    fillPatternScaleX={shape.width/1200} // Adjust as needed
+                    fillPatternScaleY={shape.height/1200}
                     fillPatternRepeat="no-repeat" // Prevent the image from repeating 
                   />
                 )}
@@ -470,44 +544,68 @@ const RestaurantFloor = ({ prevStep, nextStep }) => {
         </Layer>
       </Stage>
       {selectedShapeIndex !== null && (
-        <div className="details-form">
-          <label>
-            Table Number:
-            <input
-              type="number"
-              value={selectedShapeDetails.tableNumber}
-              onChange={(e) => handleTableDetailsChange('tableNumber', e.target.value)}
-            />
-          </label>
-          <label>
-            Table Capacity:
-            <input
-              type="number"
-              value={selectedShapeDetails.tableCapacity}
-              onChange={(e) => handleTableDetailsChange('tableCapacity', e.target.value)}
-            />
-          </label>
-          <label style={{ maxWidth: '300px' }}>
-            Table Tag:
-            <Select
-              value={selectedShapeDetails.selectedTag}
-              onChange={(selectedOption) =>
-                handleTableDetailsChange('selectedTag', selectedOption)
-              } options={tagOptions}
-              isMulti
-              styles={{
-                control: (baseStyles, state) => ({
-                  ...baseStyles,
-                  color: 'red'
-                }),
-              }}
-            />
-          </label>
-          <button onClick={handleSaveTable}>Save Table</button>
-          <button onClick={handleCancelTable}>Cancel</button>
-          <button onClick={handleDeleteTable}>Delete Table</button>
-        </div>
-      )}
+  <div className="details-form">
+    <label>
+      Table Number:
+      <input
+        type="number"
+        value={selectedShapeDetails.tableNumber}
+        onChange={(e) => handleTableDetailsChange('tableNumber', e.target.value)}
+      />
+    </label>
+    <label>
+      Max People Amount:
+      <input
+        type="number"
+        value={selectedShapeDetails.maxPeopleAmount}
+        onChange={(e) => handleTableDetailsChange('maxPeopleAmount', e.target.value)}
+      />
+    </label>
+    <label>
+      Min People Amount:
+      <input
+        type="number"
+        value={selectedShapeDetails.minPeopleAmount}
+        onChange={(e) => handleTableDetailsChange('minPeopleAmount', e.target.value)}
+      />
+    </label>
+    <label style={{ maxWidth: '300px' }}>
+      Table Tag:
+      <Select
+        value={selectedShapeDetails.selectedTag}
+        onChange={(selectedOption) =>
+          handleTableDetailsChange('selectedTag', selectedOption)
+        } options={tagOptions}
+        isMulti
+        styles={{
+          control: (baseStyles, state) => ({
+            ...baseStyles,
+            color: 'red'
+          }),
+        }}
+      />
+    </label>
+    <label>
+      Width:
+      <input
+        type="number"
+        value={selectedShapeDetails.width}
+        onChange={(e) => handleTableDetailsChange('width', e.target.value)}
+      />
+    </label>
+    <label>
+      Height:
+      <input
+        type="number"
+        value={selectedShapeDetails.height}
+        onChange={(e) => handleTableDetailsChange('height', e.target.value)}
+      />
+    </label>
+    <button onClick={handleSaveTable}>Save Table</button>
+    <button onClick={handleCancelTable}>Cancel</button>
+    <button onClick={handleDeleteTable}>Delete Table</button>
+  </div>
+)}
     </div>
   );
 };
