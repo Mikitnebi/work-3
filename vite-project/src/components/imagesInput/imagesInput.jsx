@@ -3,11 +3,18 @@ import "./images.css";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { useState } from "react";
 
 
 export default function ImagesInput ({prevStep,nextStep}) {
 
-    
+  const [imagePreviews, setImagePreviews] = useState({
+    image1: null,
+    image2: null,
+    image3: null,
+    image4: null,
+    image5: null,
+  });
 
     const schema = yup.object().shape({
         image1: yup
@@ -69,7 +76,19 @@ export default function ImagesInput ({prevStep,nextStep}) {
       const onSubmit = (data) => {
         nextStep()
       }
-
+      const handleImageChange = (event, fieldName) => {
+        const file = event.target.files[0];
+        if (file) {
+          const reader = new FileReader();
+          reader.onload = (e) => {
+            setImagePreviews((prevState) => ({
+              ...prevState,
+              [fieldName]: e.target.result,
+            }));
+          };
+          reader.readAsDataURL(file);
+        }
+      };
     return (
 
 
@@ -94,7 +113,14 @@ export default function ImagesInput ({prevStep,nextStep}) {
             id="image1"
             accept=".jpg, .jpeg, .png, .gif"
             {...register("image1", { validate: value => value[0] !== undefined })}
+            onChange={(e) => handleImageChange(e, 1)}
+
           />
+           {imagePreviews[1] && (
+              <div className="image-preview">
+                <img src={imagePreviews[1]} alt={`Preview `} />
+              </div>
+            )}
           <small>{errors.image1?.message}</small>
         </div>
         <div className="form-control-first">
@@ -104,7 +130,14 @@ export default function ImagesInput ({prevStep,nextStep}) {
             id="image2"
             accept=".jpg, .jpeg, .png, .gif"
             {...register("image2", { validate: value => value[0] !== undefined })}
+            onChange={(e) => handleImageChange(e, 2)}
+
           />
+          {imagePreviews[2] && (
+              <div className="image-preview">
+                <img src={imagePreviews[2]} alt={`Preview `} />
+              </div>
+            )}
           <small>{errors.image2?.message}</small>
         </div>
         <div className="form-control-first">
@@ -114,7 +147,14 @@ export default function ImagesInput ({prevStep,nextStep}) {
             id="image3"
             accept=".jpg, .jpeg, .png, .gif"
             {...register("image3", { validate: value => value[0] !== undefined })}
+            onChange={(e) => handleImageChange(e, 3)}
+
           />
+          {imagePreviews[3] && (
+              <div className="image-preview">
+                <img src={imagePreviews[3]} alt={`Preview `} />
+              </div>
+            )}
           <small>{errors.image3?.message}</small>
         </div>
         <div className="form-control-first">
@@ -124,7 +164,14 @@ export default function ImagesInput ({prevStep,nextStep}) {
             id="image4"
             accept=".jpg, .jpeg, .png, .gif"
             {...register("image4", { validate: value => value[0] !== undefined })}
+            onChange={(e) => handleImageChange(e, 4)}
+
           />
+          {imagePreviews[4] && (
+              <div className="image-preview">
+                <img src={imagePreviews[4]} alt={`Preview `} />
+              </div>
+            )}
           <small>{errors.image4?.message}</small>
         </div>
         <div className="form-control-first">
@@ -134,7 +181,14 @@ export default function ImagesInput ({prevStep,nextStep}) {
             id="image5"
             accept=".jpg, .jpeg, .png, .gif"
             {...register("image5", { validate: value => value[0] !== undefined })}
+            onChange={(e) => handleImageChange(e, 5)}
+
           />
+          {imagePreviews[5] && (
+              <div className="image-preview">
+                <img src={imagePreviews[5]} alt={`Preview `} />
+              </div>
+            )}
           <small>{errors.image5?.message}</small>
         </div>
 

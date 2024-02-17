@@ -102,7 +102,7 @@ export const LastRegistration = function () {
           
            {
             !isChecked ? <FinalChecker setCheck={setIsChecked}/> : <><div>
-            {step === 3 && (
+            {step === 1 && (
               <FirstStep
                 formData={formData}
                 handleChange={handleChange}
@@ -115,7 +115,7 @@ export const LastRegistration = function () {
                 nextStep={nextStep}
               />
             )}
-            {step === 1 && (
+            {step === 3 && (
               // <Tables
               //   formData={formData}
               //   handleChange={handleChange}

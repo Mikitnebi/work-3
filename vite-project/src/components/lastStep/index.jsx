@@ -187,57 +187,57 @@ export const LastStep = function ({ chooseStep, prevStep, nextStep,isParent,setI
     JSON.parse(localStorage.getItem("menuSections")) || [
       {
         title: "Appetizers",
-        georgianTitle: "Appetizers",
+        georgianTitle: "აპეტაიზერი",
         items: [
           {
             id: uuidv4(),
             name: "Item 1",
-            georgianName: "Georgian Item 1", // Add Georgian Dish Name
-            price: "$10",
+            georgianName: "ქართული სახელი 1", // Add Georgian Dish Name
+            price: 10,
             image: "",
             description: "sdfs",
-            georgianDescription: "Georgian Description 1", // Add Georgian Dish Description
+            georgianDescription: "ქართული აღწერა 1", // Add Georgian Dish Description
             ingredients: "sdfsdf",
-            georgianIngredients: "Georgian Ingredients 1", // Add Georgian Ingredients
+            georgianIngredients: "ინგედიენტები ქართულად 1", // Add ინგედიენტები ქართულად
           },
           {
             id: uuidv4(),
             name: "Item 2",
-            georgianName: "Georgian Item 2", // Add Georgian Dish Name
-            price: "$12",
+            georgianName: "ქართული სახელი 2", // Add Georgian Dish Name
+            price: 12,
             image: "",
             description: "fsdfsd",
-            georgianDescription: "Georgian Description 2", // Add Georgian Dish Description
+            georgianDescription: "ქართული აღწერა 2", // Add Georgian Dish Description
             ingredients: "dsfs",
-            georgianIngredients: "Georgian Ingredients 2", // Add Georgian Ingredients
+            georgianIngredients: "ინგედიენტები ქართულად 2", // Add ინგედიენტები ქართულად
           },
         ],
       },
       {
         title: "Main Courses",
-        georgianTitle: "Appetizers",
+        georgianTitle: "მთავარი კურსი",
         items: [
           {
             id: uuidv4(),
             name: "Item 1",
-            georgianName: "Georgian Item 1", // Add Georgian Dish Name
-            price: "$20",
+            georgianName: "ქართული სახელი 1", // Add Georgian Dish Name
+            price: 20,
             image: "",
             description: "qweqw",
-            georgianDescription: "Georgian Description 1", // Add Georgian Dish Description
+            georgianDescription: "ქართული აღწერა 1", // Add Georgian Dish Description
             ingredients: "sdfsd",
-            georgianIngredients: "Georgian Ingredients 1", // Add Georgian Ingredients
+            georgianIngredients: "ინგედიენტები ქართულად 1", // Add ინგედიენტები ქართულად
           },
           {
             id: uuidv4(),
             name: "Item 2",
-            georgianName: "Georgian Item 2", // Add Georgian Dish Name
-            price: "$18",
+            georgianName: "ქართული სახელი 2", // Add Georgian Dish Name
+            price: 28,
             image: "",
             description: "imompp",
-            georgianDescription: "Georgian Description 2", // Add Georgian Dish Description
+            georgianDescription: "ქართული აღწერა 2", // Add Georgian Dish Description
             ingredients: "shjfgh",
-            georgianIngredients: "Georgian Ingredients 2", // Add Georgian Ingredients
+            georgianIngredients: "ინგედიენტები ქართულად 2", // Add ინგედიენტები ქართულად
           },
         ],
       },
@@ -447,8 +447,8 @@ export const LastStep = function ({ chooseStep, prevStep, nextStep,isParent,setI
     const newCombinedErrors = {}; // Store detailed validation errors for combined-errors section
     const newSimpleErrors = {}; // Store simple validation errors for menu-grid
   
-    const englishLettersWithSpacesAndTabsRegex = /^[A-Za-z \t]+$/;
-    const georgianLettersWithSpacesAndTabsRegex = /^[\u10A0-\u10FF \t]+$/;
+    const englishLettersWithSpacesAndTabsRegex = /^[A-Za-z0-9 \t]+$/;
+    const georgianLettersWithSpacesAndTabsRegex = /^[\u10A0-\u10FF0-9 \t]+$/;
   console.log(menuSections)
     // Validate sections
     menuSections.forEach((section, sectionIndex) => {

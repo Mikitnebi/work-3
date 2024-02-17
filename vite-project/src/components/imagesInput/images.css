@@ -7,3 +7,17 @@
     width: 60%;
 
 }
+
+.image-preview{
+    width: 200px;
+    height: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 10px;
+}
+.image-preview img{
+    width: 200px;
+    height: auto;
+    border-radius: 20px;
+}

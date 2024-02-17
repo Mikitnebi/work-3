@@ -54,25 +54,28 @@ export const PinCode =({close,isPut, parent,setInformation}) =>{
 //    console.log(past)
     const onSubmit = (date) =>{
         setIsLoading(true);
-        axios.
-            post("http://3.66.89.33/Restaurant/intro-email-validation",{
-                email:stateUser.email,
-                otp:combineStrings(otp)+""
-            })
-            .then(response =>{
-                console.log(response);
-                setInformation(true);
-                close(false)
-                setIsVerify(true);
-            })
-            .catch(error =>{
-                console.log(error)
-                setIsError(false);
-                setOtp([...otp.map(v => "")])
-            })
-            .finally(() => {
-                setIsLoading(false);
-            });
+        setInformation(true);
+        close(false)
+        setIsVerify(true);
+        // axios.
+        //     post("http://3.66.89.33/Restaurant/intro-email-validation",{
+        //         email:stateUser.email,
+        //         otp:combineStrings(otp)+""
+        //     })
+        //     .then(response =>{
+        //         console.log(response);
+        //         setInformation(true);
+        //         close(false)
+        //         setIsVerify(true);
+        //     })
+        //     .catch(error =>{
+        //         console.log(error)
+        //         setIsError(false);
+        //         setOtp([...otp.map(v => "")])
+        //     })
+        //     .finally(() => {
+        //         setIsLoading(false);
+        //     });
         
     }
     
