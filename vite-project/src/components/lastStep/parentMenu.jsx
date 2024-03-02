@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "./lastStep.css";
+import Select from 'react-select';
 
 const ParentMenu = ({ menuData, handleMoveSelectedItems,parentMenu, setParentMenu,setMenuData,handleMoveSelectedItems2 }) => {
   const [selectedSections, setSelectedSections] = useState([]);
@@ -156,11 +157,11 @@ const ParentMenu = ({ menuData, handleMoveSelectedItems,parentMenu, setParentMen
 
   return (
     <div className="last-step">
-      <div style={{left:'10%'}}  className="menu-flex">
+      <div style={{ left: '10%' }} className="menu-flex">
 
-        <span style={{cursor:'pointer'}} onClick={() => submit()}>Move Selected</span>
+        <span style={{ cursor: 'pointer' }} onClick={() => submit()}>Move Selected</span>
 
-        <div className="menu-grid" style={{marginLeft:'-100px',marginTop:'40px'}}>
+        <div className="menu-grid" style={{ marginLeft: '-100px', marginTop: '40px' }}>
           {menuData.map((section, sectionIndex) => (
             <div className="menu-section" key={sectionIndex}>
               <h3>
@@ -191,9 +192,33 @@ const ParentMenu = ({ menuData, handleMoveSelectedItems,parentMenu, setParentMen
                       <p>Description: {item.description}</p>
                       <p>Georgian Description: {item.georgianDescription}</p>
 
-                      <p>Ingredients: {item.ingredients}</p>
-                      <p>Georgian Ingredients: {item.georgianIngredients}</p>
-                      <img style={{width:'30px',height:'30px', borderRadius:'20px'}} src={item.image} alt={item.name} />
+                      {/* Rendering Ingredients and Georgian Ingredients as Select components */}
+                      <Select
+                        isMulti
+                        value={item.ingredients}
+                        options={item.ingredients}
+                        styles={{
+                          control: (baseStyles, state) => ({
+                            ...baseStyles,
+                            color: 'red'
+                          }),
+                        }}
+                        isDisabled
+                      />
+                      <Select
+                        isMulti
+                        value={item.georgianIngredients}
+                        options={item.georgianIngredients}
+                        styles={{
+                          control: (baseStyles, state) => ({
+                            ...baseStyles,
+                            color: 'red'
+                          }),
+                        }}
+                        isDisabled
+                      />
+
+                      <img style={{ width: '30px', height: '30px', borderRadius: '20px' }} src={item.image} alt={item.name} />
                     </div>
                   </li>
                 ))}

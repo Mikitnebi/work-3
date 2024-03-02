@@ -8,6 +8,8 @@ import ParentMenuModal from "../modals/parentMenuModal";
 import ParentMenu from "./parentMenu";
 import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
 import { v4 as uuidv4 } from 'uuid';
+import Select from 'react-select';
+
 export const LastStep = function ({ chooseStep, prevStep, nextStep,isParent,setIsParent,isParent1,setIsParent1,menuData,setMenuData }) {
   const [parentMenu, setParentMenu] = useState([]);
 
@@ -20,7 +22,19 @@ export const LastStep = function ({ chooseStep, prevStep, nextStep,isParent,setI
   
   const [draggedItemId, setDraggedItemId] = useState(null);
 
- 
+  const tagOptions = [
+    { value: '#lemon', label: '#lemon' },
+    { value: '#meat', label: '#meat' },
+    { value: '#cheese', label: '#cheese' },
+    { value: '#salt', label: '#salt' },
+  ];
+
+  const GeorgiantagOptions = [
+    { value: '#ლიმონი', label: '#ლიმონი' },
+    { value: '#ხორცი', label: '#ხორცი' },
+    { value: '#ყველი', label: '#ყველი' },
+    { value: '#მარილი', label: '#მარილი' },
+  ];
   const onDragEnd = (result) => {
     if (!result.destination) {
       return; // Dropped outside the list
@@ -49,36 +63,6 @@ export const LastStep = function ({ chooseStep, prevStep, nextStep,isParent,setI
       setMenuSections(updatedMenuSections);
     }
   };
-  
-  
-  
-
-  // const onDragEnd = (result) => {
-  //   if (!result.destination) {
-  //     return; // Dropped outside the list
-  //   }
-
-  //   const { source, destination, draggableId } = result;
-  //   const updatedMenuSections = [...menuSections];
-
-  //   // Find the source and destination sections
-  //   const sourceSection = updatedMenuSections[source.droppableId];
-  //   const destSection = updatedMenuSections[destination.droppableId];
-
-  //   // Find the item being dragged
-  //   const item = sourceSection.items.find((item) => item.id === draggableId);
-
-  //   // Remove the item from the source section
-     
-  //   sourceSection.items.splice(source.index, 1);
-
-  //   // Insert the item into the destination section
-  //   destSection.items.splice(destination.index, 0, item);
-
-  //   // Update the state with the reordered sections
-  //   setMenuSections(updatedMenuSections);
-  // };
-
   const isThereAnySelectedLeft = (section) => {
     const itemsWithParent = section.items.filter((item) => item.parent);
     if(itemsWithParent.length==0){
@@ -191,14 +175,14 @@ export const LastStep = function ({ chooseStep, prevStep, nextStep,isParent,setI
         items: [
           {
             id: uuidv4(),
-            name: "Item 1",
+            name: "Item 11",
             georgianName: "ქართული სახელი 1", // Add Georgian Dish Name
             price: 10,
             image: "",
             description: "sdfs",
             georgianDescription: "ქართული აღწერა 1", // Add Georgian Dish Description
-            ingredients: "sdfsdf",
-            georgianIngredients: "ინგედიენტები ქართულად 1", // Add ინგედიენტები ქართულად
+            ingredients: [],
+            georgianIngredients: [], // Add ინგედიენტები ქართულად
           },
           {
             id: uuidv4(),
@@ -208,8 +192,8 @@ export const LastStep = function ({ chooseStep, prevStep, nextStep,isParent,setI
             image: "",
             description: "fsdfsd",
             georgianDescription: "ქართული აღწერა 2", // Add Georgian Dish Description
-            ingredients: "dsfs",
-            georgianIngredients: "ინგედიენტები ქართულად 2", // Add ინგედიენტები ქართულად
+            ingredients: [],
+            georgianIngredients: [], // Add ინგედიენტები ქართულად
           },
         ],
       },
@@ -219,14 +203,14 @@ export const LastStep = function ({ chooseStep, prevStep, nextStep,isParent,setI
         items: [
           {
             id: uuidv4(),
-            name: "Item 1",
+            name: "Item 11",
             georgianName: "ქართული სახელი 1", // Add Georgian Dish Name
             price: 20,
             image: "",
             description: "qweqw",
             georgianDescription: "ქართული აღწერა 1", // Add Georgian Dish Description
-            ingredients: "sdfsd",
-            georgianIngredients: "ინგედიენტები ქართულად 1", // Add ინგედიენტები ქართულად
+            ingredients: [],
+            georgianIngredients: [], // Add ინგედიენტები ქართულად
           },
           {
             id: uuidv4(),
@@ -236,8 +220,8 @@ export const LastStep = function ({ chooseStep, prevStep, nextStep,isParent,setI
             image: "",
             description: "imompp",
             georgianDescription: "ქართული აღწერა 2", // Add Georgian Dish Description
-            ingredients: "shjfgh",
-            georgianIngredients: "ინგედიენტები ქართულად 2", // Add ინგედიენტები ქართულად
+            ingredients: [],
+            georgianIngredients: [], // Add ინგედიენტები ქართულად
           },
         ],
       },
@@ -410,8 +394,8 @@ export const LastStep = function ({ chooseStep, prevStep, nextStep,isParent,setI
       image: "",
       description: "",
       georgianDescription: "",
-      ingredients: "",
-      georgianIngredients: "",
+      ingredients: [],
+      georgianIngredients: [],
     });
     setMenuSections(newMenuSections);
   };
@@ -480,7 +464,7 @@ export const LastStep = function ({ chooseStep, prevStep, nextStep,isParent,setI
           newCombinedErrors[`itemDescription${sectionIndex}-${itemIndex}`] = `Section ${sectionIndex + 1}, Item ${itemIndex + 1}: Dish Description is required and must contain only English letters`;
         }
   
-        if (!item.ingredients || !englishLettersWithSpacesAndTabsRegex.test(item.ingredients)) {
+        if (item.ingredients.length === 0 ) {
           newSimpleErrors[`itemIngredients${sectionIndex}-${itemIndex}`] = true;
           newCombinedErrors[`itemIngredients${sectionIndex}-${itemIndex}`] = `Section ${sectionIndex + 1}, Item ${itemIndex + 1}: Ingredients are required and must contain only English letters`;
         }
@@ -490,7 +474,7 @@ export const LastStep = function ({ chooseStep, prevStep, nextStep,isParent,setI
           newCombinedErrors[`itemGeorgianName${sectionIndex}-${itemIndex}`] = `Section ${sectionIndex + 1}, Item ${itemIndex + 1}: Georgian Dish Name is required and must contain only Georgian letters`;
         }
   
-        if (!item.georgianIngredients || !georgianLettersWithSpacesAndTabsRegex.test(item.georgianIngredients)) {
+        if (item.georgianIngredients.length === 0 ) {
           newSimpleErrors[`itemGeorgianIngredients${sectionIndex}-${itemIndex}`] = true;
           newCombinedErrors[`itemGeorgianIngredients${sectionIndex}-${itemIndex}`] = `Section ${sectionIndex + 1}, Item ${itemIndex + 1}: Georgian Ingredients are required and must contain only Georgian letters`;
         }
@@ -518,15 +502,6 @@ export const LastStep = function ({ chooseStep, prevStep, nextStep,isParent,setI
 
   const [isOpenRegistration, setIsOpenRegistration] = useState(false)
   const [isOpenParentMenu,setIsOpenParentMenu] = useState(false)
-
-
-  // useEffect(()=>{
-  //   console.log(selectedItems)
-  //   console.log(selectedSections)
-  //   console.log(parentMenu1)
-
-  // },[selectedItems,selectedSections,parentMenu1]) 
-
   const deleteParentMenuItems = () => {
     // Create a copy of the selectedSections and selectedItems arrays
     let updatedSelectedSections = [...selectedSections];
@@ -944,7 +919,28 @@ export const LastStep = function ({ chooseStep, prevStep, nextStep,isParent,setI
 }
 <label htmlFor={`ingredients-${sectionIndex}-${itemIndex}`}>ingredients:</label>
 
-<textarea
+<Select
+        value={item.ingredients}
+        onChange={(selectedOption) =>
+          updateMenuItem(
+            sectionIndex,
+            itemIndex,
+            "ingredients",
+            selectedOption
+          )        } options={tagOptions}
+        isMulti
+        styles={{
+          control: (baseStyles, state) => ({
+            ...baseStyles,
+            color: 'red',
+            zIndex:1
+          }),
+        }}
+        id={`ingredients-${sectionIndex}-${itemIndex}`}
+
+      />
+
+{/* <textarea
   placeholder="Ingredients"
   value={item.ingredients}
   onChange={(e) =>
@@ -957,7 +953,7 @@ export const LastStep = function ({ chooseStep, prevStep, nextStep,isParent,setI
   }
   id={`ingredients-${sectionIndex}-${itemIndex}`}
   style={{ width: '100%', height: "60px" }} // You can adjust the width and height as needed
-/>
+/> */}
 {simpleErrors[`itemIngredients${sectionIndex}-${itemIndex}`] && 
   <div className="error-message">
     Ingredients are required
@@ -965,7 +961,30 @@ export const LastStep = function ({ chooseStep, prevStep, nextStep,isParent,setI
 }
 <label htmlFor={`GeorgianIngredients-${sectionIndex}-${itemIndex}`}>ინგრედიენტები ქართულად:</label>
 
-<textarea
+
+<Select
+        value={item.georgianIngredients}
+        onChange={(selectedOption) =>
+          updateMenuItem(
+            sectionIndex,
+            itemIndex,
+            "georgianIngredients",
+            selectedOption
+          )       } options={GeorgiantagOptions}
+        isMulti
+        styles={{
+          control: (baseStyles, state) => ({
+            ...baseStyles,
+            color: 'red',
+            zIndex:1
+          }),
+        }}
+        id={`GeorgianIngredients-${sectionIndex}-${itemIndex}`}
+
+      />
+
+
+{/* <textarea
   placeholder="ინგრედიენტები ქართულად"
   value={item.georgianIngredients}
   onChange={(e) =>
@@ -979,7 +998,7 @@ export const LastStep = function ({ chooseStep, prevStep, nextStep,isParent,setI
   }
   id={`GeorgianIngredients-${sectionIndex}-${itemIndex}`}
   style={{ width: "100%", height: "60px" }}
-/>
+/> */}
 {simpleErrors[`itemGeorgianIngredients${sectionIndex}-${itemIndex}`] && 
   <div className="error-message">
     Georgian Ingredients are required
@@ -1106,12 +1125,29 @@ export const LastStep = function ({ chooseStep, prevStep, nextStep,isParent,setI
 }
 <label htmlFor={`ingredients-${sectionIndex}-${itemIndex}`}>ingredients:</label>
 
-<textarea
+                    <Select
+                        isMulti
+                        value={item.ingredients}
+                        options={item.ingredients}
+                        styles={{
+                          control: (baseStyles, state) => ({
+                            ...baseStyles,
+                            color: 'red',
+                            zIndex:1
+                          }),
+                        }}
+                        id={`ingredients-${sectionIndex}-${itemIndex}`}
+
+                        isDisabled
+                      />
+
+
+{/* <textarea
   placeholder="Ingredients"
   value={item.ingredients}
   disabled={true}
   style={{ width: '100%', height: "60px" }} // You can adjust the width and height as needed
-/>
+/> */}
 {simpleErrors[`itemIngredients${sectionIndex}-${itemIndex}`] && 
   <div className="error-message">
     Ingredients are required
@@ -1119,13 +1155,28 @@ export const LastStep = function ({ chooseStep, prevStep, nextStep,isParent,setI
 }
 <label htmlFor={`GeorgianIngredients-${sectionIndex}-${itemIndex}`}>ინგრედიენტები ქართულად:</label>
 
-<textarea
+<Select
+                        isMulti
+                        value={item.georgianIngredients}
+                        options={item.georgianIngredients}
+                        styles={{
+                          control: (baseStyles, state) => ({
+                            ...baseStyles,
+                            color: 'red',
+                            zIndex:1
+                          }),
+                        }}
+                        id={`GeorgianIngredients-${sectionIndex}-${itemIndex}`}
+
+                        isDisabled
+                      />
+{/* <textarea
   placeholder="ინგრედიენტები ქართულად"
   value={item.georgianIngredients}
   id={`GeorgianIngredients-${sectionIndex}-${itemIndex}`}
   style={{ width: "100%", height: "60px" }}
   disabled={true}
-/>
+/> */}
 {simpleErrors[`itemGeorgianIngredients${sectionIndex}-${itemIndex}`] && 
   <div className="error-message">
     Georgian Ingredients are required

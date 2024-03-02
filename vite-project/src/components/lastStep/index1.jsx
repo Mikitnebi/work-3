@@ -9,18 +9,32 @@ import ParentMenu from "./parentMenu";
 import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
 import { v4 as uuidv4 } from 'uuid';
 import { StoreContextRecipe } from "../../App";
+import Select from 'react-select';
 
 export const LastStep1 = function ({ chooseStep, prevStep, nextStep,isParent,setIsParent,isParent1,setIsParent1 }) {
   const [parentMenu, setParentMenu] = useState([]);
+  const tagOptions = [
+    { value: '#lemon', label: '#lemon' },
+    { value: '#meat', label: '#meat' },
+    { value: '#cheese', label: '#cheese' },
+    { value: '#salt', label: '#salt' },
+  ];
+
+  const GeorgiantagOptions = [
+    { value: '#ლიმონი', label: '#ლიმონი' },
+    { value: '#ხორცი', label: '#ხორცი' },
+    { value: '#ყველი', label: '#ყველი' },
+    { value: '#მარილი', label: '#მარილი' },
+  ];
   const [menuData,setMenuData] = useState ([
     {
       title: "Appetizers",
       georgianTitle:'აპეტაიზერი',
       items: [
-        {id: uuidv4(), name: "Item 1",georgianName: "კერძი 1", price: 10, image: "../public/jason-leung-poI7DelFiVA-unsplash.jpg", description: "sdfs",georgianDescription: "ქართული აღწერა", ingredients: "sdfsdf", georgianIngredients: "ქართული ინგრედიენტები"},
-        {id: uuidv4(), name: "Item 2",georgianName: "კერძი 2", price: 10, image: "../public/jason-leung-poI7DelFiVA-unsplash.jpg", description: "fsdfsd",georgianDescription: "ქართული აღწერა", ingredients: "dsfs", georgianIngredients: "ქართული ინგრედიენტები"},
-        {id: uuidv4(), name: "Item 3",georgianName: "კერძი 3", price: 10, image: "../public/jason-leung-poI7DelFiVA-unsplash.jpg", description: "fsdfsd",georgianDescription: "ქართული აღწერა", ingredients: "dsfs", georgianIngredients: "ქართული ინგრედიენტები"},
-        {id: uuidv4(), name: "Item 4",georgianName: "კერძი 4", price: 10, image: "../public/jason-leung-poI7DelFiVA-unsplash.jpg", description: "fsdfsd",georgianDescription: "ქართული აღწერა", ingredients: "dsfs", georgianIngredients: "ქართული ინგრედიენტები"},
+        {id: uuidv4(), name: "Item 1",georgianName: "კერძი 1", price: 10, image: "../public/jason-leung-poI7DelFiVA-unsplash.jpg", description: "sdfs",georgianDescription: "ქართული აღწერა", ingredients: [{value:'#meat',label:"#meat"}], georgianIngredients: [{value:'#ხორცი',label:"#ხორცი"}]},
+        {id: uuidv4(), name: "Item 2",georgianName: "კერძი 2", price: 10, image: "../public/jason-leung-poI7DelFiVA-unsplash.jpg", description: "fsdfsd",georgianDescription: "ქართული აღწერა", ingredients: [{value:'#cheese',label:"#meat"}], georgianIngredients: [{value:'#ყველი',label:"#ყველი"}]},
+        {id: uuidv4(), name: "Item 3",georgianName: "კერძი 3", price: 10, image: "../public/jason-leung-poI7DelFiVA-unsplash.jpg", description: "fsdfsd",georgianDescription: "ქართული აღწერა", ingredients: [{value:'#meat',label:"#meat"}], georgianIngredients: [{value:'#ხორცი',label:"#ხორცი"}]},
+        {id: uuidv4(), name: "Item 4",georgianName: "კერძი 4", price: 10, image: "../public/jason-leung-poI7DelFiVA-unsplash.jpg", description: "fsdfsd",georgianDescription: "ქართული აღწერა", ingredients: [{value:'#meat',label:"#meat"}], georgianIngredients: [{value:'#ხორცი',label:"#ხორცი"}]},
 
       ],
     },
@@ -28,10 +42,10 @@ export const LastStep1 = function ({ chooseStep, prevStep, nextStep,isParent,set
       title: "Main Courses",
       georgianTitle:'მთავარი კურსი',
       items: [
-        {id: uuidv4(), name: "dish 1",georgianName: "საჭმელი 1", price: 10, image: "../public/jason-leung-poI7DelFiVA-unsplash.jpg", description: "qweqw",georgianDescription: "ქართული აღწერა", ingredients: "sdfsd", georgianIngredients: "ქართული ინგრედიენტები"},
-        {id: uuidv4(), name: "dish 2",georgianName: "საჭმელი 2", price: 10, image: "../public/jason-leung-poI7DelFiVA-unsplash.jpg", description: "imompp",georgianDescription: "ქართული აღწერა", ingredients: "shjfgh", georgianIngredients: "ქართული ინგრედიენტები"},
-        {id: uuidv4(), name: "dish 3",georgianName: "საჭმელი 3", price: 10, image: "../public/jason-leung-poI7DelFiVA-unsplash.jpg", description: "imompp",georgianDescription: "ქართული აღწერა", ingredients: "shjfgh", georgianIngredients: "ქართული ინგრედიენტები"},
-        {id: uuidv4(), name: "dish 4",georgianName: "საჭმელი 4", price: 10, image: "../public/jason-leung-poI7DelFiVA-unsplash.jpg", description: "imompp",georgianDescription: "ქართული აღწერა", ingredients: "shjfgh", georgianIngredients: "ქართული ინგრედიენტები"},
+        {id: uuidv4(), name: "dish 1",georgianName: "საჭმელი 1", price: 10, image: "../public/jason-leung-poI7DelFiVA-unsplash.jpg", description: "qweqw",georgianDescription: "ქართული აღწერა", ingredients: [{value:'#meat',label:"#meat"}], georgianIngredients: [{value:'#ხორცი',label:"#ხორცი"}]},
+        {id: uuidv4(), name: "dish 2",georgianName: "საჭმელი 2", price: 10, image: "../public/jason-leung-poI7DelFiVA-unsplash.jpg", description: "imompp",georgianDescription: "ქართული აღწერა", ingredients: [{value:'#meat',label:"#meat"}], georgianIngredients: [{value:'#ხორცი',label:"#ხორცი"}]},
+        {id: uuidv4(), name: "dish 3",georgianName: "საჭმელი 3", price: 10, image: "../public/jason-leung-poI7DelFiVA-unsplash.jpg", description: "imompp",georgianDescription: "ქართული აღწერა", ingredients: [{value:'#meat',label:"#meat"}], georgianIngredients: [{value:'#ხორცი',label:"#ხორცი"}]},
+        {id: uuidv4(), name: "dish 4",georgianName: "საჭმელი 4", price: 10, image: "../public/jason-leung-poI7DelFiVA-unsplash.jpg", description: "imompp",georgianDescription: "ქართული აღწერა", ingredients: [{value:'#meat',label:"#meat"}], georgianIngredients: [{value:'#ხორცი',label:"#ხორცი"}]},
 
       ],
     },
@@ -39,16 +53,16 @@ export const LastStep1 = function ({ chooseStep, prevStep, nextStep,isParent,set
       title: "civebi",
       georgianTitle:'ცივები',
       items: [
-        {id: uuidv4(), name: "option 1",georgianName: "ოფცია 1", price: 10, image: "../public/jason-leung-poI7DelFiVA-unsplash.jpg", description: "qweqw",georgianDescription: "ქართული აღწერა", ingredients: "sdfsd", georgianIngredients: "ქართული ინგრედიენტები"},
-        {id: uuidv4(), name: "option 2",georgianName: "ოფცია 2", price: 10, image: "../public/jason-leung-poI7DelFiVA-unsplash.jpg", description: "imompp",georgianDescription: "ქართული აღწერა", ingredients: "shjfgh", georgianIngredients: "ქართული ინგრედიენტები"},
+        {id: uuidv4(), name: "option",georgianName: "ოფცია", price: 10, image: "../public/jason-leung-poI7DelFiVA-unsplash.jpg", description: "qweqw",georgianDescription: "ქართული აღწერა", ingredients: [{value:'#meat',label:"#meat"}], georgianIngredients: [{value:'#ხორცი',label:"#ხორცი"}]},
+        {id: uuidv4(), name: "option 2",georgianName: "ოფცია 2", price: 10, image: "../public/jason-leung-poI7DelFiVA-unsplash.jpg", description: "imompp",georgianDescription: "ქართული აღწერა", ingredients: [{value:'#meat',label:"#meat"}], georgianIngredients: [{value:'#ხორცი',label:"#ხორცი"}]},
       ],
     },
     {
       title: "cxelebi",
       georgianTitle:"ცხელები",
       items: [
-        {id: uuidv4(), name: "supe 1",georgianName: "სუპი 1", price: 10, image: "../public/jason-leung-poI7DelFiVA-unsplash.jpg", description: "qweqw",georgianDescription: "ქართული აღწერა", ingredients: "sdfsd", georgianIngredients: "ქართული ინგრედიენტები"},
-        {id: uuidv4(), name: "supe 2",georgianName: "სუპი 2", price: 10, image: "../public/jason-leung-poI7DelFiVA-unsplash.jpg", description: "imompp",georgianDescription: "ქართული აღწერა", ingredients: "shjfgh", georgianIngredients: "ქართული ინგრედიენტები"},
+        {id: uuidv4(), name: "supe 1",georgianName: "სუპი 1", price: 10, image: "../public/jason-leung-poI7DelFiVA-unsplash.jpg", description: "qweqw",georgianDescription: "ქართული აღწერა", ingredients: [{value:'#meat',label:"#meat"}], georgianIngredients: [{value:'#ხორცი',label:"#ხორცი"}]},
+        {id: uuidv4(), name: "supe 2",georgianName: "სუპი 2", price: 10, image: "../public/jason-leung-poI7DelFiVA-unsplash.jpg", description: "imompp",georgianDescription: "ქართული აღწერა", ingredients: [{value:'#meat',label:"#meat"}], georgianIngredients: [{value:'#ხორცი',label:"#ხორცი"}]},
       ],
     },
   
@@ -231,57 +245,57 @@ export const LastStep1 = function ({ chooseStep, prevStep, nextStep,isParent,set
     JSON.parse(localStorage.getItem("menuSections")) || [
       {
         title: "Appetizers",
-        georgianTitle: "Appetizers",
+        georgianTitle: "აპეტაიზერი",
         items: [
           {
             id: uuidv4(),
-            name: "Item 1",
-            georgianName: "Georgian Item 1", // Add Georgian Dish Name
-            price: "$10",
+            name: "Item 11",
+            georgianName: "ქართული სახელი 1", // Add Georgian Dish Name
+            price: 10,
             image: "",
             description: "sdfs",
-            georgianDescription: "Georgian Description 1", // Add Georgian Dish Description
-            ingredients: "sdfsdf",
-            georgianIngredients: "Georgian Ingredients 1", // Add Georgian Ingredients
+            georgianDescription: "ქართული აღწერა 1", // Add Georgian Dish Description
+            ingredients: [],
+            georgianIngredients: [], // Add ინგედიენტები ქართულად
           },
           {
             id: uuidv4(),
             name: "Item 2",
-            georgianName: "Georgian Item 2", // Add Georgian Dish Name
-            price: "$12",
+            georgianName: "ქართული სახელი 2", // Add Georgian Dish Name
+            price: 12,
             image: "",
             description: "fsdfsd",
-            georgianDescription: "Georgian Description 2", // Add Georgian Dish Description
-            ingredients: "dsfs",
-            georgianIngredients: "Georgian Ingredients 2", // Add Georgian Ingredients
+            georgianDescription: "ქართული აღწერა 2", // Add Georgian Dish Description
+            ingredients: [],
+            georgianIngredients: [], // Add ინგედიენტები ქართულად
           },
         ],
       },
       {
         title: "Main Courses",
-        georgianTitle: "Appetizers",
+        georgianTitle: "მთავარი კურსი",
         items: [
           {
             id: uuidv4(),
-            name: "Item 1",
-            georgianName: "Georgian Item 1", // Add Georgian Dish Name
-            price: "$20",
+            name: "Item 11",
+            georgianName: "ქართული სახელი 1", // Add Georgian Dish Name
+            price: 20,
             image: "",
             description: "qweqw",
-            georgianDescription: "Georgian Description 1", // Add Georgian Dish Description
-            ingredients: "sdfsd",
-            georgianIngredients: "Georgian Ingredients 1", // Add Georgian Ingredients
+            georgianDescription: "ქართული აღწერა 1", // Add Georgian Dish Description
+            ingredients: [],
+            georgianIngredients: [], // Add ინგედიენტები ქართულად
           },
           {
             id: uuidv4(),
             name: "Item 2",
-            georgianName: "Georgian Item 2", // Add Georgian Dish Name
-            price: "$18",
+            georgianName: "ქართული სახელი 2", // Add Georgian Dish Name
+            price: 28,
             image: "",
             description: "imompp",
-            georgianDescription: "Georgian Description 2", // Add Georgian Dish Description
-            ingredients: "shjfgh",
-            georgianIngredients: "Georgian Ingredients 2", // Add Georgian Ingredients
+            georgianDescription: "ქართული აღწერა 2", // Add Georgian Dish Description
+            ingredients: [],
+            georgianIngredients: [], // Add ინგედიენტები ქართულად
           },
         ],
       },
@@ -454,8 +468,8 @@ export const LastStep1 = function ({ chooseStep, prevStep, nextStep,isParent,set
       image: "",
       description: "",
       georgianDescription: "",
-      ingredients: "",
-      georgianIngredients: "",
+      ingredients: [],
+      georgianIngredients: []
     });
     setMenuSections(newMenuSections);
   };
@@ -522,7 +536,7 @@ export const LastStep1 = function ({ chooseStep, prevStep, nextStep,isParent,set
           newCombinedErrors[`itemDescription${sectionIndex}-${itemIndex}`] = `Section ${sectionIndex + 1}, Item ${itemIndex + 1}: Dish Description is required and must contain only English letters`;
         }
   
-        if (!item.ingredients || !englishLettersRegex.test(item.ingredients)) {
+        if (item.ingredients.length === 0 ) {
           newSimpleErrors[`itemIngredients${sectionIndex}-${itemIndex}`] = true;
           newCombinedErrors[`itemIngredients${sectionIndex}-${itemIndex}`] = `Section ${sectionIndex + 1}, Item ${itemIndex + 1}: Ingredients are required and must contain only English letters`;
         }
@@ -532,7 +546,7 @@ export const LastStep1 = function ({ chooseStep, prevStep, nextStep,isParent,set
           newCombinedErrors[`itemGeorgianName${sectionIndex}-${itemIndex}`] = `Section ${sectionIndex + 1}, Item ${itemIndex + 1}: Georgian Dish Name is required and must contain only Georgian letters`;
         }
   
-        if (!item.georgianIngredients || !georgianLettersRegex.test(item.georgianIngredients)) {
+        if (item.georgianIngredients.length === 0 ) {
           newSimpleErrors[`itemGeorgianIngredients${sectionIndex}-${itemIndex}`] = true;
           newCombinedErrors[`itemGeorgianIngredients${sectionIndex}-${itemIndex}`] = `Section ${sectionIndex + 1}, Item ${itemIndex + 1}: Georgian Ingredients are required and must contain only Georgian letters`;
         }
@@ -962,7 +976,29 @@ export const LastStep1 = function ({ chooseStep, prevStep, nextStep,isParent,set
 }
 <label htmlFor={`ingredients-${sectionIndex}-${itemIndex}`}>ingredients:</label>
 
-<textarea
+<Select
+        value={item.ingredients}
+        onChange={(selectedOption) =>
+          updateMenuItem(
+            sectionIndex,
+            itemIndex,
+            "ingredients",
+            selectedOption
+          )        } options={tagOptions}
+        isMulti
+        styles={{
+          control: (baseStyles, state) => ({
+            ...baseStyles,
+            color: 'red',
+            zIndex:1
+          }),
+        }}
+        id={`ingredients-${sectionIndex}-${itemIndex}`}
+
+      />
+
+
+{/* <textarea
   placeholder="Ingredients"
   value={item.ingredients}
   onChange={(e) =>
@@ -975,7 +1011,7 @@ export const LastStep1 = function ({ chooseStep, prevStep, nextStep,isParent,set
   }
   id={`ingredients-${sectionIndex}-${itemIndex}`}
   style={{ width: '100%', height: "60px" }} // You can adjust the width and height as needed
-/>
+/> */}
 {simpleErrors[`itemIngredients${sectionIndex}-${itemIndex}`] && 
   <div className="error-message">
     Ingredients are required
@@ -983,7 +1019,29 @@ export const LastStep1 = function ({ chooseStep, prevStep, nextStep,isParent,set
 }
 <label htmlFor={`GeorgianIngredients-${sectionIndex}-${itemIndex}`}>ინგრედიენტები ქართულად:</label>
 
-<textarea
+<Select
+        value={item.georgianIngredients}
+        onChange={(selectedOption) =>
+          updateMenuItem(
+            sectionIndex,
+            itemIndex,
+            "georgianIngredients",
+            selectedOption
+          )       } options={GeorgiantagOptions}
+        isMulti
+        styles={{
+          control: (baseStyles, state) => ({
+            ...baseStyles,
+            color: 'red',
+            zIndex:1
+          }),
+        }}
+        id={`GeorgianIngredients-${sectionIndex}-${itemIndex}`}
+
+      />
+
+
+{/* <textarea
   placeholder="ინგრედიენტები ქართულად"
   value={item.georgianIngredients}
   onChange={(e) =>
@@ -997,7 +1055,7 @@ export const LastStep1 = function ({ chooseStep, prevStep, nextStep,isParent,set
   }
   id={`GeorgianIngredients-${sectionIndex}-${itemIndex}`}
   style={{ width: "100%", height: "60px" }}
-/>
+/> */}
 {simpleErrors[`itemGeorgianIngredients${sectionIndex}-${itemIndex}`] && 
   <div className="error-message">
     Georgian Ingredients are required
@@ -1124,12 +1182,28 @@ export const LastStep1 = function ({ chooseStep, prevStep, nextStep,isParent,set
 }
 <label htmlFor={`ingredients-${sectionIndex}-${itemIndex}`}>ingredients:</label>
 
-<textarea
+<Select
+                        isMulti
+                        value={item.ingredients}
+                        options={item.ingredients}
+                        styles={{
+                          control: (baseStyles, state) => ({
+                            ...baseStyles,
+                            color: 'red',
+                            zIndex:1
+                          }),
+                        }}
+                        id={`ingredients-${sectionIndex}-${itemIndex}`}
+
+                        isDisabled
+                      />
+
+{/* <textarea
   placeholder="Ingredients"
   value={item.ingredients}
   disabled={true}
   style={{ width: '100%', height: "60px" }} // You can adjust the width and height as needed
-/>
+/> */}
 {simpleErrors[`itemIngredients${sectionIndex}-${itemIndex}`] && 
   <div className="error-message">
     Ingredients are required
@@ -1137,13 +1211,30 @@ export const LastStep1 = function ({ chooseStep, prevStep, nextStep,isParent,set
 }
 <label htmlFor={`GeorgianIngredients-${sectionIndex}-${itemIndex}`}>ინგრედიენტები ქართულად:</label>
 
-<textarea
+<Select
+                        isMulti
+                        value={item.georgianIngredients}
+                        options={item.georgianIngredients}
+                        styles={{
+                          control: (baseStyles, state) => ({
+                            ...baseStyles,
+                            color: 'red',
+                            zIndex:1
+                          }),
+                        }}
+                        id={`GeorgianIngredients-${sectionIndex}-${itemIndex}`}
+
+                        isDisabled
+                      />
+
+
+{/* <textarea
   placeholder="ინგრედიენტები ქართულად"
   value={item.georgianIngredients}
   id={`GeorgianIngredients-${sectionIndex}-${itemIndex}`}
   style={{ width: "100%", height: "60px" }}
   disabled={true}
-/>
+/> */}
 {simpleErrors[`itemGeorgianIngredients${sectionIndex}-${itemIndex}`] && 
   <div className="error-message">
     Georgian Ingredients are required
