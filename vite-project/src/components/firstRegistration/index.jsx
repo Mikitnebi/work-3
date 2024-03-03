@@ -180,7 +180,13 @@ const navigation = useNavigate()
             
 
         axios
-            .get("http://54.93.212.178/ListOfValue/citizenship-types")
+            .post("http://54.93.212.178/Anonymous/RestaurantIntro",{
+                businessNameGeo:date.name1,
+                businessNameEng:date.name,
+                phoneNumber:date.card+"",
+                emailAddress:date.email,
+                regionId:1
+            })
             .then(response =>{
                 console.log(response)
                 console.log('good');

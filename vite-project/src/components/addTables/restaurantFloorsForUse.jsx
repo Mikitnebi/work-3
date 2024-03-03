@@ -452,18 +452,13 @@ const RestaurantFloorForUse = ({ prevStep, nextStep }) => {
 
       </div> */}
 
-{/* <div style={{position:'absolute', left:'0%',top:'0px',display:'flex'}}>
-        <button style={{ width: '20%', height: '40px', margin: '10px' }} className="last-step-button1" onClick={(e) => prevStep()}>
-          Back
-        </button>
-        <button onClick={addFloor} className='addFloor'>Add Floor</button>
-        <button onClick={deleteFloor} className='deleteFloor'>Delete Floor</button>
+<div style={{position:'absolute', left:'0%',top:'0px',display:'flex'}}>
+
         <div style={{ display: 'flex', margin: '5px', height: '50px', width: '100px' }}>
           <FloorSelector floors={floors} currentFloorIndex={currentFloorIndex} onChange={setCurrentFloorIndex} />
         </div>
-        <button className='final-save' onClick={handleFinalSave}>Final Save</button>
 
-      </div> */}
+      </div>
 
       <Stage draggable={false} style={{ backgroundColor:'#6c5f5f', opacity:'0.8',  marginTop: '10%' }} width={700} height={400} onClick={handleStageClick}>
         <Layer>
