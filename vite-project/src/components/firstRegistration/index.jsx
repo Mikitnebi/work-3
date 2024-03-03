@@ -16,7 +16,7 @@ import { useNavigate } from 'react-router-dom'
 
   
 
-export const RegisterCompany = ({onClose,openPincode, setIsOpenPincode ,setInformation, }) =>{
+export const RegisterCompany = ({setIsLoginOrRegistration,onClose,openPincode, setIsOpenPincode ,setInformation, }) =>{
     const {dispatchUser,stateUser } = useContext(StoreContextRecipe);
     const [isLoading, setIsLoading] = useState(false);
 const navigation = useNavigate()
@@ -126,7 +126,7 @@ const navigation = useNavigate()
         checkbox: yup.boolean().oneOf([true], "You must accept the terms and conditions"),
         // checkbox1: yup.boolean(),
         // location:yup.string().max(30).required(),
-        card: yup.number().required(),
+        card: yup.number().typeError("Phone number must be a number").required("phone number is required"),
 
       });
     
@@ -141,57 +141,7 @@ const navigation = useNavigate()
     const onSubmit = (date) =>{
        
         setIsLoading(true)
-        dispatchUser({
-            type: "changeUserInformation",
-            propertyId: "isRegistered",
-            value: true
-        })
-        // setPast('company')
-        onClose()
-        openPincode(true);
-        setIsOpenPincode(true);
-        setInformation(true);
-        
-        dispatchUser({
-            type: "changeUserInformation",
-            propertyId: "password",
-            value: date.password
-        })
-         dispatchUser({
-                type: "changeUserInformation",
-                propertyId: "name",
-                value: date.name
-            })
-            dispatchUser({
-                type: "changeUserInformation",
-                propertyId: "name1",
-                value: date.name1
-            })
-            dispatchUser({
-                type: "changeUserInformation",
-                propertyId: "email",
-                value: date.email
-            })
-            dispatchUser({
-                type: "changeUserInformation",
-                propertyId: "number",
-                value: date.card
-            })
-            
-
-        // axios
-        //     .post("http://54.93.212.178/Restaurant/registration",
-        //     {
-        //         businessNameGeo:date.name1,
-        //         businessNameEng:date.name,
-        //         phoneNumber:date.card + "",
-        //         emailAddress:date.email,
-        //         regionId:1
-        //     })
-        //     .then(response =>{
-        //         console.log(response)
-                
-        //         dispatchUser({
+        // dispatchUser({
         //     type: "changeUserInformation",
         //     propertyId: "isRegistered",
         //     value: true
@@ -228,21 +178,67 @@ const navigation = useNavigate()
         //         value: date.card
         //     })
             
-        
-        //     })
-        //     .catch(error =>{
-        //         console.log(error);
-        //     })
-        //     .finally(() => {
-        //         setIsLoading(false);
+
+        axios
+            .get("http://54.93.212.178/ListOfValue/citizenship-types")
+            .then(response =>{
+                console.log(response)
+                console.log('good');
+
+                dispatchUser({
+            type: "changeUserInformation",
+            propertyId: "isRegistered",
+            value: true
+        })
+        // setPast('company')
+        onClose()
+        openPincode(true);
+        setIsOpenPincode(true);
+        setInformation(true);
+
+        dispatchUser({
+            type: "changeUserInformation",
+            propertyId: "password",
+            value: date.password
+        })
+         dispatchUser({
+                type: "changeUserInformation",
+                propertyId: "name",
+                value: date.name
+            })
+            dispatchUser({
+                type: "changeUserInformation",
+                propertyId: "name1",
+                value: date.name1
+            })
+            dispatchUser({
+                type: "changeUserInformation",
+                propertyId: "email",
+                value: date.email
+            })
+            dispatchUser({
+                type: "changeUserInformation",
+                propertyId: "number",
+                value: date.card
+            })
+            
+
+            })
+            .catch(error =>{
+                console.log(error);
+                console.log('error');
+
+            })
+            .finally(() => {
+                setIsLoading(false);
                 
-        //     });
+            });
        
 
+            onClose()
 
            
-            // // console.log(stateUser.name)
-            //         onClose()
+            // console.log(stateUser.name)
             // navigation('/home')
     }
 
@@ -258,11 +254,15 @@ const navigation = useNavigate()
     //     }
     //     if(type == "required"){
     //         return t("usernameRequired");
-    //     }
+    //     } 
     // }
     return (
    
     <div className="conteiner">
+        <div className='auth-name-register'>
+            <h3 >შექმენი შენი რესტორნის ანგარიში</h3>
+
+        </div>
 
         <form onSubmit={handleSubmit(onSubmit)} action="" className="form" id="form" >
             <div className="form-control">
@@ -279,7 +279,7 @@ const navigation = useNavigate()
             </div>
             
             <div className="form-control">
-                <label > email    <ion-icon name="at-outline"></ion-icon>
+                <label > email    <ion-icon name="mail-outline"></ion-icon>
                 <input type="email" id="email" placeholder="Enter your emali" {...register("email")}/>
                 </label>
                 <small>{errors.email?.message }</small>
@@ -348,6 +348,8 @@ const navigation = useNavigate()
                     "Register"
                 )}
             </button>        </form>
+            <img onClick={()=> setIsLoginOrRegistration(false)} className='logoRegistrationForRegistartion' src="../../../public/img/Group4.png" alt="Main Logo" />
+
     </div>
         
     )

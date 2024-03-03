@@ -2,7 +2,7 @@ import "./pin.css"
 import { yupResolver } from '@hookform/resolvers/yup'
 import * as yup from 'yup'
 import { useForm } from "react-hook-form"
-import { useContext } from "react"
+import { useContext, useEffect, useRef } from "react"
 import { StoreContextRecipe } from "../../App"
 import  { useState } from "react";
 import axios from "axios"
@@ -11,29 +11,42 @@ import { faSpinner } from '@fortawesome/free-solid-svg-icons'
 
 
 export const PinCode =({close,isPut, parent,setInformation}) =>{
-
     const [isLoading, setIsLoading] = useState(false);
-
-    const [isLoading1, setIsLoading1] = useState(false);
-
-    const [isError, setIsError] = useState(true);
-
-    const [isVerify, setIsVerify] = useState(false);
-
-
-    const [otp, setOtp] = useState(new Array(4).fill(""));
+  const [isLoading1, setIsLoading1] = useState(false);
+  const [isError, setIsError] = useState(true);
+  const [isVerify, setIsVerify] = useState(false);
+  const [otp, setOtp] = useState(new Array(4).fill(""));
+  const [timer, setTimer] = useState(180); // 3 minutes in seconds
+  const inputRefs = useRef([]);
 
     const handleChange = (element, index) => {
         if (isNaN(element.value)) return false;
-
+    
         setOtp([...otp.map((d, idx) => (idx === index ? element.value : d))]);
-
-        //Focus next input
-        if (element.nextSibling) {
-            element.nextSibling.focus();
+    
+        //Focus previous input if Backspace is pressed and current input is empty
+        if (element.value === "" && index > 0) {
+          inputRefs.current[index - 1].focus();
         }
-    };
-
+    
+        //Focus next input
+        if (element.nextSibling && element.value !== "") {
+          element.nextSibling.focus();
+        }
+      };
+    
+      const handleBackspace = (element, index) => {
+        //Focus previous input if Backspace is pressed and current input is empty
+        if (element.value === "" && index > 0) {
+          inputRefs.current[index - 1].focus();
+        }
+      };
+    
+      const handleKeyDown = (e, index) => {
+        if (e.key === "Backspace") {
+          handleBackspace(e.target, index);
+        }
+      };
 
     const {dispatchUser,stateUser,past } = useContext(StoreContextRecipe);
 
@@ -54,33 +67,35 @@ export const PinCode =({close,isPut, parent,setInformation}) =>{
 //    console.log(past)
     const onSubmit = (date) =>{
         setIsLoading(true);
-        setInformation(true);
-        close(false)
-        setIsVerify(true);
-        // axios.
-        //     post("http://3.66.89.33/Restaurant/intro-email-validation",{
-        //         email:stateUser.email,
-        //         otp:combineStrings(otp)+""
-        //     })
-        //     .then(response =>{
-        //         console.log(response);
-        //         setInformation(true);
-        //         close(false)
-        //         setIsVerify(true);
-        //     })
-        //     .catch(error =>{
-        //         console.log(error)
-        //         setIsError(false);
-        //         setOtp([...otp.map(v => "")])
-        //     })
-        //     .finally(() => {
-        //         setIsLoading(false);
-        //     });
+        // setInformation(true);
+        // close(false)
+        // setIsVerify(true);
+        axios.
+            post("http://3.66.89.33/Restaurant/intro-email-validation",{
+                email:stateUser.email,
+                otp:combineStrings(otp)+""
+            })
+            .then(response =>{
+                console.log(response);
+                setInformation(true);
+                close(false)
+                setIsVerify(true);
+            })
+            .catch(error =>{
+                console.log(error)
+                setIsError(false);
+                setOtp([...otp.map(v => "")])
+            })
+            .finally(() => {
+                setIsLoading(false);
+            });
         
     }
     
     const sendAgain = () =>{
         setIsLoading1(true)
+        setTimer(180);
+
         axios
         .post("http://3.66.89.33/Restaurant/registration",
         {
@@ -94,88 +109,100 @@ export const PinCode =({close,isPut, parent,setInformation}) =>{
             setIsLoading1(false);
         })
     }
-    return(
+
+    useEffect(() => {
+        const countdown = setInterval(() => {
+          setTimer(prevTimer => {
+            if (prevTimer > 0) {
+              return prevTimer - 1;
+            } else {
+              // Timer reached 0, do something here if needed
+              return prevTimer;
+            }
+          });
+        }, 1000);
+    
+        // Cleanup function to clear interval
+        return () => clearInterval(countdown);
+      }, []);
+    return (
         <>
-                <div className="text-center">  
-                    <h3>
-                        Enter Your Pincode Here
-                    </h3>
-                    <ion-icon size={'large'} name="arrow-down-outline"></ion-icon>
-                    <div className="input-div">
-                    {otp.map((data, index) => {
-                        return (
-                            <input
-                                className="otp-field"
-                                type="text"
-                                name="otp"
-                                maxLength="1"
-                                key={index}
-                                value={data}
-                                onChange={e => {handleChange(e.target, index); setIsError(true)}}
-                                onFocus={e => e.target.select()}
-                            />
-                        );
-                    })}
-                   </div> 
+          <div className="text-center">
+            <div className="pincodeTitle">
+            <img onClick={()=> setIsLoginOrRegistration(false)} className='logoInPincode' src="../../../public/img/Group4.png" alt="Main Logo" />
 
+                <h3>შეამოწმეთ თქვენი ელ-ფოსტა და</h3>
+                <h3>ჩაწერეთ მიღებული კოდი</h3>
+            </div>
+            {/* <ion-icon size={"large"} name="arrow-down-outline"></ion-icon> */}
+            <div className="input-div">
+              {otp.map((data, index) => {
+                return (
+                  <input
+                    className="otp-field"
+                    type="text"
+                    name="otp"
+                    maxLength="1"
+                    key={index}
+                    value={data}
+                    ref={(ref) => (inputRefs.current[index] = ref)}
+                    onChange={(e) => {
+                      handleChange(e.target, index);
+                      setIsError(true);
+                    }}
+                    onFocus={(e) => e.target.select()}
+                    onKeyDown={(e) => handleKeyDown(e, index)}
+                  />
+                );
+              })}
+            </div>
+            <div className="redFrame">
 
-                    <p>Pincode Entered - <span>{otp.join("")}</span></p>
-
-                        <h1 className="error-otp" style={isError ? {visibility:"hidden"} : {visibility: "visible"} }> 
-                            Wrong OTP, try again
-                        </h1>
-                        <h1 className="find">Can't find it ? <button disabled={isLoading1} className="send-again" onClick={(e) => sendAgain()}>
-                        {isLoading1 ? (
-                                <span>
-                                    <FontAwesomeIcon icon={faSpinner} spin /> Loading...
-                                </span>
-                            ) : (
-                                "Send it again"
-                            )}</button> </h1>
-                        <div className="button-div">
-                        <button
-                            className="btn-pincode-clear"
-                            onClick={e => {setOtp([...otp.map(v => "")]); setIsError(true)}}
-                        >
-                            Clear
-                        </button>
-                        <button
-                            type="submit"
-                            className="btn-pincode"
-                            onClick={() =>
-                                onSubmit()
-                            }
-                            disabled={isLoading}
-                        >
-                            {isLoading ? (
-                                <span>
-                                    <FontAwesomeIcon icon={faSpinner} spin /> Loading...
-                                </span>
-                            ) : (
-                                "Verify OTP"
-                            )}
-                        </button>
-                        </div>
-                        
-                </div> 
+            </div>
+    
+            <div className="button-div1">
+            <div className={timer === 0 ? "redFrame1" : "timer"}>
+          კოდი ვალიდურია - {timer === 0 ? "Time's up!" : `${Math.floor(timer / 60)}:${timer % 60 < 10 ? `0${timer % 60}` : timer % 60}`}
+        </div>
+<button
+  type="submit"
+  className="btn-pincode1"
+  onClick={(e) => onSubmit()}
+  disabled={isLoading}
+>
+  {isLoading ? (
+    <span style={{color:"#ffffff"}}>
+      <FontAwesomeIcon icon={faSpinner} spin /> Loading...
+    </span>
+  ) : (
+    "გაგზავნა"
+  )}
+</button>
+</div>
+    
+ 
+            <div className="button-div">
+           
+              <p className="cantFindIt">არ მოგსვლიათ კოდი?</p>
+              <button
+                type="submit"
+                className="btn-pincode"
+                onClick={(e) => sendAgain()}
+                disabled={isLoading1}
+              >
+                {isLoading1 ? (
+                  <span style={{color:"#ffffff"}}>
+                    <FontAwesomeIcon icon={faSpinner} spin /> Loading...
+                  </span>
+                ) : (
+                  "სცადეთ თავიდან"
+                )}
+              </button>
+            </div>
+          </div>
         </>
-    //     <>
-    //    <div className="pin-container">
-    //    <h3 className="pin-h3">Enter Pin Code</h3>
-
-    //     <form onSubmit={handleSubmit(onSubmit)} action=""  id="form" className="">
-    //         <div className="pin-div">
-                
-    //             <input  type="number" id="pin" placeholder="Enter Pin Code..."   {...register("pin")}/>
-    //             <small>{errors.pin?.message}</small>
-    //         </div>
-    //         <button type="submit">Submit</button>
-    //     </form>
-    //    </div>
-    //    </>
-       
-    )
-}
+      );
+    };
 
 
 

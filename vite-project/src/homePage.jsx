@@ -27,6 +27,7 @@ import AboutUs from './components/about/aboutUs';
 import Cities from './components/cities/cities';
 import Packages from './components/packages';
 import Footer from './components/footer';
+import { MainLogin } from './components/enter/login';
 
 export default function HomePage() {
   const navigation = useNavigate();
@@ -122,6 +123,8 @@ export default function HomePage() {
       };
     }
   }, [animationClass]);
+
+  const [isLoginOrRegistration, setIsLoginOrRegistration] = useState(false)
 
   return (
     <>
@@ -307,9 +310,13 @@ export default function HomePage() {
           }
         </LoginModal>
 
-        <RegistrationModal open={isOpenRegistration} onClose={() => setIsOpenRegistration(false)}>
+        <RegistrationModal setIsLoginOrRegistration={setIsLoginOrRegistration} open={isOpenRegistration} onClose={() => setIsOpenRegistration(false)}>
+
           {
-            <RegisterCompany openPincode={setIsOpenPincode} onClose={() => setIsOpenRegistration(false)} />
+            !isLoginOrRegistration ?
+            <MainLogin setIsLoginOrRegistration={setIsLoginOrRegistration} openPincode={setIsOpenPincode} onClose={() => setIsOpenRegistration(false)} />
+            :
+            <RegisterCompany  setIsLoginOrRegistration={setIsLoginOrRegistration} openPincode={setIsOpenPincode} onClose={() => setIsOpenRegistration(false)}/>
           }
         </RegistrationModal>
 

@@ -4,7 +4,7 @@
 
 }
 ion-icon{
-    color: blue;
+    color: #8C1D2F;
   }
 .enter-box{
     position: absolute;
@@ -52,11 +52,11 @@ ion-icon{
 
 
 .form-control small{
-    color: red;
+    color: #f50830;
     position: absolute;
     bottom: 2%;
     left: 0;
-    font-size: 12px;
+    font-size: 13px;
 }
 
 .form button{
@@ -80,14 +80,12 @@ ion-icon{
 
 .form-control1 label{
     color: #0075fb;
-    display: block;
-    margin-bottom: 5px;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    width: 190px;
     font-size: 14px;
-    
+    width: 102%;
+    color: #8C1D2F;
 }
 .enter-span{
     cursor: pointer;
@@ -101,10 +99,8 @@ ion-icon{
     left: 90%;
 }
 .password-forgot{
-    color: #2100fb;
-    position: absolute;
-    top: 60%;
-    left: 62%;
+    color: #8C1D2F;
+
     cursor: pointer;
     font-size: 13px;
 }
