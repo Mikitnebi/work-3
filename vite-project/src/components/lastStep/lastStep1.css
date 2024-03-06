@@ -1,9 +1,14 @@
+@font-face {
+  font-family: 'YourCustomFont';
+  src: url('../../../public/fonts/bpg_nino_mtavruli_bold.ttf') format('truetype');
+}
+
 .last-step1 {
      display: flex;
   flex-direction: column; 
     /* align-items: center;   */
     margin-top: 20px;
-    border: 2px grey solid;
+    border: 0.5px grey solid;
     padding: 20px;
     min-height: 100%;
     width: 100%;
@@ -17,7 +22,7 @@
   }
   
   .last-step1::-webkit-scrollbar-thumb {
-    background-color: #3498db; 
+    background-color: #53111c; 
     border-radius: 2px;
   }
   
@@ -27,24 +32,28 @@
 
   
   .last-step-button1 {
-    background-color: #e74c3c;
-    color: #fff;
-    border: none;
+    background-color: transparent;
+    color: black;
+    border: 1px solid #8C1D2F;
+    border-radius: 5px;
+
     padding: 10px 20px;
     cursor: pointer;
     font-size: 16px;
     margin-bottom: 20px;
-
+font-family: "YourCustomFont";
   }
   
   .add-section-button {
-    background-color: #27ae60;
-    color: #fff;
-    border: none;
+    background-color: transparent;
+    color: black;
+    border: 1px solid #8C1D2F;
+    border-radius: 5px;
     padding: 10px 20px;
     margin-bottom: 20px;
     cursor: pointer;
     font-size: 16px;
+    font-family: "YourCustomFont";
   }
 
   .menu-grid {
@@ -61,7 +70,7 @@ list-style: none;
  .error-message{
   color: red;
   font-size: 15px;
-  margin-top: -5px;
+  margin-top: 0px;
  }
  .error-message1{
   color: red;
@@ -71,15 +80,7 @@ list-style: none;
   margin-top: 5px;
   padding: 5px;
  }
- .final-save-button1{
-  background-color: #a723a1;
-    color: #fff;
-    border: none;
-    padding: 10px 20px;
-    cursor: pointer;
-    font-size: 16px;
-    margin-bottom: 20px;
- }
+
  .error-message2{
   color: red;
   font-size: 15px;
@@ -106,7 +107,7 @@ list-style: none;
   
   .menu-item {
     border-radius: 5px;
-    border: 1px solid #9e9c96;
+    border: 0.5px solid #bd959c;
     padding: 10px;
     margin-bottom: 10px;
     
@@ -126,7 +127,7 @@ list-style: none;
   }
   
   .delete-item-button {
-    background-color: #e74c3c;
+    background-color: #8C1D2F;
     color: #fff;
     border: none;
     padding: 5px 10px;
@@ -135,16 +136,20 @@ list-style: none;
   }
   
   .add-item-button {
-    background-color: #27ae60;
-    color: #fff;
-    border: none;
+    background-color: transparent;
+    border: 1px solid #8C1D2F;
+    color: black;
     padding: 5px 10px;
     cursor: pointer;
     align-self: flex-end;
+    border-radius: 5px;
+    margin-right: 2%;
+    
+
   }
   
   .delete-section-button {
-    background-color: #e74c3c;
+    background-color: #8C1D2F;
     color: #fff;
     border: none;
     padding: 5px 10px;
@@ -166,13 +171,15 @@ list-style: none;
   margin-bottom: 20px;
 }
 .final-save-button{
-  background-color: #203ed6;
-    color: #fff;
-    border: none;
-    padding: 10px 20px;
-    cursor: pointer;
-    font-size: 16px;
-    margin-bottom: 20px;
+  background-color: transparent;
+  color: black;
+  border: 1px solid #8C1D2F;
+  border-radius: 5px;
+  padding: 10px 20px;
+  margin-bottom: 20px;
+  cursor: pointer;
+  font-size: 16px;
+  font-family: "YourCustomFont";
 }
 .menu-flex1{
   
@@ -190,12 +197,10 @@ list-style: none;
 }
 
 
-
   
-  .add-item-button,
   .delete-item-button,
   .delete-section-button {
-    background-color: #dc3545;
+    background-color: #8C1D2F;
     color: white;
     border: none;
     padding: 5px 10px;
@@ -204,15 +209,18 @@ list-style: none;
     margin-right: 5px;
   }
   
-  .add-item-button {
-    background-color: #28a745;
-  }
+
   
   .add-item-button:hover,
   .delete-item-button:hover,
   .delete-section-button:hover,
-  .add-section-button:hover {
-    background-color: #c82333;
+  .add-section-button:hover,
+  .last-step-button1:hover,
+  .final-save-button:hover {
+    transform: scale(1.05);
+    transition: 0.3s;
+    background-color: #8C1D2F;
+    color: white;
   }
   
   .delete-item-button {

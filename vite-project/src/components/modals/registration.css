@@ -12,7 +12,7 @@
 }
 .modal-styles{
     width: 50%;
-    height: 85%;
+    height: 90%;
     position: fixed;
     top: 50%;
     left: 50%;
@@ -34,7 +34,7 @@
   }
   
   .modal-styles::-webkit-scrollbar-thumb {
-    background-color: #3498db; 
+    background-color: #53111c; 
   }
   
   .modal-styles::-webkit-scrollbar-track {

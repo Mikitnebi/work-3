@@ -22,16 +22,24 @@ const RestaurantFloor = ({ prevStep, nextStep }) => {
     selectedTag: null,
     width: 0,
     height: 0,
+    type: ""
   });
 
 
   const currentFloor = floors[currentFloorIndex];
   const shapes = currentFloor.shapes;
+  const [draggingStates, setDraggingStates] = useState(Array.from({ length: shapes.length }, () => false));
 
   const handleStageClick = (e) => {
     if (e && e.target) {
       const clickedShape = e.target;
       // Check if a shape is clicked
+      console.log(clickedShape)
+
+      if(clickedShape.attrs.x == 0 || clickedShape.attrs.x == 0){
+        setSelectedShapeIndex(null);
+
+      } else
       if (
         clickedShape &&
         (clickedShape.className === 'Rect' || clickedShape.className === 'Circle' || clickedShape.className === 'Text')
@@ -39,13 +47,13 @@ const RestaurantFloor = ({ prevStep, nextStep }) => {
         const shapeIndex = shapes.findIndex((shape) => shape.id === clickedShape.id());
         if (shapeIndex !== -1) {
           setSelectedShapeDetails({
-            tableNumber: `Table ${shapeIndex + 1}`,
-            maxPeopleAmount: shapes[index].maxPeopleAmount || '',
-            minPeopleAmount: shapes[index].minPeopleAmount || '',
+            tableNumber: shapes[shapeIndex].tableNumber || '',
+            maxPeopleAmount: shapes[shapeIndex].maxPeopleAmount || '',
+            minPeopleAmount: shapes[shapeIndex].minPeopleAmount || '',
             selectedTag: shapes[shapeIndex].selectedTag || null,
-            width: shapes[index].width || '',
-            height: shapes[index].height || '',
-
+            width: shapes[shapeIndex].width || '',
+            height: shapes[shapeIndex].height || '',
+            type: shapes[shapeIndex].type || ''
           });
           setSelectedShapeIndex(shapeIndex);
         }
@@ -54,6 +62,7 @@ const RestaurantFloor = ({ prevStep, nextStep }) => {
       }
     }
   };
+  
 
   const addShape = (shapeType) => {
     let newShape;
@@ -65,8 +74,9 @@ const RestaurantFloor = ({ prevStep, nextStep }) => {
           type: 'rectangle',
           x: 50,
           y: 50,
-          width: 85,
-          height: 50,
+          width: 130,
+          height: 120,
+
         };
         break;
 
@@ -76,8 +86,9 @@ const RestaurantFloor = ({ prevStep, nextStep }) => {
           type: 'circle',
           x: 50,
           y: 50,
-          width: 70,
-          height: 70,        };
+          width: 140,
+          height: 120, 
+        };
         break;
 
       case 'square':
@@ -86,8 +97,21 @@ const RestaurantFloor = ({ prevStep, nextStep }) => {
           type: 'square',
           x: 50,
           y: 50,
-          width: 50,
-          height: 50,
+          width: 140,
+          height: 120, 
+
+        };
+        break;
+
+        case 'ladder':
+        newShape = {
+          id: uuidv4(),
+          type: 'ladder',
+          x: 50,
+          y: 50,
+          width: 140,
+          height: 120, 
+
         };
         break;
 
@@ -128,10 +152,20 @@ const RestaurantFloor = ({ prevStep, nextStep }) => {
       selectedTag: null,
       width: 0,
       height: 0,
+      type: ''
     });
   };
-
+  const handleShapeDragStart = (index) => {
+    const updatedDraggingStates = [...draggingStates];
+    updatedDraggingStates[index] = true;
+    setDraggingStates(updatedDraggingStates);
+  };
   const handleShapeDragEnd = (index, newProps) => {
+    const updatedDraggingStates = [...draggingStates];
+    updatedDraggingStates[index] = false;
+    setDraggingStates(updatedDraggingStates);
+
+
     const newShapes = shapes.slice();
     newShapes[index] = { ...newShapes[index], ...newProps };
     setFloors((prevFloors) => {
@@ -151,6 +185,7 @@ const RestaurantFloor = ({ prevStep, nextStep }) => {
       selectedTag: shape.selectedTag || null,
       width: shape.width || 0, // Set default width
       height: shape.height || 0, // Set default height
+      type: shape.type || ''
     });
     
   };
@@ -181,7 +216,7 @@ const RestaurantFloor = ({ prevStep, nextStep }) => {
     }
   };
   const handleSaveTable = () => {
-    const { tableNumber, maxPeopleAmount, minPeopleAmount, selectedTag, width, height } = selectedShapeDetails;
+    const { tableNumber, maxPeopleAmount, minPeopleAmount, selectedTag, width, height,type } = selectedShapeDetails;
   
     const currentShape = shapes[selectedShapeIndex];
   
@@ -229,6 +264,7 @@ const RestaurantFloor = ({ prevStep, nextStep }) => {
           selectedTag,
           width,
           height,
+          type
         };
       }
       return shape;
@@ -271,7 +307,7 @@ const RestaurantFloor = ({ prevStep, nextStep }) => {
     setCurrentFloorIndex(floors.length); // Switch to the newly added floor
   };
   const FloorSelector = ({ floors, currentFloorIndex, onChange }) => (
-    <select value={currentFloorIndex} onChange={(e) => onChange(parseInt(e.target.value))}>
+    <select style={{borderWidth:'2px', borderRadius:'20px',width:'90%',backgroundColor:'#C6B0B4',color:'#8C1D2F'}} value={currentFloorIndex} onChange={(e) => onChange(parseInt(e.target.value))}>
       {floors.map((floor, index) => (
         <option key={floor.id} value={index}>
           Floor {index + 1}
@@ -298,7 +334,7 @@ const RestaurantFloor = ({ prevStep, nextStep }) => {
         <Line
           key={`gridLineX${i}`}
           points={[i * gridSize, 0, i * gridSize, 600]}
-          stroke="#ddd"
+          stroke="#41b6e6"
           strokeWidth={1}
         />
       );
@@ -309,7 +345,7 @@ const RestaurantFloor = ({ prevStep, nextStep }) => {
         <Line
           key={`gridLineY${j}`}
           points={[0, j * gridSize, 800, j * gridSize]}
-          stroke="#ddd"
+          stroke="#41b6e6"
           strokeWidth={1}
         />
       );
@@ -324,12 +360,12 @@ const RestaurantFloor = ({ prevStep, nextStep }) => {
       const { x, y, type, tableNumber } = shape;
       let width =shape?.width
       let height = shape?.height
-      if (tableNumber) {
+      if (tableNumber && shape.type != 'ladder') {
         return (
           <Text
             key={`tableNumber${index}`}
-            x={x + (type === 'circle' ? width/2.5 : width/2.5)}  // Adjust position based on shape type
-            y={y - (type === 'circle' ? -height/2.5 : -height/2.5)}
+            x={x + (type === 'circle' ? width/2.1 : type === "square" ? width/2 : width/2.1 )}  // Adjust position based on shape type
+            y={y - (type === 'circle' ? -height/2.2 :  type === "square" ? -height/2.2 : -height/2)}
             text={tableNumber}
             fontSize={14}
             fill={isSelected ? 'white' : 'white'}
@@ -356,6 +392,7 @@ const RestaurantFloor = ({ prevStep, nextStep }) => {
       selectedTag: shape.selectedTag || null,
       width: shape.width || 0, // Set default width
       height: shape.height || 0, // Set default height
+      type: shape.type || ''
     });
     
   };
@@ -373,8 +410,10 @@ const RestaurantFloor = ({ prevStep, nextStep }) => {
 
   const handleFinalSave = () => {
     // Check if any table is left with no details
-    const tableWithoutDetails = shapes.find((shape) => !shape.tableNumber || !shape.maxPeopleAmount || !shape.selectedTag || !shape.minPeopleAmount);
-  
+    const tableWithoutDetails = shapes.find((shape) => 
+    (shape.type !== "ladder") && // Exclude shapes with type "ladder"
+    (!shape.tableNumber || !shape.maxPeopleAmount || !shape.selectedTag || !shape.minPeopleAmount)
+  );  
     if (tableWithoutDetails) {
       alert('Please fill in all details for each table.');
       return;
@@ -427,6 +466,7 @@ const RestaurantFloor = ({ prevStep, nextStep }) => {
         selectedTag: shape?.selectedTag || null,
         width: shape?.width || 0, // Set default width
         height: shape?.height || 0, // Set default height
+        type: shape?.type || ''
       });
       
     }
@@ -436,38 +476,74 @@ const RestaurantFloor = ({ prevStep, nextStep }) => {
   const backgroundImage = new Image();
   const backgroundImage1 = new Image();
   const backgroundImage2 = new Image();
+  const backgroundImage3 = new Image();
+  backgroundImage3.src = '../../../public/stairs1.png';
 
-  backgroundImage.src = '../../../public/img/sdasdasd.jpg';
-  backgroundImage1.src = '../../../public/img/asdgwef.jpg';
-  backgroundImage2.src = '../../../public/img/circle.jpg';
+  const yourBackgroundImage = new Image();
+  const yourBackgroundImage1 = new Image();
 
+  yourBackgroundImage.src = '../../../public/floor.png';
+  yourBackgroundImage1.src = '../../../public/Untitled-1.png';
 
+  backgroundImage.src = '../../../public/light33.png';
+  backgroundImage1.src = '../../../public/light21.png';
+  backgroundImage2.src = '../../../public/Rectangle70.png';
+console.log(selectedShapeDetails)
   return (
     <div id="restaurant-floor">
-      <div style={{ display: 'flex', margin: '5px' }}>
-        <button className='rectangle1' onClick={() => addShape('rectangle')}></button>
-        <button className='circle1' onClick={() => addShape('circle')}></button>
-        <button className='square1' onClick={() => addShape('square')}></button>
+      <div style={{ display: 'flex', margin: '5px',alignItems:'center' }}>
+        <img className='rectangle1' onClick={() => addShape('rectangle')} src="../../../public/light33.png" alt="" />
+        <img className='circle1' onClick={() => addShape('circle')} src="../../../public/Rectangle70.png" alt="" />
+        <img className='square1' onClick={() => addShape('square')} src="../../../public/light21.png" alt="" />
+
+        <img className='square1' onClick={() => addShape('ladder')} src="../../../public/stairs1.png" alt="" />
 
       </div>
 
-      <div style={{ position: 'fixed', right: '10%', top: '10px', display: 'flex' }}>
-        <button style={{ width: '20%', height: '40px', margin: '10px' }} className="last-step-button1" onClick={(e) => prevStep()}>
+      <div style={{ position: 'fixed', right: '0%', top: '3%', display: 'flex',width:'50%' }}>
+        {/* <button style={{ width: '20%', height: '40px', margin: '10px' }} className="last-step-button1" onClick={(e) => prevStep()}>
           Back
-        </button>
+        </button> */}
         <button onClick={addFloor} className='addFloor'>Add Floor</button>
         <button onClick={deleteFloor} className='deleteFloor'>Delete Floor</button>
-        <div style={{ display: 'flex', margin: '5px', height: '50px', width: '100px' }}>
+        <div style={{ display: 'flex', margin: '5px', height: '20%', width: '20%' }}>
           <FloorSelector floors={floors} currentFloorIndex={currentFloorIndex} onChange={setCurrentFloorIndex} />
         </div>
-        <button className='final-save' onClick={handleFinalSave}>Final Save</button>
+        {/* <button className='final-save' onClick={handleFinalSave}>Final Save</button> */}
 
       </div>
 
-      <Stage style={{ position: "absolute", left: '10%', marginTop: '10%' }} width={700} height={400} onClick={handleStageClick} onTouchEnd={handleStageClick}>
+      <Stage style={{ position: "absolute", left: '0%', marginTop: '0%', }}  backgroundImage={backgroundImage} width={700} height={500} onClick={handleStageClick} onTouchEnd={handleStageClick}>
         <Layer>
-          {renderGrid()}
+          {/* {renderGrid()} */}
+          {currentFloorIndex === 0 && (  // Render this background image for the first floor
+      <Rect
+      key={-344}
+        x={0}
+        y={0}
+        width={700} // Width of the stage
+        height={500} // Height of the stage
+        fillPatternImage={yourBackgroundImage} // Your background image
+        fillPatternScaleX={0.72} // Scale the image to fit the stage width
+        fillPatternScaleY={0.75} // Scale the image to fit the stage height
+        fillPatternRepeat="no-repeat" // Prevent the image from repeating
+      />
+    )}
 
+    {currentFloorIndex !== 0 && (  // Render this background image for other floors
+      <Rect
+      key={-345}
+
+        x={0}
+        y={0}
+        width={700} // Width of the stage
+        height={500} // Height of the stage
+        fillPatternImage={yourBackgroundImage1} // Other background image
+        fillPatternScaleX={0.24} // Scale the image to fit the stage width
+        fillPatternScaleY={0.28} // Scale the image to fit the stage height
+        fillPatternRepeat="no-repeat" // Prevent the image from repeating
+      />
+    )}
           {shapes.map((shape, index) => {
             const isSelected = index === selectedShapeIndex;
             return (
@@ -480,28 +556,35 @@ const RestaurantFloor = ({ prevStep, nextStep }) => {
                   onTouchStart={() => handleShapeClick(index)}
                   onTouchEnd={(e) => handleShapeDragEnd(index, e.target.position())}
                   onDragEnd={(e) => handleShapeDragEnd(index, e.target.position())}
-                  stroke={isSelected ? 'blue' : 'black'}
                   cornerRadius={10} // Set the border radius to 10px
+                  stroke={!draggingStates[index] ? null : 'black'} // Use individual dragging state
+                  onDragStart={() => handleShapeDragStart(index)} // Pass the index to identify the shape
+                  strokeWidth={0.5} // Set the stroke width to 2px, adjust as needed
+
                   fillPatternImage={backgroundImage}
-                  fillPatternScaleX={shape.width/2500} // djust as needed
-                  fillPatternScaleY={shape.height / 2500}
+                  fillPatternScaleX={shape.width/180} // djust as needed
+                  fillPatternScaleY={shape.height / 180}
                   fillPatternRepeat="no-repeat" // Prevent the image from repeating 
                   />
                 )}
 
                 {shape.type === 'circle' && (
                   <Rect
-                    {...shape}
+                    {...shape} 
                     draggable
                     onClick={() => handleShapeClick(index)}
                     onTouchStart={() => handleShapeClick(index)}
                     onTouchEnd={(e) => handleShapeDragEnd(index, e.target.position())}
                     onDragEnd={(e) => handleShapeDragEnd(index, e.target.position())}
-                    stroke={isSelected ? 'blue' : 'black'}
                     cornerRadius={10} // Set the border radius to 10px
+                    stroke={!draggingStates[index] ? null : 'black'} // Use individual dragging state
+                    onDragStart={() => handleShapeDragStart(index)} // Pass the index to identify the shape
+                    strokeWidth={0.5} // Set the stroke width to 2px, adjust as needed
+
+
                     fillPatternImage={backgroundImage2}
-                    fillPatternScaleX={shape.width/1400} // djust as needed
-                    fillPatternScaleY={shape.height/1400}
+                    fillPatternScaleX={shape.width/180} // djust as needed
+                    fillPatternScaleY={shape.height/120}
                     fillPatternRepeat="no-repeat" // Prevent the image from repeating 
                   />
                 )}
@@ -514,11 +597,35 @@ const RestaurantFloor = ({ prevStep, nextStep }) => {
                     onTouchStart={() => handleShapeClick(index)}
                     onTouchEnd={(e) => handleShapeDragEnd(index, e.target.position())}
                     onDragEnd={(e) => handleShapeDragEnd(index, e.target.position())}
-                    stroke={isSelected ? 'blue' : 'black'}
                     cornerRadius={10} // Set the border radius to 10px
                     fillPatternImage={backgroundImage1}
-                    fillPatternScaleX={shape.width/1200} // Adjust as needed
-                    fillPatternScaleY={shape.height/1200}
+                    stroke={!draggingStates[index] ? null : 'black'} // Use individual dragging state
+                    onDragStart={() => handleShapeDragStart(index)} // Pass the index to identify the shape
+                    strokeWidth={0.5} // Set the stroke width to 2px, adjust as needed
+
+                    fillPatternScaleX={shape.width/230} // Adjust as needed
+                    fillPatternScaleY={shape.height/160}
+                    fillPatternRepeat="no-repeat" // Prevent the image from repeating 
+                  />
+                )}
+
+
+              {shape.type === 'ladder' && (
+                  <Rect
+                    {...shape}
+                    draggable
+                    onClick={() => handleShapeClick(index)}
+                    onTouchStart={() => handleShapeClick(index)}
+                    onTouchEnd={(e) => handleShapeDragEnd(index, e.target.position())}
+                    onDragEnd={(e) => handleShapeDragEnd(index, e.target.position())}
+                    cornerRadius={10} // Set the border radius to 10px
+                    fillPatternImage={backgroundImage3}
+                    stroke={!draggingStates[index] ? null : 'black'} // Use individual dragging state
+                    onDragStart={() => handleShapeDragStart(index)} // Pass the index to identify the shape
+                    strokeWidth={0.5} // Set the stroke width to 2px, adjust as needed
+
+                    fillPatternScaleX={shape.width/200} // Adjust as needed
+                    fillPatternScaleY={shape.height/180}
                     fillPatternRepeat="no-repeat" // Prevent the image from repeating 
                   />
                 )}
@@ -540,12 +647,18 @@ const RestaurantFloor = ({ prevStep, nextStep }) => {
               </React.Fragment>
             );
           })}
-          {renderTableNumbers()}
+          { renderTableNumbers()}
         </Layer>
       </Stage>
       {selectedShapeIndex !== null && (
+        
+          
+        
   <div className="details-form">
-    <label>
+    {
+                selectedShapeDetails.type != 'ladder' ?
+        <>
+         <label style={{color:"#8C1D2F",fontSize:'20px',fontWeight:'400'}}>
       Table Number:
       <input
         type="number"
@@ -569,7 +682,7 @@ const RestaurantFloor = ({ prevStep, nextStep }) => {
         onChange={(e) => handleTableDetailsChange('minPeopleAmount', e.target.value)}
       />
     </label>
-    <label style={{ maxWidth: '300px' }}>
+    <label style={{display:'flex',flexDirection:'column', width:'100%' ,alignItems:'flex-start' }}>
       Table Tag:
       <Select
         value={selectedShapeDetails.selectedTag}
@@ -580,12 +693,30 @@ const RestaurantFloor = ({ prevStep, nextStep }) => {
         styles={{
           control: (baseStyles, state) => ({
             ...baseStyles,
-            color: 'red'
+            color: 'red',
+            borderColor: state.isFocused ? null : '#8C1D2F',
+        
+            width:'400px',
+            backgroundColor:"#D9D9D9"
           }),
+          multiValue: (baseStyles) => ({
+            ...baseStyles,
+            backgroundColor: '#C6B0B4', // Set the background color for added tags
+          }),
+          dropdownIndicator: (baseStyles, state) => ({
+            ...baseStyles,
+            color: state.isFocused ? '#8C1D2F' : '#8C1D2F', // Change the color when focused
+          }),
+      
         }}
       />
     </label>
-    <label>
+    
+        </> : <></>
+    }
+   
+    <div style={{ width:'100%', display:'flex' , justifyContent:'space-between'}}>
+    <label style={{alignItems:'flex-start', width:'45%', display:'flex',flexDirection:'column'}}>
       Width:
       <input
         type="number"
@@ -593,7 +724,7 @@ const RestaurantFloor = ({ prevStep, nextStep }) => {
         onChange={(e) => handleTableDetailsChange('width', e.target.value)}
       />
     </label>
-    <label>
+    <label style={{alignItems:'flex-start', width:'45%', display:'flex',flexDirection:'column' }}>
       Height:
       <input
         type="number"
@@ -601,17 +732,37 @@ const RestaurantFloor = ({ prevStep, nextStep }) => {
         onChange={(e) => handleTableDetailsChange('height', e.target.value)}
       />
     </label>
-    <button onClick={handleSaveTable}>Save Table</button>
-    <button onClick={handleCancelTable}>Cancel</button>
-    <button onClick={handleDeleteTable}>Delete Table</button>
+    </div>
+    {
+                      selectedShapeDetails.type != 'ladder' ?
+<>
+<button  className='button-details button1' onClick={handleSaveTable}>Save Table</button>
+    <button  className='button-details button2' onClick={handleCancelTable}>Cancel</button>
+    <button  className='button-details button3' onClick={handleDeleteTable}>Delete Table</button>
+    </> 
+    :
+    <div style={{display:'flex', width:'100%', justifyContent:'space-between'}}>
+<button style={{ width:'30%'}} className='button-details button1' onClick={handleSaveTable}>Save ladder</button>
+    <button style={{ width:'30%'}} className='button-details button2' onClick={handleCancelTable}>Cancel</button>
+    <button style={{ width:'30%'}} className='button-details button3' onClick={handleDeleteTable}>Delete ladder</button>
+    </div>
+    }
+
+    
   </div>
 )}
+<div className='tablesLastDiv'>
+<button onClick={(e) => prevStep()} className='addFloor1'>უკან</button>
+<img style={{width:'5%'}} src="../../../public/img/Group4.png" alt="Main Logo" />
+
+<button onClick={handleFinalSave} className='addFloor1'>შემდეგი</button>
+
+</div>
     </div>
   );
 };
 
 export default RestaurantFloor;
-
 
 
 

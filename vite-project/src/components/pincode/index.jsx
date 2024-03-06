@@ -71,7 +71,7 @@ export const PinCode =({close,isPut, parent,setInformation}) =>{
         // close(false)
         // setIsVerify(true);
         axios.
-            post("http://3.66.89.33/Restaurant/intro-email-validation",{
+            post("http://54.93.212.178/Anonymous/RestaurantIntro/VerifyOtp/Email",{
                 email:stateUser.email,
                 otp:combineStrings(otp)+""
             })
@@ -97,7 +97,7 @@ export const PinCode =({close,isPut, parent,setInformation}) =>{
         setTimer(180);
 
         axios
-        .post("http://3.66.89.33/Restaurant/registration",
+        .post("http://54.93.212.178/Anonymous/RestaurantIntro",
         {
             businessNameGeo:stateUser.name1,
             businessNameEng:stateUser.name,
@@ -129,7 +129,7 @@ export const PinCode =({close,isPut, parent,setInformation}) =>{
         <>
           <div className="text-center">
             <div className="pincodeTitle">
-            <img onClick={()=> setIsLoginOrRegistration(false)} className='logoInPincode' src="../../../public/img/Group4.png" alt="Main Logo" />
+            <img  className='logoInPincode' src="../../../public/img/Group4.png" alt="Main Logo" />
 
                 <h3>შეამოწმეთ თქვენი ელ-ფოსტა და</h3>
                 <h3>ჩაწერეთ მიღებული კოდი</h3>
@@ -168,8 +168,7 @@ export const PinCode =({close,isPut, parent,setInformation}) =>{
   type="submit"
   className="btn-pincode1"
   onClick={(e) => onSubmit()}
-  disabled={isLoading}
->
+  disabled={isLoading || timer === 0}>
   {isLoading ? (
     <span style={{color:"#ffffff"}}>
       <FontAwesomeIcon icon={faSpinner} spin /> Loading...

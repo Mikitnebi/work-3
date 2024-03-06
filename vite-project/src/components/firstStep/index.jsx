@@ -14,6 +14,7 @@ import usePlacesAutocomplete, {
   getLatLng,
   
 } from "use-places-autocomplete";
+import SelectInput from "../selecter";
 // import {
 //   Combobox,
 //   ComboboxInput,
@@ -148,15 +149,36 @@ function Map() {
         <PlacesAutocomplete setSelected={setSelected} map={map}/>
       </div> */}
 
-      <GoogleMap
-        zoom={zoom}
-        center={center}
-        mapContainerStyle={{zIndex:"5",position:"absolute",top:'0%',left:'35%',borderRadius:"20px", height: "300px", width: "500px" }}
-        mapContainerClassName="map-container"
-        onLoad={(map) => setMap(map)} // Store the map object when it loads
-        onClick={handleMapClick}      >
-        {selected && <Marker position={selected} />}
-      </GoogleMap>
+<GoogleMap
+  zoom={zoom}
+  center={center}
+  mapContainerStyle={{
+    zIndex: "500",
+    position: "absolute",
+    top: "15%",
+    left: "50%",
+    borderRadius: "20px",
+    height: "35%",
+    width: "40%"
+  }}
+  mapContainerClassName="map-container"
+  onLoad={(map) => setMap(map)} // Store the map object when it loads
+  onClick={handleMapClick}
+  options={{
+    disableDefaultUI: true, // Disable default UI controls
+    zoomControl: true, // Enable zoom control
+    fullscreenControl: true, // Enable fullscreen control
+    streetViewControl: true, // Enable street view control
+    mapTypeControl: true, // Enable map type control
+    mapTypeControlOptions: {
+      style: window.google.maps.MapTypeControlStyle.DEFAULT, // Set the style of the map type control
+      position: window.google.maps.ControlPosition.TOP_LEFT // Set the position of the map type control
+    }
+  }}
+>
+  {selected && <Marker position={selected} />}
+</GoogleMap>
+
     </div>
   );  
 }
@@ -207,12 +229,27 @@ const PlacesAutocomplete = ({ setSelected, map }) => {
 };
 
 let schema;
-
+const englishLettersWithSpacesAndTabsRegex = /^[A-Za-z0-9 \t\-_]+$/;
+const georgianLettersWithSpacesAndTabsRegex = /^[\u10A0-\u10FF0-9 \t_-]+$/;
 if (!stateRestaurant?.is24) {
   if(!stateRestaurant?.is24Hall){
     schema = yup.object().shape({
       // restaurantName: yup.string().max(50).required(),
-      description: yup.string().max(500).required(),
+      adressGeorgian:yup.string()
+      .matches(georgianLettersWithSpacesAndTabsRegex, 'Only Georgian letters are allowed')
+      .max(25).required(),
+      adressEnglish:yup.string()
+      .matches(englishLettersWithSpacesAndTabsRegex, 'Only English letters are allowed')
+      .max(25).required(),
+      description: yup.string()
+      .matches(englishLettersWithSpacesAndTabsRegex, 'Only English letters are allowed')
+      .max(500, 'Description must be at most 500 characters')
+      .required('Description is required'),      
+      
+      descriptionGeo: yup.string()
+      .matches(georgianLettersWithSpacesAndTabsRegex, 'Only Georgian letters are allowed')
+      .max(500, 'Description must be at most 500 characters')
+      .required('რესტორნის ქართული აღწერა სავალდებულოა'),
       cupeQuantity: yup.number().min(0, 'Number must be greater than or equal to 0'),
       tableQuantity: yup.number().min(-1, 'Number must be greater than or equal to 0').required(),
       terraceQuantity: yup.number().min(0, 'Number must be greater than or equal to 0'),
@@ -236,10 +273,20 @@ if (!stateRestaurant?.is24) {
   } else{
     schema = yup.object().shape({
       // restaurantName: yup.string().max(50).required(),
-      description: yup.string().max(500).required(),
-      cupeQuantity: yup.number().min(0, 'Number must be greater than or equal to 0'),
-      tableQuantity: yup.number().min(-1, 'Number must be greater than or equal to 0').required(),
-      terraceQuantity: yup.number().min(0, 'Number must be greater than or equal to 0'),
+      adressGeorgian:yup.string()
+      .matches(georgianLettersWithSpacesAndTabsRegex, 'Only Georgian letters are allowed')
+      .max(25).required(),
+      adressEnglish:yup.string()
+      .matches(englishLettersWithSpacesAndTabsRegex, 'Only English letters are allowed')
+      .max(25).required(),
+      description: yup.string()
+      .matches(englishLettersWithSpacesAndTabsRegex, 'Only English letters are allowed')
+      .max(500, 'Description must be at most 500 characters')
+      .required('Description is required'),
+      descriptionGeo: yup.string()
+      .matches(georgianLettersWithSpacesAndTabsRegex, 'Only Georgian letters are allowed')
+      .max(500, 'Description must be at most 500 characters')
+      .required('რესტორნის ქართული აღწერა სავალდებულოა'),
       kitchenStart: yup.string().matches(
         /^([01]\d|2[0-3]):[0-5]\d$/,
         'Invalid time format (HH:MM)'
@@ -255,18 +302,38 @@ if (!stateRestaurant?.is24) {
   if(stateRestaurant?.is24Hall){
     schema = yup.object().shape({
       // restaurantName: yup.string().max(50).required(),
-      description: yup.string().max(500).required(),
-      cupeQuantity: yup.number().min(0, 'Number must be greater than or equal to 0').required(),
-      tableQuantity: yup.number().min(-1, 'Number must be greater than 0').required(),
-      terraceQuantity: yup.number().min(0, 'Number must be greater than or equal to 0').required(),
+      adressGeorgian:yup.string()
+      .matches(georgianLettersWithSpacesAndTabsRegex, 'Only Georgian letters are allowed')
+      .max(25).required(),
+      adressEnglish:yup.string()
+      .matches(englishLettersWithSpacesAndTabsRegex, 'Only English letters are allowed')
+      .max(25).required(),
+      description: yup.string()
+      .matches(englishLettersWithSpacesAndTabsRegex, 'Only English letters are allowed')
+      .max(500, 'Description must be at most 500 characters')
+      .required('Description is required'),
+      descriptionGeo: yup.string()
+      .matches(georgianLettersWithSpacesAndTabsRegex, 'Only Georgian letters are allowed')
+      .max(500, 'Description must be at most 500 characters')
+      .required('რესტორნის ქართული აღწერა სავალდებულოა'),
     });
   } else {
     schema = yup.object().shape({
       // restaurantName: yup.string().max(50).required(),
-      description: yup.string().max(500).required(),
-      cupeQuantity: yup.number().min(0, 'Number must be greater than or equal to 0').required(),
-      tableQuantity: yup.number().min(-1, 'Number must be greater than 0').required(),
-      terraceQuantity: yup.number().min(0, 'Number must be greater than or equal to 0').required(),
+      adressGeorgian:yup.string()
+      .matches(georgianLettersWithSpacesAndTabsRegex, 'Only Georgian letters are allowed')
+      .max(25).required(),
+      adressEnglish:yup.string()
+      .matches(englishLettersWithSpacesAndTabsRegex, 'Only English letters are allowed')
+      .max(25).required(),
+      description: yup.string()
+      .matches(englishLettersWithSpacesAndTabsRegex, 'Only English letters are allowed')
+      .max(500, 'Description must be at most 500 characters')
+      .required('Description is required'),
+      descriptionGeo: yup.string()
+      .matches(georgianLettersWithSpacesAndTabsRegex, 'Only Georgian letters are allowed')
+      .max(500, 'Description must be at most 500 characters')
+      .required('რესტორნის ქართული აღწერა სავალდებულოა'),      
       hallStart: yup.string().matches(
         /^([01]\d|2[0-3]):[0-5]\d$/,
         'Invalid time format (HH:MM)'
@@ -286,11 +353,11 @@ if (!stateRestaurant?.is24) {
     resolver: yupResolver(schema),
     defaultValues: {
       // restaurantName: stateRestaurant?.name || '',
+      adressGeorgian:stateRestaurant?.adressGeorgian || '',
+      adressEnglish:stateRestaurant?.adressEnglish || '',
       description: stateRestaurant?.description || '',
+      descriptionGeo: stateRestaurant?.descriptionGeo || '',
       location: stateRestaurant?.location || '',
-      cupeQuantity: stateRestaurant?.cupeQuantity || 0,
-      tableQuantity: stateRestaurant?.tableQuantity || '',
-      terraceQuantity: stateRestaurant?.terraceQuantity || 0,
       hallStart: stateRestaurant?.hallStart || '',
       hallEnd: stateRestaurant?.hallEnd || '',
       ...(stateRestaurant?.is24
@@ -410,6 +477,11 @@ if (!stateRestaurant?.is24) {
         });
         dispatchRestaurant({
           type: "changePrimitiveType",
+          propertyId: "descriptionGeo",
+          value: data.descriptionGeo,
+        });
+        dispatchRestaurant({
+          type: "changePrimitiveType",
           propertyId: "cupeQuantity",
           value: data.cupeQuantity,
         });
@@ -453,6 +525,16 @@ if (!stateRestaurant?.is24) {
           propertyId: "musicEnd",
           value: data.musicEnd,
         });
+        dispatchRestaurant({
+          type: "changePrimitiveType",
+          propertyId: "adressGeorgian",
+          value: data.adressGeorgian,
+        });
+        dispatchRestaurant({
+          type: "changePrimitiveType",
+          propertyId: "adressEnglish",
+          value: data.adressEnglish,
+        });
         nextStep();
 
        }
@@ -481,155 +563,489 @@ if (!stateRestaurant?.is24) {
     //   });
     // }
   };
+  const options = ['₾ __ 0 - 50 ლარი', '₾₾ __ 50 - 100 ლარი', '₾₾₾ __ 100 - 250 ლარი',"₾₾₾₾ __ 250 - 500 ლარი","₾₾₾₾₾ __ 500 ლარი +"];
+  const handleOptionChange = (selectedValue) => {
+    console.log('Selected option:', selectedValue);
+    switch (selectedValue) {
+      case '₾ __ 0 - 50 ლარი':
+          dispatchRestaurant({
+              type: "changePrimitiveType",
+              propertyId: "priceID",
+              value: 1
+          })            
+          break;
+    
+          case '₾₾ __ 50 - 100 ლარი':
+          dispatchRestaurant({
+              type: "changePrimitiveType",
+              propertyId: "priceID",
+              value: 2
+          })            
+          break;
+          case '₾₾₾ __ 100 - 250 ლარი':
+          dispatchRestaurant({
+              type: "changePrimitiveType",
+              propertyId: "priceID",
+              value: 3
+          })            
+          break;
+          case '₾₾₾₾ __ 250 - 500 ლარი':
+          dispatchRestaurant({
+              type: "changePrimitiveType",
+              propertyId: "priceID",
+              value: 4
+          })            
+          break;
+          case '₾₾₾₾₾ __ 500 ლარი +':
+          dispatchRestaurant({
+              type: "changePrimitiveType",
+              propertyId: "priceID",
+              value: 5
+          })            
+          break;
 
+      default:
+          break;
+    }
+  };
+
+
+
+
+  const options1 = ["რესტორანი","კაფე","ბარი","კაფე-ბარი","ღამის კლუბი","კლუბი","პაბი","სუშიბარი","ლაუნჯბარი","ბურგერბარი","პიცერია","სწრაფი კვება"];
+  const handleOptionChange1 = (selectedValue) => {
+    console.log('Selected option:', selectedValue);
+    switch (selectedValue) {
+      case 'რესტორანი':
+          dispatchRestaurant({
+              type: "changePrimitiveType",
+              propertyId: "restaurantTypeId",
+              value: 1
+          })            
+          break;
+          case 'კაფე':
+            dispatchRestaurant({
+                type: "changePrimitiveType",
+                propertyId: "restaurantTypeId",
+                value: 2
+            })            
+            break;
+            case 'ბარი':
+          dispatchRestaurant({
+              type: "changePrimitiveType",
+              propertyId: "restaurantTypeId",
+              value: 3
+          })            
+          break;
+          case 'კაფე-ბარი':
+          dispatchRestaurant({
+              type: "changePrimitiveType",
+              propertyId: "restaurantTypeId",
+              value: 4
+          })            
+          break;
+          case 'ღამის კლუბი':
+          dispatchRestaurant({
+              type: "changePrimitiveType",
+              propertyId: "restaurantTypeId",
+              value: 5
+          })            
+          break;
+          case 'კლუბი':
+          dispatchRestaurant({
+              type: "changePrimitiveType",
+              propertyId: "restaurantTypeId",
+              value: 6
+          })            
+          break;
+          case 'პაბი':
+          dispatchRestaurant({
+              type: "changePrimitiveType",
+              propertyId: "restaurantTypeId",
+              value: 7
+          })            
+          break;
+          case 'სუშიბარი':
+          dispatchRestaurant({
+              type: "changePrimitiveType",
+              propertyId: "restaurantTypeId",
+              value: 8
+          })            
+          break;
+          case 'ლაუნჯბარი':
+          dispatchRestaurant({
+              type: "changePrimitiveType",
+              propertyId: "restaurantTypeId",
+              value: 9
+          })            
+          break;
+          case 'ბურგერბარი':
+          dispatchRestaurant({
+              type: "changePrimitiveType",
+              propertyId: "restaurantTypeId",
+              value: 10
+          })            
+          break;
+          case 'პიცერია':
+          dispatchRestaurant({
+              type: "changePrimitiveType",
+              propertyId: "restaurantTypeId",
+              value: 11
+          })            
+          break;
+          case 'სწრაფი კვება':
+          dispatchRestaurant({
+              type: "changePrimitiveType",
+              propertyId: "restaurantTypeId",
+              value: 12
+          })            
+          break;
+
+
+      default:
+          break;
+    }
+  };
+  const options3 = ['თბილისი', 'ქუთაისი', 'ბათუმი',"თელავი","ზუგდიდი","მცხეთა","მესტია","სიღნაღი","სხვა"];
+  // const [region, setRegion] = useState('');
+  const handleOptionChange3 = (selectedValue) => {
+    console.log('Selected option:', selectedValue);
+    switch (selectedValue) {
+      case 'თბილისი':
+          dispatchRestaurant({
+              type: "changePrimitiveType",
+              propertyId: "restaurantRegionId",
+              value: 1
+          })            
+          break;
+      case 'ქუთაისი':
+          dispatchRestaurant({
+              type: "changePrimitiveType",
+              propertyId: "restaurantRegionId",
+              value: 2
+          })
+          break;
+       case 'ბათუმი':
+          dispatchRestaurant({
+              type: "changePrimitiveType",
+              propertyId: "restaurantRegionId",
+              value: 3
+          })
+          break;
+      case 'თელავი':
+          dispatchRestaurant({
+              type: "changePrimitiveType",
+              propertyId: "restaurantRegionId",
+              value: 4
+          })
+          break;
+      case 'ზუგდიდი':
+          dispatchRestaurant({
+              type: "changePrimitiveType",
+              propertyId: "restaurantRegionId",
+              value: 5
+          })
+          break; 
+      case 'მცხეთა':
+          dispatchRestaurant({
+              type: "changePrimitiveType",
+              propertyId: "restaurantRegionId",
+              value: 6
+          })
+          break;
+      case 'მესტია':
+          dispatchRestaurant({
+              type: "changePrimitiveType",
+              propertyId: "restaurantRegionId",
+              value: 7
+          })
+          break;
+      case 'სიღნაღი':
+          dispatchRestaurant({
+              type: "changePrimitiveType",
+              propertyId: "restaurantRegionId",
+              value: 8
+          })
+          break;
+      case 'სხვა':
+          dispatchRestaurant({
+              type: "changePrimitiveType",
+              propertyId: "restaurantRegionId",
+              value: 9
+          })
+          break;      
+
+      default:
+          break;
+    }
+  };
   return (
     <div className="first-box">
-      <form onSubmit={handleSubmit(onSubmit)} action="" className="form" id="form">
+
+      <div className="first-box-brother">
+      <div className='firstStep-Name'>
+    <img style={{width:'4%',marginRight:'5px'}} src="../../../public/img/Group4.png" alt="Main Logo" />
+    <h3 >მოგესალმებით მიკიტანში</h3>
+
+        </div>
+
+        <div className='footer'>
+    <h3 >powered by MIKITANI</h3>
+    <h3>2024</h3>
+    
+        </div>
+      <img className="ilustrationDetails" src="../../../public/sdasdasd.png" alt="" />
+{/* 
+      <div className="red-frame1">
+ ''
+</div> */}
+<div className="red-frame2" style={{color:"#C6B0B4"}}>
+s
+</div>
+
+    
+      <form onSubmit={handleSubmit(onSubmit)} action="" className="form-first" id="form">
           {/* <div className="form-control-first">
             <label> Restaurant name 
               <input type="text" id="name" placeholder="Enter restaurant name" {...register("restaurantName")} />
             </label>
             <small>{errors.restaurantName?.message }</small>
           </div> */}
+
           <div className="form-control-first">
-<label >description    
-<textarea type="text" id="discription"  placeholder="Enter restaurant's description" {...register("description")}/>
+<label style={{fontFamily: 'YourCustomFont, sans-serif'}}>ქართული აღწერა    
+<textarea type="text" id="discription"  placeholder="შეიყვანეთ რესტორნის აღწერა ქართულ ენაზე" {...register("descriptionGeo")}/>
+</label>
+<small style={{bottom:'1%'}}>{errors.descriptionGeo?.message }</small>
+</div>
+        <div className="form-control-first">
+<label style={{fontFamily: 'YourCustomFont, sans-serif'}}>ინგლისური აღწერა    
+<textarea type="text" id="discription"  placeholder="შეიყვანეთ რესტორნის აღწერა ინგლისურ ენაზე" {...register("description")}/>
 </label>
 <small>{errors.description?.message }</small>
 </div>
 
-<div style={{display:'flex',alignItems:"center", marginTop:"20px", cursor:'pointer'}} onClick={()=>{
+
+{
+  isOpenMap ? <Map/> : <></>
+}
+<div className="first-flex1">
+<div style={{marginTop:"20px"}} className="form-control-first">
+<label style={{width:"100%",fontFamily: 'YourCustomFont, sans-serif'}}>მისამართი ქართულად   
+<input style={{width:"95%"}}  type="text"  id="table"  placeholder="შეიყვანეთ მისამართი ქართულად" {...register("adressGeorgian")}/>
+</label>
+<small style={{bottom:'-20%'}}>{errors.adressGeorgian?.message }</small>
+</div>
+
+
+<div style={{marginTop:"20px"}} className="form-control-first">
+<label style={{width:"100%",fontFamily: 'YourCustomFont, sans-serif'}} >მისამართი ინგლისურად
+<input style={{width:"95%"}}  type="text"  id="table"  placeholder="შეიყვანეთ მისამართი ინგლისურად" {...register("adressEnglish")}/>
+</label>
+<small style={{bottom:'-20%'}}>{errors.adressEnglish?.message }</small>
+</div>
+</div>
+
+
+<div className="first-flex2" onClick={()=>{
   if(isOpenMap){
     setIsOpenMap(false)
   } else{
     setIsOpenMap(true)
   }
-}}> Restaurant location
+}}>
+
+<div className="exact-location">აირჩიეთ ლოკაცია :<span style={{color:"#8C1D2F"}}>{formattedAddressRef.current}</span> </div>
+<div style={{display:'flex',alignItems:"center",cursor:'pointer',marginLeft:'2%'}} > 
 <ion-icon  name="location-outline" size={'large'}/>
 </div>
-{!formattedAddressRef.current && <small style={{ color: 'red' }}>{'Select your location '}</small>}
-<li>Chosen location :<span style={{color:"#ec0f6f"}}>{formattedAddressRef.current}</span> </li>
+{!formattedAddressRef.current && <small style={{ color: 'red' }}>{'აირჩიეთ თქვენი ლოკაცია '}</small>}
 
-{
-  isOpenMap ? <Map/> : <></>
-}
-<div style={{marginTop:"20px"}} className="form-control-first">
+</div>
+
+<div style={{display:'flex',alignItems:'center', width:'97%',justifyContent:'space-between',marginBottom:'3%',marginTop:'2%'}}>
+<label style={{display:'flex',flexDirection:'column', width:'30%',alignItems:'center',fontFamily: 'YourCustomFont, sans-serif'}} >
+ფასის კატეგორია
+        <SelectInput defaultValue="₾ __ 0 - 50 ლარი" options={options} onChange={handleOptionChange} />
+  </label>
+  <label style={{display:'flex',flexDirection:'column', width:'30%',alignItems:'center',fontFamily: 'YourCustomFont, sans-serif'}} >
+რესტორნის ტიპი
+        <SelectInput defaultValue="Restaurant" options={options1} onChange={handleOptionChange1} />
+  </label>
+  <label style={{display:'flex',flexDirection:'column', width:'30%',alignItems:'center',fontFamily: 'YourCustomFont, sans-serif'}} >
+რეგიონი / ქალაქი
+        <SelectInput defaultValue="თბილისი" options={options3} onChange={handleOptionChange3} />
+  </label>
+</div>
+
+{/* <div style={{marginTop:"20px"}} className="form-control-first">
 <label >Table Quantity    
 <input type="number"  id="table"  placeholder="Enter restaurant's table Quantity" {...register("tableQuantity")}/>
 </label>
 <small>{errors.tableQuantity?.message }</small>
-</div>
+</div> */}
 
-<div style={{marginTop:"20px"}} className="form-control-first">
+{/* <div style={{marginTop:"20px"}} className="form-control-first">
 <label >Cupe Quantity    
 <input type="number"  id="cupe"  placeholder="Enter restaurant's cupe Quantity" {...register("cupeQuantity")}/>
 </label>
 <small>{errors.cupeQuantity?.message }</small>
-</div>
+</div> */}
 
-<div style={{marginTop:"20px"}} className="form-control-first">
+{/* <div style={{marginTop:"20px"}} className="form-control-first">
 <label >Terrace Quantity    
 <input type="number"  id="terrace"  placeholder="Enter restaurant's terrace Quantity" {...register("terraceQuantity")}/>
 </label>
 <small>{errors.terraceQuantity?.message }</small>
-</div>
+</div> */}
 
-<div  style={{alignItems:'center', width:'100%'}} className="first-flex">
-<div style={{marginTop:"20px"}} className="form-control-first">
-<label >Hall starting time    
-<input style={{width:"100%"}} type="time"  id="hallStart"  disabled={stateRestaurant?.is24Hall}   {...register("hallStart")}/>
+<div  style={{alignItems:'center', width:'97%'}} className="first-flex">
+
+<div style={{marginTop:"20px",width:'30%'}} className="form-control-first">
+<label style={{fontFamily: 'YourCustomFont, sans-serif'}}>დარბაზის გახსნის დრო    
+<input  type="time"  id="hallStart"  disabled={stateRestaurant?.is24Hall}   {...register("hallStart")}/>
 </label>
 <small style={{bottom:'-20%'}}>{errors.hallStart?.message }</small>
 </div>
 
-<div style={{marginTop:"20px"}} className="form-control-first">
-<label >Hall ending time    
-<input style={{width:"100%"}} type="time"  id="hallEnd"  disabled={stateRestaurant?.is24Hall}   {...register("hallEnd")}/>
+<div style={{marginTop:"20px",width:'30%'}} className="form-control-first">
+<label style={{fontFamily: 'YourCustomFont, sans-serif'}}>დარბაზის დახურვის დრო    
+<input  type="time"  id="hallEnd"  disabled={stateRestaurant?.is24Hall}   {...register("hallEnd")}/>
 </label>
 <small style={{bottom:'-20%'}}>{errors.hallEnd?.message }</small>
 </div>
-<div style={{marginTop:"20px" }} className="form-control-first">
-<label  style={{display:'flex' ,width:'100%'}}>24 Hour hall    
-<input
-  style={{ width: '20px', marginLeft: '10px' }}
-  type="checkbox"
-   // Set the checked state based on stateRestaurant?.is24
-  onChange={() => {
-    if (stateRestaurant?.is24Hall) {
-      dispatchRestaurant({
-        type: "changePrimitiveType",
-        propertyId: "is24Hall",
-        value: false,
-      });
-    } else {
-      dispatchRestaurant({
-        type: "changePrimitiveType",
-        propertyId: "is24Hall",
-        value: true,
-      });
-    }
-  }}
-  defaultChecked={stateRestaurant?.is24Hall}
-/>
+<div style={{marginTop:"20px",width:'30%' }} className="form-control-first">
+<label  style={{display:'flex' ,width:'105%', alignItems:'center',justifyContent:'center',fontFamily: 'YourCustomFont, sans-serif'}}>24-საათიანი დარბაზი  
+
+
+
+<div style={{ display: 'inline-block', position: 'relative',       marginLeft:'5px'}}>
+  <input
+    style={{
+      width: '20px',
+      height: '20px',
+      margin: 0,
+      padding: 0,
+      position: 'absolute',
+      opacity: 0,
+      cursor: 'pointer',
+    }}
+    type="checkbox"
+    onChange={() => {
+      if (stateRestaurant?.is24Hall) {
+        dispatchRestaurant({
+          type: "changePrimitiveType",
+          propertyId: "is24Hall",
+          value: false,
+        });
+      } else {
+        dispatchRestaurant({
+          type: "changePrimitiveType",
+          propertyId: "is24Hall",
+          value: true,
+        });
+      }
+    }}
+    defaultChecked={stateRestaurant?.is24Hall}
+  />
+  <div
+    style={{
+      width: '20px',
+      height: '20px',
+      backgroundColor: stateRestaurant?.is24Hall ? '#8C1D2F' : 'transparent',
+      border: '1px solid #8C1D2F',
+      borderRadius: '4px',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      cursor: 'pointer',
+    }}
+  >
+    {stateRestaurant?.is24Hall && <div style={{ color: 'white' }}>✓</div>}
+  </div>
+</div>
+
+
+
+
 </label>
 </div>
 </div>
 
-<div style={{alignItems:'center', width:'100%'}} className="first-flex">
-<div style={{marginTop:"20px",}} className="form-control-first">
-<label >Kitchen opening time    
-<input style={{width:"100%"}} type="time"  id="kitchenStart" disabled={stateRestaurant?.is24}  {...register("kitchenStart")}/>
+<div style={{alignItems:'center', width:'97%'}} className="first-flex">
+<div style={{marginTop:"20px" ,width:'30%',}} className="form-control-first">
+<label style={{fontFamily: 'YourCustomFont, sans-serif'}}>სამზარეულოს გახსნის დრო    
+<input type="time"  id="kitchenStart" disabled={stateRestaurant?.is24}  {...register("kitchenStart")}/>
 </label>
 <small style={{bottom:'-20%'}}>{errors.kitchenStart?.message }</small>
 </div>
 
-<div style={{marginTop:"20px"}} className="form-control-first">
-<label >Kitchen closing time    
-<input style={{width:"100%",}} type="time"  id="kitchenEnd" disabled={stateRestaurant?.is24}  {...register("kitchenEnd")}/>
+<div style={{marginTop:"20px" ,width:'30%'}} className="form-control-first">
+<label style={{fontFamily: 'YourCustomFont, sans-serif'}}>სამზარეულოს დახურვის დრო
+<input  type="time"  id="kitchenEnd" disabled={stateRestaurant?.is24}  {...register("kitchenEnd")}/>
 </label>
 <small style={{bottom:'-20%'}}>{errors.kitchenEnd?.message }</small>
 </div>
 
-<div style={{marginTop:"20px" }} className="form-control-first">
-<label  style={{display:'flex' ,width:'100%'}}>24 Hour kithen    
-<input
-  style={{ width: '20px', marginLeft: '10px' }}
-  type="checkbox"
-   // Set the checked state based on stateRestaurant?.is24
-  onChange={() => {
-    if (stateRestaurant?.is24) {
+<div style={{marginTop:"20px" ,width:'30%' }} className="form-control-first">
+<label  style={{fontFamily: 'YourCustomFont, sans-serif',display:'flex' ,width:'100%',alignItems:'center',justifyContent:'center',marginBottom:'0px'}}>24-საათიანი სამზარეულო   
+<div style={{ display: 'inline-block', position: 'relative',       marginLeft:'5px'}}>
+  <input
+    style={{
+      width: '20px',
+      height: '20px',
+      margin: 0,
+      padding: 0,
+      position: 'absolute',
+      opacity: 0,
+      cursor: 'pointer',
+    }}
+    type="checkbox"
+    onChange={() => {
       dispatchRestaurant({
-        type: "changePrimitiveType",
-        propertyId: "is24",
-        value: false,
+        type: 'changePrimitiveType',
+        propertyId: 'is24',
+        value: !stateRestaurant?.is24,
       });
-    } else {
-      dispatchRestaurant({
-        type: "changePrimitiveType",
-        propertyId: "is24",
-        value: true,
-      });
-    }
-  }}
-  defaultChecked={stateRestaurant?.is24}
-/>
+    }}
+    defaultChecked={stateRestaurant?.is24}
+  />
+  <div
+    style={{
+      width: '20px',
+      height: '20px',
+      backgroundColor: stateRestaurant?.is24 ? '#8C1D2F' : 'transparent',
+      border: '1px solid #8C1D2F',
+      borderRadius: '4px',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      cursor: 'pointer',
+    }}
+  >
+    {stateRestaurant?.is24 && <div style={{ color: 'white' }}>✓</div>}
+  </div>
+</div>
+
 </label>
 </div>
 
 </div>
 
 
-<div className="first-flex">
-<div style={{marginTop:"20px"}} className="form-control-first">
-<label >Music starting time    
-<input style={{width:"100%"}} type="time"  id="musicStart"  {...register("musicStart")}/>
+<div style={{alignItems:'center', width:'63%'}} className="first-flex">
+<div style={{marginTop:"20px",width:'46%'}} className="form-control-first">
+<label for='musicStart' style={{fontFamily: 'YourCustomFont, sans-serif',cursor:'pointer'}}>ცოცხალი მუსიკის დაწყების დრო    
+<input style={{cursor:'pointer'}}    type="time"  id="musicStart"  {...register("musicStart")}/>
 </label>
+
+
 <small style={{bottom:'-20%'}}>{errors.musicStart?.message }</small>
 </div>
 
-<div style={{marginTop:"20px"}} className="form-control-first">
-<label >Music ending time    
-<input style={{width:"100%"}} type="time"  id="musicEnd"  {...register("musicEnd")}/>
+<div style={{marginTop:"20px",width:'46%'}} className="form-control-first">
+<label  style={{fontFamily: 'YourCustomFont, sans-serif'}}>ცოცხალი მუსიკის დასრულების დრო    
+<input  type="time"  id="musicEnd"  {...register("musicEnd")}/>
 </label>
 <small style={{bottom:'-20%'}}>{errors.musicEnd?.message }</small>
 </div>
@@ -638,69 +1054,190 @@ if (!stateRestaurant?.is24) {
 <div className="first-flex">
 
 <div style={{marginTop:"20px"}} className="form-control-first">
-<label style={{display:"flex",width:'100%'}}>My restaurant is for corporatives    
+<label style={{display:"flex",width:'100%',fontFamily: 'YourCustomFont, sans-serif'}}>კოორპერატიულები ?    
+
+<div style={{ display: 'inline-block', position: 'relative', marginLeft:'5px'}}>
+  <input
+    style={{
+      width: '20px',
+      height: '20px',
+      margin: 0,
+      padding: 0,
+      position: 'absolute',
+      opacity: 0,
+      cursor: 'pointer',
+    }}
+    type="checkbox"
+    onChange={() => {
+      if(stateRestaurant?.corporative){
+        dispatchRestaurant({
+          type: "changePrimitiveType",
+          propertyId: "corporative",
+          value: false,
+        });
+      }else {
+        dispatchRestaurant({
+          type: "changePrimitiveType",
+          propertyId: "corporative",
+          value: true,
+        });
+      }
+    }}
+    defaultChecked={stateRestaurant?.corporative}
+    />
+  <div
+    style={{
+      width: '20px',
+      height: '20px',
+      backgroundColor: stateRestaurant?.corporative ? '#8C1D2F' : 'transparent',
+      border: '1px solid #8C1D2F',
+      borderRadius: '4px',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      cursor: 'pointer',
+    }}
+  >
+    {stateRestaurant?.corporative && <div style={{ color: 'white' }}>✓</div>}
+  </div>
+</div>
+</label>
+</div>
+
+
+
+<div style={{marginTop:"20px"}} className="form-control-first">
+<label style={{display:"flex",width:'100%',fontFamily: 'YourCustomFont, sans-serif'}}>კუპე ?
+
+<div style={{ display: 'inline-block', position: 'relative',       marginLeft:'5px'}}>
+  <input
+    style={{
+      width: '20px',
+      height: '20px',
+      margin: 0,
+      padding: 0,
+      position: 'absolute',
+      opacity: 0,
+      cursor: 'pointer',
+    }}
+    type="checkbox"
+    onChange={() => {
+      if(stateRestaurant?.isCupe){
+        dispatchRestaurant({
+          type: "changePrimitiveType",
+          propertyId: "isCupe",
+          value: false,
+        });
+      }else {
+        dispatchRestaurant({
+          type: "changePrimitiveType",
+          propertyId: "isCupe",
+          value: true,
+        });
+      }
+    }}
+    defaultChecked={stateRestaurant?.isCupe}
+    />
+  <div
+    style={{
+      width: '20px',
+      height: '20px',
+      backgroundColor: stateRestaurant?.isCupe ? '#8C1D2F' : 'transparent',
+      border: '1px solid #8C1D2F',
+      borderRadius: '4px',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      cursor: 'pointer',
+    }}
+  >
+    {stateRestaurant?.isCupe && <div style={{ color: 'white' }}>✓</div>}
+  </div>
+</div>
+
+
+{/* 
 <input onClick={()=>{
-  if(stateRestaurant?.corporative){
+  if(stateRestaurant?.isCupe){
     dispatchRestaurant({
       type: "changePrimitiveType",
-      propertyId: "corporative",
+      propertyId: "isCupe",
       value: false,
     });
   }else {
     dispatchRestaurant({
       type: "changePrimitiveType",
-      propertyId: "corporative",
+      propertyId: "isCupe",
       value: true,
     });
   }
 }}
-defaultChecked={stateRestaurant?.corporative}
- style={{width:'20px', marginLeft:'10px'}} type="checkbox"    />
+defaultChecked={stateRestaurant?.isCupe}
+ style={{width:'20px', marginLeft:'10px'}} type="checkbox"    /> */}
 </label>
 </div>
+
+
+
+<div style={{marginTop:"20px"}} className="form-control-first">
+<label style={{display:"flex",width:'100%',fontFamily: 'YourCustomFont, sans-serif'}}>ტერასა ?  
+
+
+<div style={{ display: 'inline-block', position: 'relative',       marginLeft:'5px'}}>
+  <input
+    style={{
+      width: '20px',
+      height: '20px',
+      margin: 0,
+      padding: 0,
+      position: 'absolute',
+      opacity: 0,
+      cursor: 'pointer',
+    }}
+    type="checkbox"
+    onChange={() => {
+      if(stateRestaurant?.isTerace){
+        dispatchRestaurant({
+          type: "changePrimitiveType",
+          propertyId: "isTerace",
+          value: false,
+        });
+      }else {
+        dispatchRestaurant({
+          type: "changePrimitiveType",
+          propertyId: "isTerace",
+          value: true,
+        });
+      }
+    }}
+    defaultChecked={stateRestaurant?.isTerace}
+    />
+  <div
+    style={{
+      width: '20px',
+      height: '20px',
+      backgroundColor: stateRestaurant?.isTerace ? '#8C1D2F' : 'transparent',
+      border: '1px solid #8C1D2F',
+      borderRadius: '4px',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      cursor: 'pointer',
+    }}
+  >
+    {stateRestaurant?.isTerace && <div style={{ color: 'white' }}>✓</div>}
+  </div>
 </div>
 
-<div className="first-flex">
 
-<div style={{marginTop:"20px" , display:'flex'}} className="form-control-first">
-<label style={{display:"flex",width:'100%'}}>I want two step security    
-<input onClick={()=>{
-  if(stateRestaurant?.doubleSecurity){
-    dispatchRestaurant({
-      type: "changePrimitiveType",
-      propertyId: "doubleSecurity",
-      value: false,
-    });
-  }else {
-    dispatchRestaurant({
-      type: "changePrimitiveType",
-      propertyId: "doubleSecurity",
-      value: true,
-    });
-  }
-}}
-defaultChecked={stateRestaurant?.doubleSecurity}
-style={{width:'20px', marginLeft:'10px'}} type="checkbox"    />
+
 
 </label>
-<ion-icon name="help-outline" size={'small'} onClick={toggleAdditionalInfo} ></ion-icon>
-
-{isAdditionalInfoVisible && (
-          <div
-            style={{
-              borderRadius: '20px',
-              padding: '5px',
-              width: '200px',
-              backgroundColor: 'wheat',
-              position: 'absolute',
-              right: '-90%',
-              top: '-50%',
-            }}
-          >
-            ვასკა კუტუხოვივარ მასწავლებელო გამიღეეე 
-          </div>
-        )}</div>
 </div>
+
+</div>
+
+
 
 
 
@@ -735,9 +1272,13 @@ style={{width:'20px', marginLeft:'10px'}} type="checkbox"    />
           <small>{errors.image3?.message}</small>
         </div> */}
         <button className="first-step-button" type="submit" >
-          Next
+          შემდეგი
         </button>
+        
       </form>
+ 
+      </div>
+  
     </div>
   );
       }

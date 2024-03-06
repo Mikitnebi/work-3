@@ -1,23 +1,171 @@
-.menu-flex1{
-    position: absolute;
-    top: -5%;
-    left: 25%;
-    display: flex;
-    justify-content: space-between;
-    width: 60%;
 
+
+
+.first-box-image{
+  position: absolute;
+
+ width: 100%;
+ font-weight: 400;
+
+background-image: url('../../../public/asddasda.png');
+background-size: cover;
+background-position: center;
+background-attachment: fixed;
+}
+.first-box-brother-image{
+  background-color: transparent;
+  width: 80%;
+  /* height: 100vh; */
+  margin: 5% auto;
+  border-radius: 20px;
+  padding-top: 2%;
+z-index: -1;
 }
 
-.image-preview{
-    width: 200px;
-    height: auto;
+.images-input-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+width: 100%;
+
+/* background-size: cover;
+background-position: center;
+background-attachment: fixed; */   
+position: relative;
+  }
+
+  .imageText{
+    font-size: 28px;
+    font-weight: 800;
+    color: #8C1D2F;
+  }
+  .imagesNamelogo{
+    position: absolute;
+    left: 2%;
+    top: 2%;
+    display: flex;
+    width: 45%;
+    align-items: baseline;
+    justify-content: space-between;
+    
+  }
+  .logoRegistrationImages{
+    cursor: pointer ;
+
+    display: block;
+    font-size: 16px;
+    width: 10%;
+    font-weight: 400;
+
+  }
+  .formImages {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    padding: 20px;
+    border-radius: 8px;
+    margin-top: 10%;
+    align-items: center;
+  }
+
+  .FirstPartImages{
+    width: 100%;
     display: flex;
     align-items: center;
-    justify-content: center;
-    margin-top: 10px;
-}
-.image-preview img{
-    width: 200px;
-    height: auto;
+    justify-content: space-around;
+  }
+
+  .SecondPartImages{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    margin-top: 2%;
+  }
+  
+  .form-controlImages {
+    margin-bottom: 20px;
+    width: 25%;
+    height: 20%;
+  }
+  
+  .dropzone {
+    width: 100%;
+    border: 0.5px dashed #1b0c0f;
+    background-color: #C6B0B4;
     border-radius: 20px;
-}
+    padding: 50px 50px;
+    text-align: center;
+    cursor: pointer;
+    position: relative;
+  }
+  
+  .upload-icon {
+    font-size: 24px;
+    margin-bottom: 10px;
+  }
+  
+  .dropzone p {
+    margin: 0;
+  }
+  
+  .image-preview {
+    margin-top: 10px;
+    width: 100%;
+  }
+  
+  .image-preview img {
+    width: 100%;
+    border-radius: 5px;
+    height: auto;
+  }
+  
+  .small {
+    color: red;
+  }
+
+  .imageButtonSubmit{
+    cursor: pointer ;
+    background-color: #8C1D2F;
+    border: 0.5px solid #8C1D2F;
+    border-radius: 20px;
+    color: #fff;
+    display: block;
+    font-size: 16px;
+    width: 20%;
+    padding: 10px;
+    font-weight: 400;
+    margin: 5% auto;
+  }
+  .imageButtonSubmit:first-child{
+    margin-left: 2%;
+  }
+  .imageButtonSubmit:last-child{
+    margin-right: 2%;
+  }
+  .imageButtonSubmit:hover{ 
+    transform: scale(1.05);
+    transition: 0.3s;
+  }
+
+
+
+  .footerImages{
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: #8C1D2F;
+    z-index: 100;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .footerImages h3{
+    font-size: 16px;
+    font-weight: 600;
+    color: white;
+  }

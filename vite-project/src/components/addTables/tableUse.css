@@ -70,7 +70,7 @@ background-size: cover;
 background-position: center;
  }
   canvas {
-    border: 2px solid black;
+    border: 0.5px solid black;
   }
   
   .grid-line {
@@ -144,7 +144,7 @@ background-position: center;
     border-color: rgb(47, 225, 47);
   }
 
-  .details-form-details{
+  /* .details-form-details{
     background-color: #f0f0f0;
     padding: 10px;
     border: 1px solid #ccc;
@@ -155,4 +155,4 @@ background-position: center;
     display: flex;
     flex-direction: column;
     gap: 10px;
-  }
+  } */

@@ -5,22 +5,43 @@
 }
 ion-icon{
     color: #8C1D2F;
+    font-size: 20px;
   }
-.enter-box{
+.languageGlobeIcon{
+    width: 90%;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.enter-box1{
     position: absolute;
-    top: 0%; 
+    top: 15%; 
     left: 20%; 
     margin-top: 20%;
     margin-left: 30%;
     transform: translate(-50%, -50%);
-    background-color: #fff;
+    background-color: #D9D9D9;
     border-radius: 5px;
-    width: 400px;
+    width: 40%;
+    height: 60%;
     font-family: cursive;
-    border: 2px #dadada solid;
+    border: 0.5px #D9D9D9 solid;
     border-radius: 10px;
 }
+.auth-name1{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    font-family: cursive;
+    margin: 1% auto;
+    margin-bottom: 0px;
+}
 
+.auth-name1 h3{
+    font-size: 24;
+    font-weight: 900;
+}
 .form{
     padding: 30px 40px;
 
@@ -36,7 +57,7 @@ ion-icon{
     margin-bottom: 5px;
 }
 .form-control input{
-    border: 2px solid #f0f0f0;
+    border: 0.5px solid #f0f0f0;
     display: block;
     border-radius: 4px;
     width: 100%;
@@ -62,7 +83,7 @@ ion-icon{
 .form button{
     cursor: pointer ;
     background-color: #3498DB;
-    border: 2px solid #3498DB;
+    border: 0.5px solid #3498DB;
     border-radius: 4px;
     color: #fff;
     display: block;
@@ -71,6 +92,7 @@ ion-icon{
     padding: 0px;
     margin-top: 15px;
     font-family: cursive;
+    z-index: 200;
 
 }
 .form button:hover{

@@ -72,7 +72,9 @@ export const LastRegistration = function () {
             {id: uuidv4(), name: "dish 2",georgianName: "საჭმელი 2", price: 10, image: "../public/jason-leung-poI7DelFiVA-unsplash.jpg", description: "imompp",georgianDescription: "ქართული აღწერა", ingredients: [{value:'#meat',label:"#meat"}], georgianIngredients: [{value:'#ხორცი',label:"#ხორცი"}]},
             {id: uuidv4(), name: "dish 3",georgianName: "საჭმელი 3", price: 10, image: "../public/jason-leung-poI7DelFiVA-unsplash.jpg", description: "imompp",georgianDescription: "ქართული აღწერა", ingredients: [{value:'#meat',label:"#meat"}], georgianIngredients: [{value:'#ხორცი',label:"#ხორცი"}]},
             {id: uuidv4(), name: "dish 4",georgianName: "საჭმელი 4", price: 10, image: "../public/jason-leung-poI7DelFiVA-unsplash.jpg", description: "imompp",georgianDescription: "ქართული აღწერა", ingredients: [{value:'#meat',label:"#meat"}], georgianIngredients: [{value:'#ხორცი',label:"#ხორცი"}]},
-    
+            {id: uuidv4(), name: "dish 5",georgianName: "საჭმელი 5", price: 10, image: "../public/jason-leung-poI7DelFiVA-unsplash.jpg", description: "imompp",georgianDescription: "ქართული აღწერა", ingredients: [{value:'#meat',label:"#meat"}], georgianIngredients: [{value:'#ხორცი',label:"#ხორცი"}]},
+            {id: uuidv4(), name: "dish 6",georgianName: "საჭმელი 6", price: 10, image: "../public/jason-leung-poI7DelFiVA-unsplash.jpg", description: "imompp",georgianDescription: "ქართული აღწერა", ingredients: [{value:'#meat',label:"#meat"}], georgianIngredients: [{value:'#ხორცი',label:"#ხორცი"}]},
+
           ],
         },
         {
@@ -97,7 +99,7 @@ export const LastRegistration = function () {
 
     return (
 
-        <section className='last-registration'>
+        <section style={!isChecked ? { backgroundImage: `url('../../../public/img/magidaa1.png')` } : null} className='last-registration'>
             <button className='button-x-last' onClick={(e) => navigate("/home")} ><ion-icon className='icon-modal' size='large' name="close"></ion-icon></button>
           
            {
@@ -167,6 +169,7 @@ export const LastRegistration = function () {
             {/* You can add more navigation buttons and logic as needed */}
           </div></>
            }  
+           
         </section>
     )
 }

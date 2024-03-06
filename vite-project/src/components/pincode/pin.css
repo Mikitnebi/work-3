@@ -28,7 +28,7 @@ font-family: cursive;
     font-size: 12px;
 }
 .pin-div input{
-    border: 2px solid #f0f0f0;
+    border: 0.5px solid #f0f0f0;
     display: block;
     border-radius: 4px;
     width: 80%;
@@ -56,7 +56,7 @@ font-family: cursive;
 .pin-form button{
     cursor: pointer ;
     background-color: #3498DB;
-    border: 2px solid #3498DB;
+    border: 0.5px solid #3498DB;
     border-radius: 4px;
     color: #fff;
     display: block;
@@ -66,7 +66,7 @@ font-family: cursive;
     margin-top: 20px;
     font-family: cursive;
     margin-left: 25%;
-
+z-index: 200;
 }
 .text-center{
     display: flex;
@@ -113,7 +113,7 @@ font-Weight: 700;
 .btn-pincode-clear{
     cursor: pointer ;
     background-color: #922628;
-    border: 2px solid #560c0d;
+    border: 0.5px solid #560c0d;
     border-radius: 4px;
     color: #fff;
     display: block;
@@ -126,7 +126,7 @@ font-Weight: 700;
 .btn-pincode1{
     cursor: pointer ;
     background-color: #58121D;
-    border: 2px solid #58121D;
+    border: 0.5px solid #58121D;
     border-radius: 20px;
     color: #fff;
     display: block;
@@ -139,7 +139,7 @@ font-Weight: 700;
 .btn-pincode{
     cursor: pointer ;
     background-color: transparent;
-    border: 2px solid #58121D;
+    border: 0.5px solid #58121D;
     border-radius: 20px;
     color: #fff;
     display: block;

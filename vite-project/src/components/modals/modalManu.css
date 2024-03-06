@@ -11,8 +11,8 @@
 .button-x{
     position: absolute;
     top: 0px;
-    left: 95.5%;
-    background-color: white;
+    left: 95%;
+    background-color: #D9D9D9;
     border: none;
 }
 .modal-styles-manu{

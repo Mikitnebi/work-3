@@ -156,35 +156,100 @@ const ParentMenu = ({ menuData, handleMoveSelectedItems,parentMenu, setParentMen
   };
 
   return (
-    <div className="last-step">
-      <div style={{ left: '10%' }} className="menu-flex">
+    <div className="last-step-parent">
+      <div  className="menu-flex-parent">
 
-        <span style={{ cursor: 'pointer' }} onClick={() => submit()}>Move Selected</span>
+        <button className="move_parent" onClick={() => submit()}>მონიშნულის გადატანა</button>
 
-        <div className="menu-grid" style={{ marginLeft: '-100px', marginTop: '40px' }}>
+        <div className="menu-grid-parent" style={{ marginLeft: '-100px', marginTop: '40px' }}>
           {menuData.map((section, sectionIndex) => (
             <div className="menu-section" key={sectionIndex}>
               <h3>
-                <input
-                  type="checkbox"
-                  onChange={() => toggleSectionSelection(section)}
-                  checked={isSectionInSelectedSections(section)}
-                />
+              <div style={{ display: 'inline-block', position: 'relative',       marginRight:'5px'}}>
+  <input
+    style={{
+      width: '20px',
+      height: '20px',
+      margin: 0,
+      padding: 0,
+      position: 'absolute',
+      opacity: 0,
+      cursor: 'pointer',
+    }}
+    type="checkbox"
+    onChange={() => toggleSectionSelection(section)}
+
+    defaultChecked={isSectionInSelectedSections(section)}
+  />
+  <div
+    style={{
+      width: '20px',
+      height: '20px',
+      backgroundColor: isSectionInSelectedSections(section) ? '#8C1D2F' : 'transparent',
+      border: '1px solid #8C1D2F',
+      borderRadius: '4px',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      cursor: 'pointer',
+    }}
+  >
+    {isSectionInSelectedSections(section) && <div style={{ color: 'white' }}>✓</div>}
+  </div>
+</div>
+
                 {section.title}
               </h3>
               <h3>{section.georgianTitle}</h3>
               <ul className="ul-last">
                 {section.items.map((item, itemIndex) => (
                   <li key={itemIndex}>
-                    <div className="menu-item">
-                      <input
-                        type="checkbox"
-                        onChange={() => toggleItemSelection(section, item)}
-                        checked={selectedItems.some(
+                    <div className="menu-item-parent">
+                    <div style={{ display: 'inline-block', position: 'relative',       marginLeft:'5px'}}>
+  <input
+    style={{
+      width: '20px',
+      height: '20px',
+      margin: 0,
+      padding: 0,
+      position: 'absolute',
+      opacity: 0,
+      cursor: 'pointer',
+    }}
+    type="checkbox"
+    onChange={() => toggleItemSelection(section, item)}
+
+    defaultChecked={selectedItems.some(
                           (selectedItem) =>
                             selectedItem.name === item.name && selectedItem.title === section.title
                         )}
-                      />
+  />
+  <div
+    style={{
+      width: '20px',
+      height: '20px',
+      backgroundColor: selectedItems.some(
+                          (selectedItem) =>
+                            selectedItem.name === item.name && selectedItem.title === section.title
+                        ) ? '#8C1D2F' : 'transparent',
+      border: '1px solid #8C1D2F',
+      borderRadius: '4px',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      cursor: 'pointer',
+    }}
+  >
+    {selectedItems.some(
+                          (selectedItem) =>
+                            selectedItem.name === item.name && selectedItem.title === section.title
+                        ) && <div style={{ color: 'white' }}>✓</div>}
+  </div>
+</div>
+
+
+
+                  
                       <h4>{item.name}</h4>
                       <h4>{item.georgianName}</h4>
 
@@ -200,8 +265,21 @@ const ParentMenu = ({ menuData, handleMoveSelectedItems,parentMenu, setParentMen
                         styles={{
                           control: (baseStyles, state) => ({
                             ...baseStyles,
-                            color: 'red'
+                            color: 'red',
+                            borderColor: state.isFocused ? null : '#8C1D2F',
+                        
+                            width:'100%',
+                            backgroundColor:"#D9D9D9"
                           }),
+                          multiValue: (baseStyles) => ({
+                            ...baseStyles,
+                            backgroundColor: '#C6B0B4', // Set the background color for added tags
+                          }),
+                          dropdownIndicator: (baseStyles, state) => ({
+                            ...baseStyles,
+                            color: state.isFocused ? '#8C1D2F' : '#8C1D2F', // Change the color when focused
+                          }),
+                      
                         }}
                         isDisabled
                       />
@@ -212,8 +290,21 @@ const ParentMenu = ({ menuData, handleMoveSelectedItems,parentMenu, setParentMen
                         styles={{
                           control: (baseStyles, state) => ({
                             ...baseStyles,
-                            color: 'red'
+                            color: 'red',
+                            borderColor: state.isFocused ? null : '#8C1D2F',
+                        
+                            width:'100%',
+                            backgroundColor:"#D9D9D9"
                           }),
+                          multiValue: (baseStyles) => ({
+                            ...baseStyles,
+                            backgroundColor: '#C6B0B4', // Set the background color for added tags
+                          }),
+                          dropdownIndicator: (baseStyles, state) => ({
+                            ...baseStyles,
+                            color: state.isFocused ? '#8C1D2F' : '#8C1D2F', // Change the color when focused
+                          }),
+                      
                         }}
                         isDisabled
                       />

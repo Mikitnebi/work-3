@@ -10,7 +10,7 @@ export default function ParentMenuModal({ open, children, onClose }) {
   return ReactDom.createPortal( 
     <>
       <div className='overlay-style' onClick={onClose} />
-        <div style={{overflow:'scroll',width:'80%',height:'90%'}} className='modal-styles' >
+        <div style={{overflow:'scroll',width:'90%',height:'90%'}} className='modal-styles' >
             <button className='button-x33' onClick={onClose}><ion-icon className='icon-modal' size='large' name="close"></ion-icon></button>
             {children}
         </div>

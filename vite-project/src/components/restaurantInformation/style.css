@@ -41,21 +41,24 @@ ion-icon{
     position: relative;
 }
 .form-control-first label{
-    color: #777;
+    color: black;
     display: block;
     margin-bottom: 5px;
+    font-Family: 'YourCustomFont, sans-serif'
 }
 .form-control-first input{
-    border: 2px solid #f0f0f0;
+    border: 0.5px solid #8C1D2F;
     display: block;
     border-radius: 4px;
     width: 100%;
     padding: 8px;
     font-size: 12px;
+    background-color:#D9D9D9 ;
+
 }
 .form-control-first input:focus{
     outline: none;
-    border-color: #777;
+    border-color: #8C1D2F;
 
 } 
 .first-flex{
@@ -64,26 +67,29 @@ ion-icon{
   justify-content: space-between;
 }
 .form-control-first textarea{
-  border: 2px solid #f0f0f0;
+  border: 0.5px solid #8C1D2F;
     display: block;
-    border-radius: 4px;
-    width: 100%;
+    border-radius: 5px;
+    width: 50%;
     padding: 8px;
     font-size: 12px;
+    background-color:#D9D9D9 ;
+
 }
 .form-control-first textarea:focus{
   outline: none;
-  border-color: #777;
+  border-color: #8C1D2F;
 
 }
 
 
 .form-control-first small{
-    color: red;
+  
+    color: #ee0f35;
     position: absolute;
-    bottom: 0%;
+    bottom: -10%;
     left: 0;
-    font-size: 12px;
+    font-size: 14px;
 }
 
 

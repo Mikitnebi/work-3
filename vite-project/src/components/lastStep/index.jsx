@@ -9,7 +9,9 @@ import ParentMenu from "./parentMenu";
 import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
 import { v4 as uuidv4 } from 'uuid';
 import Select from 'react-select';
+import "../firstStep/firstStep.css";
 
+import "../../../public/fonts/bpg_nino_mtavruli_bold.ttf"
 export const LastStep = function ({ chooseStep, prevStep, nextStep,isParent,setIsParent,isParent1,setIsParent1,menuData,setMenuData }) {
   const [parentMenu, setParentMenu] = useState([]);
 
@@ -433,61 +435,53 @@ export const LastStep = function ({ chooseStep, prevStep, nextStep,isParent,setI
   
     const englishLettersWithSpacesAndTabsRegex = /^[A-Za-z0-9 \t]+$/;
     const georgianLettersWithSpacesAndTabsRegex = /^[\u10A0-\u10FF0-9 \t]+$/;
-  console.log(menuSections)
+  
     // Validate sections
     menuSections.forEach((section, sectionIndex) => {
       if (!section.title || !englishLettersWithSpacesAndTabsRegex.test(section.title)) {
-        newCombinedErrors[`sectionTitle${sectionIndex}`] = `Section ${sectionIndex + 1} Title is required and must contain only English letters`;
+        newCombinedErrors[`sectionTitle${sectionIndex}`] = `სექციის სახელი სავალდებულოა და ის უნდა შეიცავდეს მხოლოდ ინგლისურ ასოებს`;
       }
       if (!section.georgianTitle || !georgianLettersWithSpacesAndTabsRegex.test(section.georgianTitle)) {
-        newCombinedErrors[`sectionGeorgianTitle${sectionIndex}`] = `Section ${sectionIndex + 1} Georgian Title is required and must contain only Georgian letters`;
+        newCombinedErrors[`sectionGeorgianTitle${sectionIndex}`] = `სექციის სახელი სავალდებულოა და ის უნდა შეიცავდეს მხოლოდ ინგლისურ ასოებს`;
       }
   
       section.items.forEach((item, itemIndex) => {
         if (!item.name || !englishLettersWithSpacesAndTabsRegex.test(item.name)) {
-          newSimpleErrors[`itemName${sectionIndex}-${itemIndex}`] = true;
-          newCombinedErrors[`itemName${sectionIndex}-${itemIndex}`] = `Section ${sectionIndex + 1}, Item ${itemIndex + 1}: Dish Name is required and must contain only English letters`;
+          newSimpleErrors[`itemName${sectionIndex}-${itemIndex}`] = `Section ${sectionIndex + 1}, Item ${itemIndex + 1}: Dish Name is required and must contain only English letters`;
         }
   
         if (!item.price || isNaN(item.price)) {
-          newSimpleErrors[`itemPrice${sectionIndex}-${itemIndex}`] = true;
-          newCombinedErrors[`itemPrice${sectionIndex}-${itemIndex}`] = `Section ${sectionIndex + 1}, Item ${itemIndex + 1}: Dish Price is required and must be a valid number`;
+          newSimpleErrors[`itemPrice${sectionIndex}-${itemIndex}`] = `Section ${sectionIndex + 1}, Item ${itemIndex + 1}: Dish Price is required and must be a valid number`;
         }
   
         if (!item.image) {
-          newSimpleErrors[`itemImage${sectionIndex}-${itemIndex}`] = true;
-          newCombinedErrors[`itemImage${sectionIndex}-${itemIndex}`] = `Section ${sectionIndex + 1}, Item ${itemIndex + 1}: Dish Image is required`;
+          newSimpleErrors[`itemImage${sectionIndex}-${itemIndex}`] = `Section ${sectionIndex + 1}, Item ${itemIndex + 1}: Dish Image is required`;
         }
   
         if (!item.description || !englishLettersWithSpacesAndTabsRegex.test(item.description)) {
-          newSimpleErrors[`itemDescription${sectionIndex}-${itemIndex}`] = true;
-          newCombinedErrors[`itemDescription${sectionIndex}-${itemIndex}`] = `Section ${sectionIndex + 1}, Item ${itemIndex + 1}: Dish Description is required and must contain only English letters`;
+          newSimpleErrors[`itemDescription${sectionIndex}-${itemIndex}`] = `Section ${sectionIndex + 1}, Item ${itemIndex + 1}: Dish Description is required and must contain only English letters`;
         }
   
         if (item.ingredients.length === 0 ) {
-          newSimpleErrors[`itemIngredients${sectionIndex}-${itemIndex}`] = true;
-          newCombinedErrors[`itemIngredients${sectionIndex}-${itemIndex}`] = `Section ${sectionIndex + 1}, Item ${itemIndex + 1}: Ingredients are required and must contain only English letters`;
+          newSimpleErrors[`itemIngredients${sectionIndex}-${itemIndex}`] = `Section ${sectionIndex + 1}, Item ${itemIndex + 1}: Ingredients are required and must contain only English letters`;
         }
   
         if (!item.georgianName || !georgianLettersWithSpacesAndTabsRegex.test(item.georgianName)) {
-          newSimpleErrors[`itemGeorgianName${sectionIndex}-${itemIndex}`] = true;
-          newCombinedErrors[`itemGeorgianName${sectionIndex}-${itemIndex}`] = `Section ${sectionIndex + 1}, Item ${itemIndex + 1}: Georgian Dish Name is required and must contain only Georgian letters`;
+          newSimpleErrors[`itemGeorgianName${sectionIndex}-${itemIndex}`] = `Section ${sectionIndex + 1}, Item ${itemIndex + 1}: Georgian Dish Name is required and must contain only Georgian letters`;
         }
   
         if (item.georgianIngredients.length === 0 ) {
-          newSimpleErrors[`itemGeorgianIngredients${sectionIndex}-${itemIndex}`] = true;
-          newCombinedErrors[`itemGeorgianIngredients${sectionIndex}-${itemIndex}`] = `Section ${sectionIndex + 1}, Item ${itemIndex + 1}: Georgian Ingredients are required and must contain only Georgian letters`;
+          newSimpleErrors[`itemGeorgianIngredients${sectionIndex}-${itemIndex}`] = `Section ${sectionIndex + 1}, Item ${itemIndex + 1}: Georgian Ingredients are required and must contain only Georgian letters`;
         }
   
         if (!item.georgianDescription || !georgianLettersWithSpacesAndTabsRegex.test(item.georgianDescription)) {
-          newSimpleErrors[`itemGeorgianDescription${sectionIndex}-${itemIndex}`] = true;
-          newCombinedErrors[`itemGeorgianDescription${sectionIndex}-${itemIndex}`] = `Section ${sectionIndex + 1}, Item ${itemIndex + 1}: Georgian Dish Description is required and must contain only Georgian letters`;
+          newSimpleErrors[`itemGeorgianDescription${sectionIndex}-${itemIndex}`] = `Section ${sectionIndex + 1}, Item ${itemIndex + 1}: Georgian Dish Description is required and must contain only Georgian letters`;
         }
       });
   
       // Check if there are no items in a section
       if (section.items.length === 0) {
-        newCombinedErrors[`sectionItems${sectionIndex}`] = `Section ${sectionIndex + 1} must have at least one item`;
+        newCombinedErrors[`sectionItems${sectionIndex}`] = `სექცია ${ section?.title} აუცილებლად უნდა შეიცავდეს მინიმუმ ერთ კერძს`;
       }
     });
   
@@ -496,8 +490,20 @@ export const LastStep = function ({ chooseStep, prevStep, nextStep,isParent,setI
     setSimpleErrors(newSimpleErrors);
   
     // Check if there are any errors
-    return Object.keys(newCombinedErrors).length === 0;
-  };
+    const hasErrors = Object.keys(newCombinedErrors).length > 0 || Object.keys(newSimpleErrors).length > 0;
+  
+    // Show simple errors as alert
+    if (hasErrors) {
+      let errorMessage = 'Validation errors:\n';
+      Object.values(newSimpleErrors).forEach((error) => {
+        errorMessage += `${error}\n`;
+      });
+      alert(errorMessage);
+    }
+  
+    return !hasErrors;
+};
+
   
 
   const [isOpenRegistration, setIsOpenRegistration] = useState(false)
@@ -556,94 +562,104 @@ export const LastStep = function ({ chooseStep, prevStep, nextStep,isParent,setI
 
 
 
+
   return (
 
     !isParent ? 
-      
-    <div style={{position: 'absolute',
-      top: '40%',
-      left: '50%',
-      transform: 'translate(-50%, -50%)'}}>
-        
-       { 
+       
        !isOpenRegistration ?
-      <div >
-        Do your restaurant have parent restaurant? 
+      <div  className="doYouHave">
+        <div>
+        გყავთ მთავარი ფილიალი ? 
         
-        <span onClick={()=>{setIsOpenRegistration(true);setIsParent1(true)}}  style={{cursor:'pointer',fontSize:'18px',color:"#0ad60a", marginLeft:'10px'}}>Yes</span> 
-        <span onClick={() => {setIsParent(true); setIsParent1(false)}} style={{cursor:'pointer',fontSize:'18px',color:'red', marginLeft:'10px'}}>No</span>  
+        <span onClick={()=>{setIsOpenRegistration(true);setIsParent1(true)}} >კი</span> 
+        <span onClick={() => {setIsParent(true); setIsParent1(false)}} >არა</span>  
+        </div>
+       
       </div>
       : 
+      <div style={{position: 'absolute',
+      top: '0%',
+      left: '50%',
+      transform: 'translate(-50%, -50%)',
+      width:'100%'
+      }}>
       <ParentChecker   setIsParent={setIsParent}/>
-        }
+        
     </div> 
       
     :
 
     <div className="last-step">
-      <div className="menu-flex">
+      <div className='firstStep-Name'>
+    <img style={{width:'4%',marginRight:'5px'}} src="../../../public/img/Group4.png" alt="Main Logo" />
+    <h3 >მოგესალმებით მიკიტანში</h3>
 
-        {
-          isParent1 ?
-            <button onClick={() => setIsOpenParentMenu(true)}  style={{marginRight:'10px',position:'absolute',left:'-30%',backgroundColor:'purple'}} className="last-step-button1">Parent Menu</button>
-            :
-            <></>
-        }
-
+        </div>
         <ParentMenuModal open={isOpenParentMenu} onClose={() => setIsOpenParentMenu(false)}>
-              <ParentMenu 
-              handleMoveSelectedItems={handleMoveSelectedItems}
-              parentMenu={parentMenu}
-              setMenuData={setMenuData}
-              setParentMenu={setParentMenu} 
-              handleMoveSelectedItems2={handleMoveSelectedItems2}
-              // selectedSections={selectedSections}
-              //   setSelectedSections={setSelectedSections}
-              //   selectedItems={selectedItems}
-              //   setSelectedItems={setSelectedItems}
-              //   onSelectionChange={onSelectionChange}
-   menuData={menuData} close={ setIsOpenParentMenu }/>
-   
-            </ParentMenuModal>
+        <ParentMenu 
+        handleMoveSelectedItems={handleMoveSelectedItems}
+        parentMenu={parentMenu}
+        setMenuData={setMenuData}
+        setParentMenu={setParentMenu} 
+        handleMoveSelectedItems2={handleMoveSelectedItems2}
+        // selectedSections={selectedSections}
+        //   setSelectedSections={setSelectedSections}
+        //   selectedItems={selectedItems}
+        //   setSelectedItems={setSelectedItems}
+        //   onSelectionChange={onSelectionChange}
+menuData={menuData} close={ setIsOpenParentMenu }/>
 
-        <button className="last-step-button1" onClick={(e) => prevStep()}>
-          Back
-        </button>
-        <button className="add-section-button" onClick={addMenuSection}>
-          Add Menu Section
-        </button>
-        {/* <button
-          className="save-button"
-          onClick={() => {
-            // Save to localStorage when the user clicks "Save"
-            localStorage.setItem("menuSections", JSON.stringify(menuSections));
-            alert("Menu sections and items saved!");
-          }}
-        >
-          Save
-        </button> */}
-        {/* <button className="final-save-button1" onClick={(e) => nextStep()}>
-          Next
-        </button> */}
-        <button className="final-save-button" onClick={(e) => {
-          handleFinalSave();
-          
-        }}>
-          Next
-        </button>
-        {
-          isParent1 ?
-<button  className="final-save-button"  onClick={()=>submit()}>
-        Return 
-        </button>
-        :
-        <></>
-        }
+      </ParentMenuModal>
+      {
+          isParent1 ? 
+          <div className="menu-flex">
+ 
+ <button className="last-step-button1" onClick={(e) => prevStep()}>
+    უკან
+  </button>
+
+  <button onClick={() => setIsOpenParentMenu(true)}  className="last-step-button1">მშობელი ფილიალის მენიუ</button>
+
+  <button className="add-section-button" onClick={addMenuSection}>
+    სექციის დამატება
+  </button>
         
-      </div>
+  <button  className="final-save-button"  onClick={()=>submit()}>
+  კერძის / სექციის დაბრუნება 
+  </button>
+  <button className="final-save-button" onClick={(e) => {
+    handleFinalSave();
+    
+  }}>
+    შემდეგი
+  </button>
+
+
+
+      </div> :
+
+<div className="menu-flex">
+<button className="last-step-button1" onClick={(e) => prevStep()}>
+    უკან
+  </button>
+  <button className="add-section-button" onClick={addMenuSection}>
+    სექციის დამატება
+  </button>
+  <button  className="final-save-button" onClick={(e) => {
+    handleFinalSave();
+    
+  }}>
+    შემდეგი
+  </button>
+        
+</div>
+
+      }
+      
 
       {/* Display combined-errors */}
-      {Object.keys(combinedErrors).length > 0 && (
+      {/* {Object.keys(combinedErrors).length > 0 && (
         <div className="combined-errors">
           {Object.values(combinedErrors).map((error, index) => (
             <div key={index} className="error-message1">
@@ -651,8 +667,9 @@ export const LastStep = function ({ chooseStep, prevStep, nextStep,isParent,setI
             </div>
           ))}
         </div>
-      )}
+      )} */}
 
+      <div className="wraperMenu" >
       <div className="menu-grid">
       <DragDropContext onDragEnd={onDragEnd}>
 
@@ -675,22 +692,56 @@ export const LastStep = function ({ chooseStep, prevStep, nextStep,isParent,setI
            {!section.parent   ?
             isThereAnySelectedLeft(section) ?
             <>
-            <div style={{marginBottom:'8px'}}>
-            <label style={{fontSize:'16px'}} htmlFor={`sectionTitle-${sectionIndex}`}>Section Title:</label>
+            <div className="sectionHead" >
+            <label style={{fontSize:'13px'}} htmlFor={`sectionTitle-${sectionIndex}`}>სექცია ინგლისურად:</label>
             <input
               type="text"
               placeholder="Section Title"
               value={section.title}
               disabled={true}
             />
-            <input
+
+
+<div style={{ display: 'inline-block', position: 'relative',       marginLeft:'5px', marginBottom:'5px'}}>
+  <input
+    style={{
+      width: '20px',
+      height: '20px',
+      margin: 0,
+      padding: 0,
+      position: 'absolute',
+      opacity: 0,
+      cursor: 'pointer',
+    }}
+    type="checkbox"
+    onChange={() => toggleSectionSelection(section)}
+
+    defaultChecked={!isSectionInSelectedSections(section)}
+    />
+  <div
+    style={{
+      width: '20px',
+      height: '20px',
+      backgroundColor: !isSectionInSelectedSections(section) ? '#8C1D2F' : 'transparent',
+      border: '1px solid #8C1D2F',
+      borderRadius: '4px',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      cursor: 'pointer',
+    }}
+  >
+    {!isSectionInSelectedSections(section) && <div style={{ color: 'white' }}>✓</div>}
+  </div>
+</div>
+            {/* <input
                   type="checkbox"
                   onChange={() => toggleSectionSelection(section)}
                   checked={!isSectionInSelectedSections(section)}
-                />
+                /> */}
             </div>
 
-            <div style={{marginBottom:'8px'}}>
+            <div className="sectionHead" >
             <label style={{fontSize:'13px'}} htmlFor={`GeorgianSectionTitle-${sectionIndex}`}>სექცია ქართულად:</label>
             <input
               type="text"
@@ -704,8 +755,8 @@ export const LastStep = function ({ chooseStep, prevStep, nextStep,isParent,setI
               </> 
               :
               <>
-              <div style={{marginBottom:'8px'}}>
-                <label style={{fontSize:'16px'}} htmlFor={`sectionTitle-${sectionIndex}`}>Section Title:</label>
+              <div className="sectionHead" >
+                <label style={{fontSize:'13px'}} htmlFor={`sectionTitle-${sectionIndex}`}>სექცია ინგლისურად:</label>
 
               <input
               type="text"
@@ -717,7 +768,7 @@ export const LastStep = function ({ chooseStep, prevStep, nextStep,isParent,setI
               id={`sectionTitle-${sectionIndex}`}
             />
             </div>
-            <div style={{marginBottom:'8px'}}>
+            <div className="sectionHead" >
             <label  style={{fontSize:'13px'}} htmlFor={`GeorgianSectionTitle-${sectionIndex}`}>სექცია ქართულად:</label>
             <input
               type="text"
@@ -735,8 +786,8 @@ export const LastStep = function ({ chooseStep, prevStep, nextStep,isParent,setI
             :
             isThereAnySelectedLeft(section) ?
             <>
-            <div style={{marginBottom:'8px'}}>
-            <label style={{fontSize:'16px'}} htmlFor={`sectionTitle-${sectionIndex}`}>Section Title:</label>
+            <div className="sectionHead" >
+            <label style={{fontSize:'13px'}} htmlFor={`sectionTitle-${sectionIndex}`}>სექცია ინგლისურად:</label>
 
             <input
               type="text"
@@ -744,14 +795,46 @@ export const LastStep = function ({ chooseStep, prevStep, nextStep,isParent,setI
               value={section.title}
               disabled={true}
             />
-            <input
+            <div style={{ display: 'inline-block', position: 'relative',       marginLeft:'5px', marginBottom:'5px'}}>
+  <input
+    style={{
+      width: '20px',
+      height: '20px',
+      margin: 0,
+      padding: 0,
+      position: 'absolute',
+      opacity: 0,
+      cursor: 'pointer',
+    }}
+    type="checkbox"
+    onChange={() => toggleSectionSelection(section)}
+
+    defaultChecked={!isSectionInSelectedSections(section)}
+    />
+  <div
+    style={{
+      width: '20px',
+      height: '20px',
+      backgroundColor: !isSectionInSelectedSections(section) ? '#8C1D2F' : 'transparent',
+      border: '1px solid #8C1D2F',
+      borderRadius: '4px',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      cursor: 'pointer',
+    }}
+  >
+    {!isSectionInSelectedSections(section) && <div style={{ color: 'white' }}>✓</div>}
+  </div>
+</div>
+            {/* <input
                   type="checkbox"
                   onChange={() => toggleSectionSelection(section)}
                   checked={!isSectionInSelectedSections(section)}
-                />
+                /> */}
             </div>
 
-            <div style={{marginBottom:'8px'}}>
+            <div className="sectionHead" >
             <label style={{fontSize:'13px'}} htmlFor={`GeorgianSectionTitle-${sectionIndex}`}>სექცია ქართულად:</label>
             <input
               type="text"
@@ -764,8 +847,8 @@ export const LastStep = function ({ chooseStep, prevStep, nextStep,isParent,setI
               </> 
               :
               <>
-              <div style={{marginBottom:'8px'}}>
-              <label style={{fontSize:'16px'}} htmlFor={`sectionTitle-${sectionIndex}`}>Section Title:</label>
+              <div className="sectionHead" >
+              <label style={{fontSize:'13px'}} htmlFor={`sectionTitle-${sectionIndex}`}>სექცია ინგლისურად:</label>
 
               <input
               type="text"
@@ -777,7 +860,7 @@ export const LastStep = function ({ chooseStep, prevStep, nextStep,isParent,setI
             />
             </div>
 
-            <div style={{marginBottom:'8px'}}>
+            <div className="sectionHead" >
             <label style={{fontSize:'13px'}} htmlFor={`GeorgianSectionTitle-${sectionIndex}`}>სექცია ქართულად:</label>
             <input
               type="text"
@@ -803,7 +886,7 @@ export const LastStep = function ({ chooseStep, prevStep, nextStep,isParent,setI
               >
                 {(provided) => (
                           <li
-                          className={`menu-section ${snapshot.isDraggingOver ? 'dragging-over' : ''}`}
+                          className={`menu-section1 ${snapshot.isDraggingOver ? 'dragging-over' : ''}`}
                             ref={provided.innerRef}
                             {...provided.draggableProps}
                             {...provided.dragHandleProps}
@@ -811,11 +894,11 @@ export const LastStep = function ({ chooseStep, prevStep, nextStep,isParent,setI
                           >
 
                   <div className="menu-item">
-                  <label htmlFor={`dishName-${sectionIndex}-${itemIndex}`}>Dish Name:</label>
+                  <label  htmlFor={`dishName-${sectionIndex}-${itemIndex}`}>კერძის ინგლისური სახელი:</label>
 
                     <input
                       type="text"
-                      placeholder="Dish Name"
+                      placeholder="კერძის ინგლისური სახელი"
                       value={item.name}
                       onChange={(e) =>
                         updateMenuItem(
@@ -830,10 +913,10 @@ export const LastStep = function ({ chooseStep, prevStep, nextStep,isParent,setI
                     />
                     {simpleErrors[`itemName${sectionIndex}-${itemIndex}`] && 
                       <div className="error-message">
-                        Dish Name is required
+                        შეიყვანეთ კერძის სახელი ინგლისურად
                       </div>
                     }
-                    <label htmlFor={`georgianDishName-${sectionIndex}-${itemIndex}`}>კერძის ქართული სახელი:</label>
+                    <label  htmlFor={`georgianDishName-${sectionIndex}-${itemIndex}`}>კერძის ქართული სახელი:</label>
 
                     <input
   type="text"
@@ -851,14 +934,14 @@ export const LastStep = function ({ chooseStep, prevStep, nextStep,isParent,setI
 />
 {simpleErrors[`itemGeorgianName${sectionIndex}-${itemIndex}`] && 
   <div className="error-message">
-    Georgian Dish Name is required
+    შეიყვანეთ კერძი ქართულად
   </div>
 }
-            <label htmlFor={`DishPrice-${sectionIndex}-${itemIndex}`}>dish price:</label>
+            <label  htmlFor={`DishPrice-${sectionIndex}-${itemIndex}`}>კერძის ფასი:</label>
 
                     <input
                       type="number"
-                      placeholder="Dish Price"
+                      placeholder="კერძის ფასი"
                       value={item.price}
                       onChange={(e) =>
                         updateMenuItem(
@@ -872,13 +955,13 @@ export const LastStep = function ({ chooseStep, prevStep, nextStep,isParent,setI
                     />
                     {simpleErrors[`itemPrice${sectionIndex}-${itemIndex}`] && 
                       <div className="error-message">
-                        Dish Price is required
+                        შეიყვანეთ კერძის ფასი
                       </div>
                     }
-                    <label htmlFor={`DishDescription-${sectionIndex}-${itemIndex}`}>dish description:</label>
+                    <label  htmlFor={`DishDescription-${sectionIndex}-${itemIndex}`}>კერძის აღწერა ინგლისურად:</label>
 
-                  <textarea
-  placeholder="Dish Description"
+                  <textarea className="menuTextArea"
+  placeholder="კერძის აღწერა ინგლისურად"
   value={item.description}
   onChange={(e) =>
     updateMenuItem(
@@ -889,16 +972,15 @@ export const LastStep = function ({ chooseStep, prevStep, nextStep,isParent,setI
     )
   }
   id={`DishDescription-${sectionIndex}-${itemIndex}`}
-  style={{ width: "100%", height: "60px" }} // You can adjust the width and height as needed
 />
 {simpleErrors[`itemDescription${sectionIndex}-${itemIndex}`] && 
   <div className="error-message">
-    Dish Description is required
+    შეიყვანეთ კერძის აღწერა ინგლისურად
   </div>
 }
-<label htmlFor={`GeorgianDishDescription-${sectionIndex}-${itemIndex}`}>კერძის აღწერა ქართულად:</label>
+<label  htmlFor={`GeorgianDishDescription-${sectionIndex}-${itemIndex}`}>კერძის აღწერა ქართულად:</label>
 
-<textarea
+<textarea className="menuTextArea"
   placeholder="კერძის აღწერა ქართულად"
   value={item.georgianDescription}
   onChange={(e) =>
@@ -910,14 +992,13 @@ export const LastStep = function ({ chooseStep, prevStep, nextStep,isParent,setI
     )
   }
   id={`GeorgianDishDescription-${sectionIndex}-${itemIndex}`}
-  style={{ width: "100%", height: "60px" }}
 />
 {simpleErrors[`itemGeorgianDescription${sectionIndex}-${itemIndex}`] && 
   <div className="error-message">
-    Georgian Dish Description is required
+    შეიყვანეთ კერძის აღწერა ქართულად
   </div>
 }
-<label htmlFor={`ingredients-${sectionIndex}-${itemIndex}`}>ingredients:</label>
+<label  htmlFor={`ingredients-${sectionIndex}-${itemIndex}`}>ინგრედიენტები:</label>
 
 <Select
         value={item.ingredients}
@@ -933,14 +1014,26 @@ export const LastStep = function ({ chooseStep, prevStep, nextStep,isParent,setI
           control: (baseStyles, state) => ({
             ...baseStyles,
             color: 'red',
-            zIndex:1
+            borderColor: state.isFocused ? null : '#8C1D2F',
+        
+            width:'100%',
+            backgroundColor:"#D9D9D9"
           }),
+          multiValue: (baseStyles) => ({
+            ...baseStyles,
+            backgroundColor: '#C6B0B4', // Set the background color for added tags
+          }),
+          dropdownIndicator: (baseStyles, state) => ({
+            ...baseStyles,
+            color: state.isFocused ? '#8C1D2F' : '#8C1D2F', // Change the color when focused
+          }),
+      
         }}
         id={`ingredients-${sectionIndex}-${itemIndex}`}
 
       />
 
-{/* <textarea
+{/* <textarea className="menuTextArea"
   placeholder="Ingredients"
   value={item.ingredients}
   onChange={(e) =>
@@ -956,10 +1049,10 @@ export const LastStep = function ({ chooseStep, prevStep, nextStep,isParent,setI
 /> */}
 {simpleErrors[`itemIngredients${sectionIndex}-${itemIndex}`] && 
   <div className="error-message">
-    Ingredients are required
+    შეიყვანეთ ინგრედიენტები
   </div>
 }
-<label htmlFor={`GeorgianIngredients-${sectionIndex}-${itemIndex}`}>ინგრედიენტები ქართულად:</label>
+<label  htmlFor={`GeorgianIngredients-${sectionIndex}-${itemIndex}`}>ინგრედიენტები ქართულად:</label>
 
 
 <Select
@@ -976,15 +1069,27 @@ export const LastStep = function ({ chooseStep, prevStep, nextStep,isParent,setI
           control: (baseStyles, state) => ({
             ...baseStyles,
             color: 'red',
-            zIndex:1
+            borderColor: state.isFocused ? null : '#8C1D2F',
+        
+            width:'100%',
+            backgroundColor:"#D9D9D9"
           }),
+          multiValue: (baseStyles) => ({
+            ...baseStyles,
+            backgroundColor: '#C6B0B4', // Set the background color for added tags
+          }),
+          dropdownIndicator: (baseStyles, state) => ({
+            ...baseStyles,
+            color: state.isFocused ? '#8C1D2F' : '#8C1D2F', // Change the color when focused
+          }),
+      
         }}
         id={`GeorgianIngredients-${sectionIndex}-${itemIndex}`}
 
       />
 
 
-{/* <textarea
+{/* <textarea className="menuTextArea"
   placeholder="ინგრედიენტები ქართულად"
   value={item.georgianIngredients}
   onChange={(e) =>
@@ -1001,10 +1106,10 @@ export const LastStep = function ({ chooseStep, prevStep, nextStep,isParent,setI
 /> */}
 {simpleErrors[`itemGeorgianIngredients${sectionIndex}-${itemIndex}`] && 
   <div className="error-message">
-    Georgian Ingredients are required
+    შეიყვანეთ ინგრედიენტები ქართულად
   </div>
 }
-<label htmlFor={`image-${sectionIndex}-${itemIndex}`}>dish image:</label>
+<label  htmlFor={`image-${sectionIndex}-${itemIndex}`}>კერძის ფოტო:</label>
 
                     <input
                     id={`image-${sectionIndex}-${itemIndex}`}
@@ -1021,13 +1126,13 @@ export const LastStep = function ({ chooseStep, prevStep, nextStep,isParent,setI
                       }}
                     />
                     {simpleErrors[`itemImage${sectionIndex}-${itemIndex}`] && 
-                      <div className="error-message">Dish Image is required</div>
+                      <div className="error-message">შეიყვანეთ კერძის ფოტო</div>
                     }
                     <button
                       className="delete-item-button"
                       onClick={() => deleteMenuItem(sectionIndex, itemIndex)}
                     >
-                      Delete Item
+                      კერძის წაშლა
                     </button>
                   </div>
                 </li>
@@ -1041,23 +1146,64 @@ export const LastStep = function ({ chooseStep, prevStep, nextStep,isParent,setI
               >
                 {(provided) => (
                           <li
-                          className={`menu-section ${snapshot.isDraggingOver ? 'dragging-over' : ''}`}
+                          className={`menu-section1 ${snapshot.isDraggingOver ? 'dragging-over' : ''}`}
                             ref={provided.innerRef}
                             {...provided.draggableProps}
                             {...provided.dragHandleProps}
                             key={itemIndex}
                           >
+                            <div style={{ display: 'inline-block', position: 'relative',       marginLeft:'5px', marginBottom:'5px'}}>
+  <input
+    style={{
+      width: '20px',
+      height: '20px',
+      margin: 0,
+      padding: 0,
+      position: 'absolute',
+      opacity: 0,
+      cursor: 'pointer',
+    }}
+    type="checkbox"
+    onChange={() => toggleItemSelection(section, item)}
 
-                  <input
+    defaultChecked={!selectedItems.some(
+                          (selectedItem) =>
+                            selectedItem.name === item.name && selectedItem.title === section.title
+                        )}
+    />
+  <div
+    style={{
+      width: '20px',
+      height: '20px',
+      backgroundColor: !selectedItems.some(
+                          (selectedItem) =>
+                            selectedItem.name === item.name && selectedItem.title === section.title
+                        ) ? '#8C1D2F' : 'transparent',
+      border: '1px solid #8C1D2F',
+      borderRadius: '4px',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      cursor: 'pointer',
+    }}
+  >
+    {!selectedItems.some(
+                          (selectedItem) =>
+                            selectedItem.name === item.name && selectedItem.title === section.title
+                        ) && <div style={{ color: 'white' }}>✓</div>}
+  </div>
+</div>
+
+                  {/* <input
                         type="checkbox"
                         onChange={() => toggleItemSelection(section, item)}
                         checked={!selectedItems.some(
                           (selectedItem) =>
                             selectedItem.name === item.name && selectedItem.title === section.title
                         )}
-                      />
+                      /> */}
                   <div className="menu-item">
-                  <label htmlFor={`dishName-${sectionIndex}-${itemIndex}`}>Dish Name:</label>
+                  <label  htmlFor={`dishName-${sectionIndex}-${itemIndex}`}>კერძის სახელი:</label>
 
                     <input
                       type="text"
@@ -1083,7 +1229,7 @@ export const LastStep = function ({ chooseStep, prevStep, nextStep,isParent,setI
                       </div>
                     }
                     
-                     <label htmlFor={`DishPrice-${sectionIndex}-${itemIndex}`}>dish price:</label>
+                     <label  htmlFor={`DishPrice-${sectionIndex}-${itemIndex}`}>კერძის ფასი:</label>
 
                     <input
                       type="number"
@@ -1096,26 +1242,24 @@ export const LastStep = function ({ chooseStep, prevStep, nextStep,isParent,setI
                         Dish Price is required
                       </div>
                     }
-                    <label htmlFor={`DishDescription-${sectionIndex}-${itemIndex}`}>dish description:</label>
+                    <label  htmlFor={`DishDescription-${sectionIndex}-${itemIndex}`}>კერძის ინგლისური აღწერა:</label>
 
-                  <textarea
+                  <textarea className="menuTextArea"
   placeholder="Dish Description"
   value={item.description}
   disabled={true}
-  style={{ width: "100%", height: "60px" }} // You can adjust the width and height as needed
 />
 {simpleErrors[`itemDescription${sectionIndex}-${itemIndex}`] && 
   <div className="error-message">
     Dish Description is required
   </div>
 }
-<label htmlFor={`GeorgianDishDescription-${sectionIndex}-${itemIndex}`}>კერძის აღწერა ქართულად:</label>
+<label  htmlFor={`GeorgianDishDescription-${sectionIndex}-${itemIndex}`}>კერძის აღწერა ქართულად:</label>
 
-<textarea
+<textarea className="menuTextArea"
   placeholder="კერძის აღწერა ქართულად"
   value={item.georgianDescription}
   id={`GeorgianDishDescription-${sectionIndex}-${itemIndex}`}
-  style={{ width: "100%", height: "60px" }}
   disabled={true}
 />
 {simpleErrors[`itemGeorgianDescription${sectionIndex}-${itemIndex}`] && 
@@ -1123,7 +1267,7 @@ export const LastStep = function ({ chooseStep, prevStep, nextStep,isParent,setI
     Georgian Dish Description is required
   </div>
 }
-<label htmlFor={`ingredients-${sectionIndex}-${itemIndex}`}>ingredients:</label>
+<label  htmlFor={`ingredients-${sectionIndex}-${itemIndex}`}>ინგრედიენტები ინგლისურად:</label>
 
                     <Select
                         isMulti
@@ -1133,8 +1277,20 @@ export const LastStep = function ({ chooseStep, prevStep, nextStep,isParent,setI
                           control: (baseStyles, state) => ({
                             ...baseStyles,
                             color: 'red',
-                            zIndex:1
+                            borderColor: state.isFocused ? null : '#8C1D2F',
+                        
+                            width:'100%',
+                            backgroundColor:"#D9D9D9"
                           }),
+                          multiValue: (baseStyles) => ({
+                            ...baseStyles,
+                            backgroundColor: '#C6B0B4', // Set the background color for added tags
+                          }),
+                          dropdownIndicator: (baseStyles, state) => ({
+                            ...baseStyles,
+                            color: state.isFocused ? '#8C1D2F' : '#8C1D2F', // Change the color when focused
+                          }),
+                      
                         }}
                         id={`ingredients-${sectionIndex}-${itemIndex}`}
 
@@ -1142,7 +1298,7 @@ export const LastStep = function ({ chooseStep, prevStep, nextStep,isParent,setI
                       />
 
 
-{/* <textarea
+{/* <textarea className="menuTextArea"
   placeholder="Ingredients"
   value={item.ingredients}
   disabled={true}
@@ -1153,7 +1309,7 @@ export const LastStep = function ({ chooseStep, prevStep, nextStep,isParent,setI
     Ingredients are required
   </div>
 }
-<label htmlFor={`GeorgianIngredients-${sectionIndex}-${itemIndex}`}>ინგრედიენტები ქართულად:</label>
+<label  htmlFor={`GeorgianIngredients-${sectionIndex}-${itemIndex}`}>ინგრედიენტები ქართულად:</label>
 
 <Select
                         isMulti
@@ -1163,14 +1319,26 @@ export const LastStep = function ({ chooseStep, prevStep, nextStep,isParent,setI
                           control: (baseStyles, state) => ({
                             ...baseStyles,
                             color: 'red',
-                            zIndex:1
+                            borderColor: state.isFocused ? null : '#8C1D2F',
+                        
+                            width:'100%',
+                            backgroundColor:"#D9D9D9"
                           }),
+                          multiValue: (baseStyles) => ({
+                            ...baseStyles,
+                            backgroundColor: '#C6B0B4', // Set the background color for added tags
+                          }),
+                          dropdownIndicator: (baseStyles, state) => ({
+                            ...baseStyles,
+                            color: state.isFocused ? '#8C1D2F' : '#8C1D2F', // Change the color when focused
+                          }),
+                      
                         }}
                         id={`GeorgianIngredients-${sectionIndex}-${itemIndex}`}
 
                         isDisabled
                       />
-{/* <textarea
+{/* <textarea className="menuTextArea"
   placeholder="ინგრედიენტები ქართულად"
   value={item.georgianIngredients}
   id={`GeorgianIngredients-${sectionIndex}-${itemIndex}`}
@@ -1183,7 +1351,7 @@ export const LastStep = function ({ chooseStep, prevStep, nextStep,isParent,setI
   </div>
 }
       <div style={{display:'flex',justifyContent:'space-around',alignItems:'center'}}>
-      <label htmlFor={`image-${sectionIndex}-${itemIndex}`}>dish image:</label>
+      <label  htmlFor={`image-${sectionIndex}-${itemIndex}`}>კერძის ფოტო:</label>
 
       <img style={{width:'30px',height:'30px', borderRadius:'20px'}} src={item.image} alt={item.name} />
 
@@ -1216,11 +1384,17 @@ export const LastStep = function ({ chooseStep, prevStep, nextStep,isParent,setI
                 {combinedErrors[`sectionTitle${sectionIndex}`]}
               </div>
             )}
+            {combinedErrors[`sectionGeorgianTitle${sectionIndex}`] && (
+              <div className="error-message2">
+                {combinedErrors[`sectionGeorgianTitle${sectionIndex}`]}
+              </div>
+            )}
             {combinedErrors[`sectionItems${sectionIndex}`] && (
               <div className="error-message2">
                 {combinedErrors[`sectionItems${sectionIndex}`]}
               </div>
             )}
+            
           </div>
           </div>
 
@@ -1229,6 +1403,14 @@ export const LastStep = function ({ chooseStep, prevStep, nextStep,isParent,setI
         ))}
         </DragDropContext>
        
+      </div>
+      </div>
+
+      
+      <div className='footerMenu'>
+  <h3 >powered by MIKITANI</h3>
+  <h3>2024</h3>
+  
       </div>
     </div>
   );

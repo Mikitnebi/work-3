@@ -31,7 +31,7 @@
 }
 
 .frame1::-webkit-scrollbar-thumb {
-  background-color: #3498db; /* Set the color of the scrollbar thumb */
+  background-color: #53111c; /* Set the color of the scrollbar thumb */
   border-radius: 5px; /* Optional: Set the border-radius of the thumb */
 }
 

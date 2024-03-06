@@ -87,7 +87,14 @@ export const FinalChecker = ({onClose,setCheck}) =>{
     
     return (
    
-    <div className="enter-box">
+    <div className="enter-box1">
+          <div className='auth-name1'>
+    <h3 >გაიარე ავტორიზაცია</h3>
+
+        </div>
+        <div className='languageGlobeIcon'>
+        <ion-icon   name="globe-outline"></ion-icon>
+        </div>
 
         <form onSubmit={handleSubmit(onSubmit)} action="" className="form" id="form" >
             
@@ -128,6 +135,8 @@ export const FinalChecker = ({onClose,setCheck}) =>{
                     Next
             </button>        
             </form>
+            <img className='logoRegistration' src="../../../public/img/Group4.png" alt="Main Logo" />
+
     </div>
         
     )

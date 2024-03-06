@@ -72,7 +72,7 @@
 }
 
 .choosen-reservation::-webkit-scrollbar-thumb {
-  background-color: #3498db; /* Set the color of the scrollbar thumb */
+  background-color: #53111c; /* Set the color of the scrollbar thumb */
   border-radius: 2px; /* Optional: Set the border-radius of the thumb */
 }
 

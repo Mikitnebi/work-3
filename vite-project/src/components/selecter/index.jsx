@@ -1,7 +1,7 @@
 import './select.css';
 import React, { useState } from 'react';
 
-const SelectInput = ({ options, defaultValue, onChange }) => {
+const SelectInput = ({ options, defaultValue, onChange,type }) => {
   const [selectedOption, setSelectedOption] = useState(defaultValue || '');
 
   const handleOptionChange = (event) => {
@@ -11,11 +11,13 @@ const SelectInput = ({ options, defaultValue, onChange }) => {
   };
 
   return (
-    <select value={selectedOption} onChange={handleOptionChange}>
+    <select style={type ? {backgroundColor:"#8C1D2F",color:"white"} : null} value={selectedOption} onChange={handleOptionChange}>
       {options.map((option, index) => (
         <option key={index} value={option}>
           {option}
         </option>
+
+        
       ))}
     </select>
   );

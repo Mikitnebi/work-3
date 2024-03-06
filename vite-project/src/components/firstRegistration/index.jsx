@@ -19,6 +19,7 @@ import { useNavigate } from 'react-router-dom'
 export const RegisterCompany = ({setIsLoginOrRegistration,onClose,openPincode, setIsOpenPincode ,setInformation, }) =>{
     const {dispatchUser,stateUser } = useContext(StoreContextRecipe);
     const [isLoading, setIsLoading] = useState(false);
+    const [isUsed,setIsUsed] = useState(false)
 const navigation = useNavigate()
     const options = ['თბილისი', 'ქუთაისი', 'ბათუმი',"თელავი","ზუგდიდი","მცხეთა","მესტია","სიღნაღი","სხვა"];
     // const [region, setRegion] = useState('');
@@ -178,16 +179,16 @@ const navigation = useNavigate()
         //         value: date.card
         //     })
             
-
+        // onClose()
+        // openPincode(true);
         axios
-            .post("http://54.93.212.178/Anonymous/RestaurantIntro",{
-                businessNameGeo:date.name1,
-                businessNameEng:date.name,
-                phoneNumber:date.card+"",
-                emailAddress:date.email,
-                regionId:1
-            })
-            .then(response =>{
+        .post("http://54.93.212.178/Anonymous/RestaurantIntro",{
+            businessNameGeo:date.name1,
+            businessNameEng:date.name,
+            phoneNumber:date.card+"",
+            emailAddress:date.email,
+            regionId:1
+        })            .then(response =>{
                 console.log(response)
                 console.log('good');
 
@@ -197,10 +198,9 @@ const navigation = useNavigate()
             value: true
         })
         // setPast('company')
-        onClose()
         openPincode(true);
-        setIsOpenPincode(true);
-        setInformation(true);
+        // setIsOpenPincode(true);
+        // setInformation(true);
 
         dispatchUser({
             type: "changeUserInformation",
@@ -228,12 +228,16 @@ const navigation = useNavigate()
                 value: date.card
             })
             
-
+            // RESTAURANT_WITH_THIS_MAIL_ALREADY_EXISTED
             })
             .catch(error =>{
-                console.log(error);
+                console.log(error.response.data.errorType);
                 console.log('error');
-
+                if(error.response.data.errorType === "RESTAURANT_WITH_THIS_MAIL_ALREADY_EXISTED"){
+                    setIsUsed(true)
+                } else {
+                    setIsUsed(false)
+                }
             })
             .finally(() => {
                 setIsLoading(false);
@@ -241,7 +245,6 @@ const navigation = useNavigate()
             });
        
 
-            onClose()
 
            
             // console.log(stateUser.name)
@@ -282,6 +285,8 @@ const navigation = useNavigate()
                 <input type="text" id="username" placeholder="Enter Company name in georgian" {...register("name1")}/>
                 </label>  
                 <small>{ errors.name1?.message }</small>
+                
+
             </div>
             
             <div className="form-control">
@@ -289,6 +294,11 @@ const navigation = useNavigate()
                 <input type="email" id="email" placeholder="Enter your emali" {...register("email")}/>
                 </label>
                 <small>{errors.email?.message }</small>
+                {
+                    isUsed ?                 
+                    <small>Email is already used</small> : <></>
+
+                }
             </div>
             <div className="form-control">
                 <label > Phone Number    <ion-icon name="call-outline"></ion-icon>
@@ -298,7 +308,7 @@ const navigation = useNavigate()
             </div>
             <div className="form-control">
                 <label > City/Region    <ion-icon name="earth-outline"></ion-icon> 
-                    <SelectInput defaultValue="თბილისი" options={options} onChange={handleOptionChange} />
+                    <SelectInput type={true} defaultValue="თბილისი" options={options} onChange={handleOptionChange} />
                 </label>
                 {/* <label > City/Region    <ion-icon name="earth-outline"></ion-icon>
                 <input type="text" id="location" placeholder="Enter your company's location" {...register("location")}/>

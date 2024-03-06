@@ -1,6 +1,7 @@
 export const restaurantState = {
     location: "",
     description: "",
+    descriptionGeo: "",
     cupeQuantity: 0,
     tableQuantity:0,
     terraceQuantity:0,
@@ -16,7 +17,15 @@ export const restaurantState = {
     doubleSecurity: false,
     lat:'',
     lng:'',
-    parent: false
+    parent: false,
+    adressGeorgian:'',
+    adressEnglish:'',
+    isCupe:false,
+    isTerace:false,
+    priceID:1,
+    restaurantTypeId:1,
+    restaurantRegionId:1
+
     // image1: null,
     // image2: null,
     // image3: null,

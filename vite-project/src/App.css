@@ -3,13 +3,15 @@
   padding: 0;
 
 }
-
+html{
+  background-color: #D9D9D9;
+}
 body::-webkit-scrollbar {
   width: 10px; 
 }
 
 body::-webkit-scrollbar-thumb {
-  background-color: #3498db; 
+  background-color: #53111c; 
 }
 
 body::-webkit-scrollbar-track {

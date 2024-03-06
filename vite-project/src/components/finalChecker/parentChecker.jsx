@@ -87,13 +87,20 @@ export default function ParentChecker ({onClose,setIsParent}) {
 
 
     return(
-        <div className="enter-box">
+        <div  className="enter-box1">
+          <div className='auth-name1'>
+    <h3 >დაადასტურე ვინაობა</h3>
+
+        </div>
+        <div className='languageGlobeIcon'>
+        <ion-icon   name="globe-outline"></ion-icon>
+        </div>
 
         <form onSubmit={handleSubmit(onSubmit)} action="" className="form" id="form" >
             
             <div className="form-control">
-                <label >Parent restaurant's email   <ion-icon name="person-outline"></ion-icon>
-                <input type="email" id="email" placeholder="Enter your Parent restaurant's email" {...register("email")}/>
+                <label > email   <ion-icon name="person-outline"></ion-icon>
+                <input type="email" id="email" placeholder="Enter your emali" {...register("email")}/>
                 </label>
                 <small>{errors.email?.message }</small>
             </div>
@@ -128,6 +135,8 @@ export default function ParentChecker ({onClose,setIsParent}) {
                     Next
             </button>        
             </form>
+            <img className='logoRegistration' src="../../../public/img/Group4.png" alt="Main Logo" />
+
     </div>
        
     )

@@ -1,5 +1,8 @@
 /* Reset some default styles */
-
+@font-face {
+  font-family: 'YourCustomFont';
+  src: url('../../../public/fonts/bpg_nino_mtavruli_bold.ttf') format('truetype');
+}
 
 /* Apply a simple font style */
 body,
