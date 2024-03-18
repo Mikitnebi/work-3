@@ -10,6 +10,11 @@ export default function ImagesInput({setStep, prevStep, nextStep }) {
     image3: null,
     image4: null,
     image5: null,
+    image6: null,
+    image7: null,
+    image8: null,
+    image9: null,
+    image10: null,
   });
 
   const { register, handleSubmit } = useForm();
@@ -21,7 +26,12 @@ export default function ImagesInput({setStep, prevStep, nextStep }) {
       imagePreviews.image2 &&
       imagePreviews.image3 &&
       imagePreviews.image4 &&
-      imagePreviews.image5;
+      imagePreviews.image5 &&
+      imagePreviews.image6 &&
+      imagePreviews.image7 &&
+      imagePreviews.image8 &&
+      imagePreviews.image9 &&
+      imagePreviews.image10 
 
     if (allImagesProvided) {
       nextStep();
@@ -60,7 +70,7 @@ export default function ImagesInput({setStep, prevStep, nextStep }) {
       <div {...getRootProps()} className="dropzone">
         <input {...getInputProps()} />
         <ion-icon size={'large'} name="cloud-upload-outline"></ion-icon> 
-        <p>ჩააგდე ფოტო ან დააკლიკე და ხელით ატვირთე ის</p>
+        <p>ატვირთე ფოტო</p>
         {imagePreviews[fieldName] && (
           <div className="image-preview">
             <img src={imagePreviews[fieldName]} alt={`Preview `} />
@@ -79,7 +89,7 @@ export default function ImagesInput({setStep, prevStep, nextStep }) {
     <img style={{width:'4%',marginRight:'5px'}} src="../../../public/img/Group4.png" alt="Main Logo" />
     <h3 >მოგესალმებით მიკიტანში</h3>
 
-    <div className="details-steps">
+    <div className="details-steps"> 
       <div onClick={()=>setStep(1)}>
       <ion-icon name="newspaper-outline"></ion-icon>
       <h3 style={{color:'#8C1D2F'}}>1. დეტალები</h3>
@@ -140,6 +150,14 @@ export default function ImagesInput({setStep, prevStep, nextStep }) {
           {renderDropzone("image3")}
 
         </div>
+        <div className="form-controlImages">
+          {renderDropzone("image9")}
+
+        </div>
+        <div className="form-controlImages">
+          {renderDropzone("image10")}
+
+        </div>
         </div>
         <div className="SecondPartImages">
         <div className="form-controlImages">
@@ -148,6 +166,17 @@ export default function ImagesInput({setStep, prevStep, nextStep }) {
         </div>
         <div className="form-controlImages">
           {renderDropzone("image5")}
+
+        </div>
+        <div className="form-controlImages">
+          {renderDropzone("image6")}
+
+        </div>
+        <div className="form-controlImages">
+          {renderDropzone("image7")}
+
+        </div><div className="form-controlImages">
+          {renderDropzone("image8")}
 
         </div>
         </div>

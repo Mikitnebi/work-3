@@ -743,11 +743,15 @@ loadImageArrayGrey2()
     });
   };
   const [selectWidth, setSelectWidth] = useState('100%'); // Initial width set to 100%
+  const [selectHeight, setSelectHeight] = useState('100%'); // Initial width set to 100%
 
   useEffect(() => {
     const handleResize = () => {
       const screenWidth = window.innerWidth; // Get the screen width
-      setSelectWidth(`${screenWidth*80/100}px`); // Set the width of the Select component
+      const screenHeight = window.innerHeight; // Get the screen width
+
+      setSelectWidth(`${screenWidth*20.7/100}px`); // Set the width of the Select component
+      setSelectHeight(`${screenHeight*20/100}px`); // Set the width of the Select component
     };
 
     // Listen for resize events
@@ -760,11 +764,30 @@ loadImageArrayGrey2()
     return () => window.removeEventListener('resize', handleResize);
   }, []); // Empty dependency array to run this effect only once on mount
 
+  function extractWidth(selectWidth) {
+    // Regular expression to match the numerical part of the string
+    const regex = /\d+(\.\d+)?/;
+
+    // Extract the numerical part using match
+    const matches = selectWidth.match(regex);
+
+    if (matches) {
+        // Convert the matched string to a number
+        const widthNumber = parseFloat(matches[0]);
+        return widthNumber;
+    } else {
+        // If no match found, return null or handle the error accordingly
+        return null;
+    }
+}
+
+
 console.log(floors[currentFloorIndex].name)
-console.log(selectWidth)
+console.log(selectHeight)
 
   return (
     <div id="restaurant-floor">
+      
       <div className='firstStep-Name'>
     <img style={{width:'4%',marginRight:'5px'}} src="../../../public/img/Group4.png" alt="Main Logo" />
     <h3 >მოგესალმებით მიკიტანში</h3>
@@ -810,11 +833,7 @@ console.log(selectWidth)
  
     </div>
         </div>
-              <div style={{height:'9%'}} className='footerImages'>
-  <h3 >powered by MIKITANI</h3>
-  <h3>2024</h3>
-  
-      </div>
+    
       <div className='shapesVariartions' >
         <img className='rectangle1' onClick={() => addShape('rectangle')} src="../../../public/first/მაგიდა2,0.png" alt="" />
         <img className='circle1' onClick={() => addShape('circle')} src="../../../public/second/მაგიდა4.0.png" alt="" />
@@ -825,7 +844,7 @@ console.log(selectWidth)
 
       </div>
 
-      <div style={{ position: 'fixed', right: '0%', top: '13%', display: 'flex',width:'50%',alignItems:'center' }}>
+      <div style={{ position: 'absolute', right: '0%', top: '13%', display: 'flex',width:'50%',alignItems:'center' }}>
         {/* <button style={{ width: '20%', height: '40px', margin: '10px' }} className="last-step-button1" onClick={(e) => prevStep()}>
           Back
         </button> */}
@@ -853,15 +872,15 @@ console.log(selectWidth)
 
       </div>
 
-      <Stage style={{ position: "absolute", left: '1%', marginTop: '15%', }}  backgroundImage={backgroundImage} width={900} height={550} onClick={handleStageClick} onTouchEnd={handleStageClick}>
+      <Stage style={{ position: "absolute", left: '1%', marginTop: '10%', }}  backgroundImage={backgroundImage} width={extractWidth(selectWidth)*3.4} height={extractWidth(selectHeight)*4.6} onClick={handleStageClick} onTouchEnd={handleStageClick}>
         <Layer>
           {/* {renderGrid()} */}
       <Rect
       key={-344}
         x={30}
         y={30}
-        width={900} // Width of the stage
-        height={600} // Height of the stage
+        width={extractWidth(selectWidth)*3.1} // Width of the stage
+        height={extractWidth(selectHeight)*4} // Height of the stage
         fillPatternImage={yourBackgroundImage} // Your background image
         fillPatternScaleX={0.3} // Scale the image to fit the stage width
         fillPatternScaleY={0.25} // Scale the image to fit the stage height
@@ -1093,6 +1112,11 @@ console.log(selectWidth)
 <button onClick={handleFinalSave} className='addFloor1'>შემდეგი</button>
 
 </div>
+          <div  className='footerTables'>
+  <h3 >powered by MIKITANI</h3>
+  <h3>2024</h3>
+  
+      </div>
     </div>
   );
 };

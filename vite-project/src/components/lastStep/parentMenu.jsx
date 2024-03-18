@@ -161,7 +161,7 @@ const ParentMenu = ({ menuData, handleMoveSelectedItems,parentMenu, setParentMen
 
         <button className="move_parent" onClick={() => submit()}>მონიშნულის გადატანა</button>
 
-        <div className="menu-grid-parent" style={{ marginLeft: '-100px', marginTop: '40px' }}>
+        <div className="menu-grid-parent" style={{ marginLeft: '-12%', marginTop: '7%' }}>
           {menuData.map((section, sectionIndex) => (
             <div className="menu-section" key={sectionIndex}>
               <h3>

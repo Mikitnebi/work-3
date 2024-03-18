@@ -45,7 +45,7 @@ const kitchenTagOptions = [
 const musicTagOptions = [
   { value: 33, label: '#ჰიპ-ჰოპი' },
   { value: 34, label: '#ჯაზი' },
-  { value: 35, label: '#როკენროლი' },
+  { value: 35, label: '#როკენროლი' }, 
   { value: 36, label: '#დისკო' },
   { value:  37, label: '#ტექნო ' },
   { value:  38, label: '#კლასიკური მუსიკა' },
@@ -294,7 +294,7 @@ const navigation = useNavigate()
         <button onClick={handleComplete} className="final-save-button-last" type="submit">დასრულება</button>
 
         </div>
-        <img style={{position:"absolute",width:'35%',bottom:"5%",right:'5%'}} src="../../../public/cozy.png" alt="Main Logo" />
+        <img style={{position:"absolute",width:'20%',bottom:"10%",right:'5%'}} src="../../../public/cozy.png" alt="Main Logo" />
 
              <div className='footerLast'>
     <h3 >powered by MIKITANI</h3>

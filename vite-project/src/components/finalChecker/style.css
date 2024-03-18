@@ -15,10 +15,8 @@ ion-icon{
 
 .enter-box1{
     position: absolute;
-    top: 15%; 
-    left: 20%; 
-    margin-top: 20%;
-    margin-left: 30%;
+    top: 50%; 
+    left: 50%; 
     transform: translate(-50%, -50%);
     background-color: #D9D9D9;
     border-radius: 5px;

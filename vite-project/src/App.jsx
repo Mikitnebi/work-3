@@ -36,6 +36,7 @@ import Distribution from './components/home/distribution';
 import ProfileHomePage from './components/home/profile';
 import Help from './components/home/help';
 import Settings from './components/home/settings';
+import * as signalR from "@microsoft/signalr";
 
 export const StoreContextRecipe = createContext({});
 
@@ -53,10 +54,39 @@ function App() {
 
   const [stateRestaurant, dispatchRestaurant] = useReducer(restaurantReducer, restaurantState);
 
-  useEffect(()=>{
-    let t=localStorage.getItem('tablesInfo')
-    console.log(t)
-  },[])
+  // useEffect(()=>{
+  //   let t=localStorage.getItem('tablesInfo')
+  //   console.log(t)
+  // },[])
+
+
+  const [connection, setConnection] = useState(null);
+
+  useEffect(() => {
+    // Create and start SignalR connection
+    const newConnection = new signalR.HubConnectionBuilder()
+      .withUrl('http://54.93.212.178/systemHub')
+      .build();
+
+    newConnection.start()
+      .then(() => {
+        console.log('SignalR connected');
+        // Optionally, you can perform additional actions upon successful connection
+      })
+      .catch(error => console.error(error));
+
+    // Save the connection to state
+    setConnection(newConnection);
+
+    // Cleanup function
+    // return () => {
+    //   if (newConnection) {
+    //     newConnection.stop();
+    //   }
+    // };
+  }, []);
+
+
 
   return (
     <>

@@ -67,7 +67,7 @@ export default function Cities ( ) {
                     60+ რესტორანი
                 </div>  </div>
 </div>
-
+ 
 
 <div class="e-card playing">
   <div class="image"></div>

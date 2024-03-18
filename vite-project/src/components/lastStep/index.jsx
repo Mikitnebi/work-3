@@ -579,7 +579,7 @@ export const LastStep = function ({setStep, chooseStep, prevStep, nextStep,isPar
       </div>
       : 
       <div style={{position: 'absolute',
-      top: '0%',
+      top: '5%',
       left: '50%',
       transform: 'translate(-50%, -50%)',
       width:'100%'

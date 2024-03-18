@@ -8,7 +8,7 @@
   /* button {
     margin: 5px;
     padding: 8px;
-    cursor: pointer;
+    cursor: pointeroverfloww
   } */
 
   .rectangle1{
@@ -144,8 +144,8 @@ height: 50%;
   width: 100%;
   align-items: center;
   justify-content: space-around;
-  position: absolute;
-  bottom: 13%;
+position: absolute;
+bottom: -20%;
 }
   
 
@@ -221,4 +221,23 @@ height: 50%;
   .button-details:hover, .addFloor:hover,.deleteFloor:hover,.addFloor1:hover{
     transform: scale(1.1);
     transition: 0.3s;
+  }
+
+
+  .footerTables{
+position: absolute;
+bottom: -40%;
+    width: 100%;
+    background-color: #8C1D2F;
+    z-index: 100;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .footerTables h3{
+    font-size: 16px;
+    font-weight: 600;
+    color: white;
   }

@@ -89,7 +89,7 @@
   .menu-flex-parent{
     position: absolute;
     top: 6%;
-    left: 5%;
+    left: 0%;
     display: flex;
     justify-content: space-between;
     width: 95%;
@@ -285,7 +285,7 @@ justify-content: space-between;
 
 .move_parent{
   width: 20%;
-  height: 20%;
+  height: 15%;
   outline: none;
   background-color: transparent;
   border: 1px solid #53111c ;
@@ -294,7 +294,8 @@ justify-content: space-between;
   color: black;
   font-family: "YourCustomFont";
   font-size: 16px;
-  margin-top: -3%;
+  margin-top: 0%;
+  margin-left: 2%;
 }
 .move_parent:hover{
   transform: scale(1.1);

@@ -24,7 +24,7 @@ z-index: -1;
 
 .images-input-container {
     display: flex;
-    flex-direction: column;
+    flex-direction: column; 
     justify-content: center;
     align-items: center;
 width: 100%;
@@ -63,6 +63,7 @@ position: relative;
     display: flex;
     flex-direction: column;
     width: 100%;
+    height: 100%;
     padding: 20px;
     border-radius: 8px;
     margin-top: 10%;
@@ -71,6 +72,8 @@ position: relative;
 
   .FirstPartImages{
     width: 100%;
+    height: 100%;
+
     display: flex;
     align-items: center;
     justify-content: space-around;
@@ -86,8 +89,8 @@ position: relative;
   
   .form-controlImages {
     margin-bottom: 20px;
-    width: 25%;
-    height: 20%;
+    width: 15%;
+    height: auto;
   }
   
   .dropzone {
@@ -99,6 +102,10 @@ position: relative;
     text-align: center;
     cursor: pointer;
     position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
   }
   
   .upload-icon {
@@ -108,6 +115,8 @@ position: relative;
   
   .dropzone p {
     margin: 0;
+    font-size: 10px;
+    width: 100%;
   }
   
   .image-preview {
@@ -116,9 +125,12 @@ position: relative;
   }
   
   .image-preview img {
-    width: 100%;
+    position: absolute;
+    top: 80%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    width: 50%;
     border-radius: 5px;
-    height: auto;
   }
   
   .small {

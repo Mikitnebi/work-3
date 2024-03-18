@@ -10,10 +10,12 @@
   color: #8C1D2F;
 }
 
+
+
 /* Style the section */
 .section-features {
   background-color: #f4f4f4;
-  padding: 80px 0;
+  padding: 0px 0;
   text-align: center;
   display: flex;
   flex-direction: column;
