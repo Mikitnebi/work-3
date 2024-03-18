@@ -71,6 +71,7 @@ function App() {
     newConnection.start()
       .then(() => {
         console.log('SignalR connected');
+        
         // Optionally, you can perform additional actions upon successful connection
       })
       .catch(error => console.error(error));
