@@ -74,7 +74,6 @@
   display: grid;
   gap: 60px 50px;
   grid-template-columns:   auto auto auto auto auto auto ;
-  font-family: cursive;
 }
 
 /* Update your existing CSS file */

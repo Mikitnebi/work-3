@@ -97,15 +97,36 @@ export default function ParentChecker ({onClose,setIsParent}) {
         </div>
 
         <form onSubmit={handleSubmit(onSubmit)} action="" className="form" id="form" >
+
+        <div class="coolinput1">
+            <label for="input" class="text">მეილი   <ion-icon  name="mail-outline"></ion-icon></label>
+            <input type="email" placeholder="შეიყვანეთ თქვენი მეილი" name="input" class="input"  {...register("email")}/>
+            <small>{errors.email?.message }</small>
+
+        </div>
             
-            <div className="form-control">
+            {/* <div className="form-control">
                 <label > email   <ion-icon name="person-outline"></ion-icon>
                 <input type="email" id="email" placeholder="Enter your emali" {...register("email")}/>
                 </label>
                 <small>{errors.email?.message }</small>
-            </div>
+            </div> */}
+
+<div class="coolinput1">
+            <label for="input" class="text">პაროლი   <ion-icon  name="lock-closed-outline"></ion-icon></label>
+            <input type={passwordVisible ? 'text' : 'password'} placeholder="შეიყვანეთ თქვენი პაროლი" name="input" class="input"  {...register("password")}/>
+            <div className="password-toggle-div">
+                <ion-icon size="small" name={passwordVisible ? "eye-off-outline" : "eye-outline"}
+                    onClick={togglePasswordVisibility}
+                    className="password-toggle">
+                    {passwordVisible ? 'Hide' : 'Show'}
+                    </ion-icon>
+                </div>
+            <small>{errors.password?.message }</small>
+
+        </div>
             
-            <div className="form-control">
+            {/* <div className="form-control">
                 <label > password    <ion-icon name="finger-print-outline"></ion-icon>
                 <input type={passwordVisible ? 'text' : 'password'} id="password" placeholder="Enter your password" {...register("password")}/>
                 </label>
@@ -117,7 +138,7 @@ export default function ParentChecker ({onClose,setIsParent}) {
                     </ion-icon>
                 </div>
                 <small>{errors.password?.message }</small>
-            </div>
+            </div> */}
             {/* <div onClick={()=> {
                     setIsOpenPasswordChange(true); 
                     setIsOpenRegistration(false); 

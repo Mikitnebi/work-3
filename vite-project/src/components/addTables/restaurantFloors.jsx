@@ -1,8 +1,14 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Stage, Layer, Rect, Circle, Transformer, Line, Text } from 'react-konva';
 import Select from 'react-select';
 import './jjj.css';
 import { v4 as uuidv4 } from 'uuid';
+import SelectInput from '../selecter';
+import TransformableRectangle from './TransformerRect';
+import TransformableCircle from './TransformerCircle';
+import TransformableThird from './TransformerThird';
+import TransformableLedder from './TransformerLedder';
+import TransformableDoor from './TransformerDoor';
 
 const tagOptions = [
   { value: '#ფანჯარასთან ახლოს', label: '#ფანჯარასთან ახლოს' },
@@ -11,8 +17,8 @@ const tagOptions = [
   { value: '#ღიაცისქვეშ', label: '#ღიაცისქვეშ' },
 ];
 
-const RestaurantFloor = ({ prevStep, nextStep }) => {
-  const [floors, setFloors] = useState([{ id: uuidv4(), shapes: [] }]);
+const RestaurantFloor = ({ prevStep, nextStep,setStep }) => {
+  const [floors, setFloors] = useState([{ id: uuidv4(), name: 'Floor 1', shapes: [] }]);
   const [currentFloorIndex, setCurrentFloorIndex] = useState(0);
   const [selectedShapeIndex, setSelectedShapeIndex] = useState(null);
   const [selectedShapeDetails, setSelectedShapeDetails] = useState({
@@ -22,8 +28,22 @@ const RestaurantFloor = ({ prevStep, nextStep }) => {
     selectedTag: null,
     width: 0,
     height: 0,
-    type: ""
+    type: "",
+    colorIndex:0,
+    isForReservation:true,
+    rotation: 0,
   });
+
+  const [floorNames, setFloorNames] = useState(floors.map(floor => floor.name));
+  const handleFloorNameChange = (index, newName) => {
+    const updatedNames = [...floorNames];
+    updatedNames[index] = newName;
+    setFloorNames(updatedNames);
+
+    const updatedFloors = [...floors];
+    updatedFloors[index].name = newName;
+    setFloors(updatedFloors);
+  };
 
 
   const currentFloor = floors[currentFloorIndex];
@@ -34,9 +54,9 @@ const RestaurantFloor = ({ prevStep, nextStep }) => {
     if (e && e.target) {
       const clickedShape = e.target;
       // Check if a shape is clicked
-      console.log(clickedShape)
+      // console.log(clickedShape)
 
-      if(clickedShape.attrs.x == 0 || clickedShape.attrs.x == 0){
+      if(clickedShape.attrs.x == 30 || clickedShape.attrs.x == 30){
         setSelectedShapeIndex(null);
 
       } else
@@ -53,7 +73,11 @@ const RestaurantFloor = ({ prevStep, nextStep }) => {
             selectedTag: shapes[shapeIndex].selectedTag || null,
             width: shapes[shapeIndex].width || '',
             height: shapes[shapeIndex].height || '',
-            type: shapes[shapeIndex].type || ''
+            type: shapes[shapeIndex].type || '',
+            colorIndex: shapes[shapeIndex].colorIndex || 0,
+            isForReservation: shapes[shapeIndex].isForReservation || true,
+            rotation: shapes[shapeIndex].rotation || 0,
+
           });
           setSelectedShapeIndex(shapeIndex);
         }
@@ -74,9 +98,11 @@ const RestaurantFloor = ({ prevStep, nextStep }) => {
           type: 'rectangle',
           x: 50,
           y: 50,
-          width: 130,
-          height: 120,
-
+          width: 80,
+          height: 70,
+          colorIndex:0,
+          isForReservation:true,
+          rotation: 0,
         };
         break;
 
@@ -86,8 +112,11 @@ const RestaurantFloor = ({ prevStep, nextStep }) => {
           type: 'circle',
           x: 50,
           y: 50,
-          width: 140,
-          height: 120, 
+          width: 80,
+          height: 70, 
+          colorIndex:0,
+          isForReservation:true,
+          rotation: 0,
         };
         break;
 
@@ -97,9 +126,11 @@ const RestaurantFloor = ({ prevStep, nextStep }) => {
           type: 'square',
           x: 50,
           y: 50,
-          width: 140,
-          height: 120, 
-
+          width: 80,
+          height: 70, 
+          colorIndex:0,
+          isForReservation:true,
+          rotation: 0,
         };
         break;
 
@@ -109,11 +140,23 @@ const RestaurantFloor = ({ prevStep, nextStep }) => {
           type: 'ladder',
           x: 50,
           y: 50,
-          width: 140,
-          height: 120, 
-
+          width: 100,
+          height: 90, 
+          rotation: 0,
         };
         break;
+
+        case 'door':
+          newShape = {
+            id: uuidv4(),
+            type: 'door',
+            x: 50,
+            y: 50,
+            width: 100,
+            height: 90, 
+            rotation: 0,
+          };
+          break;
 
       default:
         break;
@@ -152,7 +195,10 @@ const RestaurantFloor = ({ prevStep, nextStep }) => {
       selectedTag: null,
       width: 0,
       height: 0,
-      type: ''
+      type: '',
+      colorIndex:0,
+      isForReservation:true,
+      rotation: 0,
     });
   };
   const handleShapeDragStart = (index) => {
@@ -185,12 +231,21 @@ const RestaurantFloor = ({ prevStep, nextStep }) => {
       selectedTag: shape.selectedTag || null,
       width: shape.width || 0, // Set default width
       height: shape.height || 0, // Set default height
-      type: shape.type || ''
+      type: shape.type || '',
+      colorIndex: shape.colorIndex || 0,
+      isForReservation: shape.isForReservation ,
+      rotation: shape.rotation || 0,
+
+
     });
     
   };
 
   const handleTableDetailsChange = (field, value) => {
+
+    let newShapes;
+
+
     setSelectedShapeDetails((prevDetails) => ({
       ...prevDetails,
       [field]: value,
@@ -198,7 +253,7 @@ const RestaurantFloor = ({ prevStep, nextStep }) => {
   
     // If the changed field is width or height, update the selected shape
     if (field === 'width' || field === 'height') {
-      const newShapes = shapes.map((shape, index) => {
+       newShapes = shapes.map((shape, index) => {
         if (index === selectedShapeIndex) {
           return {
             ...shape,
@@ -214,10 +269,30 @@ const RestaurantFloor = ({ prevStep, nextStep }) => {
         return newFloors;
       });
     }
+  
+  };
+  const addFloor = () => {
+    const newFloorName = `სართული ${floorNames.length + 1}`;
+    const newFloor = { id: uuidv4(), name: newFloorName, shapes: [] };
+    setFloors(prevFloors => [...prevFloors, newFloor]);
+    setFloorNames(prevNames => [...prevNames, newFloorName]);
+    setCurrentFloorIndex(floors.length); // Switch to the newly added floor
+  };
+
+  // Function to delete a floor
+  const deleteFloor = () => {
+    if (floors.length > 1) {
+      const newFloors = floors.filter((floor, index) => index !== currentFloorIndex);
+      setFloors(newFloors);
+      setFloorNames(prevNames => prevNames.filter((name, index) => index !== currentFloorIndex));
+      setCurrentFloorIndex(Math.min(currentFloorIndex, newFloors.length - 1)); // Adjust current index
+    } else {
+      alert('ბოლო განყოფილებას ვერწაშლით');
+    }
   };
   const handleSaveTable = () => {
-    const { tableNumber, maxPeopleAmount, minPeopleAmount, selectedTag, width, height,type } = selectedShapeDetails;
-  
+    const { tableNumber, maxPeopleAmount, minPeopleAmount, selectedTag, width, height,type,colorIndex,isForReservation,rotation } = selectedShapeDetails;
+  console.log(isForReservation)
     const currentShape = shapes[selectedShapeIndex];
   
     // Check if table number is modified
@@ -264,7 +339,10 @@ const RestaurantFloor = ({ prevStep, nextStep }) => {
           selectedTag,
           width,
           height,
-          type
+          type,
+          colorIndex,
+          isForReservation,
+          rotation
         };
       }
       return shape;
@@ -280,7 +358,6 @@ const RestaurantFloor = ({ prevStep, nextStep }) => {
   };
   
   
-
   
 
 
@@ -301,83 +378,58 @@ const RestaurantFloor = ({ prevStep, nextStep }) => {
     setSelectedShapeIndex(null);
   };
 
-  const addFloor = () => {
-    const newFloor = { id: uuidv4(), shapes: [] };
-    setFloors((prevFloors) => [...prevFloors, newFloor]);
-    setCurrentFloorIndex(floors.length); // Switch to the newly added floor
-  };
+
   const FloorSelector = ({ floors, currentFloorIndex, onChange }) => (
-    <select style={{borderWidth:'2px', borderRadius:'20px',width:'90%',backgroundColor:'#C6B0B4',color:'#8C1D2F'}} value={currentFloorIndex} onChange={(e) => onChange(parseInt(e.target.value))}>
+    <select style={{borderWidth:'2px', borderRadius:'20px',width:'100%',backgroundColor:'#C6B0B4',color:'#8C1D2F'}} value={currentFloorIndex} onChange={(e) => onChange(parseInt(e.target.value))}>
       {floors.map((floor, index) => (
-        <option key={floor.id} value={index}>
-          Floor {index + 1}
+        <option  key={floor.id} value={index}>
+          {floors[index].name}
         </option>
       ))}
     </select>
   );
 
-  const deleteFloor = () => {
-    if (floors.length > 1) {
-      const newFloors = floors.filter((floor, index) => index !== currentFloorIndex);
-      setFloors(newFloors);
-      setCurrentFloorIndex(Math.min(currentFloorIndex, newFloors.length - 1)); // Adjust current index
-    } else {
-      alert('Cannot delete the last floor.');
-    }
-  };
-  const renderGrid = () => {
-    const gridLines = [];
-    const gridSize = 50;
-
-    for (let i = 0; i < 800 / gridSize; i++) {
-      gridLines.push(
-        <Line
-          key={`gridLineX${i}`}
-          points={[i * gridSize, 0, i * gridSize, 600]}
-          stroke="#41b6e6"
-          strokeWidth={1}
-        />
-      );
-    }
-
-    for (let j = 0; j < 600 / gridSize; j++) {
-      gridLines.push(
-        <Line
-          key={`gridLineY${j}`}
-          points={[0, j * gridSize, 800, j * gridSize]}
-          stroke="#41b6e6"
-          strokeWidth={1}
-        />
-      );
-    }
-
-    return gridLines;
-  };
 
   const renderTableNumbers = () => {
     return shapes.map((shape, index) => {
       const isSelected = index === selectedShapeIndex;
-      const { x, y, type, tableNumber } = shape;
-      let width =shape?.width
-      let height = shape?.height
-      if (tableNumber && shape.type != 'ladder') {
+      const { x, y, type, tableNumber, width, height, rotation } = shape;
+      let centerX ;
+      let centerY ;
+      const angle = (rotation * Math.PI) / 180;
+// console.log(Math.cos(angle))
+      if (tableNumber && shape.type != 'ladder' && shape/type != "door") {
+        // Calculate the center position of the shape
+          centerX = x ;
+          centerY = y  ;
+    
+  
+        // Calculate the angle of rotation in radians
+  
+        // Calculate the position of the table number relative to the center of the shape
+        // Apply rotation transformation to the position
+        const textX = centerX 
+        const textY = centerY 
+  
         return (
           <Text
             key={`tableNumber${index}`}
-            x={x + (type === 'circle' ? width/2.1 : type === "square" ? width/2 : width/2.1 )}  // Adjust position based on shape type
-            y={y - (type === 'circle' ? -height/2.2 :  type === "square" ? -height/2.2 : -height/2)}
+            x={textX}
+            y={textY}
             text={tableNumber}
             fontSize={14}
             fill={isSelected ? 'white' : 'white'}
-            draggable={false}  // Disable dragging for the text
-            onClick={() => handleTableNumberClick(index)} // Add click handler for table numbers
+            draggable={false}
+            onClick={() => handleTableNumberClick(index)}
           />
         );
       }
-
+  
       return null;
     });
   };
+  
+  
 
   const handleTableNumberClick = (index) => {
     console.log('Table number clicked:', index);
@@ -392,13 +444,22 @@ const RestaurantFloor = ({ prevStep, nextStep }) => {
       selectedTag: shape.selectedTag || null,
       width: shape.width || 0, // Set default width
       height: shape.height || 0, // Set default height
-      type: shape.type || ''
+      type: shape.type || '',
+      colorIndex: shape.colorIndex || 0,
+      isForReservation: shape.isForReservation ,
+      rotation: shape.rotation || 0,
+
+
     });
     
   };
   const saveToLocalStorage = () => {
     localStorage.setItem('restaurantFloors', JSON.stringify(floors));
   };
+  
+  // Call saveToLocalStorage with shapes as an argument
+  
+  
 
   // Function to load floors' data from local storage
   const loadFromLocalStorage = () => {
@@ -407,11 +468,12 @@ const RestaurantFloor = ({ prevStep, nextStep }) => {
       setFloors(JSON.parse(savedFloors));
     }
   };
+  
 
   const handleFinalSave = () => {
     // Check if any table is left with no details
     const tableWithoutDetails = shapes.find((shape) => 
-    (shape.type !== "ladder") && // Exclude shapes with type "ladder"
+    (shape.type !== "ladder" && shape.type != "door") && // Exclude shapes with type "ladder"
     (!shape.tableNumber || !shape.maxPeopleAmount || !shape.selectedTag || !shape.minPeopleAmount)
   );  
     if (tableWithoutDetails) {
@@ -426,22 +488,6 @@ const RestaurantFloor = ({ prevStep, nextStep }) => {
       alert('Please add tables to all floors.');
       return;
     }
-  
-    // Check uniqueness of table numbers across all floors and shapes
-    // const isTableNumberUnique = floors.every((floor, floorIndex) =>
-    //   floor.shapes.every(
-    //     (shape) =>
-    //       shape.tableNumber !==  shape.selectedShapeDetails.tableNumber || // Here is the fix
-    //       (floorIndex === currentFloorIndex && shapes.indexOf(shape) === selectedShapeIndex)
-    //   )
-    // );
-  
-    // if (!isTableNumberUnique) {
-    //   alert('Table number is already used. Please enter a unique table number.');
-    //   return;
-    // }
-  
-    // Save to local storage
     saveToLocalStorage();
   
     // Perform your final save logic here
@@ -466,183 +512,452 @@ const RestaurantFloor = ({ prevStep, nextStep }) => {
         selectedTag: shape?.selectedTag || null,
         width: shape?.width || 0, // Set default width
         height: shape?.height || 0, // Set default height
-        type: shape?.type || ''
+        type: shape?.type || '',
+        colorIndex: shape.colorIndex || 0,
+        isForReservation: shape.isForReservation ,
+        rotation: shape.rotation || 0
+
+
       });
       
     }
   }, [selectedShapeIndex, shapes]);
+
+
+  const [imageArrayFirst, setImageArrayFirst] = useState([]);
+  const [imageArraySecond, setImageArraySecond] = useState([]);
+  const [imageArrayThird, setImageArrayThird] = useState([]);
+
+  const [imageArrayFirstGrey, setImageArrayFirstGrey] = useState([]);
+  const [imageArraySecondGrey, setImageArraySecondGrey] = useState([]);
+  const [imageArrayThirdGrey, setImageArrayThirdGrey] = useState([]);
+
+  const imagePaths = [
+    "../../../public/first/მაგიდა2,0.png",
+    "../../../public/first/2.4.png",
+    "../../../public/first/მაგიდა2,1.png",
+    "../../../public/first/მაგიდა2.3.png",
+    "../../../public/first/მაგიდა2,2.png",
+    "../../../public/first/მაგიდა2.5.png",
+    "../../../public/first/მაგიდა2.6.png",
+];
+
+const imagePaths1 = [
+  "../../../public/second/მაგიდა4.0.png",
+  "../../../public/second/მაგიდა4.6.png",
+  "../../../public/second/მაგიდა4.1.png",
+  "../../../public/second/მაგიდა4.2.png",
+  "../../../public/second/მაგიდა4.5.png",
+  "../../../public/second/მაგიდა4.3.png",
+  "../../../public/second/მაგიდა4.4.png",
+];
+
+const imagePaths2 = [
+  "../../../public/third/მაგიდა6.0.png",
+  "../../../public/third/მაგიდა6.2.png",
+  "../../../public/third/მაგიდა6.5.png",
+  "../../../public/third/მაგიდა6.4.png",
+  "../../../public/third/მაგიდა6.6.png",
+  "../../../public/third/მაგიდა6.1.png",
+  "../../../public/third/მაგიდა6.3.png",
+];
+
+
+
+const imagePathsGrey = [
+  "../../../public/first/მაგიდა2.0.0.png",
+  "../../../public/first/მაგიდა2.4.0.png",
+  "../../../public/first/მაგიდა2.1.0.png",
+  "../../../public/first/მაგიდა2.3.0.png",
+  "../../../public/first/მაგიდა2.2.0.png",
+  "../../../public/first/მაგიდა2,5.0png.png",
+  "../../../public/first/მაგიდა2.6.0.png",
+];
+
+
+const imagePaths1Grey = [
+  "../../../public/second/მაგიდა4.0.0.png",
+  "../../../public/second/მაგიდა4.6.0.png",
+  "../../../public/second/მაგიდა4.1.0.png",
+  "../../../public/second/მაგიდა4.2.0.png",
+  "../../../public/second/მაგიდა4.5.0.png",
+  "../../../public/second/მაგიდა4.3.0.png",
+  "../../../public/second/მაგიდ4.4.0.png",
+];
+
+const imagePaths2Gray = [
+  "../../../public/third/მაგიდა6.0.0.png",
+  "../../../public/third/მაგიდა6.2.0.png",
+  "../../../public/third/მაგი.5.0.png",
+  "../../../public/third/მაგიდა6.6.0.png",
+  "../../../public/third/მაგიდა6.4.0.png",
+  "../../../public/third/მაგიდა6.1.0.png",
+  "../../../public/third/მაგიდა6.3.0.png",
+];
+
+
+
+
+useEffect(()=>{
+  const loadImageArray = () => {
+    const tempImageArray = [];
+    imagePaths.forEach(path => {
+        const image = new Image();
+        image.src = path;
+        tempImageArray.push(image);
+    });
+    setImageArrayFirst(tempImageArray);
+};
+
+
+const loadImageArray1 = () => {
+  const tempImageArray = [];
+  imagePaths1.forEach(path => {
+      const image = new Image();
+      image.src = path;
+      tempImageArray.push(image);
+  });
+  setImageArraySecond(tempImageArray);
+};
+const loadImageArray2 = () => {
+  const tempImageArray = [];
+  imagePaths2.forEach(path => {
+      const image = new Image();
+      image.src = path;
+      tempImageArray.push(image);
+  });
+  setImageArrayThird(tempImageArray);
+};
+
+
+const loadImageArrayGrey = () => {
+  const tempImageArray = [];
+  imagePathsGrey.forEach(path => {
+      const image = new Image();
+      image.src = path;
+      tempImageArray.push(image);
+  });
+  setImageArrayFirstGrey(tempImageArray);
+};
+
+const loadImageArrayGrey1 = () => {
+  const tempImageArray = [];
+  imagePaths1Grey.forEach(path => {
+      const image = new Image();
+      image.src = path;
+      tempImageArray.push(image);
+  });
+  setImageArraySecondGrey(tempImageArray);
+};
+
+const loadImageArrayGrey2 = () => {
+  const tempImageArray = [];
+  imagePaths2Gray.forEach(path => {
+      const image = new Image();
+      image.src = path;
+      tempImageArray.push(image);
+  });
+  setImageArrayThirdGrey(tempImageArray);
+};
+
+
+
+loadImageArray();
+loadImageArray1()
+loadImageArray2()
+loadImageArrayGrey()
+loadImageArrayGrey1()
+loadImageArrayGrey2()
+
+},[])
+
+
+
 
   
   const backgroundImage = new Image();
   const backgroundImage1 = new Image();
   const backgroundImage2 = new Image();
   const backgroundImage3 = new Image();
+  const backgroundImage4 = new Image();
+
   backgroundImage3.src = '../../../public/stairs1.png';
+  backgroundImage4.src = '../../../public/door.png';
 
   const yourBackgroundImage = new Image();
-  const yourBackgroundImage1 = new Image();
 
-  yourBackgroundImage.src = '../../../public/floor.png';
-  yourBackgroundImage1.src = '../../../public/Untitled-1.png';
+  yourBackgroundImage.src = '../../../public/flooraxali.png';
 
   backgroundImage.src = '../../../public/light33.png';
   backgroundImage1.src = '../../../public/light21.png';
   backgroundImage2.src = '../../../public/Rectangle70.png';
-console.log(selectedShapeDetails)
+
+
+  const options = ["ჩვეულებრივი მაგიდა","დარბაზის მაგიდა","მაგიდა კუპეში",'მაგიდა ღიაცისქვეშ','მაგიდა ტერასაზე','ფაცხა',"დამატებითი ოფცია"];
+
+
+  const handleOptionChange1 = (selectedValue) => {
+    const currentShape = shapes[selectedShapeIndex];
+    let newColorIndex = -1;
+  
+    switch (selectedValue) {
+      case 'ჩვეულებრივი მაგიდა':
+        newColorIndex = 0;
+        break;
+      case 'დარბაზის მაგიდა':
+        newColorIndex = 1;
+        break;
+      case 'მაგიდა კუპეში':
+        newColorIndex = 2;
+        break;
+      case 'მაგიდა ღიაცისქვეშ':
+        newColorIndex = 3;
+        break;
+      case 'მაგიდა ტერასაზე':
+        newColorIndex = 4;
+        break;
+      case 'ფაცხა':
+        newColorIndex = 5;
+        break;
+      case 'დამატებითი ოფცია':
+        newColorIndex = 6;
+        break;
+      default:
+        return;
+    }
+  
+    const newShapes = shapes.map((shape, index) => {
+      if (index === selectedShapeIndex) {
+        return {
+          ...shape,
+          colorIndex: newColorIndex
+        };
+      }
+      return shape;
+    });
+  
+    setFloors((prevFloors) => {
+      const newFloors = [...prevFloors];
+      newFloors[currentFloorIndex] = { ...currentFloor, shapes: newShapes };
+      return newFloors;
+    });
+  };
+  const [selectWidth, setSelectWidth] = useState('100%'); // Initial width set to 100%
+
+  useEffect(() => {
+    const handleResize = () => {
+      const screenWidth = window.innerWidth; // Get the screen width
+      setSelectWidth(`${screenWidth*80/100}px`); // Set the width of the Select component
+    };
+
+    // Listen for resize events
+    window.addEventListener('resize', handleResize);
+
+    // Initialize width on mount
+    handleResize();
+
+    // Cleanup
+    return () => window.removeEventListener('resize', handleResize);
+  }, []); // Empty dependency array to run this effect only once on mount
+
+console.log(floors[currentFloorIndex].name)
+console.log(selectWidth)
+
   return (
     <div id="restaurant-floor">
-      <div style={{ display: 'flex', margin: '5px',alignItems:'center' }}>
-        <img className='rectangle1' onClick={() => addShape('rectangle')} src="../../../public/light33.png" alt="" />
-        <img className='circle1' onClick={() => addShape('circle')} src="../../../public/Rectangle70.png" alt="" />
-        <img className='square1' onClick={() => addShape('square')} src="../../../public/light21.png" alt="" />
+      <div className='firstStep-Name'>
+    <img style={{width:'4%',marginRight:'5px'}} src="../../../public/img/Group4.png" alt="Main Logo" />
+    <h3 >მოგესალმებით მიკიტანში</h3>
+
+    <div className="details-steps">
+      <div onClick={()=>setStep(1)}>
+      <ion-icon name="newspaper-outline"></ion-icon>
+      <h3 style={{color:'#8C1D2F'}}>1. დეტალები</h3>
+
+      </div>
+      <div style={{borderColor:'#8C1D2F',borderWidth:'1.5px'}} className="details-line">
+
+      </div>
+      <div  onClick={()=>setStep(2)}>
+      <ion-icon name="images-outline"></ion-icon>
+      <h3  style={{color:'#8C1D2F'}}>2. სურათები</h3>
+
+      </div>
+      <div style={{borderColor:'#8C1D2F',borderWidth:'1.5px'}} className="details-line">
+
+      </div>
+      <div  onClick={()=>setStep(3)}>
+      <ion-icon name="grid-outline"></ion-icon>
+      <h3 style={{color:'#8C1D2F'}}>3. მაგიდები</h3>
+
+      </div>
+      <div className="details-line">
+        
+        </div>
+        <div  onClick={()=>setStep(4)}>
+          <ion-icon name="fast-food-outline"></ion-icon>
+          <h3>4. მენიუ</h3>
+
+        </div>
+        <div className="details-line">
+          
+        </div>
+        <div  onClick={()=>setStep(5)}>
+          <ion-icon name="flag-outline"></ion-icon>
+          <h3>5. დასასრული</h3>
+
+        </div >
+ 
+    </div>
+        </div>
+              <div style={{height:'9%'}} className='footerImages'>
+  <h3 >powered by MIKITANI</h3>
+  <h3>2024</h3>
+  
+      </div>
+      <div className='shapesVariartions' >
+        <img className='rectangle1' onClick={() => addShape('rectangle')} src="../../../public/first/მაგიდა2,0.png" alt="" />
+        <img className='circle1' onClick={() => addShape('circle')} src="../../../public/second/მაგიდა4.0.png" alt="" />
+        <img className='square1' onClick={() => addShape('square')} src="../../../public/third/მაგიდა6.0.png" alt="" />
 
         <img className='square1' onClick={() => addShape('ladder')} src="../../../public/stairs1.png" alt="" />
+        <img className='square1' onClick={() => addShape('door')} src="../../../public/door.png" alt="" />
 
       </div>
 
-      <div style={{ position: 'fixed', right: '0%', top: '3%', display: 'flex',width:'50%' }}>
+      <div style={{ position: 'fixed', right: '0%', top: '13%', display: 'flex',width:'50%',alignItems:'center' }}>
         {/* <button style={{ width: '20%', height: '40px', margin: '10px' }} className="last-step-button1" onClick={(e) => prevStep()}>
           Back
         </button> */}
-        <button onClick={addFloor} className='addFloor'>Add Floor</button>
-        <button onClick={deleteFloor} className='deleteFloor'>Delete Floor</button>
-        <div style={{ display: 'flex', margin: '5px', height: '20%', width: '20%' }}>
+        <button onClick={addFloor} className='addFloor'>სართულის დამატება</button>
+        <button onClick={deleteFloor} className='deleteFloor'>სართულის წაშლა</button>
+        {floors.map((floor, index) => (
+  <div key={floor.id}>
+    {currentFloorIndex === index && (
+      <input
+      className='floor-name'
+        type="text"
+        value={floorNames[index]}
+        onChange={e => handleFloorNameChange(index, e.target.value)}
+        placeholder='სართულის სახელი'
+      
+      />
+    )}
+  </div>
+))}
+
+        <div style={{ display: 'flex', height: '20%', width: '20%' }}>
           <FloorSelector floors={floors} currentFloorIndex={currentFloorIndex} onChange={setCurrentFloorIndex} />
         </div>
         {/* <button className='final-save' onClick={handleFinalSave}>Final Save</button> */}
 
       </div>
 
-      <Stage style={{ position: "absolute", left: '0%', marginTop: '0%', }}  backgroundImage={backgroundImage} width={700} height={500} onClick={handleStageClick} onTouchEnd={handleStageClick}>
+      <Stage style={{ position: "absolute", left: '1%', marginTop: '15%', }}  backgroundImage={backgroundImage} width={900} height={550} onClick={handleStageClick} onTouchEnd={handleStageClick}>
         <Layer>
           {/* {renderGrid()} */}
-          {currentFloorIndex === 0 && (  // Render this background image for the first floor
       <Rect
       key={-344}
-        x={0}
-        y={0}
-        width={700} // Width of the stage
-        height={500} // Height of the stage
+        x={30}
+        y={30}
+        width={900} // Width of the stage
+        height={600} // Height of the stage
         fillPatternImage={yourBackgroundImage} // Your background image
-        fillPatternScaleX={0.72} // Scale the image to fit the stage width
-        fillPatternScaleY={0.75} // Scale the image to fit the stage height
+        fillPatternScaleX={0.3} // Scale the image to fit the stage width
+        fillPatternScaleY={0.25} // Scale the image to fit the stage height
         fillPatternRepeat="no-repeat" // Prevent the image from repeating
       />
-    )}
 
-    {currentFloorIndex !== 0 && (  // Render this background image for other floors
-      <Rect
-      key={-345}
 
-        x={0}
-        y={0}
-        width={700} // Width of the stage
-        height={500} // Height of the stage
-        fillPatternImage={yourBackgroundImage1} // Other background image
-        fillPatternScaleX={0.24} // Scale the image to fit the stage width
-        fillPatternScaleY={0.28} // Scale the image to fit the stage height
-        fillPatternRepeat="no-repeat" // Prevent the image from repeating
-      />
-    )}
           {shapes.map((shape, index) => {
             const isSelected = index === selectedShapeIndex;
             return (
               <React.Fragment key={index}>
                 {shape.type === 'rectangle' && (
-                  <Rect
-                  {...shape}
-                  draggable
-                  onClick={() => handleShapeClick(index)}
-                  onTouchStart={() => handleShapeClick(index)}
-                  onTouchEnd={(e) => handleShapeDragEnd(index, e.target.position())}
-                  onDragEnd={(e) => handleShapeDragEnd(index, e.target.position())}
-                  cornerRadius={10} // Set the border radius to 10px
-                  stroke={!draggingStates[index] ? null : 'black'} // Use individual dragging state
-                  onDragStart={() => handleShapeDragStart(index)} // Pass the index to identify the shape
-                  strokeWidth={0.5} // Set the stroke width to 2px, adjust as needed
-
-                  fillPatternImage={backgroundImage}
-                  fillPatternScaleX={shape.width/180} // djust as needed
-                  fillPatternScaleY={shape.height / 180}
-                  fillPatternRepeat="no-repeat" // Prevent the image from repeating 
-                  />
+                 <TransformableRectangle
+                 shapeProps={shape}
+                 isSelected={isSelected}
+                 onSelect={() => handleShapeClick(index)}
+                 onChange={(newProps) => handleShapeDragEnd(index, newProps)}
+                 
+                 fillPatternImage={shape.isForReservation ? imageArrayFirst[shape.colorIndex] : imageArrayFirstGrey[shape.colorIndex]}
+                 fillPatternScaleX={shape.width/2800} // Adjust as needed
+                 fillPatternScaleY={shape.height/2200}
+                 fillPatternRepeat="no-repeat" // Prevent the image from repeating 
+               />
                 )}
 
                 {shape.type === 'circle' && (
-                  <Rect
-                    {...shape} 
-                    draggable
-                    onClick={() => handleShapeClick(index)}
-                    onTouchStart={() => handleShapeClick(index)}
-                    onTouchEnd={(e) => handleShapeDragEnd(index, e.target.position())}
-                    onDragEnd={(e) => handleShapeDragEnd(index, e.target.position())}
-                    cornerRadius={10} // Set the border radius to 10px
-                    stroke={!draggingStates[index] ? null : 'black'} // Use individual dragging state
-                    onDragStart={() => handleShapeDragStart(index)} // Pass the index to identify the shape
-                    strokeWidth={0.5} // Set the stroke width to 2px, adjust as needed
-
-
-                    fillPatternImage={backgroundImage2}
-                    fillPatternScaleX={shape.width/180} // djust as needed
-                    fillPatternScaleY={shape.height/120}
-                    fillPatternRepeat="no-repeat" // Prevent the image from repeating 
-                  />
+                  
+                  <TransformableCircle
+                 shapeProps={shape}
+                 isSelected={isSelected}
+                 onSelect={() => handleShapeClick(index)}
+                 onChange={(newProps) => handleShapeDragEnd(index, newProps)}
+                 fillPatternImage={shape.isForReservation ? imageArraySecond[shape.colorIndex] : imageArraySecondGrey[shape.colorIndex]}
+                 fillPatternScaleX={shape.width/3200} // Adjust as needed
+                 fillPatternScaleY={shape.height/2200}
+                 fillPatternRepeat="no-repeat" // Prevent the image from repeating 
+               />
                 )}
 
                 {shape.type === 'square' && (
-                  <Rect
-                    {...shape}
-                    draggable
-                    onClick={() => handleShapeClick(index)}
-                    onTouchStart={() => handleShapeClick(index)}
-                    onTouchEnd={(e) => handleShapeDragEnd(index, e.target.position())}
-                    onDragEnd={(e) => handleShapeDragEnd(index, e.target.position())}
-                    cornerRadius={10} // Set the border radius to 10px
-                    fillPatternImage={backgroundImage1}
-                    stroke={!draggingStates[index] ? null : 'black'} // Use individual dragging state
-                    onDragStart={() => handleShapeDragStart(index)} // Pass the index to identify the shape
-                    strokeWidth={0.5} // Set the stroke width to 2px, adjust as needed
-
-                    fillPatternScaleX={shape.width/230} // Adjust as needed
-                    fillPatternScaleY={shape.height/160}
-                    fillPatternRepeat="no-repeat" // Prevent the image from repeating 
-                  />
+                   <TransformableThird
+                   shapeProps={shape}
+                   isSelected={isSelected}
+                   onSelect={() => handleShapeClick(index)}
+                   onChange={(newProps) => handleShapeDragEnd(index, newProps)}
+                   fillPatternImage={shape.isForReservation ? imageArrayThird[shape.colorIndex] : imageArrayThirdGrey[shape.colorIndex]}
+                   fillPatternScaleX={shape.width/3800} // Adjust as needed
+                   fillPatternScaleY={shape.height/2400}
+                   fillPatternRepeat="no-repeat" // Prevent the image from repeating 
+                 />
                 )}
 
 
               {shape.type === 'ladder' && (
-                  <Rect
-                    {...shape}
-                    draggable
-                    onClick={() => handleShapeClick(index)}
-                    onTouchStart={() => handleShapeClick(index)}
-                    onTouchEnd={(e) => handleShapeDragEnd(index, e.target.position())}
-                    onDragEnd={(e) => handleShapeDragEnd(index, e.target.position())}
-                    cornerRadius={10} // Set the border radius to 10px
-                    fillPatternImage={backgroundImage3}
-                    stroke={!draggingStates[index] ? null : 'black'} // Use individual dragging state
-                    onDragStart={() => handleShapeDragStart(index)} // Pass the index to identify the shape
-                    strokeWidth={0.5} // Set the stroke width to 2px, adjust as needed
+                  <TransformableLedder
+                  shapeProps={shape}
+                  isSelected={isSelected}
+                  onSelect={() => handleShapeClick(index)}
+                  onChange={(newProps) => handleShapeDragEnd(index, newProps)}
+                  stroke={!draggingStates[index] ? null : 'black'} // Use individual dragging state
+                  strokeWidth={0.5} // Set the stroke width to 2px, adjust as needed
+                  fillPatternImage={backgroundImage3}
+                  fillPatternScaleX={shape.width/200} // Adjust as needed
+                  fillPatternScaleY={shape.height/180}
+                  fillPatternRepeat="no-repeat" // Prevent the image from repeating 
+                />
+                )}
 
-                    fillPatternScaleX={shape.width/200} // Adjust as needed
-                    fillPatternScaleY={shape.height/180}
-                    fillPatternRepeat="no-repeat" // Prevent the image from repeating 
-                  />
+{shape.type === 'door' && (
+                  <TransformableDoor
+                  shapeProps={shape}
+                  isSelected={isSelected}
+                  onSelect={() => handleShapeClick(index)}
+                  onChange={(newProps) => handleShapeDragEnd(index, newProps)}
+                  stroke={!draggingStates[index] ? null : 'black'} // Use individual dragging state
+                  strokeWidth={0.5} // Set the stroke width to 2px, adjust as needed
+                  fillPatternImage={backgroundImage4}
+                  fillPatternScaleX={shape.width/150} // Adjust as needed
+                  fillPatternScaleY={shape.height/140}
+                  fillPatternRepeat="no-repeat" // Prevent the image from repeating 
+                />
                 )}
 
                 {isSelected && (
                   <Transformer
-                    anchorSize={6}
-                    borderEnabled={false}
-                    keepRatio={false}
-                    rotateEnabled={false}
-                    ignoreStroke
-                    ref={(node) => {
-                      if (node && isSelected) {
-                        node.getLayer().batchDraw();
-                      }
-                    }}
-                  />
+                  anchorSize={6}
+                  borderEnabled={false}
+                  keepRatio={false}
+                  rotateEnabled={false}
+                  ignoreStroke
+                  ref={(node) => {
+                    if (node && isSelected) {
+                      node.getLayer().batchDraw();
+                    }
+                  }}
+                />
                 )}
               </React.Fragment>
             );
@@ -656,10 +971,10 @@ console.log(selectedShapeDetails)
         
   <div className="details-form">
     {
-                selectedShapeDetails.type != 'ladder' ?
+                selectedShapeDetails.type != 'ladder' && selectedShapeDetails.type != 'door' ?
         <>
-         <label style={{color:"#8C1D2F",fontSize:'20px',fontWeight:'400'}}>
-      Table Number:
+         <label style={{color:"#8C1D2F",fontSize:'18px',fontWeight:'400'}}>
+      მაგიდის ნომერი:
       <input
         type="number"
         value={selectedShapeDetails.tableNumber}
@@ -667,7 +982,7 @@ console.log(selectedShapeDetails)
       />
     </label>
     <label>
-      Max People Amount:
+      მაქსიმალური ტევადობა:
       <input
         type="number"
         value={selectedShapeDetails.maxPeopleAmount}
@@ -675,7 +990,7 @@ console.log(selectedShapeDetails)
       />
     </label>
     <label>
-      Min People Amount:
+      მინიმალური ტევადობა:
       <input
         type="number"
         value={selectedShapeDetails.minPeopleAmount}
@@ -683,58 +998,81 @@ console.log(selectedShapeDetails)
       />
     </label>
     <label style={{display:'flex',flexDirection:'column', width:'100%' ,alignItems:'flex-start' }}>
-      Table Tag:
-      <Select
-        value={selectedShapeDetails.selectedTag}
-        onChange={(selectedOption) =>
-          handleTableDetailsChange('selectedTag', selectedOption)
-        } options={tagOptions}
-        isMulti
-        styles={{
-          control: (baseStyles, state) => ({
-            ...baseStyles,
-            color: 'red',
-            borderColor: state.isFocused ? null : '#8C1D2F',
-        
-            width:'400px',
-            backgroundColor:"#D9D9D9"
-          }),
-          multiValue: (baseStyles) => ({
-            ...baseStyles,
-            backgroundColor: '#C6B0B4', // Set the background color for added tags
-          }),
-          dropdownIndicator: (baseStyles, state) => ({
-            ...baseStyles,
-            color: state.isFocused ? '#8C1D2F' : '#8C1D2F', // Change the color when focused
-          }),
-      
-        }}
-      />
+      მაგიდის ტეგი:
+<Select
+  value={selectedShapeDetails.selectedTag}
+  onChange={(selectedOption) =>
+    handleTableDetailsChange('selectedTag', selectedOption)
+  }
+  options={tagOptions}
+  isMulti
+  styles={{
+    control: (baseStyles, state) => ({
+      ...baseStyles,
+      color: 'red',
+      borderColor: state.isFocused ? '#8C1D2F' : '#8C1D2F',
+      '&:hover': {
+        borderColor: '#8C1D2F', // Change border color on hover
+      },
+      width: selectWidth,
+      backgroundColor: '#D9D9D9',
+      outline: 'none', // Remove default outline,
+      border: '1px solid #8C1D2F',
+      // This line disable the blue border
+      boxShadow: 'none'
+    }),
+    multiValue: (baseStyles) => ({
+      ...baseStyles,
+      backgroundColor: '#C6B0B4', // Set the background color for added tags
+    }),
+    dropdownIndicator: (baseStyles, state) => ({
+      ...baseStyles,
+      color: state.isFocused ? '#8C1D2F' : '#8C1D2F', // Change the color when focused
+    }),
+  }}
+/>
+
     </label>
     
         </> : <></>
     }
-   
-    <div style={{ width:'100%', display:'flex' , justifyContent:'space-between'}}>
-    <label style={{alignItems:'flex-start', width:'45%', display:'flex',flexDirection:'column'}}>
-      Width:
-      <input
-        type="number"
-        value={selectedShapeDetails.width}
-        onChange={(e) => handleTableDetailsChange('width', e.target.value)}
-      />
-    </label>
-    <label style={{alignItems:'flex-start', width:'45%', display:'flex',flexDirection:'column' }}>
-      Height:
-      <input
-        type="number"
-        value={selectedShapeDetails.height}
-        onChange={(e) => handleTableDetailsChange('height', e.target.value)}
-      />
-    </label>
-    </div>
+
     {
-                      selectedShapeDetails.type != 'ladder' ?
+                      selectedShapeDetails.type != 'ladder' && selectedShapeDetails.type != 'door' ?
+<label style={{display:'flex',flexDirection:'column', width:'100%' ,alignItems:'flex-start' }}>
+  მაგიდის ტიპი
+<SelectInput defaultValue={options[selectedShapeDetails.colorIndex]} options={options} onChange={handleOptionChange1} />
+
+</label> : <></>
+    }
+    {
+                selectedShapeDetails.type != 'ladder' && selectedShapeDetails.type != 'door' ?
+                <label style={{display:'flex', width:'100%' ,alignItems:'center',justifyContent:'flex-start' }}>
+                მაგიდა დაჯავშნისთვისაა ?
+                
+          
+                
+          
+            <input
+              type="checkbox"
+              onChange={(e) => {
+                if(shapes[selectedShapeIndex].isForReservation){
+                  handleTableDetailsChange('isForReservation',false)
+                } else {
+                  handleTableDetailsChange('isForReservation',true)
+          
+                }
+              }}
+              style={{marginLeft:"3%"}}
+              defaultChecked={shapes[selectedShapeIndex].isForReservation}
+              />
+          
+              </label> : <></>
+    }
+
+   
+    {
+          selectedShapeDetails.type != 'ladder' && selectedShapeDetails.type != 'door' ?
 <>
 <button  className='button-details button1' onClick={handleSaveTable}>Save Table</button>
     <button  className='button-details button2' onClick={handleCancelTable}>Cancel</button>
@@ -742,7 +1080,6 @@ console.log(selectedShapeDetails)
     </> 
     :
     <div style={{display:'flex', width:'100%', justifyContent:'space-between'}}>
-<button style={{ width:'30%'}} className='button-details button1' onClick={handleSaveTable}>Save ladder</button>
     <button style={{ width:'30%'}} className='button-details button2' onClick={handleCancelTable}>Cancel</button>
     <button style={{ width:'30%'}} className='button-details button3' onClick={handleDeleteTable}>Delete ladder</button>
     </div>
@@ -753,8 +1090,6 @@ console.log(selectedShapeDetails)
 )}
 <div className='tablesLastDiv'>
 <button onClick={(e) => prevStep()} className='addFloor1'>უკან</button>
-<img style={{width:'5%'}} src="../../../public/img/Group4.png" alt="Main Logo" />
-
 <button onClick={handleFinalSave} className='addFloor1'>შემდეგი</button>
 
 </div>

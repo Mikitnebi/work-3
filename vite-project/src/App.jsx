@@ -26,6 +26,16 @@ import Reservations from './components/reservations';
 import MainScreen from '.';
 import Profile from './components/restaurantInformation';
 import HomePage from './homePage';
+import TableManagment from './components/home/tableManagment';
+import MenuHomePage from './components/home/menu';
+import StuffHomePage from './components/home/stuf';
+import Statistics from './components/home/statistic';
+import Offers from './components/home/offers';
+import Discounts from './components/home/discount';
+import Distribution from './components/home/distribution';
+import ProfileHomePage from './components/home/profile';
+import Help from './components/home/help';
+import Settings from './components/home/settings';
 
 export const StoreContextRecipe = createContext({});
 
@@ -66,6 +76,21 @@ function App() {
             <Route path='/book' element={<Reservations/>}/>
             <Route path='/table' element={<Tables/>}/>
             <Route path='/' element={<HomePage/>}/>
+
+
+            <Route path='/homePage/tables' element={<TableManagment/>}/>
+            <Route path='/homePage/menu' element={<MenuHomePage/>}/>
+            <Route path='/homePage/stuff' element={<StuffHomePage/>}/>
+            <Route path='/homePage/statistics' element={<Statistics/>}/>
+            <Route path='/homePage/offers' element={<Offers/>}/>
+            <Route path='/homePage/discounts' element={<Discounts/>}/>
+            <Route path='/homePage/distribution' element={<Distribution/>}/>
+            <Route path='/homePage/myProfile' element={<ProfileHomePage/>}/>
+            <Route path='/homePage/help' element={<Help/>}/>
+            <Route path='/homePage/settings' element={<Settings/>}/>
+
+
+
 
           </Routes>
           

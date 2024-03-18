@@ -1,94 +1,306 @@
-import React, { useContext, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import './details.css'; // Import your custom CSS for styling
 import { useNavigate } from 'react-router-dom';
 import { StoreContextRecipe } from '../../App';
+import Select from 'react-select';
+const kitchenTagOptions = [
+  { value: 1, label: '#ქართული' },
+  { value: 2, label: '#ფრანგული' },
+  { value: 3, label: '#კახური' },
+  { value: 4, label: '#იმერული' },
+  { value: 5, label: '#აჭარული' },
+  { value: 6, label: '#მესხური ' },
+  { value: 7, label: '#ლაზური' },
+  { value: 8, label: '#მთიანეთი' },
+  { value: 9, label: '#რაჭა-ლეჩხუმური' },
+  { value: 10, label: '#გურული' },
+  { value: 12, label: '#მეგრული' },
+  { value: 13, label: '#სვანური' },
+  { value: 14, label: '#ფრანგული' },
+  { value: 15, label: '#იტალიური' },
+  { value: 16, label: '#მექსიკური' },
+  { value: 17, label: '#ტაილანდური' },
+  { value: 18, label: '#იაპონური' },
+  { value: 19, label: '#ინდური' },
+  { value: 20, label: '#ბერძნული' },
+  { value: 21, label: '#ესპანური' },
+  { value: 22, label: '#თურქული' },
+  { value: 23, label: '#სომხური' },
+  { value: 24, label: '#აზერბაიჯანული' },
+  { value: 25, label: '#ამერიკული' },
+  { value: 26, label: '#კორეული' },
+  { value: 27, label: '#აფრიკული' },
+  { value: 28, label: '#შუა აზიური' },
+  { value: 29, label: '#ჩინური' },
+  { value: 30, label: '#გერმანული' },
+  { value: 31, label: '#უკრაინული' },
+  { value: 32, label: '#ზღვის პროდუქტების' },
+  { value: 51, label: '#სხვა' },
+  { value: 52, label: '#ვეგანური' },
+  { value: 53, label: '#ვაეგეტარიანული' },
 
-export const Details = function ({ prevStep, nextStep }) {
-  const { isSearchVisible, setIsSearchVisible,stateRestaurant, dispatchRestaurant,stateUser, dispatchUser, stateRecipe, dispatchRecipe } = useContext(StoreContextRecipe);
+];
 
-  const [selectedOptions, setSelectedOptions] = useState({
-    select1: [],
-    select2: [],
-    select3: [],
-    select4: [],
-    select5: [],
-  });
-  const navigate = useNavigate();
 
-  const handleSelectChange = (selectName, selectedValue) => {
-    setSelectedOptions((prevState) => {
-      const currentSelections = prevState[selectName];
+const musicTagOptions = [
+  { value: 33, label: '#ჰიპ-ჰოპი' },
+  { value: 34, label: '#ჯაზი' },
+  { value: 35, label: '#როკენროლი' },
+  { value: 36, label: '#დისკო' },
+  { value:  37, label: '#ტექნო ' },
+  { value:  38, label: '#კლასიკური მუსიკა' },
+  { value: 39, label: '#ქართული' },
+  { value: 40, label: '#სხვა' },
+];
 
-      if (currentSelections.includes(selectedValue)) {
-        // Item is already selected, unselect it and remove it from the results
-        const updatedSelections = currentSelections.filter((item) => item !== selectedValue);
-        return {
-          ...prevState,
-          [selectName]: updatedSelections,
-        };
-      } else if (currentSelections.length >= 3) {
-        // User has already selected 3 items, unselect the oldest and select the new one
-        const updatedSelections = currentSelections.slice(1).concat(selectedValue);
-        return {
-          ...prevState,
-          [selectName]: updatedSelections,
-        };
+const areaTagOptions = [
+  { value: 54, label: '#გასართობი' },
+  { value: 55, label: '#რომანტიული' },
+  { value: 56, label: '#მყუდრო' },
+  { value: 57, label: '#სპორტული' },
+  { value: 58, label: '#სათამაშო' },
+  { value: 59, label: '#ლაუნჯი' },
+  { value: 60, label: '#სამაგიდო თამაშები' },
+  { value: 50, label: '#სხვა' },
+
+];
+
+export const Details = function ({ setStep,prevStep, nextStep }) {
+
+  
+    const [selectedTags, setSelectedTags] = useState([]);
+    const [selectedTags1, setSelectedTags1] = useState([]);
+
+    const [selectedTags2, setSelectedTags2] = useState([]);
+const navigation = useNavigate()
+    const handleTagSelection = (selectedOptions) => {
+      if (selectedOptions.length <= 3) {
+        setSelectedTags(selectedOptions);
       } else {
-        // User hasn't selected the maximum (3) items, select the new one
-        return {
-          ...prevState,
-          [selectName]: [...currentSelections, selectedValue],
-        };
+        // Show system alert if more than three tags are selected
+        alert('You can only select up to three tags.');
       }
-    });
+    };
+    const handleTagSelection1 = (selectedOptions) => {
+      if (selectedOptions.length <= 3) {
+        setSelectedTags1(selectedOptions);
+      } else {
+        // Show system alert if more than three tags are selected
+        alert('You can only select up to three tags.');
+      }
+    };
+  
+  
+    const handleTagSelection2 = (selectedOptions) => {
+      if (selectedOptions.length <= 3) {
+        setSelectedTags2(selectedOptions);
+      } else {
+        // Show system alert if more than three tags are selected
+        alert('You can only select up to three tags.');
+      }
+    };
+    const [selectWidth, setSelectWidth] = useState('100%'); // Initial width set to 100%
+
+  useEffect(() => {
+    const handleResize = () => {
+      const screenWidth = window.innerWidth; // Get the screen width
+      setSelectWidth(`${screenWidth*3/10}px`); // Set the width of the Select component
+    };
+
+    // Listen for resize events
+    window.addEventListener('resize', handleResize);
+
+    // Initialize width on mount
+    handleResize();
+
+    // Cleanup
+    return () => window.removeEventListener('resize', handleResize);
+  }, []); // Empty dependency array to run this effect only once on mount
+
+
+  
+  const validateTags = () => {
+    if (selectedTags.length === 0 || selectedTags1.length === 0 || selectedTags2.length === 0) {
+      alert('Please select at least one tag for each category.');
+      return false;
+    }
+    return true;
   };
 
-  const renderSelect = (selectName, options) => {
+  // Function to handle "დასრულება" button click
+  const handleComplete = () => {
+    if (validateTags()) {
+      // Navigate to the next step if validation passes
+      navigation('/home');
+    }
+  };
+  
     return (
-      <div key={selectName} className="select-container">
-        <h3>{`Select ${selectName}`}</h3>
-        <select className="custom-select" multiple={true}>
-          {options.map((option) => (
-            <option
-              key={option}
-              value={option}
-              onClick={() => handleSelectChange(selectName, option)}
-              className={selectedOptions[selectName].includes(option) ? 'selected' : ''}
-            >
-              {option}
-            </option>
-          ))}  
-        </select>
+      <div className='detailes-div'>
+              <div className='firstStep-Name'>
+    <img style={{width:'4%',marginRight:'5px'}} src="../../../public/img/Group4.png" alt="Main Logo" />
+    <h3 >მოგესალმებით მიკიტანში</h3>
+
+    <div className="details-steps">
+      <div onClick={()=>setStep(1)}>
+      <ion-icon name="newspaper-outline"></ion-icon>
+      <h3 style={{color:'#8C1D2F'}}>1. დეტალები</h3>
+
+      </div>
+      <div style={{borderColor:'#8C1D2F',borderWidth:'1.5px'}} className="details-line">
+
+      </div>
+      <div  onClick={()=>setStep(2)}>
+      <ion-icon name="images-outline"></ion-icon>
+      <h3  style={{color:'#8C1D2F'}}>2. სურათები</h3>
+
+      </div>
+      <div style={{borderColor:'#8C1D2F',borderWidth:'1.5px'}} className="details-line">
+
+      </div>
+      <div  onClick={()=>setStep(3)}>
+      <ion-icon name="grid-outline"></ion-icon>
+      <h3 style={{color:'#8C1D2F'}}>3. მაგიდები</h3>
+
+      </div>
+      <div style={{borderColor:'#8C1D2F',borderWidth:'1.5px'}} className="details-line">
+        
+        </div>
+        <div  onClick={()=>setStep(4)}>
+          <ion-icon name="fast-food-outline"></ion-icon>
+          <h3 style={{color:'#8C1D2F'}}>4. მენიუ</h3>
+
+        </div>
+        <div style={{borderColor:'#8C1D2F',borderWidth:'1.5px'}}  className="details-line">
+          
+        </div>
+        <div  onClick={()=>setStep(5)}>
+          <ion-icon name="flag-outline"></ion-icon>
+          <h3 style={{color:'#8C1D2F'}}>5. დასასრული</h3>
+
+        </div >
+ 
+    </div>
+        </div>
+        <div className='first-tags'>
+          <h3>სამზარეულოს ტიპი:</h3>
+        <Select
+          value={selectedTags}
+          onChange={handleTagSelection}
+          options={kitchenTagOptions}
+          isMulti
+          styles={{
+            control: (baseStyles, state) => ({
+              ...baseStyles,
+              color: 'red',
+              borderColor: state.isFocused ? '#8C1D2F' : '#8C1D2F',
+              '&:hover': {
+                borderColor: '#8C1D2F', // Change border color on hover
+              },
+              width: selectWidth,
+              backgroundColor: '#D9D9D9',
+              outline: 'none', // Remove default outline,
+              border: '1px solid #8C1D2F',
+              // This line disable the blue border
+              boxShadow: 'none',
+            }),
+            multiValue: (baseStyles) => ({
+              ...baseStyles,
+              backgroundColor: '#C6B0B4', // Set the background color for added tags
+            }),
+            dropdownIndicator: (baseStyles, state) => ({
+              ...baseStyles,
+              color: state.isFocused ? '#8C1D2F' : '#8C1D2F', // Change the color when focused
+            }),
+          }}
+        />
+        </div>
+
+
+        <div className='second-tags'>
+          <h3>მუსიკის ტიპი:</h3>
+        <Select
+          value={selectedTags1}
+          onChange={handleTagSelection1}
+          options={musicTagOptions}
+          isMulti
+          styles={{
+            control: (baseStyles, state) => ({
+              ...baseStyles,
+              color: 'red',
+              borderColor: state.isFocused ? '#8C1D2F' : '#8C1D2F',
+              '&:hover': {
+                borderColor: '#8C1D2F', // Change border color on hover
+              },
+              width: selectWidth,
+              backgroundColor: '#D9D9D9',
+              outline: 'none', // Remove default outline,
+              border: '1px solid #8C1D2F',
+              // This line disable the blue border
+              boxShadow: 'none',
+            }),
+            multiValue: (baseStyles) => ({
+              ...baseStyles,
+              backgroundColor: '#C6B0B4', // Set the background color for added tags
+            }),
+            dropdownIndicator: (baseStyles, state) => ({
+              ...baseStyles,
+              color: state.isFocused ? '#8C1D2F' : '#8C1D2F', // Change the color when focused
+            }),
+          }}
+        />
+        </div>
+
+
+        <div className='third-tags'>
+        <h3>გარემოს დახასითება:</h3>
+
+        <Select
+          value={selectedTags2}
+          onChange={handleTagSelection2}
+          options={areaTagOptions}
+          isMulti
+          styles={{
+            control: (baseStyles, state) => ({
+              ...baseStyles,
+              color: 'red',
+              borderColor: state.isFocused ? '#8C1D2F' : '#8C1D2F',
+              '&:hover': {
+                borderColor: '#8C1D2F', // Change border color on hover
+              },
+              width: selectWidth,
+              backgroundColor: '#D9D9D9',
+              outline: 'none', // Remove default outline,
+              border: '1px solid #8C1D2F',
+              // This line disable the blue border
+              boxShadow: 'none',
+            }),
+            multiValue: (baseStyles) => ({
+              ...baseStyles,
+              backgroundColor: '#C6B0B4', // Set the background color for added tags
+            }),
+            dropdownIndicator: (baseStyles, state) => ({
+              ...baseStyles,
+              color: state.isFocused ? '#8C1D2F' : '#8C1D2F', // Change the color when focused
+            }),
+          }}
+        />
+        </div>
+
+        <div style={{position:'absolute',bottom:"12%",left:"8%",display:'flex', width:'50%', justifyContent:'space-around',alignItems:'',}}>
+          
+        <button onClick={prevStep} className="imageButtonSubmit" >უკან</button>
+
+        <button onClick={handleComplete} className="final-save-button-last" type="submit">დასრულება</button>
+
+        </div>
+        <img style={{position:"absolute",width:'35%',bottom:"5%",right:'5%'}} src="../../../public/cozy.png" alt="Main Logo" />
+
+             <div className='footerLast'>
+    <h3 >powered by MIKITANI</h3>
+    <h3>2024</h3>
+    
+        </div>
       </div>
     );
   };
-
-  const handleDone = () => {
-    // You can access the selected options from the selectedOptions object
-    console.log('Selected Options:', selectedOptions);
-    dispatchUser({
-      type: "changeUserInformation",
-      propertyId: "isRegistered",
-      value: true
-  })
-    navigate("/home")
-  };
-
-  return (
-    <div className='detailes-div'>
-      {renderSelect('select1', ['Option 1', 'Option 2', 'Option 3', 'Option 4', 'Option 5', 'Option 6', 'Option 7', 'Option 8', 'Option 9', 'Option 10'])}
-      {renderSelect('select2', ['Option A', 'Option B', 'Option C', 'Option D', 'Option E', 'Option F', 'Option G', 'Option H', 'Option I', 'Option J'])}
-      {renderSelect('select3', ['Choice X', 'Choice Y', 'Choice Z', 'Choice P', 'Choice Q', 'Choice R', 'Choice S', 'Choice T', 'Choice U', 'Choice V'])}
-      {renderSelect('select4', ['Item I', 'Item II', 'Item III', 'Item IV', 'Item V', 'Item VI', 'Item VII', 'Item VIII', 'Item IX', 'Item X'])}
-      {renderSelect('select5', ['Category A', 'Category B', 'Category C', 'Category D', 'Category E', 'Category F', 'Category G', 'Category H', 'Category I', 'Category J'])}
-
-    <div className='menu-flex'>
-    <button className="last-step-button1" onClick={(e) => prevStep()}>
-        Back
-      </button>
-      <button onClick={handleDone}>Done</button>
-    </div>
-      
-    </div>
-  );
-};

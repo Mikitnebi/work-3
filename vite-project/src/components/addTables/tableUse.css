@@ -94,7 +94,6 @@ background-position: center;
     outline: none;
     background-color: white;
     transition: 0.3s;
-    font-family: cursive;
 
   }
   .addFloor:hover{
@@ -113,7 +112,6 @@ background-position: center;
     outline: none;
     background-color: white;
     transition: 0.3s;
-    font-family: cursive;
   }
 
   .deleteFloor:hover{
@@ -133,7 +131,6 @@ background-position: center;
     outline: none;
     background-color: rgb(47, 225, 47);
     transition: 0.3s;
-    font-family: cursive;
     color: white;
 
   }

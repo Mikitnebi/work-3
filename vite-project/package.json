@@ -10,13 +10,20 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@emotion/react": "^11.11.4",
+    "@emotion/styled": "^11.11.0",
     "@fortawesome/free-solid-svg-icons": "^6.4.2",
     "@fortawesome/react-fontawesome": "^0.2.0",
     "@hookform/resolvers": "^3.3.1",
+    "@microsoft/signalr": "^8.0.0",
+    "@mui/material": "^5.15.12",
+    "@mui/styled-engine-sc": "^6.0.0-alpha.17",
+    "@mui/x-date-pickers": "^6.19.6",
     "@react-google-maps/api": "^2.19.2",
     "animate.css": "^4.1.1",
     "axios": "^1.5.0",
     "browser-router": "^0.2.0",
+    "dayjs": "^1.11.10",
     "formik": "^2.4.5",
     "konva": "^9.3.1",
     "react": "^18.2.0",
@@ -37,6 +44,7 @@
     "react-tagsinput": "^3.20.3",
     "react-time-picker": "^6.6.0",
     "react-waypoint": "^10.3.0",
+    "styled-components": "^6.1.8",
     "use-places-autocomplete": "^4.0.1",
     "uuid": "^9.0.1",
     "yup": "^1.2.0"

@@ -20,8 +20,78 @@ export default function AboutUs() {
         </p>
       </div>
       <Waypoint onEnter={handleRow1Enter}>
-        <div className={`row1 ${isRow1Visible ? 'animate__animated animate__fadeInUp' : ''}`} style={{ transition: 'opacity 1s, transform 2s' }}>
-          <div className="col span-1-of-4 box">
+        <div className={`about-us-section ${isRow1Visible ? 'animate__animated animate__fadeInUp' : ''}`} style={{ transition: 'opacity 1s, transform 2s' }}>
+
+        <div class="flip-card">
+    <div class="flip-card-inner">
+        <div class="flip-card-front">
+            <p class="title-flip">დაჯავშნის სისტემა</p>
+            <p className='about-us-icons'> 
+            <ion-icon name="bookmark-outline" ></ion-icon>
+            </p>
+        </div>
+        <div class="flip-card-back">
+          <div className='backside-about-us'> 
+          <p>1. კაროჩე, ...</p>
+            <p>2. ხოდა, ...</p>
+            <p>3. პატამუჩტა, ...</p>
+          </div>
+            
+        </div>
+    </div>
+</div>
+<div class="flip-card">
+    <div class="flip-card-inner">
+        <div class="flip-card-front">
+            <p class="title-flip">მაგიდების მენეჯმენტი</p>
+            <p className='about-us-icons'>
+            <ion-icon name="grid-outline"></ion-icon> 
+            </p>
+        </div>
+        <div class="flip-card-back">
+            <div className='backside-about-us'> 
+          <p>1. კაროჩე, ...</p>
+            <p>2. ხოდა, ...</p>
+            <p>3. პატამუჩტა, ...</p>
+          </div>
+        </div>
+    </div>
+</div>
+<div class="flip-card">
+    <div class="flip-card-inner">
+        <div class="flip-card-front">
+            <p class="title-flip">ელ-მენიუ</p>
+            <p className='about-us-icons'> 
+            <ion-icon name="restaurant-outline"></ion-icon>
+            </p>
+        </div>
+        <div class="flip-card-back">
+            <div className='backside-about-us'> 
+          <p>1. კაროჩე, ...</p>
+            <p>2. ხოდა, ...</p>
+            <p>3. პატამუჩტა, ...</p>
+          </div>
+        </div>
+    </div>
+</div>
+<div class="flip-card">
+    <div class="flip-card-inner">
+        <div class="flip-card-front">
+            <p class="title-flip">QR-კოდები</p>
+            <p className='about-us-icons'> 
+            <ion-icon name="qr-code-outline"></ion-icon>
+            </p>
+        </div>
+        <div class="flip-card-back">
+            <div className='backside-about-us'> 
+          <p>1. კაროჩე, ...</p>
+            <p>2. ხოდა, ...</p>
+            <p>3. პატამუჩტა, ...</p>
+          </div>
+        </div>
+    </div>
+</div>
+          {/* <div className="col span-1-of-4 box">
             <ion-icon name="infinite-outline" className="icon-big"></ion-icon>
             <h3 className="aboutH3">Up to 365 days/year</h3>
             <p>
@@ -54,7 +124,7 @@ export default function AboutUs() {
               you feel like. You can also choose from our menu containing over 100
               delicious meals. It's up to you!
             </p>
-          </div>
+          </div> */}
         </div>
       </Waypoint>
     </section>

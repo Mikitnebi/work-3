@@ -3,7 +3,7 @@ import { useState } from "react";
 import { useDropzone } from "react-dropzone";
 import { FaCloudUploadAlt } from "react-icons/fa";
 import './images.css'
-export default function ImagesInput({ prevStep, nextStep }) {
+export default function ImagesInput({setStep, prevStep, nextStep }) {
   const [imagePreviews, setImagePreviews] = useState({
     image1: null,
     image2: null,
@@ -79,8 +79,48 @@ export default function ImagesInput({ prevStep, nextStep }) {
     <img style={{width:'4%',marginRight:'5px'}} src="../../../public/img/Group4.png" alt="Main Logo" />
     <h3 >მოგესალმებით მიკიტანში</h3>
 
+    <div className="details-steps">
+      <div onClick={()=>setStep(1)}>
+      <ion-icon name="newspaper-outline"></ion-icon>
+      <h3 style={{color:'#8C1D2F'}}>1. დეტალები</h3>
+
+      </div>
+      <div style={{borderColor:'#8C1D2F',borderWidth:'1.5px'}} className="details-line">
+
+      </div>
+      <div  onClick={()=>setStep(2)}>
+      <ion-icon name="images-outline"></ion-icon>
+      <h3  style={{color:'#8C1D2F'}}>2. სურათები</h3>
+
+      </div>
+      <div className="details-line">
+
+      </div>
+      <div  onClick={()=>setStep(3)}>
+      <ion-icon name="grid-outline"></ion-icon>
+      <h3>3. მაგიდები</h3>
+
+      </div>
+      <div className="details-line">
+        
         </div>
-        <div className='footerImages'>
+        <div  onClick={()=>setStep(4)}>
+          <ion-icon name="fast-food-outline"></ion-icon>
+          <h3>4. მენიუ</h3>
+
+        </div>
+        <div className="details-line">
+          
+        </div>
+        <div  onClick={()=>setStep(5)}>
+          <ion-icon name="flag-outline"></ion-icon>
+          <h3>5. დასასრული</h3>
+
+        </div >
+ 
+    </div>
+        </div>
+        <div style={{height:'10%'}} className='footerImages'>
   <h3 >powered by MIKITANI</h3>
   <h3>2024</h3>
   
@@ -88,6 +128,7 @@ export default function ImagesInput({ prevStep, nextStep }) {
       <form onSubmit={handleSubmit(onSubmit)} className="formImages" id="form">
         <div className="FirstPartImages">
         <div className="form-controlImages">
+          <span style={{fontFamily: 'YourCustomFont, sans-serif',fontSize:'13px',color:'#8C1D2F'}}>მთავარი სურათი</span>
           {renderDropzone("image1")}
 
         </div>

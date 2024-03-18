@@ -990,7 +990,24 @@ export const LastStep1 = function ({ chooseStep, prevStep, nextStep,isParent,set
           control: (baseStyles, state) => ({
             ...baseStyles,
             color: 'red',
-            zIndex:1
+            borderColor: state.isFocused ? '#8C1D2F' : '#8C1D2F',
+            '&:hover': {
+              borderColor: '#8C1D2F', // Change border color on hover
+            },
+            width: '270px',
+            backgroundColor: '#D9D9D9',
+            outline: 'none', // Remove default outline,
+            border: '1px solid #8C1D2F',
+            // This line disable the blue border
+            boxShadow: 'none'
+          }),
+          multiValue: (baseStyles) => ({
+            ...baseStyles,
+            backgroundColor: '#C6B0B4', // Set the background color for added tags
+          }),
+          dropdownIndicator: (baseStyles, state) => ({
+            ...baseStyles,
+            color: state.isFocused ? '#8C1D2F' : '#8C1D2F', // Change the color when focused
           }),
         }}
         id={`ingredients-${sectionIndex}-${itemIndex}`}
@@ -1033,7 +1050,24 @@ export const LastStep1 = function ({ chooseStep, prevStep, nextStep,isParent,set
           control: (baseStyles, state) => ({
             ...baseStyles,
             color: 'red',
-            zIndex:1
+            borderColor: state.isFocused ? '#8C1D2F' : '#8C1D2F',
+            '&:hover': {
+              borderColor: '#8C1D2F', // Change border color on hover
+            },
+            width: '270px',
+            backgroundColor: '#D9D9D9',
+            outline: 'none', // Remove default outline,
+            border: '1px solid #8C1D2F',
+            // This line disable the blue border
+            boxShadow: 'none'
+          }),
+          multiValue: (baseStyles) => ({
+            ...baseStyles,
+            backgroundColor: '#C6B0B4', // Set the background color for added tags
+          }),
+          dropdownIndicator: (baseStyles, state) => ({
+            ...baseStyles,
+            color: state.isFocused ? '#8C1D2F' : '#8C1D2F', // Change the color when focused
           }),
         }}
         id={`GeorgianIngredients-${sectionIndex}-${itemIndex}`}
@@ -1190,7 +1224,24 @@ export const LastStep1 = function ({ chooseStep, prevStep, nextStep,isParent,set
                           control: (baseStyles, state) => ({
                             ...baseStyles,
                             color: 'red',
-                            zIndex:1
+                            borderColor: state.isFocused ? '#8C1D2F' : '#8C1D2F',
+                            '&:hover': {
+                              borderColor: '#8C1D2F', // Change border color on hover
+                            },
+                            width: '270px',
+                            backgroundColor: '#D9D9D9',
+                            outline: 'none', // Remove default outline,
+                            border: '1px solid #8C1D2F',
+                            // This line disable the blue border
+                            boxShadow: 'none'
+                          }),
+                          multiValue: (baseStyles) => ({
+                            ...baseStyles,
+                            backgroundColor: '#C6B0B4', // Set the background color for added tags
+                          }),
+                          dropdownIndicator: (baseStyles, state) => ({
+                            ...baseStyles,
+                            color: state.isFocused ? '#8C1D2F' : '#8C1D2F', // Change the color when focused
                           }),
                         }}
                         id={`ingredients-${sectionIndex}-${itemIndex}`}
@@ -1219,7 +1270,24 @@ export const LastStep1 = function ({ chooseStep, prevStep, nextStep,isParent,set
                           control: (baseStyles, state) => ({
                             ...baseStyles,
                             color: 'red',
-                            zIndex:1
+                            borderColor: state.isFocused ? '#8C1D2F' : '#8C1D2F',
+                            '&:hover': {
+                              borderColor: '#8C1D2F', // Change border color on hover
+                            },
+                            width: '270px',
+                            backgroundColor: '#D9D9D9',
+                            outline: 'none', // Remove default outline,
+                            border: '1px solid #8C1D2F',
+                            // This line disable the blue border
+                            boxShadow: 'none'
+                          }),
+                          multiValue: (baseStyles) => ({
+                            ...baseStyles,
+                            backgroundColor: '#C6B0B4', // Set the background color for added tags
+                          }),
+                          dropdownIndicator: (baseStyles, state) => ({
+                            ...baseStyles,
+                            color: state.isFocused ? '#8C1D2F' : '#8C1D2F', // Change the color when focused
                           }),
                         }}
                         id={`GeorgianIngredients-${sectionIndex}-${itemIndex}`}

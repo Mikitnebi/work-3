@@ -20,7 +20,6 @@
     z-Index: 1000;
     scrollbar-width: none;
     border-radius: 5px;
-    font-family: cursive;
 display: flex;
 flex-direction: column;
 }

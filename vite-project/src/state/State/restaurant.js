@@ -11,6 +11,7 @@ export const restaurantState = {
     kitchenEnd:'',
     is24:false,
     is24Hall:false,
+    is24Music:false,
     musicStart: '',
     musicEnd : '',
     corporative: false,

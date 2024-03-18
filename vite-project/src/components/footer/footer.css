@@ -2,7 +2,7 @@
 
 
 .last-list{
-    background-color: #333;
+    background-color: #27080b;
     display: flex;
     flex-direction: column;
 }
@@ -30,7 +30,7 @@
     color: #ccc;
 }
 .fch li a:hover{
-    border-bottom: 1.5px solid #e67e22;
+    border-bottom: 1.5px solid #8C1D2F;
     color: #ffff;
     padding: 4px 0;
 }

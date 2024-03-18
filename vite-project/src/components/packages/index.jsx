@@ -15,7 +15,7 @@ export default function Packages ( ) {
     return(
         <section id="packages" class="section-plans js--section-plans">
     <div class="row">
-        <h2>Start eating healthy today</h2>
+        <h2 style={{color:"#8C1D2F"}}>Start eating healthy today</h2>
     </div>
     <Waypoint onEnter={handleRow1Enter}>
 
@@ -23,12 +23,12 @@ export default function Packages ( ) {
         <div class="col3 span-1-of-3 js--wp-3">
             <div class="plan-box">
                 <div>
-                    <h3>Premium</h3>
+                    <h3 style={{color:'wheat'}}>Premium</h3>
                     <p class="plan-price"> 399$<span> / month </span></p>
                     <p class="plan-price-meal"> That’s only 13.30$ per meal</p>
                 </div>
                 <div>
-                    <ul>
+                    <ul> 
                         <li>
                             <ion-icon class="icon-small" name="checkmark-outline"></ion-icon>
                             1 meal every day
@@ -55,7 +55,7 @@ export default function Packages ( ) {
         <div class="col3 span-1-of-3">
             <div class="plan-box">
                 <div>
-                    <h3>Pro</h3>
+                    <h3 style={{color:'wheat'}}>Pro</h3>
                     <p class="plan-price"> 149$<span> / month</span></p>
                     <p class="plan-price-meal"> that’s only 14.90$ per meal</p>
                 </div>
@@ -87,7 +87,7 @@ export default function Packages ( ) {
         <div class="col3 span-1-of-3">
             <div class="plan-box">
                 <div>
-                    <h3>Starter</h3>
+                    <h3 style={{color:'wheat'}}>Starter</h3>
                     <p class="plan-price"> 19$ <span> / meal </span> </p>
                     <p class="plan-price-meal"> that’s only 14.90$ per meal</p>
                 </div>

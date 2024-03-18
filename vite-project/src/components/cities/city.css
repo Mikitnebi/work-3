@@ -1,17 +1,4 @@
-.box img{
-    width: 100%;
-    height: auto;
-    margin-bottom: 15px;
-    transform: scale(1.15);
-    transition: transform 0.3s;
-}
 
-.box img:hover{
-    width: 100%;
-    height: auto;
-    margin-bottom: 15px;
-    transform: scale(1.03);
-}
 
 .city-features{
     display: flex;
@@ -28,751 +15,21 @@
 
 
 
-/*  SECTIONS  ============================================================================= */
 
-.section {
-	clear: both;
-	padding: 0px;
-	margin: 0px;
-}
-
-/*  GROUPING  ============================================================================= */
-
-.row {
-    zoom: 1; /* For IE 6/7 (trigger hasLayout) */
-}
-
-.row:before,
-.row:after {
-    content:"";
-    display:table;
-}
-.row:after {
-    clear:both;
-}
-
-/*  GRID COLUMN SETUP   ==================================================================== */
-
-.col1 {
-	display: block;
-	float:left;
-	margin: 1% 0 1% 1.6%;
-}
-
-.col1:first-child { margin-left: 0; } /* all browsers except IE6 and lower */
-
-
-/*  REMOVE MARGINS AS ALL GO FULL WIDTH AT 480 PIXELS */
-
-@media only screen and (max-width: 480px) {
-	.col1 { 
-		/*margin: 1% 0 1% 0%;*/
-        margin: 0;
-	}
-}
-
-
-/*  GRID OF TWO   ============================================================================= */
-
-
-.span-2-of-2 {
-	width: 100%;
-}
-
-.span-1-of-2 {
-	width: 49.2%;
-}
-
-/*  GO FULL WIDTH AT LESS THAN 480 PIXELS */
-
-@media only screen and (max-width: 480px) {
-	.span-2-of-2 {
-		width: 100%; 
-	}
-	.span-1-of-2 {
-		width: 100%; 
-	}
-}
-
-
-/*  GRID OF THREE   ============================================================================= */
-
-	
-.span-3-of-3 {
-	width: 100%; 
-}
-
-.span-2-of-3 {
-	width: 66.13%; 
-}
-
-.span-1-of-3 {
-	width: 32.26%; 
-}
-
-
-/*  GO FULL WIDTH AT LESS THAN 480 PIXELS */
-
-@media only screen and (max-width: 480px) {
-	.span-3-of-3 {
-		width: 100%; 
-	}
-	.span-2-of-3 {
-		width: 100%; 
-	}
-	.span-1-of-3 {
-		width: 100%;
-	}
-}
-
-/*  GRID OF FOUR   ============================================================================= */
-
-	
-.span-4-of-4 {
-	width: 100%; 
-}
-
-.span-3-of-4 {
-	width: 74.6%; 
-}
-
-.span-2-of-4 {
-	width: 49.2%; 
-}
-
-.span-1-of-4 {
-	width: 23.8%; 
-}
-
-
-/*  GO FULL WIDTH AT LESS THAN 480 PIXELS */
-
-@media only screen and (max-width: 480px) {
-	.span-4-of-4 {
-		width: 100%; 
-	}
-	.span-3-of-4 {
-		width: 100%; 
-	}
-	.span-2-of-4 {
-		width: 100%; 
-	}
-	.span-1-of-4 {
-		width: 100%; 
-	}
-}
-
-
-/*  GRID OF FIVE   ============================================================================= */
-
-	
-.span-5-of-5 {
-	width: 100%;
-}
-
-.span-4-of-5 {
-  	width: 79.68%; 
-}
-
-.span-3-of-5 {
-  	width: 59.36%; 
-}
-
-.span-2-of-5 {
-  	width: 39.04%;
-}
-
-.span-1-of-5 {
-  	width: 18.72%;
-}
-
-
-/*  GO FULL WIDTH AT LESS THAN 480 PIXELS */
-
-@media only screen and (max-width: 480px) {
-	.span-5-of-5 {
-		width: 100%; 
-	}
-	.span-4-of-5 {
-		width: 100%; 
-	}
-	.span-3-of-5 {
-		width: 100%; 
-	}
-	.span-2-of-5 {
-		width: 100%; 
-	}
-	.span-1-of-5 {
-		width: 100%; 
-	}
-}
-
-
-/*  GRID OF SIX   ============================================================================= */
-
-
-.span-6-of-6 {
-	width: 100%;
-}
-
-.span-5-of-6 {
-  	width: 83.06%;
-}
-
-.span-4-of-6 {
-  	width: 66.13%;
-}
-
-.span-3-of-6 {
-  	width: 49.2%;
-}
-
-.span-2-of-6 {
-  	width: 32.26%;
-}
-
-.span-1-of-6 {
-  	width: 15.33%;
-}
-
-
-/*  GO FULL WIDTH AT LESS THAN 480 PIXELS */
-
-@media only screen and (max-width: 480px) {
-	.span-6-of-6 {
-		width: 100%; 
-	}
-	.span-5-of-6 {
-		width: 100%; 
-	}
-	.span-4-of-6 {
-		width: 100%; 
-	}
-	.span-3-of-6 {
-		width: 100%; 
-	}
-	.span-2-of-6 {
-		width: 100%; 
-	}
-	.span-1-of-6 {
-		width: 100%; 
-	}
-}
-
-
-
-/*  GRID OF SEVEN   ============================================================================= */
-
-
-.span-7-of-7 {
-	width: 100%;
-}
-
-.span-6-of-7 {
-	width: 85.48%;
-}
-
-.span-5-of-7 {
-  	width: 70.97%;
-}
-
-.span-4-of-7 {
-  	width: 56.45%;
-}
-
-.span-3-of-7 {
-  	width: 41.94%;
-}
-
-.span-2-of-7 {
-  	width: 27.42%;
-}
-
-.span-1-of-7 {
-  	width: 12.91%;
-}
-
-
-/*  GO FULL WIDTH AT LESS THAN 480 PIXELS */
-
-@media only screen and (max-width: 480px) {
-	.span-7-of-7 {
-		width: 100%; 
-	}
-	.span-6-of-7 {
-		width: 100%; 
-	}
-	.span-5-of-7 {
-		width: 100%; 
-	}
-	.span-4-of-7 {
-		width: 100%; 
-	}
-	.span-3-of-7 {
-		width: 100%; 
-	}
-	.span-2-of-7 {
-		width: 100%; 
-	}
-	.span-1-of-7 {
-		width: 100%; 
-	}
-}
-
-
-/*  GRID OF EIGHT   ============================================================================= */
-
-	
-.span-8-of-8 {
-	width: 100%;
-}
-
-.span-7-of-8 {
-	width: 87.3%; 
-}
-
-.span-6-of-8 {
-	width: 74.6%; 
-}
-
-.span-5-of-8 {
-	width: 61.9%; 
-}
-
-.span-4-of-8 {
-	width: 49.2%; 
-}
-
-.span-3-of-8 {
-	width: 36.5%;
-}
-
-.span-2-of-8 {
-	width: 23.8%; 
-}
-
-.span-1-of-8 {
-	width: 11.1%; 
-}
-
-
-/*  GO FULL WIDTH AT LESS THAN 480 PIXELS */
-
-@media only screen and (max-width: 480px) {
-	.span-8-of-8 {
-		width: 100%; 
-	}
-	.span-7-of-8 {
-		width: 100%; 
-	}
-	.span-6-of-8 {
-		width: 100%; 
-	}
-	.span-5-of-8 {
-		width: 100%; 
-	}
-	.span-4-of-8 {
-		width: 100%; 
-	}
-	.span-3-of-8 {
-		width: 100%; 
-	}
-	.span-2-of-8 {
-		width: 100%; 
-	}
-	.span-1-of-8 {
-		width: 100%; 
-	}
-}
-
-
-/*  GRID OF NINE   ============================================================================= */
-
-
-.span-9-of-9 {
-	width: 100%;
-}
-
-.span-8-of-9 {
-	width: 88.71%;
-}
-
-.span-7-of-9 {
-	width: 77.42%; 
-}
-
-.span-6-of-9 {
-	width: 66.13%; 
-}
-
-.span-5-of-9 {
-	width: 54.84%; 
-}
-
-.span-4-of-9 {
-	width: 43.55%; 
-}
-
-.span-3-of-9 {
-	width: 32.26%;
-}
-
-.span-2-of-9 {
-	width: 20.97%; 
-}
-
-.span-1-of-9 {
-	width: 9.68%; 
-}
-
-
-/*  GO FULL WIDTH AT LESS THAN 480 PIXELS */
-
-@media only screen and (max-width: 480px) {
-	.span-9-of-9 {
-		width: 100%; 
-	}
-	.span-8-of-9 {
-		width: 100%; 
-	}
-	.span-7-of-9 {
-		width: 100%; 
-	}
-	.span-6-of-9 {
-		width: 100%; 
-	}
-	.span-5-of-9 {
-		width: 100%; 
-	}
-	.span-4-of-9 {
-		width: 100%; 
-	}
-	.span-3-of-9 {
-		width: 100%; 
-	}
-	.span-2-of-9 {
-		width: 100%; 
-	}
-	.span-1-of-9 {
-		width: 100%; 
-	}
-}
-
-
-/*  GRID OF TEN   ============================================================================= */
-
-
-.span-10-of-10 {
-	width: 100%;
-}
-
-.span-9-of-10 {
-	width: 89.84%;
-}
-
-.span-8-of-10 {
-	width: 79.68%;
-}
-
-.span-7-of-10 {
-	width: 69.52%; 
-}
-
-.span-6-of-10 {
-	width: 59.36%; 
-}
-
-.span-5-of-10 {
-	width: 49.2%; 
-}
-
-.span-4-of-10 {
-	width: 39.04%; 
-}
-
-.span-3-of-10 {
-	width: 28.88%;
-}
-
-.span-2-of-10 {
-	width: 18.72%; 
-}
-
-.span-1-of-10 {
-	width: 8.56%; 
-}
-
-
-/*  GO FULL WIDTH AT LESS THAN 480 PIXELS */
-
-@media only screen and (max-width: 480px) {
-	.span-10-of-10 {
-		width: 100%; 
-	}
-	.span-9-of-10 {
-		width: 100%; 
-	}
-	.span-8-of-10 {
-		width: 100%; 
-	}
-	.span-7-of-10 {
-		width: 100%; 
-	}
-	.span-6-of-10 {
-		width: 100%; 
-	}
-	.span-5-of-10 {
-		width: 100%; 
-	}
-	.span-4-of-10 {
-		width: 100%; 
-	}
-	.span-3-of-10 {
-		width: 100%; 
-	}
-	.span-2-of-10 {
-		width: 100%; 
-	}
-	.span-1-of-10 {
-		width: 100%; 
-	}
-}
-
-
-/*  GRID OF ELEVEN   ============================================================================= */
-
-.span-11-of-11 {
-	width: 100%;
-}
-
-.span-10-of-11 {
-	width: 90.76%;
-}
-
-.span-9-of-11 {
-	width: 81.52%;
-}
-
-.span-8-of-11 {
-	width: 72.29%;
-}
-
-.span-7-of-11 {
-	width: 63.05%; 
-}
-
-.span-6-of-11 {
-	width: 53.81%; 
-}
-
-.span-5-of-11 {
-	width: 44.58%; 
-}
-
-.span-4-of-11 {
-	width: 35.34%; 
-}
-
-.span-3-of-11 {
-	width: 26.1%;
-}
-
-.span-2-of-11 {
-	width: 16.87%; 
-}
-
-.span-1-of-11 {
-	width: 7.63%; 
-}
-
-
-/*  GO FULL WIDTH AT LESS THAN 480 PIXELS */
-
-@media only screen and (max-width: 480px) {
-	.span-11-of-11 {
-		width: 100%; 
-	}
-	.span-10-of-11 {
-		width: 100%; 
-	}
-	.span-9-of-11 {
-		width: 100%; 
-	}
-	.span-8-of-11 {
-		width: 100%; 
-	}
-	.span-7-of-11 {
-		width: 100%; 
-	}
-	.span-6-of-11 {
-		width: 100%; 
-	}
-	.span-5-of-11 {
-		width: 100%; 
-	}
-	.span-4-of-11 {
-		width: 100%; 
-	}
-	.span-3-of-11 {
-		width: 100%; 
-	}
-	.span-2-of-11 {
-		width: 100%; 
-	}
-	.span-1-of-11 {
-		width: 100%; 
-	}
-}
-
-
-/*  GRID OF TWELVE   ============================================================================= */
-
-.span-12-of-12 {
-	width: 100%;
-}
-
-.span-11-of-12 {
-	width: 91.53%;
-}
-
-.span-10-of-12 {
-	width: 83.06%;
-}
-
-.span-9-of-12 {
-	width: 74.6%;
-}
-
-.span-8-of-12 {
-	width: 66.13%;
-}
-
-.span-7-of-12 {
-	width: 57.66%; 
-}
-
-.span-6-of-12 {
-	width: 49.2%; 
-}
-
-.span-5-of-12 {
-	width: 40.73%; 
-}
-
-.span-4-of-12 {
-	width: 32.26%; 
-}
-
-.span-3-of-12 {
-	width: 23.8%;
-}
-
-.span-2-of-12 {
-	width: 15.33%; 
-}
-
-.span-1-of-12 {
-	width: 6.86%; 
-}
-
-
-/*  GO FULL WIDTH AT LESS THAN 480 PIXELS */
-
-@media only screen and (max-width: 480px) {
-	.span-12-of-12 {
-		width: 100%; 
-	}
-	.span-11-of-12 {
-		width: 100%; 
-	}
-	.span-10-of-12 {
-		width: 100%; 
-	}
-	.span-9-of-12 {
-		width: 100%; 
-	}
-	.span-8-of-12 {
-		width: 100%; 
-	}
-	.span-7-of-12 {
-		width: 100%; 
-	}
-	.span-6-of-12 {
-		width: 100%; 
-	}
-	.span-5-of-12 {
-		width: 100%; 
-	}
-	.span-4-of-12 {
-		width: 100%; 
-	}
-	.span-3-of-12 {
-		width: 100%; 
-	}
-	.span-2-of-12 {
-		width: 100%; 
-	}
-	.span-1-of-12 {
-		width: 100%; 
-	}
-}
 
 .section-cities {
-    background-image: 
-    url("../public/georgia-map-sights-0.jpg");
-    min-height: 120vh;
-  background-color: blue;
-  background-size: cover;
-  background-position: center;
-  background-attachment: fixed;    
-  padding: 5px;
-  }
+    /* background-image: url("../public/რუკა2.png"); */
+    height: 100vh;
+    background-color: #dfc7cb;
+    background-size: 100% 100%; /* or 100% 100% */
+    background-position: center;
+    background-attachment: fixed;
+    padding: 5px;
+}
+
   
-  .row {
-    text-align: center;
-    margin-bottom: 40px; /* Adjust the margin as needed */
-  }
-  
-  .box {
-    background-color: #fff;
-    border-radius: 8px;
-    overflow: hidden;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
-  }
-  
-  .box:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 0 40px rgba(0, 0, 0, 0.2);
-  }
-  
-  img {
-    max-width: 100%;
-    height: auto;
-  }
-  
-  h3 {
-    margin-top: 20px; /* Adjust the margin as needed */
-    font-size: 1.8rem;
-    color: #333;
-  }
-  
-  .city-features {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 10px 0; /* Adjust the margin as needed */
-    color: #888;
-  }
-  
-  .icon-small {
-    margin-right: 5px; /* Adjust the margin as needed */
-    font-size: 1.5rem;
-    color: #8C1D2F;
-  }
-  .col1{
-    height: 400px;
-}  
+ 
+
 
 h2{
     font-size: 30px;
@@ -780,32 +37,229 @@ h2{
   text-align: center;
   margin-top: 50px;
   letter-spacing: 1px;
-  color: rgb(90, 61, 8);
+  color: white;
   font-weight: bolder;
 }
 
-.btn {
-    text-decoration: none;
-    padding: 10px 20px;
-    display: inline-block;
-    margin-top: 20px;
-    border-radius: 25px;
-    font-size: 1rem;
-    transition: background-color 0.3s ease;
+
+
+
+
+
+.cities-div{
+	display: flex;
+	width: 100%;
+	height: 70%;
+	align-items: center;
+	justify-content: space-around;
+}
+
+
+.card {
+	width: 25%;
+	height: 80%;
+	background: linear-gradient(120deg, rgba(107,22,35,1) 18%, rgba(163,34,53,1) 53%, rgba(88,18,29,1) 96%);
+	transition: all 0.4s;
+	border-radius: 10px;
+	box-shadow: 0px 0px 10px 5px  rgba(0, 0, 0, 0.705);
+	font-size: 30px;
+	font-weight: 900;
   }
   
-  .btn-full {
-    background-color: #e67e22;
-    color: #fff;
+  .card:hover {
+	border-radius: 15px;
+	cursor: pointer;
+	transform: scale(1.2);
+	box-shadow: 0px 0px 10px 5px  rgba(0, 0, 0, 0.705);
+	background: linear-gradient(60deg, rgba(107,22,35,1) 18%, rgba(163,34,53,1) 53%, rgba(88,18,29,1) 96%);
+}
+  
+  .first-content {
+	height: 100%;
+	width: 100%;
+	transition: all 0.4s;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	opacity: 1;
+	border-radius: 15px;
   }
   
-  .btn-ghost {
-    background-color: #fff;
-    color: #e67e22;
-    border: 0.5px solid #e67e22;
+  .card:hover .first-content {
+	height: 0px;
+	opacity: 0;
   }
   
-  .btn:hover {
-    background-color: #e67e22;
-    color: #fff;
+  .second-content {
+	height: 0%;
+	width: 100%;
+	opacity: 0;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+	border-radius: 15px;
+	transition: all 0.4s;
+	font-size: 0px;
+	transform: rotate(90deg) scale(-1);
+  }
+  
+  .card:hover .second-content {
+	opacity: 1;
+	height: 100%;
+	font-size: 1.2rem;
+	transform: rotate(0deg);
+  }
+  
+  
+  /* .cities-img{
+	width: 90%;
+	height: auto;
+  } */
+
+  .cities-img1{
+	position: absolute;
+	width: 100%;
+	height: auto;
+	bottom: 0%;
+	left: 50%;
+	transform: translate(-50%, 0%);
+  }
+
+  .cities-img2{
+	position: absolute;
+	width: 70%;
+	height: auto;
+	bottom: 0%;
+	left: 50%;
+	transform: translate(-50%, 0%);
+  }
+
+
+  .cities-img3{
+	position: absolute;
+	width: 55%;
+	height: auto;
+	bottom: 0%;
+	left: 50%;
+	transform: translate(-50%, 10%);
+  }
+
+  .cities-img1:hover,.cities-img2:hover{
+	transform: translate(-50%, -10%);
+	transition: 0.3s;
+	
+  }
+  .cities-img3:hover{
+	transform: translate(-50%, 0%);
+	transition: 0.3s;
+  }
+
+  .city-features {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 10px 0; /* Adjust the margin as needed */
+    color: white;
+	font-size: 18px;
+  }
+  
+  .city-features  ion-icon{
+	color: wheat;
+	font-size: 10px;
+  }
+
+
+  .e-card:hover {
+	transform: scale(1.1);
+	transition: 0.3s;
+}
+
+
+  .e-card {
+	background: transparent;
+	box-shadow: 0px 8px 28px -9px rgba(0, 0, 0, 0.45);
+	position: relative;
+	width: 20%;
+	height: 65%;
+	border-radius: 16px;
+	overflow: hidden;
+  }
+  
+  .wave {
+	position: absolute;
+	width: 540px;
+	height: 700px;
+	opacity: 0.6;
+	left: 0;
+	top: 0;
+	margin-left: -50%;
+	margin-top: -70%;
+	background: linear-gradient(744deg,rgba(107,22,35,1),rgb(105, 23, 36) 60%,rgb(209, 47, 71));
+  }
+  
+  .icon {
+	width: 3em;
+	margin-top: -1em;
+	padding-bottom: 1em;
+  }
+  
+  .infotop {
+	text-align: center;
+	font-size: 20px;
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	color: rgb(255, 255, 255);
+	font-weight: 600;
+  }
+  
+  .name {
+	font-size: 14px;
+	font-weight: 100;
+	position: relative;
+	top: 1em;
+	text-transform: lowercase;
+  }
+  
+  .wave:nth-child(2),
+  .wave:nth-child(3) {
+	top: 210px;
+  }
+  
+  .playing .wave {
+	border-radius: 40%;
+	animation: wave 3000ms infinite linear;
+  }
+  
+  .wave {
+	border-radius: 40%;
+	animation: wave 55s infinite linear;
+  }
+  
+  .playing .wave:nth-child(2) {
+	animation-duration: 4000ms;
+  }
+  
+  .wave:nth-child(2) {
+	animation-duration: 50s;
+  }
+  
+  .playing .wave:nth-child(3) {
+	animation-duration: 5000ms;
+  }
+  
+  .wave:nth-child(3) {
+	animation-duration: 45s;
+  }
+  
+  @keyframes wave {
+	0% {
+	  transform: rotate(0deg);
+	}
+  
+	100% {
+	  transform: rotate(360deg);
+	}
   }

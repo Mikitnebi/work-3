@@ -67,33 +67,34 @@ letter-spacing: 5px;
 font-size: 30px;
 font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
-.book-button{
+.book-button {
   display: flex;
   align-items: center;
   justify-content: center;
   position: absolute;
-  top: 60%;
-  left: 40%;
-  /* transform: translate(-50%, -50%); */
+  top: 70%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   width: 200px;
   height: 40px;
   outline: none;
-  background-color: rgb(234, 178, 11);
-  border: 1px solid rgb(234, 178, 11);
+  background-color: #8C1D2F;
+  border: 1px solid #8C1D2F;
   border-radius: 10px;
   color: white;
   text-decoration: none;
   font-size: 15px;
   letter-spacing: 1px;
-
+  transition: transform 0.3s; /* Apply transition to transform property */
+  opacity: 0.8;
 }
 
-.book-button:hover{
-  transform: scale(1.01);
-  transition: 0.3s; 
-  color: black;
+.book-button:hover {
+  transform: translate(-50%, -50%) scale(1.15); /* Combine transformations */
+  color: white;
+  opacity: 1;
 
-} 
+}
 
 
 
@@ -107,8 +108,8 @@ font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
   width: 200px;
   height: 50px;
   outline: none;
-  background-color: rgb(234, 178, 11);
-  border: 1px solid rgb(234, 178, 11);
+  background-color: #8C1D2F;
+  border: 1px solid #8C1D2F;
   border-radius: 10px;
   color: white;
   text-decoration: none;
@@ -125,7 +126,7 @@ font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
   height: 50px;
   outline: none;
   background-color: rgb(237, 219, 166);
-  border: 1px solid rgb(208, 157, 3);
+  border: 1px solid #8C1D2F;
   border-radius: 10px;
   color: black;
   text-decoration: none;
@@ -143,16 +144,25 @@ font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
   transform: scale(1.01);
   transition: 0.3s; 
   color: white;
-  background-color: rgb(234, 178, 11);
+  background-color: #8C1D2F;
 
 }
 /* Add this to your existing CSS or create a new stylesheet */
 .restaurant-interface {
   height: 100vh;
-  background-size: cover;
+  background-size: 100% 100%; /* or 100% 100% */
   background-position: center;
   background-attachment: fixed;
-  transition:  0.5s ease-in-out, opacity 1s ease-in-out;
+  position: relative;
+}
+.background-video {
+  position: absolute; /* Position the video absolutely within the header */
+  top: 0;
+  left: 0;
+  width: 100%; /* Make the video cover the entire header width */
+  height: 100%; /* Make the video cover the entire header height */
+  object-fit: fill; /* Ensure the video covers the entire container */
+  z-index: -1; /* Place the video behind other content */
 }
 
 .restaurant-interface.fade-in {
@@ -189,7 +199,7 @@ font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
 
 .arrow-button:hover {
-  color: #ffc107;
+  color: #8C1D2F;
 
 }
 
@@ -204,14 +214,14 @@ font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
 .register:hover,.register1:hover,.requests:hover,.favorites:hover,.home:hover,.book:hover,.login-nav:hover{
   transition: 0.3s;
-  color: rgb(234, 178, 11);
+  color: #8C1D2F;
 }
 .stick{
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
-  height: 12.5%;
+  height: 10%;
   background-color: #fff;
   box-shadow: 0 2px 2px #efefef;
   z-index: 20;
@@ -245,11 +255,13 @@ font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
   align-items: center;
   color: white;
   font-size: 20px;
-  font-family: cursive;
   cursor: pointer;
   margin-top: 2%;
 }
-
+.title img{
+  width: 50px;
+  height: auto;
+}
 .header__logo{
   height: 8vh;
   margin-right: 10px;
@@ -273,7 +285,7 @@ font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
 
 .registration:hover{
-  color: rgb(234, 178, 11);
+  color: #8C1D2F;
   transform: scale(1.1);
   transition: 1s;
 }
@@ -288,7 +300,7 @@ font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
   font-size: 20px;
 }
 .login-nav:hover{
-  color: rgb(234, 178, 11);
+  color: #8C1D2F;
   
 }
 .slash{
@@ -308,7 +320,7 @@ font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
   justify-content: center;
   align-items: center;
   list-style: none;
-
+cursor: pointer;
 } 
 .ul-tt-1 li{
   text-decoration: none;
@@ -326,7 +338,7 @@ font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 
 }
 .stick .login-nav:hover,.stick .register1:hover,.stick .register:hover:hover,.stick .requests:hover,.stick .favorites:hover,.stick .home:hover,.stick .book:hover,.stick .title span ,.stick .ul-tt span{
-color: rgb(171, 133, 18);
+color: #8C1D2F;
 }
 nav{
   display: flex;

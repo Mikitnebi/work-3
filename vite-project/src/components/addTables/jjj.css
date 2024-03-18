@@ -13,7 +13,7 @@
 
   .rectangle1{
 
-    width: 100px;
+    width: 80px;
     height: auto;
     cursor: pointer;
     outline: none;
@@ -35,7 +35,7 @@
 
   .circle1{
 
-    width: 150px;
+    width: 80px;
     height: auto;
     cursor: pointer;
 
@@ -43,7 +43,7 @@
   
   .square1{
 
-    width: 150px;
+    width: 80px;
     height: auto;
     cursor: pointer;
 
@@ -63,9 +63,8 @@
 
 
   .addFloor{
-    width: 25%;
     outline: none;
-    padding: 5px;
+    padding: 10px;
     border-radius: 5px;
     background-color: #8C1D2F;
     border: 0.5px solid #8C1D2F;
@@ -84,16 +83,32 @@
 
 
   .deleteFloor{
-    width: 25%;
     outline: none;
-    padding: 5px;
+    padding: 10px;
     border-radius: 5px;
     background-color: #8C1D2F;
     border: 0.5px solid #8C1D2F;
     color: white;
     margin: 0  2%;
   }
+.floor-name{
+  outline: none;
+  background-color: #8C1D2F;
+  border: none;
+  border-radius: 5px;
+  color: white;
+  padding: 10px;
+  width: 80%;
+height: 50%;
+}
 
+.floor-name:focus{
+  background-color: #c02942;
+}
+.floor-name::placeholder{
+  color: white;
+  font-size: 12px;
+}
 
   .final-save{
     margin: 5px;
@@ -106,9 +121,15 @@
     outline: none;
     background-color: rgb(47, 225, 47);
     transition: 0.3s;
-    font-family: cursive;
     color: white;
 
+  }
+  .shapesVariartions{
+    display: flex;
+    align-items: center;
+    margin: 5px;
+    position: absolute;
+    top: 11%;
   }
 
   .final-save:hover{
@@ -124,7 +145,7 @@
   align-items: center;
   justify-content: space-around;
   position: absolute;
-  bottom: 10%;
+  bottom: 13%;
 }
   
 
@@ -133,8 +154,8 @@
     padding: 10px;
     border: 1px solid #9b7e83;
     position: absolute;
-    right: 5%;
-    top: 200px;
+    right: 1%;
+    top: 30%;
     z-index: 3;
     display: flex;
     flex-direction: column;
@@ -142,14 +163,21 @@
     gap: 10px;
     padding: 2%;
     border-radius: 20px;
+    width: 25%;
   }
+  .Select__control:focus,.css-djlkho-control,.css-1i837h3-ValueContainer2,.css-1f43avz-a11yText-A11yText,.css-1f43avz-a11yText-A11yText,.css-b62m3t-container,.css-1nmdiq5-menu,#react-select-14-live-region {
+    outline: none ;
+    border-color: #8C1D2F;
+  }
+  
 
   .details-form input {
     border: 0.5px solid #8C1D2F ;
-    background-color: #D9D9D9;
+    background-color: #d9d9d9;
     padding: 5px;
     border-radius: 5px;
     outline: none;
+    width: 30%;
   }
 
   .details-form label {
@@ -157,7 +185,7 @@
     width: 100%;
     display: flex;
     justify-content: space-between;
-
+    font-size: 14px;
   }
 
   .css-tj5bde-Svg{

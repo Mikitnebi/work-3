@@ -28,6 +28,7 @@ import Cities from './components/cities/cities';
 import Packages from './components/packages';
 import Footer from './components/footer';
 import { MainLogin } from './components/enter/login';
+import { faL } from '@fortawesome/free-solid-svg-icons';
 
 export default function HomePage() {
   const navigation = useNavigate();
@@ -54,75 +55,10 @@ export default function HomePage() {
   const headerRef = useRef(null);
   const buttonRef = useRef(null);
 
-  let image = [
-    '../public/jason-leung-poI7DelFiVA-unsplash.jpg',
-    '../public/brooke-lark-R18ecx07b3c-unsplash.jpg',
-    '../victoria-shes-Qa29U4Crvn4-unsplash.jpg',
-    '../public/custom-restaurant-tables-david-stine+4.jpg',
-    '../public/jay-wennington-N_Y88TWmGwA-unsplash.jpg',
-  ];
 
-  const handleLeftArrowClick = () => {
-    setAnimationClass('animate__animated animate__fadeInUp');
-    setImg((prevImg) => ((prevImg - 2 + image.length) % image.length) + 1);
-  };
 
-  const handleRightArrowClick = () => {
-    setAnimationClass('animate__animated animate__fadeInUp');
-    setImg((prevImg) => (prevImg % image.length) + 1);
-  };
 
-  const handleSeeTablesClick = () => {
-    setAnimationClass('animate__animated animate__fadeInUp');
-    // Add your logic for the "See Your Tables" link click event
-  }; 
-  const changeImage = () => {
-    setAnimationClass('animate__animated animate__fadeInUp');
-    setImg((prevImg) => (prevImg % image.length) + 1);
-  };
-  
 
-  useEffect(() => {
-    if (headerRef.current) {
-      headerRef.current.classList.add('fade-in');
-      animationRef.current.classList.add('animate__animated', 'animate__fadeInUp');
-      buttonRef.current.classList.add('animate__animated', 'animate__fadeInUp');
-      const animationTimeout = setTimeout(() => {
-        headerRef.current.classList.remove('fade-in');
-        animationRef.current.classList.remove('animate__fadeInUp');
-        buttonRef.current.classList.remove('animate__fadeInUp');
-
-      }, 1000);
-
-      return () => clearTimeout(animationTimeout);
-    }
-  }, []);
-
-  useEffect(() => {
-    const intervalId = setInterval(() => {
-      changeImage();
-    }, 5000); // Change image every 2 seconds
-
-    // Clear the interval on component unmount
-    return () => clearInterval(intervalId);
-  }, [img]);
-
-  useEffect(() => {
-    // Remove the animation class after the animation completes
-    if (animationRef.current) {
-      const animationElement = animationRef.current;
-      const handleAnimationEnd = () => {
-        setAnimationClass('');
-        animationElement.removeEventListener('animationend', handleAnimationEnd);
-      };
-
-      animationElement.addEventListener('animationend', handleAnimationEnd);
-
-      return () => {
-        animationElement.removeEventListener('animationend', handleAnimationEnd);
-      };
-    }
-  }, [animationClass]);
 
   const [isLoginOrRegistration, setIsLoginOrRegistration] = useState(false)
 
@@ -132,18 +68,17 @@ export default function HomePage() {
         id="home"
         ref={headerRef} // Use the ref here
         className="restaurant-interface"
-        style={{
-          backgroundImage: `linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url(${image[img - 1]})`,
-        }}
       >
-        <div className="slider">
-          <button className="arrow-button" onClick={handleLeftArrowClick}>
-            &larr;
-          </button>
-          <button className="arrow-button" onClick={handleRightArrowClick}>
-            &rarr;
-          </button>
-        </div>
+          <video
+          className="background-video"
+          autoPlay
+          muted
+          loop
+          playsInline
+          // Specify the path to your video file
+          src="../public/pexels-c-technical-6839664(Original)_1.mp4"
+        />
+    
         <nav className={p ? 'stick' : ''}>
           <div className="line"></div>
           <ScrollLink
@@ -155,7 +90,7 @@ export default function HomePage() {
             duration={500}
           >
             <div className="title">
-              <img src="/favicon.png" alt="Logo" className="header__logo" />
+              <img src={!p ? "../public/loglight(1).png" : "../public/img/Group4.png"} alt="Logo" className="header__logo" />
               <span>Mikitani</span>
             </div>
           </ScrollLink>
@@ -251,57 +186,15 @@ export default function HomePage() {
             
           </ul>
         </nav>
-        {
-          (img == 1 || img == 3 || img == 5) ?
-        <div ref={animationRef} className={`main-words ${animationClass}`}>
-          <h1>For the love of delicious food...</h1>
-          <h1>Where every flavor tells a story...</h1>
-        </div> :
-        <div ref={animationRef} className={`main-words1 ${animationClass}`}>
-        <h1>Making your life easy...</h1>
-        <h1>With touch of technology...</h1>
-      </div>
-        }
-        {
-          (img == 1 || img == 3 || img == 5) ?
-          <Link
+        <Link
           className={`book-button ${animationClass}`}
           // to="table"
-          onClick={() => setIsOpenRegistration(true)}
+          onClick={() => {setIsOpenRegistration(true); setIsLoginOrRegistration(true)}}
           ref={buttonRef} // Use the ref here
 
         >
-            Try Our Service
-        </Link> : <div className='bookButons'> 
-        <ScrollLink
-          className={`book-button1 ${animationClass}`}
-          // to="table"
-          ref={buttonRef} // Use the ref here
-          to="about"
-          spy={true}
-          smooth={true}
-          offset={-50}
-          duration={500}
-        >
-        
-            About us
-        </ScrollLink>
-        <ScrollLink
-          className={`book-button2 ${animationClass}`}
-          // to="table"
-          ref={buttonRef} // Use the ref here
-          to="packages"
-          spy={true}
-          smooth={true}
-          offset={-50}
-          duration={500}
-        >
-        
-            Our Packages
-        </ScrollLink>
-        </div>
-        }
-
+            დარეგისტრირდი
+        </Link>
         
 
         <LoginModal open={isOpenLogin} onClose={() => setIsOpenLogin(false)}>

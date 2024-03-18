@@ -23,7 +23,7 @@ return(
                 </ul>
         </div>
         <div>
-                <p>Copyright © 2015 by Omnifood. All rights reserved.</p>
+                <p>Copyright © 2024 by MIKITANI. All rights reserved.</p>
         </div>
     </div>
   </footer>)

@@ -274,23 +274,52 @@ const navigation = useNavigate()
         </div>
 
         <form onSubmit={handleSubmit(onSubmit)} action="" className="form" id="form" >
-            <div className="form-control">
-                <label >Company Name in english    <ion-icon name="person-outline"></ion-icon>
+
+        <div class="coolinput1">
+            <label for="input" class="text">კომპანიის სახელი ქართულად   <ion-icon  name="person"></ion-icon></label>
+            <input type="text" placeholder="შეიყვანეთ კომპანიის სახელი ქართულად" name="input" class="input"  {...register("name")}/>
+            <small>{ errors.name?.message }</small>
+
+        </div>
+
+            {/* <div className="form-control">
+                <label >Company Name in english    <ion-icon name="person"></ion-icon>
                 <input type="text" id="username" placeholder="Enter Company name in english" {...register("name")}/>
                 </label>  
                 <small>{ errors.name?.message }</small>
-            </div>
-            <div className="form-control">
-                <label >Company Name in georgian    <ion-icon name="person-outline"></ion-icon>
+            </div> */}
+
+        <div class="coolinput1">
+            <label for="input" class="text">კომპანიის სახელი ინგლისურად   <ion-icon  name="person"></ion-icon></label>
+            <input type="text" placeholder="შეიყვანეთ კომპანიის სახელი ინგლისურად" name="input" class="input"  {...register("name1")}/>
+            <small>{ errors.name1?.message }</small>
+
+        </div>
+
+
+            {/* <div className="form-control">
+                <label >Company Name in georgian    <ion-icon name="person"></ion-icon>
                 <input type="text" id="username" placeholder="Enter Company name in georgian" {...register("name1")}/>
                 </label>  
                 <small>{ errors.name1?.message }</small>
                 
 
-            </div>
+            </div> */}
+
+
+        <div class="coolinput1">
+            <label for="input" class="text">იმეილი   <ion-icon  name="mail"></ion-icon></label>
+            <input type="email" placeholder="შეიყვანეთ კომპანიის იმეილი" name="input" class="input"  {...register("email")}/>
+            <small>{errors.email?.message }</small>
+                {
+                    isUsed ?                 
+                    <small>Email is already used</small> : <></>
+
+                }
+        </div>
             
-            <div className="form-control">
-                <label > email    <ion-icon name="mail-outline"></ion-icon>
+            {/* <div className="form-control">
+                <label > email    <ion-icon name="mail"></ion-icon>
                 <input type="email" id="email" placeholder="Enter your emali" {...register("email")}/>
                 </label>
                 <small>{errors.email?.message }</small>
@@ -299,18 +328,29 @@ const navigation = useNavigate()
                     <small>Email is already used</small> : <></>
 
                 }
-            </div>
-            <div className="form-control">
-                <label > Phone Number    <ion-icon name="call-outline"></ion-icon>
+            </div> */}
+
+        <div class="coolinput1">
+            <label for="input" class="text">კომპანიის ნომერი   <ion-icon  name="call"></ion-icon></label>
+            <input type="number" placeholder="შეიყვანეთ კომპანიის ნომერი" name="input" class="input"  {...register("card")}/>
+            <small>{errors.card?.message }</small>
+
+        </div>
+
+
+            {/* <div className="form-control">
+                <label > Phone Number    <ion-icon name="call"></ion-icon>
                 <input type="number" id="number" placeholder="Enter your phone number" {...register("card")}/>
                 </label>
                 <small>{errors.card?.message }</small>
-            </div>
+            </div> */}
+
+            
             <div className="form-control">
-                <label > City/Region    <ion-icon name="earth-outline"></ion-icon> 
-                    <SelectInput type={true} defaultValue="თბილისი" options={options} onChange={handleOptionChange} />
-                </label>
-                {/* <label > City/Region    <ion-icon name="earth-outline"></ion-icon>
+                <label  style={{fontWeight:'700'}}> ქალაქი    <ion-icon name="earth"></ion-icon> </label>
+                <SelectInput type={true} defaultValue="თბილისი" options={options} onChange={handleOptionChange} />
+
+                {/* <label > City/Region    <ion-icon name="earth"></ion-icon>
                 <input type="text" id="location" placeholder="Enter your company's location" {...register("location")}/>
                 </label>
                 <small>{errors.location?.message }</small> */}
@@ -318,11 +358,11 @@ const navigation = useNavigate()
             
 
             {/* <div className="form-control">
-                <label > {t("password")}     <ion-icon name="finger-print-outline"></ion-icon>
+                <label > {t("password")}     <ion-icon name="finger-print"></ion-icon>
                 <input type={passwordVisible ? 'text' : 'password'} id="password" placeholder="Enter your password" {...register("password")}/>
                 </label>
                 <div className="password-toggle-div">
-                <ion-icon size="small" name={passwordVisible ? "eye-off-outline" : "eye-outline"}
+                <ion-icon size="small" name={passwordVisible ? "eye-off" : "eye"}
                     onClick={togglePasswordVisibility}
                     className="password-toggle">
                     {passwordVisible ? 'Hide' : 'Show'}
@@ -331,11 +371,11 @@ const navigation = useNavigate()
                 <small>{errors.password?.message }</small>
             </div> */}
             {/* <div className="form-control">
-                <label > {t("confirmPassword")} <ion-icon name="finger-print-outline"></ion-icon>
+                <label > {t("confirmPassword")} <ion-icon name="finger-print"></ion-icon>
                 <input type={passwordVisible1 ? 'text' : 'password'} id="password2" placeholder="Confirm Password" {...register("confirmPassword")}/>
                 </label>
                 <div className="password-toggle-div">
-                <ion-icon size="small" name={passwordVisible1 ? "eye-off-outline" : "eye-outline"}
+                <ion-icon size="small" name={passwordVisible1 ? "eye-off" : "eye"}
                     onClick={togglePasswordVisibility1}
                     className="password-toggle">
                     {passwordVisible1 ? 'Hide' : 'Show'}

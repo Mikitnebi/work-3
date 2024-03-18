@@ -11,7 +11,7 @@ const SelectInput = ({ options, defaultValue, onChange,type }) => {
   };
 
   return (
-    <select style={type ? {backgroundColor:"#8C1D2F",color:"white"} : null} value={selectedOption} onChange={handleOptionChange}>
+    <select style={type ? {color:"black"} : null} value={selectedOption} onChange={handleOptionChange}>
       {options.map((option, index) => (
         <option key={index} value={option}>
           {option}

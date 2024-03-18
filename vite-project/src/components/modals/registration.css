@@ -23,7 +23,6 @@
     z-Index: 1000;
     scrollbar-width: none;
     border-radius: 5px;
-    font-family: cursive;
     /* border: 2px solid red; */
     transition: 2s;
     
@@ -43,7 +42,7 @@
 
 .button-x32 {
     position: fixed;
-    top: 0px;
+    top: 0.5%;
     right: 0;
     background-color: #D9D9D9;
     border: none;
@@ -52,7 +51,6 @@
 .register-title{
     color: brown;
     font-size: 16px;
-    font-family: cursive;
 }
 
 .button-x33 {

@@ -12,7 +12,7 @@ import Select from 'react-select';
 import "../firstStep/firstStep.css";
 
 import "../../../public/fonts/bpg_nino_mtavruli_bold.ttf"
-export const LastStep = function ({ chooseStep, prevStep, nextStep,isParent,setIsParent,isParent1,setIsParent1,menuData,setMenuData }) {
+export const LastStep = function ({setStep, chooseStep, prevStep, nextStep,isParent,setIsParent,isParent1,setIsParent1,menuData,setMenuData }) {
   const [parentMenu, setParentMenu] = useState([]);
 
   const [parentMenu1, setParentMenu1] = useState([]);
@@ -591,10 +591,50 @@ export const LastStep = function ({ chooseStep, prevStep, nextStep,isParent,setI
     :
 
     <div className="last-step">
-      <div className='firstStep-Name'>
+       <div className='firstStep-Name'>
     <img style={{width:'4%',marginRight:'5px'}} src="../../../public/img/Group4.png" alt="Main Logo" />
     <h3 >მოგესალმებით მიკიტანში</h3>
 
+    <div className="details-steps">
+      <div onClick={()=>setStep(1)}>
+      <ion-icon name="newspaper-outline"></ion-icon>
+      <h3 style={{color:'#8C1D2F'}}>1. დეტალები</h3>
+
+      </div>
+      <div style={{borderColor:'#8C1D2F',borderWidth:'1.5px'}} className="details-line">
+
+      </div>
+      <div  onClick={()=>setStep(2)}>
+      <ion-icon name="images-outline"></ion-icon>
+      <h3  style={{color:'#8C1D2F'}}>2. სურათები</h3>
+
+      </div>
+      <div style={{borderColor:'#8C1D2F',borderWidth:'1.5px'}} className="details-line">
+
+      </div>
+      <div  onClick={()=>setStep(3)}>
+      <ion-icon name="grid-outline"></ion-icon>
+      <h3 style={{color:'#8C1D2F'}}>3. მაგიდები</h3>
+
+      </div>
+      <div style={{borderColor:'#8C1D2F',borderWidth:'1.5px'}} className="details-line">
+        
+        </div>
+        <div  onClick={()=>setStep(4)}>
+          <ion-icon name="fast-food-outline"></ion-icon>
+          <h3 style={{color:'#8C1D2F'}}>4. მენიუ</h3>
+
+        </div>
+        <div className="details-line">
+          
+        </div>
+        <div  onClick={()=>setStep(5)}>
+          <ion-icon name="flag-outline"></ion-icon>
+          <h3>5. დასასრული</h3>
+
+        </div >
+ 
+    </div>
         </div>
         <ParentMenuModal open={isOpenParentMenu} onClose={() => setIsOpenParentMenu(false)}>
         <ParentMenu 
@@ -1014,10 +1054,16 @@ menuData={menuData} close={ setIsOpenParentMenu }/>
           control: (baseStyles, state) => ({
             ...baseStyles,
             color: 'red',
-            borderColor: state.isFocused ? null : '#8C1D2F',
-        
-            width:'100%',
-            backgroundColor:"#D9D9D9"
+            borderColor: state.isFocused ? '#8C1D2F' : '#8C1D2F',
+            '&:hover': {
+              borderColor: '#8C1D2F', // Change border color on hover
+            },
+            width: '270px',
+            backgroundColor: '#D9D9D9',
+            outline: 'none', // Remove default outline,
+            border: '1px solid #8C1D2F',
+            // This line disable the blue border
+            boxShadow: 'none'
           }),
           multiValue: (baseStyles) => ({
             ...baseStyles,
@@ -1027,7 +1073,6 @@ menuData={menuData} close={ setIsOpenParentMenu }/>
             ...baseStyles,
             color: state.isFocused ? '#8C1D2F' : '#8C1D2F', // Change the color when focused
           }),
-      
         }}
         id={`ingredients-${sectionIndex}-${itemIndex}`}
 
@@ -1069,10 +1114,16 @@ menuData={menuData} close={ setIsOpenParentMenu }/>
           control: (baseStyles, state) => ({
             ...baseStyles,
             color: 'red',
-            borderColor: state.isFocused ? null : '#8C1D2F',
-        
-            width:'100%',
-            backgroundColor:"#D9D9D9"
+            borderColor: state.isFocused ? '#8C1D2F' : '#8C1D2F',
+            '&:hover': {
+              borderColor: '#8C1D2F', // Change border color on hover
+            },
+            width: '270px',
+            backgroundColor: '#D9D9D9',
+            outline: 'none', // Remove default outline,
+            border: '1px solid #8C1D2F',
+            // This line disable the blue border
+            boxShadow: 'none'
           }),
           multiValue: (baseStyles) => ({
             ...baseStyles,
@@ -1082,7 +1133,6 @@ menuData={menuData} close={ setIsOpenParentMenu }/>
             ...baseStyles,
             color: state.isFocused ? '#8C1D2F' : '#8C1D2F', // Change the color when focused
           }),
-      
         }}
         id={`GeorgianIngredients-${sectionIndex}-${itemIndex}`}
 
@@ -1125,6 +1175,26 @@ menuData={menuData} close={ setIsOpenParentMenu }/>
                         );
                       }}
                     />
+                    {/* {section.items[itemIndex] && (
+  <div style={{ display: 'flex', alignItems: 'center' }}>
+    <div
+      style={{
+        width: '50px',
+        height: '50px',
+        borderRadius: '50%',
+        overflow: 'hidden',
+        marginRight: '10px',
+      }}
+    >
+      <img
+        src={section.items[itemIndex]}
+        alt="Preview"
+        style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+      />
+    </div>
+
+  </div>
+)} */}
                     {simpleErrors[`itemImage${sectionIndex}-${itemIndex}`] && 
                       <div className="error-message">შეიყვანეთ კერძის ფოტო</div>
                     }
@@ -1277,10 +1347,16 @@ menuData={menuData} close={ setIsOpenParentMenu }/>
                           control: (baseStyles, state) => ({
                             ...baseStyles,
                             color: 'red',
-                            borderColor: state.isFocused ? null : '#8C1D2F',
-                        
-                            width:'100%',
-                            backgroundColor:"#D9D9D9"
+                            borderColor: state.isFocused ? '#8C1D2F' : '#8C1D2F',
+                            '&:hover': {
+                              borderColor: '#8C1D2F', // Change border color on hover
+                            },
+                            width: '270px',
+                            backgroundColor: '#D9D9D9',
+                            outline: 'none', // Remove default outline,
+                            border: '1px solid #8C1D2F',
+                            // This line disable the blue border
+                            boxShadow: 'none'
                           }),
                           multiValue: (baseStyles) => ({
                             ...baseStyles,
@@ -1290,7 +1366,6 @@ menuData={menuData} close={ setIsOpenParentMenu }/>
                             ...baseStyles,
                             color: state.isFocused ? '#8C1D2F' : '#8C1D2F', // Change the color when focused
                           }),
-                      
                         }}
                         id={`ingredients-${sectionIndex}-${itemIndex}`}
 
@@ -1319,10 +1394,16 @@ menuData={menuData} close={ setIsOpenParentMenu }/>
                           control: (baseStyles, state) => ({
                             ...baseStyles,
                             color: 'red',
-                            borderColor: state.isFocused ? null : '#8C1D2F',
-                        
-                            width:'100%',
-                            backgroundColor:"#D9D9D9"
+                            borderColor: state.isFocused ? '#8C1D2F' : '#8C1D2F',
+                            '&:hover': {
+                              borderColor: '#8C1D2F', // Change border color on hover
+                            },
+                            width: '270px',
+                            backgroundColor: '#D9D9D9',
+                            outline: 'none', // Remove default outline,
+                            border: '1px solid #8C1D2F',
+                            // This line disable the blue border
+                            boxShadow: 'none'
                           }),
                           multiValue: (baseStyles) => ({
                             ...baseStyles,
@@ -1332,7 +1413,6 @@ menuData={menuData} close={ setIsOpenParentMenu }/>
                             ...baseStyles,
                             color: state.isFocused ? '#8C1D2F' : '#8C1D2F', // Change the color when focused
                           }),
-                      
                         }}
                         id={`GeorgianIngredients-${sectionIndex}-${itemIndex}`}
 

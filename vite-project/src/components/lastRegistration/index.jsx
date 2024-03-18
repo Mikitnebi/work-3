@@ -99,22 +99,27 @@ export const LastRegistration = function () {
 
     return (
 
-        <section style={!isChecked ? { backgroundImage: `url('../../../public/img/magidaa1.png')` } : null} className='last-registration'>
+        <section  className='last-registration'>
             <button className='button-x-last' onClick={(e) => navigate("/home")} ><ion-icon className='icon-modal' size='large' name="close"></ion-icon></button>
           
            {
-            !isChecked ? <FinalChecker setCheck={setIsChecked}/> : <><div>
+            // !isChecked ? <FinalChecker setCheck={setIsChecked}/> : 
+            // <>
+            <div>
             {step === 1 && (
               <FirstStep
                 formData={formData}
                 handleChange={handleChange}
                 nextStep={nextStep}
+                setStep={setStep}
               />
             )}
             {step === 2 && (
               <ImagesInput
                 prevStep={prevStep}
                 nextStep={nextStep}
+                setStep={setStep}
+
               />
             )}
             {step === 3 && (
@@ -128,6 +133,8 @@ export const LastRegistration = function () {
               <RestaurantFloor
                 prevStep={prevStep}
                 nextStep={nextStep}
+                setStep={setStep}
+
               />
             )}
              {step === 4 && (
@@ -143,6 +150,8 @@ export const LastRegistration = function () {
                 setIsParent1={setIsParent1}
                 menuData={menuData}
                 setMenuData={setMenuData}
+                setStep={setStep}
+
                 // selectedSections={selectedSections}
                 // setSelectedSections={setSelectedSections}
                 // selectedItems={selectedItems}
@@ -156,6 +165,8 @@ export const LastRegistration = function () {
               handleChange={handleChange}
               prevStep={prevStep}
               nextStep={nextStep}
+              setStep={setStep}
+
             />
             )}
       
@@ -167,7 +178,8 @@ export const LastRegistration = function () {
             )} */}
       
             {/* You can add more navigation buttons and logic as needed */}
-          </div></>
+          </div>
+          // </>
            }  
            
         </section>

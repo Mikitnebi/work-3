@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css?family=Poppins:200,300,400,500,600,700,800,900&display=swap');
 
 @font-face {
-  font-family: 'YourCustomFont';
+  font-family: YourCustomFont;
   src: url('../../../public/fonts/bpg_nino_mtavruli_bold.ttf') format('truetype');
 }
 
@@ -15,6 +15,22 @@ ion-icon{
 
 
 
+/* Red border for TimeField */
+/* Red border for TimeField */
+.MuiInputBase-root.MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline {
+  border-color: #8C1D2F !important;
+  font-size: 40px;
+}
+
+/* Optional: Rounded corners and padding */
+.MuiInputBase-root.MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline {
+  border-radius: 4px;
+  padding: 8px;
+}
+.MuiInputLabel-root.Mui-focused, 
+.MuiInputLabel-root {
+  color: #8C1D2F !important;
+}
 
 .firstStep-Name{
   position: absolute;
@@ -28,7 +44,6 @@ ion-icon{
   top: 0;
   left: 0;
 }
-
 
 .firstStep-Name h3{
   font-size: 24;
@@ -97,19 +112,13 @@ ion-icon{
   align-items: center;
 }
 .first-flex1{
-  width: 51%;
+  width: 50%;
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin-bottom: 3%;
 }
-.first-flex1 div{
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-}
+
 .first-flex2{
   width: 100%;
   display: flex;
@@ -121,9 +130,34 @@ ion-icon{
 .exact-location{
   border: 0.5px solid #8C1D2F;
   width: 50%;
+  height: 40px;
   padding: 5px;
   border-radius: 5px;
-  font-Family: 'YourCustomFont, sans-serif'
+  font-Family: 'YourCustomFont, sans-serif';
+  position: relative;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+
+
+.exact-location label{
+    color: #8C1D2F;
+    display: block;
+    font-size: 15px;
+    position: absolute;
+    background: #D9D9D9;
+    top: -25%;
+    left: 0%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-right: 5px; /* Add a margin to the right of the label text */
+    margin: 0 0 0 7px;
+    padding: 0 5px;
+}
+.exact-location label ion-icon{
+    margin-left: 5px; /* Add a margin to the left of the icon */
 
 }
 .form-control-first textarea{
@@ -230,7 +264,7 @@ z-index: 200;
     position: absolute;
     width: 80%;
     height: 80%;
-    background-color: #C6B0B4;
+    background-color: #fffcfd;
     left: -10%;
     top: -50%;
     border-bottom-right-radius: 30%;
@@ -259,7 +293,7 @@ z-index: 200;
     top: 13%;
   }
 
-  .footer{
+  .footerFirst{
     position: absolute;
     bottom: 0;
     left: 0;
@@ -273,8 +307,107 @@ z-index: 200;
     height: 8%;
   }
 
-  .footer h3{
+  .footerFirst h3{
     font-size: 16px;
     font-weight: 600;
     color: white;
   }
+
+
+  .details-steps{
+    display: flex;
+    align-items: center;
+    width: 60%;
+    justify-content: space-around;
+    margin-left: 5%;
+    margin-top: 0.5%;
+  }
+
+  .details-steps div{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    width: 10%;
+  }
+
+  .details-steps div h3{
+    font-size: 11px;
+    cursor: pointer;
+  }
+
+  .details-steps div h3:hover{
+    transform: scale(1.1);
+    transition: 0.3s;
+  }
+  .details-line{
+    border: 0.1px dashed grey;
+  }
+
+  .form-control-details{
+    display: flex;
+    width: 30%;
+    align-items: center;
+    flex-direction: column;
+    position: relative;
+
+  }
+  .form-control-details label{
+      color: #8C1D2F;
+      display: block;
+      font-size: 15px;
+      position: absolute;
+      background: #D9D9D9;
+      top: -20%;
+      left: 0%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-right: 5px; /* Add a margin to the right of the label text */
+      margin: 0 0 0 7px;
+      padding: 0 5px;
+  }
+  .form-control-details label ion-icon{
+      margin-left: 5px; /* Add a margin to the left of the icon */
+  
+  }
+
+
+  .coolinput {
+    display: flex;
+    flex-direction: column;
+    width: fit-content;
+    position: static;
+    width: 50%;
+    margin-bottom: 2%;
+  }
+  
+  .coolinput label.text {
+    font-size: 0.9rem;
+    color: #8C1D2F;
+    font-weight: 700;
+    position: relative;
+    top: 0.5rem;
+    margin: 0 0 0 7px;
+    padding: 0 3px;
+    background: #D9D9D9;
+    width: fit-content;
+  }
+  
+  .coolinput input[type=text].input,.coolinput textarea[type=text].input {
+    padding: 11px 10px;
+    font-size: 0.75rem;
+    border: 1px #8C1D2F solid;
+    border-radius: 5px;
+    background: #D9D9D9;
+  }
+  
+  .coolinput input[type=text].input:focus, .coolinput textarea[type=text].input:focus{
+    outline: none;
+  }
+
+
+  .coolinput small{
+    color: #ee0f35;
+   margin-top: 1%;
+    font-size: 12px;
+}

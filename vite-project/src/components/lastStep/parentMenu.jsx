@@ -266,10 +266,16 @@ const ParentMenu = ({ menuData, handleMoveSelectedItems,parentMenu, setParentMen
                           control: (baseStyles, state) => ({
                             ...baseStyles,
                             color: 'red',
-                            borderColor: state.isFocused ? null : '#8C1D2F',
-                        
-                            width:'100%',
-                            backgroundColor:"#D9D9D9"
+                            borderColor: state.isFocused ? '#8C1D2F' : '#8C1D2F',
+                            '&:hover': {
+                              borderColor: '#8C1D2F', // Change border color on hover
+                            },
+                            width: '270px',
+                            backgroundColor: '#D9D9D9',
+                            outline: 'none', // Remove default outline,
+                            border: '1px solid #8C1D2F',
+                            // This line disable the blue border
+                            boxShadow: 'none'
                           }),
                           multiValue: (baseStyles) => ({
                             ...baseStyles,
@@ -279,7 +285,6 @@ const ParentMenu = ({ menuData, handleMoveSelectedItems,parentMenu, setParentMen
                             ...baseStyles,
                             color: state.isFocused ? '#8C1D2F' : '#8C1D2F', // Change the color when focused
                           }),
-                      
                         }}
                         isDisabled
                       />
@@ -291,10 +296,16 @@ const ParentMenu = ({ menuData, handleMoveSelectedItems,parentMenu, setParentMen
                           control: (baseStyles, state) => ({
                             ...baseStyles,
                             color: 'red',
-                            borderColor: state.isFocused ? null : '#8C1D2F',
-                        
-                            width:'100%',
-                            backgroundColor:"#D9D9D9"
+                            borderColor: state.isFocused ? '#8C1D2F' : '#8C1D2F',
+                            '&:hover': {
+                              borderColor: '#8C1D2F', // Change border color on hover
+                            },
+                            width: '270px',
+                            backgroundColor: '#D9D9D9',
+                            outline: 'none', // Remove default outline,
+                            border: '1px solid #8C1D2F',
+                            // This line disable the blue border
+                            boxShadow: 'none'
                           }),
                           multiValue: (baseStyles) => ({
                             ...baseStyles,
@@ -304,7 +315,6 @@ const ParentMenu = ({ menuData, handleMoveSelectedItems,parentMenu, setParentMen
                             ...baseStyles,
                             color: state.isFocused ? '#8C1D2F' : '#8C1D2F', // Change the color when focused
                           }),
-                      
                         }}
                         isDisabled
                       />
