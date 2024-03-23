@@ -1,7 +1,7 @@
 import './select.css';
 import React, { useState } from 'react';
 
-const SelectInput = ({ options, defaultValue, onChange,type }) => {
+const SelectInput = ({ isEdit, options, defaultValue, onChange,type }) => {
   const [selectedOption, setSelectedOption] = useState(defaultValue || '');
 
   const handleOptionChange = (event) => {
@@ -11,7 +11,7 @@ const SelectInput = ({ options, defaultValue, onChange,type }) => {
   };
 
   return (
-    <select style={type ? {color:"black"} : null} value={selectedOption} onChange={handleOptionChange}>
+    <select disabled={!isEdit} style={type ? {color:"black"} : null} value={selectedOption} onChange={handleOptionChange}>
       {options.map((option, index) => (
         <option key={index} value={option}>
           {option}

@@ -1,13 +1,11 @@
-import { NavLink, useLocation, useParams } from 'react-router-dom'
-import './homePage.css'
+import { NavLink, useLocation, useParams } from 'react-router-dom';
+import './homePage.css';
 import { useState } from 'react';
 import { limitRecipeTitle } from '../../utils';
 
-
-
-export default function MenuHomePage () {
-
+export default function MenuHomePage() {
     const [hoveredIndex, setHoveredIndex] = useState(null);
+    const [isOpenSideBar, setIsOpenSideBar] = useState(true);
     const params = useParams();
     const location = useLocation();
 
@@ -19,21 +17,40 @@ export default function MenuHomePage () {
         setHoveredIndex(null);
     };
 
-console.log(location.pathname)
-
     return (
-    <div className='homePage-container'>
+        <div className={`homePage-container ${isOpenSideBar ? 'sidebar-open' : 'sidebar-closed'}`}>
         <img className='home-paige-logo' src="../../../public/img/Group4.png" alt="" />
-        <nav className='side-NavBar'>
-           
-            <ul> 
+            <nav className='side-NavBar'>
+            <ion-icon
+    style={{
+        color: 'white',
+        fontSize: isOpenSideBar ? '150%' : '150%',
+        cursor: 'pointer',
+        transition: 'transform 0.3s ease-in-out',
+        position: isOpenSideBar ? 'absolute' : 'fixed',
+        top: isOpenSideBar ? '-5%' : '3%',
+        right: isOpenSideBar ? '0' : 'auto',
+        display: isOpenSideBar ? 'initial' : 'flex',
+        justifyContent: 'center',
+        alignItems: 'center'
+    }}
+    name={isOpenSideBar ? "close-outline" : "list-outline"}
+    onClick={() => setIsOpenSideBar(!isOpenSideBar)}
+></ion-icon>
+
+
+
+<ul> 
             <div className='restaurant-image-name'>
                 <div>
                 <img className='restaurant-image' src="../../../public/jason-leung-poI7DelFiVA-unsplash.jpg" alt="" />
 
                 </div>
                 <div>
-                <span  className='restaurant-name'>მაჭახელა</span >
+                    {
+                        isOpenSideBar &&  <span  className='restaurant-name'>მაჭახელა</span >
+
+                    }
                 </div>
             </div>
             <NavLink
@@ -53,6 +70,7 @@ console.log(location.pathname)
             onMouseLeave={handleMouseLeave}
             onClick={() => console.log(5)}
         >
+            
             <img
                 className='homePage-images'
                 src={
@@ -62,7 +80,7 @@ console.log(location.pathname)
                 }
                 alt=""
             />
-            მაგიდების მენეჯმენტი
+            {isOpenSideBar ? 'მაგიდების მენეჯმენტი' : null}
         </NavLink>
 
             <NavLink
@@ -91,8 +109,9 @@ console.log(location.pathname)
                 }
                 alt="" 
             />
+            {isOpenSideBar ? 'მენიუ' : null}
 
-                    მენიუ
+                    
                 </NavLink>
             <NavLink
                     key={3}
@@ -120,8 +139,9 @@ console.log(location.pathname)
                 }
                 alt="" 
             />
+            {isOpenSideBar ? 'სტაფის მენეჯმენტი' : null}
 
-                    სტაფის მენეჯმენტი
+                    
                 </NavLink>
 
 
@@ -151,8 +171,9 @@ console.log(location.pathname)
                 }
                 alt="" 
             />
+            {isOpenSideBar ? 'სტატისტიკა' : null}
 
-                    სტატისტიკა
+                    
                 </NavLink>
 
 
@@ -182,7 +203,9 @@ console.log(location.pathname)
                 }
                 alt="" 
             />
-                    აქციები
+                        {isOpenSideBar ? 'აქციები' : null}
+
+                    
                 </NavLink>
 
 
@@ -212,7 +235,9 @@ console.log(location.pathname)
                 }
                 alt="" 
             />
-                    ფასდაკლებები
+                        {isOpenSideBar ? 'ფასდაკლებები' : null}
+
+                    
                 </NavLink>
 
 
@@ -242,8 +267,9 @@ console.log(location.pathname)
                 }
                 alt="" 
             />
+            {isOpenSideBar ? 'დისტრიბუცია' : null}
 
-                    დისტრიბუცია
+                    
                 </NavLink>
 
 
@@ -273,8 +299,9 @@ console.log(location.pathname)
                 }
                 alt="" 
             />
+            {isOpenSideBar ? 'ჩემი ანგარიში' : null}
 
-                    ჩემი ანგარიში
+                    
                 </NavLink>
 
 
@@ -304,8 +331,9 @@ console.log(location.pathname)
                 }
                 alt="" 
             />
+            {isOpenSideBar ? 'დახმარება' : null}
 
-                    დახმარება
+                    
                 </NavLink>
 
 
@@ -335,20 +363,20 @@ console.log(location.pathname)
                 }
                 alt="" 
             />
+            {isOpenSideBar ? 'პარამეტრები' : null}
 
-                    პარამეტრები
+                    
                 </NavLink>
 
 
             </ul>
             <div className='log-out-div'>
                 <img className='logout-image' src="../../../public/homePage/გასვლათეთრი.png" alt="" />
-                <span>გამოსვლა</span>
+                {isOpenSideBar && <span>გამოსვლა</span>}
             </div>
-        </nav>
-        <div className='content-container'>
+            </nav>
 
+            <div className='content-container'></div>
         </div>
-    </div>
-    )
+    );
 }

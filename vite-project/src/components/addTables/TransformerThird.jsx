@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import { Rect, Transformer } from 'react-konva';
 
-const TransformableThird = ({ shapeProps, isSelected, onSelect, onChange, stroke, strokeWidth, fillPatternImage, fillPatternScaleX, fillPatternScaleY, fillPatternRepeat }) => {
+const TransformableThird = ({isEdit, shapeProps, isSelected, onSelect, onChange, stroke, strokeWidth, fillPatternImage, fillPatternScaleX, fillPatternScaleY, fillPatternRepeat }) => {
   const shapeRef = useRef();
   const trRef = useRef();
 
@@ -20,7 +20,7 @@ const TransformableThird = ({ shapeProps, isSelected, onSelect, onChange, stroke
         onTap={onSelect}
         ref={shapeRef}
         {...shapeProps}
-        draggable
+        draggable={isEdit}
         onDragEnd={(e) => {
           onChange({
             ...shapeProps,

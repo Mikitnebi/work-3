@@ -348,7 +348,7 @@ const navigation = useNavigate()
             
             <div className="form-control">
                 <label  style={{fontWeight:'700'}}> ქალაქი    <ion-icon name="earth"></ion-icon> </label>
-                <SelectInput type={true} defaultValue="თბილისი" options={options} onChange={handleOptionChange} />
+                <SelectInput isEdit={true} type={true} defaultValue="თბილისი" options={options} onChange={handleOptionChange} />
 
                 {/* <label > City/Region    <ion-icon name="earth"></ion-icon>
                 <input type="text" id="location" placeholder="Enter your company's location" {...register("location")}/>

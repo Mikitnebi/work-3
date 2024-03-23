@@ -5,7 +5,7 @@ import { manuState } from '../../state/State/index1'
 import './modalChek.css'
 
 
-export default function ModalChek({tableNumber,position,status,id,img,aditional,person,data,name, open, children, onClose,menu }) {
+export default function ModalChek({tableTags,tableNumber,position,status,id,img,aditional,person,data,name, open, children, onClose,menu }) {
 
     // const dishes = Object.values(stateManu);
     // const dishesKeys = Object.keys(stateManu); 
@@ -23,14 +23,21 @@ export default function ModalChek({tableNumber,position,status,id,img,aditional,
 
     const { stateRecipe,dispatchRecipe } = useContext(StoreContextRecipe);
 const handleAccept = () => {
-    const tableNumber = window.prompt('Enter table number:');
-    if (tableNumber === null || isNaN(tableNumber)) {
-      // User canceled the prompt or entered an invalid number
-      return;
-    }
+  const tableNumber = window.prompt('Enter table number:');
+  if (tableNumber === null || isNaN(tableNumber)) {
+    // User canceled the prompt or entered an invalid number
+    return;
+  }
 
-    // Convert the entered table number to a number
-    const parsedTableNumber = parseInt(tableNumber, 10);
+  // Convert the entered table number to a number
+  const parsedTableNumber = parseInt(tableNumber, 10);
+
+  // Check if the parsed table number is NaN or null
+  if (isNaN(parsedTableNumber) || parsedTableNumber === null) {
+    // Alert the user that the entered number is invalid
+    alert('Please enter a valid table number.');
+    return;
+  }
 
     dispatchRecipe({
       type: "chooseTable",
@@ -54,20 +61,29 @@ const handleAccept = () => {
       <div className='overlay-style' onClick={onClose} />
         <div className='modal-styles22' >
           <button className='button-x-check' onClick={onClose}><ion-icon className='button-x-check' size='large' name="close"></ion-icon></button>
-          <div style={{display:'flex',justifyContent:'center',alignItems:'center'}}> 
+          <div className='figure-div-modal'> 
 
-            <figure className="likes__fig">
-                        <img src={img} alt='client photo'/>
-            </figure>
+                <img src={img} alt='client photo'/>
             <h4 className="likes__name">{name}</h4>
 
           </div>
-          <div style={{display:'flex',justifyContent:'space-around',alignItems:'center',width:"100%",marginTop:"20px"}}>
-            <p className="likes__author">{`Person - ${person}   `}</p>
-            <p className="likes__author">{` Date - ${data} `}</p>
+          <div className='reservation-details-modal' >
+            <p className="likes__author">{`სტუმრები - ${person}   `}</p>
+            <p className="likes__author">{`თარიღი - ${data} `}</p>
+          </div>
+
+          <div className='reservation-details-modal1' >
+          <p className="likes__author-aditional" >{`კლიენტის მოთხოვნა - ${aditional}`}</p>
+
+          </div>
+
+          <div className='reservation-details-modal1' >
+
+          <p className="likes__author">{`მაგიდის ტიპი - `}{tableTags.map((tag, index) => (
+    <span key={index}>{tag}{index !== tableTags.length - 1 ? ', ' : ''}</span>
+))}</p>
           </div>
           
-          <p className="likes__author-aditional" >{`client's desire - ${aditional}`}</p>
 
             <div className='chek-div'>
 {            
@@ -91,13 +107,13 @@ Array.from(menu.entries()).map(([key, value]) =>{
 }
 
 
-              <div className='payment'>{`: ჯამში ${payment} $`}</div>
+              <div  className='payment'>{`: ჯამში ${payment} $`}</div>
               
               </div>
               {
                 status ?
                 <div className='button-flex-book'>
-                <button className='book-button-green' onClick={handleAccept}>
+                <button className='book-button-modal' onClick={handleAccept}>
                   Accept
                 </button>
                 <button
@@ -123,12 +139,14 @@ Array.from(menu.entries()).map(([key, value]) =>{
               </div>
           :
             position ?
-            <>
-            <h3 className='position-client-accept'>Accepted</h3>
-            <h3 className='position-client-table'>{`Table's number is - ${tableNumber}`}</h3>
-            </>
+            <div className='reservation-finish'>
+              <h3 className='position-client-accept'>დადასტურებულია !</h3>
+              <h3 className='position-client-table'>{`მაგიდის ნომერი არის - ${tableNumber}`}</h3>
+            </div>
             :
-            <h3 className='position-client-reject'>Rejected</h3>
+            <div className='reservation-finish' style={{justifyContent:'center'}}>
+             <h3 className='position-client-reject'>უარყოფილია</h3>
+            </div>
               }
               
         </div>

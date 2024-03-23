@@ -32,6 +32,7 @@ const RestaurantFloor = ({ prevStep, nextStep,setStep }) => {
     colorIndex:0,
     isForReservation:true,
     rotation: 0,
+    isFree:true
   });
 
   const [floorNames, setFloorNames] = useState(floors.map(floor => floor.name));
@@ -44,6 +45,49 @@ const RestaurantFloor = ({ prevStep, nextStep,setStep }) => {
     updatedFloors[index].name = newName;
     setFloors(updatedFloors);
   };
+
+
+
+  const [selectWidth, setSelectWidth] = useState('100%'); // Initial width set to 100%
+  const [selectHeight, setSelectHeight] = useState('100%'); // Initial width set to 100%
+
+  useEffect(() => {
+    const handleResize = () => {
+      const screenWidth = window.innerWidth; // Get the screen width
+      const screenHeight = window.innerHeight; // Get the screen width
+
+      setSelectWidth(`${screenWidth*20.7/100}px`); // Set the width of the Select component
+      setSelectHeight(`${screenHeight*20/100}px`); // Set the width of the Select component
+    };
+
+    // Listen for resize events
+    window.addEventListener('resize', handleResize);
+
+    // Initialize width on mount
+    handleResize();
+
+    // Cleanup
+    return () => window.removeEventListener('resize', handleResize);
+  }, []); 
+
+
+  function extractWidth(selectWidth) {
+    // Regular expression to match the numerical part of the string
+    const regex = /\d+(\.\d+)?/;
+
+    // Extract the numerical part using match
+    const matches = selectWidth.match(regex);
+
+    if (matches) {
+        // Convert the matched string to a number
+        const widthNumber = parseFloat(matches[0]);
+        return widthNumber;
+    } else {
+        // If no match found, return null or handle the error accordingly
+        return null;
+    }
+}
+
 
 
   const currentFloor = floors[currentFloorIndex];
@@ -77,6 +121,7 @@ const RestaurantFloor = ({ prevStep, nextStep,setStep }) => {
             colorIndex: shapes[shapeIndex].colorIndex || 0,
             isForReservation: shapes[shapeIndex].isForReservation || true,
             rotation: shapes[shapeIndex].rotation || 0,
+            isFree: shapes[shapeIndex].isFree || true,
 
           });
           setSelectedShapeIndex(shapeIndex);
@@ -96,13 +141,15 @@ const RestaurantFloor = ({ prevStep, nextStep,setStep }) => {
         newShape = {
           id: uuidv4(),
           type: 'rectangle',
-          x: 50,
-          y: 50,
-          width: 80,
-          height: 70,
+          x: extractWidth(selectWidth)/2,
+          y: extractWidth(selectHeight),
+          width: extractWidth(selectWidth)/3,
+          height: extractWidth(selectHeight)/1.5,
           colorIndex:0,
           isForReservation:true,
           rotation: 0,
+          isFree:true,
+
         };
         break;
 
@@ -110,13 +157,15 @@ const RestaurantFloor = ({ prevStep, nextStep,setStep }) => {
         newShape = {
           id: uuidv4(),
           type: 'circle',
-          x: 50,
-          y: 50,
-          width: 80,
-          height: 70, 
+          x: extractWidth(selectWidth)/2,
+          y: extractWidth(selectHeight),
+          width: extractWidth(selectWidth)/3,
+          height: extractWidth(selectHeight)/1.5,
           colorIndex:0,
           isForReservation:true,
           rotation: 0,
+          isFree:true,
+
         };
         break;
 
@@ -124,13 +173,15 @@ const RestaurantFloor = ({ prevStep, nextStep,setStep }) => {
         newShape = {
           id: uuidv4(),
           type: 'square',
-          x: 50,
-          y: 50,
-          width: 80,
-          height: 70, 
+          x: extractWidth(selectWidth)/2,
+          y: extractWidth(selectHeight),
+          width: extractWidth(selectWidth)/3,
+          height: extractWidth(selectHeight)/1.5,
           colorIndex:0,
           isForReservation:true,
           rotation: 0,
+          isFree:true,
+
         };
         break;
 
@@ -138,10 +189,10 @@ const RestaurantFloor = ({ prevStep, nextStep,setStep }) => {
         newShape = {
           id: uuidv4(),
           type: 'ladder',
-          x: 50,
-          y: 50,
-          width: 100,
-          height: 90, 
+          x: extractWidth(selectWidth)/2,
+          y: extractWidth(selectHeight),
+          width: extractWidth(selectWidth)/3,
+          height: extractWidth(selectHeight)/1.5,
           rotation: 0,
         };
         break;
@@ -150,10 +201,10 @@ const RestaurantFloor = ({ prevStep, nextStep,setStep }) => {
           newShape = {
             id: uuidv4(),
             type: 'door',
-            x: 50,
-            y: 50,
-            width: 100,
-            height: 90, 
+            x: extractWidth(selectWidth)/2,
+            y: extractWidth(selectHeight),
+            width: extractWidth(selectWidth)/3,
+            height: extractWidth(selectHeight)/1.5,
             rotation: 0,
           };
           break;
@@ -199,6 +250,8 @@ const RestaurantFloor = ({ prevStep, nextStep,setStep }) => {
       colorIndex:0,
       isForReservation:true,
       rotation: 0,
+      isFree:true,
+
     });
   };
   const handleShapeDragStart = (index) => {
@@ -213,7 +266,7 @@ const RestaurantFloor = ({ prevStep, nextStep,setStep }) => {
 
 
     const newShapes = shapes.slice();
-    newShapes[index] = { ...newShapes[index], ...newProps };
+    newShapes[index] = { ...newShapes[index],...newProps };
     setFloors((prevFloors) => {
       const newFloors = [...prevFloors];
       newFloors[currentFloorIndex] = { ...currentFloor, shapes: newShapes };
@@ -235,6 +288,7 @@ const RestaurantFloor = ({ prevStep, nextStep,setStep }) => {
       colorIndex: shape.colorIndex || 0,
       isForReservation: shape.isForReservation ,
       rotation: shape.rotation || 0,
+      isFree: shape.isFree ,
 
 
     });
@@ -291,7 +345,7 @@ const RestaurantFloor = ({ prevStep, nextStep,setStep }) => {
     }
   };
   const handleSaveTable = () => {
-    const { tableNumber, maxPeopleAmount, minPeopleAmount, selectedTag, width, height,type,colorIndex,isForReservation,rotation } = selectedShapeDetails;
+    const { tableNumber, maxPeopleAmount, minPeopleAmount, selectedTag, width, height,type,colorIndex,isForReservation,rotation,isFree } = selectedShapeDetails;
   console.log(isForReservation)
     const currentShape = shapes[selectedShapeIndex];
   
@@ -342,7 +396,8 @@ const RestaurantFloor = ({ prevStep, nextStep,setStep }) => {
           type,
           colorIndex,
           isForReservation,
-          rotation
+          rotation,
+          isFree
         };
       }
       return shape;
@@ -448,6 +503,7 @@ const RestaurantFloor = ({ prevStep, nextStep,setStep }) => {
       colorIndex: shape.colorIndex || 0,
       isForReservation: shape.isForReservation ,
       rotation: shape.rotation || 0,
+      isFree: shape.isFree ,
 
 
     });
@@ -515,7 +571,8 @@ const RestaurantFloor = ({ prevStep, nextStep,setStep }) => {
         type: shape?.type || '',
         colorIndex: shape.colorIndex || 0,
         isForReservation: shape.isForReservation ,
-        rotation: shape.rotation || 0
+        rotation: shape.rotation || 0,
+        isFree: shape.isFree ,
 
 
       });
@@ -742,49 +799,11 @@ loadImageArrayGrey2()
       return newFloors;
     });
   };
-  const [selectWidth, setSelectWidth] = useState('100%'); // Initial width set to 100%
-  const [selectHeight, setSelectHeight] = useState('100%'); // Initial width set to 100%
+ 
 
-  useEffect(() => {
-    const handleResize = () => {
-      const screenWidth = window.innerWidth; // Get the screen width
-      const screenHeight = window.innerHeight; // Get the screen width
-
-      setSelectWidth(`${screenWidth*20.7/100}px`); // Set the width of the Select component
-      setSelectHeight(`${screenHeight*20/100}px`); // Set the width of the Select component
-    };
-
-    // Listen for resize events
-    window.addEventListener('resize', handleResize);
-
-    // Initialize width on mount
-    handleResize();
-
-    // Cleanup
-    return () => window.removeEventListener('resize', handleResize);
-  }, []); // Empty dependency array to run this effect only once on mount
-
-  function extractWidth(selectWidth) {
-    // Regular expression to match the numerical part of the string
-    const regex = /\d+(\.\d+)?/;
-
-    // Extract the numerical part using match
-    const matches = selectWidth.match(regex);
-
-    if (matches) {
-        // Convert the matched string to a number
-        const widthNumber = parseFloat(matches[0]);
-        return widthNumber;
-    } else {
-        // If no match found, return null or handle the error accordingly
-        return null;
-    }
-}
-
-
-console.log(floors[currentFloorIndex].name)
-console.log(selectHeight)
-
+// console.log(floors[currentFloorIndex].name)
+// console.log(selectHeight)
+console.log(shapes)
   return (
     <div id="restaurant-floor">
       
@@ -845,9 +864,7 @@ console.log(selectHeight)
       </div>
 
       <div style={{ position: 'absolute', right: '0%', top: '13%', display: 'flex',width:'50%',alignItems:'center' }}>
-        {/* <button style={{ width: '20%', height: '40px', margin: '10px' }} className="last-step-button1" onClick={(e) => prevStep()}>
-          Back
-        </button> */}
+
         <button onClick={addFloor} className='addFloor'>სართულის დამატება</button>
         <button onClick={deleteFloor} className='deleteFloor'>სართულის წაშლა</button>
         {floors.map((floor, index) => (
@@ -882,8 +899,8 @@ console.log(selectHeight)
         width={extractWidth(selectWidth)*3.1} // Width of the stage
         height={extractWidth(selectHeight)*4} // Height of the stage
         fillPatternImage={yourBackgroundImage} // Your background image
-        fillPatternScaleX={0.3} // Scale the image to fit the stage width
-        fillPatternScaleY={0.25} // Scale the image to fit the stage height
+        fillPatternScaleX={extractWidth(selectWidth)/900} // Scale the image to fit the stage width
+        fillPatternScaleY={extractWidth(selectHeight)/500} // Scale the image to fit the stage height
         fillPatternRepeat="no-repeat" // Prevent the image from repeating
       />
 
@@ -917,6 +934,10 @@ console.log(selectHeight)
                  fillPatternScaleX={shape.width/3200} // Adjust as needed
                  fillPatternScaleY={shape.height/2200}
                  fillPatternRepeat="no-repeat" // Prevent the image from repeating 
+                 extractWidth={extractWidth}
+                 selectWidth={selectWidth}
+                 selectHeight={selectHeight}
+
                />
                 )}
 
@@ -1060,7 +1081,7 @@ console.log(selectHeight)
                       selectedShapeDetails.type != 'ladder' && selectedShapeDetails.type != 'door' ?
 <label style={{display:'flex',flexDirection:'column', width:'100%' ,alignItems:'flex-start' }}>
   მაგიდის ტიპი
-<SelectInput defaultValue={options[selectedShapeDetails.colorIndex]} options={options} onChange={handleOptionChange1} />
+<SelectInput isEdit={true} defaultValue={options[selectedShapeDetails.colorIndex]} options={options} onChange={handleOptionChange1} />
 
 </label> : <></>
     }

@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import { Rect, Transformer } from 'react-konva';
 
-const TransformableLedder = ({ shapeProps, isSelected, onSelect, onChange, stroke, strokeWidth, fillPatternImage, fillPatternScaleX, fillPatternScaleY, fillPatternRepeat }) => {
+const TransformableLedder = ({isEdit, shapeProps, isSelected, onSelect, onChange, stroke, strokeWidth, fillPatternImage, fillPatternScaleX, fillPatternScaleY, fillPatternRepeat }) => {
   const shapeRef = useRef();
   const trRef = useRef();
 
@@ -20,7 +20,7 @@ const TransformableLedder = ({ shapeProps, isSelected, onSelect, onChange, strok
         onTap={onSelect}
         ref={shapeRef}
         {...shapeProps}
-        draggable
+        draggable={isEdit}
         onDragEnd={(e) => {
           onChange({
             ...shapeProps,

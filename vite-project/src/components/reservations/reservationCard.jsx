@@ -5,7 +5,7 @@ import { useState } from 'react';
 
 
 
-export default function BookCard ( {tableNumber,position,status,id,img,name,data,person,aditional } ) {
+export default function BookCard ( {tableTags,tableNumber,position,status,id,img,name,data,person,aditional } ) {
 
     const [menu, setMenu] = useState(new Map());
 
@@ -16,20 +16,20 @@ export default function BookCard ( {tableNumber,position,status,id,img,name,data
 
     return(
     <ul className="likes__list" >
-        <ModalChek tableNumber={tableNumber} position={position} status={status} id={id} img={img} aditional={aditional} person={person} data={data} name={name} menu={menu} setMenu={setMenu} open={isOpenModal} onClose={() => {setIsOpenModal(false);  }}> </ModalChek>   
+        <ModalChek tableTags={tableTags} tableNumber={tableNumber} position={position} status={status} id={id} img={img} aditional={aditional} person={person} data={data} name={name} menu={menu} setMenu={setMenu} open={isOpenModal} onClose={() => {setIsOpenModal(false);  }}> </ModalChek>   
 
-        <li onClick={()=>setIsOpenModal(true)}>
-            <NavLink    className="likes__link" >
-                    <figure className="likes__fig">
-                        <img src={img} alt='client photo'/>
-                    </figure>
+            <li onClick={()=>setIsOpenModal(true)}>
+                <figure className="likes__fig">
+                    <img src={img} alt='client photo'/>
+                </figure>
+
+                <div className="likes__link" >   
                     <div className="likes__data">
                         <h4 className="likes__name">{name}</h4>
-                        <p className="likes__author">{`Person - ${person}   `}</p>
-                        <p className="likes__author">{` Date - ${data} `}</p>
-                    </div>
-                    
-            </NavLink>
+                        <p className="likes__author">{`სტუმრები - ${person}   `}</p>
+                        <p className="likes__author">{`დრო - ${data} `}</p>
+                    </div>    
+                </div> 
         </li>
     </ul>
     )

@@ -60,33 +60,28 @@ function App() {
   // },[])
 
 
-  const [connection, setConnection] = useState(null);
+  // const [connection, setConnection] = useState(null);
+  // const [messages, setMessages] = useState([]);
+  
+  // useEffect(() => {
+  //   const newConnection = new signalR.HubConnectionBuilder()
+  //     .withUrl("http://54.93.212.178/systemHub") // URL of your SignalR hub
+  //     .build();
 
-  useEffect(() => {
-    // Create and start SignalR connection
-    const newConnection = new signalR.HubConnectionBuilder()
-      .withUrl('http://54.93.212.178/systemHub')
-      .build();
+  //   setConnection(newConnection);
+  // }, []);
 
-    newConnection.start()
-      .then(() => {
-        console.log('SignalR connected');
-        
-        // Optionally, you can perform additional actions upon successful connection
-      })
-      .catch(error => console.error(error));
+  // useEffect(() => {
+  //   if (connection) {
+  //     connection.start()
+  //       .then(() => console.log("SignalR Connected"))
+  //       .catch(console.log(5));
 
-    // Save the connection to state
-    setConnection(newConnection);
-
-    // Cleanup function
-    // return () => {
-    //   if (newConnection) {
-    //     newConnection.stop();
-    //   }
-    // };
-  }, []);
-
+  //     // connection.on("ReceiveMessage", (user, message) => {
+  //     //   setMessages(prevMessages => [...prevMessages, `${user}: ${message}`]);
+  //     // });
+  //   }
+  // }, [connection]);
 
 
   return (

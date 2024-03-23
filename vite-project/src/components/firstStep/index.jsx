@@ -838,7 +838,7 @@ s
 <label  style={{fontFamily: 'YourCustomFont, sans-serif'}}>
 ფასის კატეგორია
 </label>
-        <SelectInput  defaultValue="₾ __ 0 - 50 ლარი" options={options} onChange={handleOptionChange} />
+        <SelectInput isEdit={true} defaultValue="₾ __ 0 - 50 ლარი" options={options} onChange={handleOptionChange} />
   </div>
 
   <div className="form-control-details">
@@ -846,7 +846,7 @@ s
 რესტორნის ტიპი
 </label>
 
-        <SelectInput  defaultValue="Restaurant" options={options1} onChange={handleOptionChange1} />
+        <SelectInput isEdit={true}  defaultValue="Restaurant" options={options1} onChange={handleOptionChange1} />
   </div>
 
   <div className="form-control-details">
@@ -854,7 +854,7 @@ s
   <label style={{fontFamily: 'YourCustomFont, sans-serif'}} >
 რეგიონი / ქალაქი
   </label>
-  <SelectInput  defaultValue="თბილისი" options={options3} onChange={handleOptionChange3} />
+  <SelectInput isEdit={true}  defaultValue="თბილისი" options={options3} onChange={handleOptionChange3} />
 
   </div>
 

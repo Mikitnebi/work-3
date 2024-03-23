@@ -1,7 +1,7 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Rect, Transformer } from 'react-konva';
 
-const TransformableCircle = ({ shapeProps, isSelected, onSelect, onChange, stroke, strokeWidth, fillPatternImage, fillPatternScaleX, fillPatternScaleY, fillPatternRepeat }) => {
+const TransformableCircle = ({isEdit, shapeProps, isSelected, onSelect, onChange, stroke, strokeWidth, fillPatternImage, fillPatternScaleX, fillPatternScaleY, fillPatternRepeat }) => {
   const shapeRef = useRef();
   const trRef = useRef();
 
@@ -13,6 +13,47 @@ const TransformableCircle = ({ shapeProps, isSelected, onSelect, onChange, strok
     }
   }, [isSelected]);
 
+
+  
+  const [selectWidth, setSelectWidth] = useState('100%'); // Initial width set to 100%
+  const [selectHeight, setSelectHeight] = useState('100%'); // Initial width set to 100%
+
+  useEffect(() => {
+    const handleResize = () => {
+      const screenWidth = window.innerWidth; // Get the screen width
+      const screenHeight = window.innerHeight; // Get the screen width
+
+      setSelectWidth(`${screenWidth*20.7/100}px`); // Set the width of the Select component
+      setSelectHeight(`${screenHeight*20/100}px`); // Set the width of the Select component
+    };
+
+    // Listen for resize events
+    window.addEventListener('resize', handleResize);
+
+    // Initialize width on mount
+    handleResize();
+
+    // Cleanup
+    return () => window.removeEventListener('resize', handleResize);
+  }, []); // Empty dependency array to run this effect only once on mount
+  function extractWidth(selectWidth) {
+    // Regular expression to match the numerical part of the string
+    const regex = /\d+(\.\d+)?/;
+
+    // Extract the numerical part using match
+    const matches = selectWidth.match(regex);
+
+    if (matches) {
+        // Convert the matched string to a number
+        const widthNumber = parseFloat(matches[0]);
+        return widthNumber;
+    } else {
+        // If no match found, return null or handle the error accordingly
+        return null;
+    }
+}
+
+
   return (
     <>
       <Rect
@@ -20,7 +61,7 @@ const TransformableCircle = ({ shapeProps, isSelected, onSelect, onChange, strok
         onTap={onSelect}
         ref={shapeRef}
         {...shapeProps}
-        draggable
+        draggable={isEdit}
         onDragEnd={(e) => {
           onChange({
             ...shapeProps,
