@@ -26,8 +26,8 @@
 .button-xTables{
     position: absolute;
     top: 0px;
-    left: 93%;
-    background-color: #D9D9D9;
+    left: 95%;
+    background-color: transparent;
     border: none;
 }
 .ttt{
@@ -60,6 +60,8 @@
     outline: none;
     width: 50%;
   }
+  
+
 
   .details-form-managment label {
     align-items: center;
@@ -68,3 +70,176 @@
     justify-content: space-between;
     font-size: 14px;
   }
+
+
+
+  .overlay-styleManu{
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-Color: rgba(0, 0, 0, .7);
+    z-Index: 1000;
+}
+.modal-stylesManu{
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    /* padding: 30px;
+    padding-top: 35px; */
+    z-Index: 1000;
+    width: 50%;
+    height: 85%;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    background-color: #C6B0B4;
+    flex-direction: column;
+
+}
+
+.menu-item-modal {
+  border-radius: 5px;
+  padding: 10px;
+  height: auto;
+  margin-top: 0%;
+}
+.menu-item-modal input {
+  width: 20%;
+  height: auto;
+  padding: 5px;
+  background-color: #D9D9D9;
+  outline: none;
+  border-radius: 5px;
+  border: 1px solid transparent;
+}
+.menu-item-modal textarea {
+  width: 20%;
+  height: auto;
+  padding: 5px;
+  background-color: #D9D9D9;
+  outline: none;
+  border: 1px solid transparent;
+  border-radius: 5px;
+  font-size: 10px;
+}
+.menu-item-modal div {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 2%;
+  height: auto;
+}
+
+.menu-item-modal label {
+  width: 27%;
+    font-size: 90%;
+    color: #8C1D2F;
+    font-weight: 600;
+}
+
+.item-photo{
+  background-image: url("../../../public/custom-restaurant-tables-david-stine+4.jpg");
+  width: 100%;
+  height: 35%;
+  background-attachment: fixed;
+  background-size: cover;
+  background-position: center;
+}
+
+.ingredients-modal{
+  display: flex;
+  width: 95%;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 2%;
+  height: auto;
+}
+
+.ingredients-modal label{
+  font-size: 90%;
+  color: #8C1D2F;
+  font-weight: 600;
+}
+
+
+.manu-modal-buttons{
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: space-evenly;
+  margin-top: 5%;
+  height: auto;
+}
+
+.manu-modal-buttons button:first-child{
+  border-radius: 5px;
+  background-color: #58121D;
+  border: none;
+  padding: 10px;
+  display: flex;
+  width: 30%;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: white;
+  font-weight: 600;
+}
+
+.manu-modal-buttons button:last-child{
+  border-radius: 5px;
+  border: 0.5px solid #58121D;
+  padding: 10px;
+  display: flex;
+  width: 30%;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: #58121D;
+  font-weight: 600;
+}
+
+.manu-modal-buttons button:last-child:hover{
+  background-color: #58121D;
+  color: white;
+  transform: scale(1.02);
+  transition: 0.3s;
+}
+
+.manu-modal-buttons button:first-child:hover{
+
+  transform: scale(1.02);
+  transition: 0.3s;
+}
+
+.manu-modal-isEdit{
+  display: flex;
+  width: 90%;
+  align-items: center;
+  justify-content: flex-end;
+  margin-bottom: 1%;
+  height: auto;
+  
+}
+
+.manu-modal-isEdit ion-icon{
+  font-size: 22px;
+}
+
+.manu-modal-isEdit label{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #8C1D2F;
+  font-weight: 600;
+  cursor: pointer;
+ }
+
+ .manu-modal-isEdit div{
+  display: flex;
+  width: 40%;
+  justify-content: space-between;
+ }
