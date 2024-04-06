@@ -7,7 +7,7 @@ html{
   background-color: #D9D9D9;
 }
 body::-webkit-scrollbar {
-  width: 10px; 
+  width: 7px; 
 }
 
 body::-webkit-scrollbar-thumb {
@@ -208,7 +208,6 @@ font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
   text-decoration: none;
   color: white;
   font-size: 20px;
-  padding-bottom: 26px;
   font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 
 }
@@ -221,7 +220,11 @@ font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
   top: 0;
   left: 0;
   width: 100%;
-  height: 10%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  height: 12%;
+  align-items: center;
   background-color: #fff;
   box-shadow: 0 2px 2px #efefef;
   z-index: 20;
@@ -235,28 +238,25 @@ font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
   top: 480px;
 }
 .stick .title{
-  margin-top: 1%;
+  margin-top: 0.5%;
 }
 
 .line{
   position: absolute;
-  top: 13%;
+  top: 15%;
   width:  100%;
   height: 2px;
   border-bottom: 0.1px solid rgb(210, 210, 210);
 }
 
 .title{
-  position: absolute;
-  top: 0;
-  left: 4%;
+
   display: flex;
   justify-content: center;
   align-items: center;
   color: white;
   font-size: 20px;
   cursor: pointer;
-  margin-top: 2%;
 }
 .title img{
   width: 50px;
@@ -268,17 +268,13 @@ font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
 
 .register{
-  position: absolute;
-  top: 5%;
-  right: 11.5%;
+
   color: white;
   cursor: pointer;
   font-size: 20px;
 }
 .register1{
-  position: absolute;
-  top: 5%;
-  right: 5.5%;
+
   color: white;
   cursor: pointer;
   font-size: 20px;
@@ -292,9 +288,7 @@ font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 
 .login-nav{
   color: white;
-  position: absolute;
-  top: 5%;
-  right: 5%;
+ 
   color: white;
   cursor: pointer;
   font-size: 20px;
@@ -311,10 +305,9 @@ font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
   font-size: 25px;
 }
 
+
 .ul-tt-1{
-  position: absolute;
-  left: 30%;
-  top: 4.5%;
+
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -324,27 +317,193 @@ cursor: pointer;
 } 
 .ul-tt-1 li{
   text-decoration: none;
-  margin-left: 50px;
-  height: 50px;
+  margin-right: 70px;
 }
 .stick .ul-tt-1{
   top:30%
 }
 
-.stick .login-nav,.stick .register,.stick .register1,.stick .slash,.stick .requests,.stick .favorites,.stick .home,.stick .book,.stick .title span ,.stick .ul-tt span,.stick .usernameForShow{
+.stick .login-nav,.stick .register,.stick .register1,.stick .slash,.stick .requests,.stick .favorites,.stick .home,.stick .book,.stick .title span ,.stick .ul-tt,.stick .ul-tt-1 span,.stick .usernameForShow{
   color: black;
   font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-  top:30%
 
 }
 .stick .login-nav:hover,.stick .register1:hover,.stick .register:hover:hover,.stick .requests:hover,.stick .favorites:hover,.stick .home:hover,.stick .book:hover,.stick .title span ,.stick .ul-tt span{
 color: #8C1D2F;
 }
 nav{
+  width: 95%;
   display: flex;
   flex-direction: row;
-  justify-content: space-around;
-  height: 100px;
+  justify-content: space-between;
+  height: 15%;
   align-items: center;
+  margin: 0 auto;
+  /* border-bottom: 1px solid rgb(210, 210, 210); */
+}
+nav ion-icon{
+  color: white;
+  font-size: 17px;
 }
 
+.ul-tt-1-bar{
+  position: relative;
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  list-style: none;
+cursor: pointer;
+width: 20%;
+margin-right: 3%;
+margin-top: 10%;
+}
+.ul-tt-1-bar li{
+  text-decoration: none;
+  margin-bottom: 10px;
+}
+.close-icon{
+position: absolute;
+right: 0;
+top: 0;  visibility: hidden;
+
+}
+.open-icon{
+  position: absolute;
+  right: 5%;
+  top: 7%;  visibility: hidden;
+
+  }
+
+@media only screen and (max-width: 1200px){
+
+.ul-tt-1 li{
+  margin-right: 60px;
+  
+}
+.ul-tt-1-bar{
+  display: none;
+}
+.open-icon{
+  visibility: hidden;
+}
+.close-icon{
+  visibility: hidden;
+}
+}
+
+/* small tablets to big tablets: from 768 px to 1023px */
+
+@media only screen and (max-width: 1023px){
+  .ul-tt-1 li{
+    margin-right: 40px;
+  }
+  .title{
+    font-size: 18px;
+  }
+  .title img{
+    width: 40px;
+  }
+  .line{
+    top: 13%;
+  }
+  .register,.enter,.requests,.favorites,.home,.book,.login-nav,.register1{
+    font-size: 18px;
+  }
+
+  .ul-tt-1-bar{
+    display: none;
+  }
+  .open-icon{
+    visibility: hidden;
+  }
+  .close-icon{
+    visibility: hidden;
+  }
+  .book-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    top: 65%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 200px;
+    height: 40px;
+    font-size: 15px;
+    letter-spacing: 1px;
+    
+  }
+  
+  .book-button:hover {
+    transform: translate(-50%, -50%) scale(1.15); /* Combine transformations */
+    color: white;
+    opacity: 1;
+  
+  }
+}
+
+/* small phones to small tablets: from 480 px to 767px */
+
+@media only screen and (max-width: 767px){
+.nonStick .ul-tt-1,.nonStick .ul-tt{
+  display: none;
+
+}
+.nonStick .ul-tt-1-bar{
+  display: flex;
+}
+.nonStick .open-icon{
+  visibility: visible;
+}
+.nonStick .close-icon{
+  visibility: visible;
+}
+.title{
+  font-size: 15px;
+}
+.register,.enter,.requests,.favorites,.home,.book,.login-nav,.register1{
+  font-size: 15px;
+}
+.stick .login-nav,.stick .register,.stick .register1,.stick .slash,.stick .requests,.stick .favorites,.stick .home,.stick .book,.stick .title span ,.stick .ul-tt,.stick .ul-tt-1 span,.stick .usernameForShow{
+  color: black;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  font-size: 15px;
+}
+.stick .login-nav:hover,.stick .register1:hover,.stick .register:hover:hover,.stick .requests:hover,.stick .favorites:hover,.stick .home:hover,.stick .book:hover,.stick .title span ,.stick .ul-tt span{
+color: #8C1D2F;
+}
+.stick .ul-tt-1 li{
+  margin-right: 20px;
+}
+.title img{
+  width: 35px;
+}
+.line{
+  display: none;
+
+}
+}
+
+/* small phones: from 0 px to 480px */
+
+@media only screen and (max-width: 480px){
+  .title img{
+    width: 25px;
+  }
+  .line{
+    display: none;
+  
+  }
+  .stick .login-nav,.stick .register,.stick .register1,.stick .slash,.stick .requests,.stick .favorites,.stick .home,.stick .book,.stick .title span ,.stick .ul-tt,.stick .ul-tt-1 span,.stick .usernameForShow{
+    color: black;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-size: 12px;
+  }
+  .title{
+    font-size: 13px;
+  }
+  .register,.enter,.requests,.favorites,.home,.book,.login-nav,.register1{
+    font-size: 13px;
+  }
+}

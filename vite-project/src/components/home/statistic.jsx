@@ -1,7 +1,8 @@
 import { NavLink, useLocation, useParams } from 'react-router-dom'
 import './homePage.css'
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { limitRecipeTitle } from '../../utils';
+import { VictoryChart, VictoryLine, VictoryAxis, VictoryZoomContainer, VictoryScatter } from 'victory';
 
 
 
@@ -10,7 +11,51 @@ export default function Statistics () {
     const [isOpenSideBar, setIsOpenSideBar] = useState(true);
     const params = useParams();
     const location = useLocation();
+    const currentDate1 = new Date();
 
+    
+    // Calculate yesterday's date
+    const previousDate = new Date();
+    previousDate.setDate(currentDate1.getDate() - 1);
+    const previousDay = previousDate.getDate();
+    const previousMonth = previousDate.toLocaleString('default', { month: 'short' });
+    
+    // Initialize data starting from yesterday's date
+    const initialData = [{ day: `${previousMonth} ${previousDay}`, customers: 0 }];
+    
+    // Example data for demonstration
+    const [data, setData] = useState(initialData);
+    
+    // Function to add new data
+    // Function to add new data
+const addData = () => {
+    const currentDate = new Date(); // Get current date dynamically
+    const currentDay = currentDate.getDate(); // Get current day
+    const currentMonth = currentDate.toLocaleString('default', { month: 'short' }); // Get current month
+    
+    const lastDataDay = data[data.length - 1]?.day;
+    let newDay;
+    if (lastDataDay) {
+        const lastDay = parseInt(lastDataDay.split(' ')[1]);
+        if (lastDay < currentDay) {
+            // If the last day recorded is before the current day, start from the current day
+            newDay = `${currentMonth} ${currentDay}`;
+        } else {
+            // Otherwise, increment the day from the last recorded day
+            newDay = `${currentMonth} ${lastDay + 1}`;
+        }
+    } else {
+        // If there's no previous data, start from the current day
+        newDay = `${currentMonth} ${currentDay}`;
+    }
+    
+    const newCustomerCount = Math.floor(Math.random() * 200) + 1; // Example random customer count
+    setData([...data, { day: newDay, customers: newCustomerCount }]);
+};
+
+    const defaultYTicks = Array.from(Array(10).keys()); 
+
+    
     const handleMouseEnter = (index) => {
         setHoveredIndex(index);
     };
@@ -378,7 +423,42 @@ export default function Statistics () {
             </div>
             </nav>
 
-            <div className='content-container'></div>
-        </div>
+            <div className='content-container'>
+            <VictoryChart
+                    width={620}
+                    height={400}
+                    scale={{ x: "linear", y: "linear" }}
+                    containerComponent={<VictoryZoomContainer zoomDimension="x" />}
+                >
+                    <VictoryLine
+                        data={data}
+                        x="day"
+                        y="customers"
+                        style={{
+                            data: { stroke: "#b33f52" } // Set the color of the chart line here
+                        }}
+                    />
+                    <VictoryScatter // Add VictoryScatter to place pins at data points
+                        data={data}
+                        x="day"
+                        y="customers"
+                        size={5} // Size of the pins
+                        style={{
+                            data: { fill: "#853240" } // Set the color of the pins here
+                        }}
+                    />
+                    <VictoryAxis
+                        tickFormat={(t) => `${t}`} // Custom tick format for dates
+                        style={{
+                            tickLabels: { angle: -45 ,fontSize:'10px'} // Rotate the labels by -45 degrees
+                        }}
+                    />
+                    <VictoryAxis
+                        dependentAxis
+                        tickFormat={(t) => `${t}`} // Custom tick format for customer count
+                    />
+                </VictoryChart>
+      <button onClick={addData}>Add Data</button>
+        </div>   </div>
     );
 }

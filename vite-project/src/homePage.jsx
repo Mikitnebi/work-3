@@ -61,6 +61,8 @@ export default function HomePage() {
 
 
   const [isLoginOrRegistration, setIsLoginOrRegistration] = useState(false)
+  const [isOpen,setisOpen] = useState(false)
+
 
   return (
     <>
@@ -78,9 +80,9 @@ export default function HomePage() {
           // Specify the path to your video file
           src="../public/pexels-c-technical-6839664(Original)_1.mp4"
         />
-    
-        <nav className={p ? 'stick' : ''}>
-          <div className="line"></div>
+              <div className="line"></div>
+
+        <nav className={p ? 'stick' : 'nonStick'}>
           <ScrollLink
             className="title-nav"
             to="home"
@@ -94,6 +96,105 @@ export default function HomePage() {
               <span>Mikitani</span>
             </div>
           </ScrollLink>
+          {
+            !isOpen &&
+            <div className="open-icon">
+              <ion-icon onClick={()=>setisOpen(!isOpen)} name="list-outline"></ion-icon>
+
+              </div>
+          }
+          
+          <ul className="ul-tt-1-bar">
+            {
+             isOpen &&
+              <div  className="close-icon" >
+              <ion-icon onClick={()=>setisOpen(!isOpen)} name="close-outline"></ion-icon>
+
+              </div>
+
+            }
+            {
+              isOpen && 
+              (
+                <>
+                     <li
+              // style={
+              //   !p
+              //     ? { borderBottom: '2.5px solid rgb(234, 178, 11)' }
+              //     : { borderBottom: 'none' }
+              // }
+            >
+              <ScrollLink
+                className="home"
+                to="home"
+                spy={true}
+                smooth={true}
+                offset={-1000}
+                duration={500}
+              >
+                Home
+              </ScrollLink>
+            </li>
+            <li
+              // style={
+              //   !p
+              //     ? { borderBottom: '2.5px solid rgb(234, 178, 11)' }
+              //     : { borderBottom: 'none' }
+              // }
+            >
+              <ScrollLink
+                className="home"
+                to="about"
+                spy={true}
+                smooth={true}
+                offset={0}
+                duration={500}
+              >
+                About Us
+              </ScrollLink>
+            </li>
+            <li
+              // style={
+              //   !p
+              //     ? { borderBottom: '2.5px solid rgb(234, 178, 11)' }
+              //     : { borderBottom: 'none' }
+              // }
+            >
+              <ScrollLink
+                className="home"
+                to="city"
+                spy={true}
+                smooth={true}
+                offset={-20}
+                duration={500}
+              >
+                Our Cities
+              </ScrollLink>
+            </li>
+            <li
+              // style={
+              //   !p
+              //     ? { borderBottom: '2.5px solid rgb(234, 178, 11)' }
+              //     : { borderBottom: 'none' }
+              // }
+            >
+              <ScrollLink
+                className="home"
+                to="packages"
+                spy={true}
+                smooth={true}
+                offset={-50}
+                duration={500}
+              >
+                Packages
+              </ScrollLink>
+            </li>
+                </>
+              )
+            }
+       
+          </ul>
+
           <ul className="ul-tt-1">
             <li
               // style={
@@ -186,6 +287,9 @@ export default function HomePage() {
             
           </ul>
         </nav>
+
+
+        
         <Link
           className={`book-button ${animationClass}`}
           // to="table"

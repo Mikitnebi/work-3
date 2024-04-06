@@ -14,36 +14,58 @@ export default function Packages ( ) {
 
     return(
         <section id="packages" class="section-plans js--section-plans">
-    <div class="row">
-        <h2 style={{color:"#8C1D2F"}}>Start eating healthy today</h2>
-    </div>
+        <h2 >Start eating healthy today</h2>
     <Waypoint onEnter={handleRow1Enter}>
 
-    <div  className={`row2 ${isRow1Visible ? 'animate__animated animate__fadeInTopRight' : ''}`} style={{ transition: 'opacity 1s, transform 2s' }}>
+    <div  className={`row2 ${isRow1Visible ? 'animate__animated animate__fadeInDown' : ''}`} style={{ transition: 'opacity 1s, transform 2s' }}>
         <div class="col3 span-1-of-3 js--wp-3">
             <div class="plan-box">
                 <div>
                     <h3 style={{color:'wheat'}}>Premium</h3>
-                    <p class="plan-price"> 399$<span> / month </span></p>
+                    <p class="plan-price"> 499.99 ₾<span> / month </span></p>
                     <p class="plan-price-meal"> That’s only 13.30$ per meal</p>
                 </div>
                 <div>
                     <ul> 
                         <li>
                             <ion-icon class="icon-small" name="checkmark-outline"></ion-icon>
-                            1 meal every day
+                            მაგიდების მენეჯმენტი
                         </li>
                         <li>
                             <ion-icon class="icon-small" name="checkmark-outline"></ion-icon>
-                            Order 24/7
+                            სტატისტიკური ანალიზი
                         </li>
                         <li>
                             <ion-icon class="icon-small" name="checkmark-outline"></ion-icon>
-                            Access to newest creations
+                            რეზერვაცია
                         </li>
                         <li>
                             <ion-icon class="icon-small" name="checkmark-outline"></ion-icon>
-                            Free deliver
+                            დისტრიბუცია
+                        </li>
+                        <li>
+                            <ion-icon class="icon-small" name="checkmark-outline"></ion-icon>
+                            აქციების მართვის სისტემა
+                        </li>
+                        <li>
+                            <ion-icon class="icon-small" name="checkmark-outline"></ion-icon>
+                            ელექტრონული მენიუ
+                        </li>
+                        <li>
+                            <ion-icon class="icon-small" name="checkmark-outline"></ion-icon>
+                            მომხმარებლების მენეჯმენტი
+                        </li>
+                        <li>
+                            <ion-icon class="icon-small" name="checkmark-outline"></ion-icon>
+                            ელექტრონული გადახდის სისტემა
+                        </li>
+                        <li>
+                            <ion-icon class="icon-small" name="checkmark-outline"></ion-icon>
+                            თანამშრომლების მართვის სისტემა
+                        </li>
+                        <li>
+                            <ion-icon class="icon-small" name="checkmark-outline"></ion-icon>
+                            {'suggestion-ად ამოგდება (რეკლამა)'}
                         </li>
                     </ul>
                 </div>
@@ -56,26 +78,50 @@ export default function Packages ( ) {
             <div class="plan-box">
                 <div>
                     <h3 style={{color:'wheat'}}>Pro</h3>
-                    <p class="plan-price"> 149$<span> / month</span></p>
+                    <p class="plan-price"> 399.99 ₾<span> / month</span></p>
                     <p class="plan-price-meal"> that’s only 14.90$ per meal</p>
                 </div>
                 <div>
                     <ul>
-                        <li>
+                    <li>
                             <ion-icon class="icon-small" name="checkmark-outline"></ion-icon>
-                            1 meal 10 days/month
+                            მაგიდების მენეჯმენტი
+                        </li>
+                        <li>
+                            <ion-icon class="icon-small" name="close-outline"></ion-icon>
+                            სტატისტიკური ანალიზი
                         </li>
                         <li>
                             <ion-icon class="icon-small" name="checkmark-outline"></ion-icon>
-                            Order 24/7
+                            რეზერვაცია
                         </li>
                         <li>
                             <ion-icon class="icon-small" name="checkmark-outline"></ion-icon>
-                            Access to newest creations
+                            დისტრიბუცია
                         </li>
                         <li>
                             <ion-icon class="icon-small" name="checkmark-outline"></ion-icon>
-                            Free deliver
+                            აქციების მართვის სისტემა
+                        </li>
+                        <li>
+                            <ion-icon class="icon-small" name="checkmark-outline"></ion-icon>
+                            ელექტრონული მენიუ
+                        </li>
+                        <li>
+                            <ion-icon class="icon-small" name="checkmark-outline"></ion-icon>
+                            მომხმარებლების მენეჯმენტი
+                        </li>
+                        <li>
+                            <ion-icon class="icon-small" name="checkmark-outline"></ion-icon>
+                            ელექტრონული გადახდის სისტემა
+                        </li>
+                        <li>
+                            <ion-icon class="icon-small" name="checkmark-outline"></ion-icon>
+                            თანამშრომლების მართვის სისტემა
+                        </li>
+                        <li>
+                            <ion-icon class="icon-small" name="close-outline"></ion-icon>
+                            {'suggestion-ად ამოგდება (რეკლამა)'}
                         </li>
                     </ul>
                 </div>
@@ -88,26 +134,50 @@ export default function Packages ( ) {
             <div class="plan-box">
                 <div>
                     <h3 style={{color:'wheat'}}>Starter</h3>
-                    <p class="plan-price"> 19$ <span> / meal </span> </p>
+                    <p class="plan-price"> 249.99 ₾ <span> / meal </span> </p>
                     <p class="plan-price-meal"> that’s only 14.90$ per meal</p>
                 </div>
                 <div>
                     <ul>
-                        <li>
+                    <li>
                             <ion-icon class="icon-small" name="checkmark-outline"></ion-icon>
-                            1 meal
+                            მაგიდების მენეჯმენტი
+                        </li>
+                        <li>
+                            <ion-icon class="icon-small" name="close-outline"></ion-icon>
+                            სტატისტიკური ანალიზი
                         </li>
                         <li>
                             <ion-icon class="icon-small" name="checkmark-outline"></ion-icon>
-                            Order from 8 am to 12 pm
-                            </li>
-                        
-                         <li><ion-icon class="icon-small" name="close-outline"></ion-icon>
-                         Access to newest creations
-                         </li>
-                         <li>
+                            რეზერვაცია
+                        </li>
+                        <li>
+                            <ion-icon class="icon-small" name="close-outline"></ion-icon>
+                            დისტრიბუცია
+                        </li>
+                        <li>
                             <ion-icon class="icon-small" name="checkmark-outline"></ion-icon>
-                            Free deliver
+                            აქციების მართვის სისტემა
+                        </li>
+                        <li>
+                            <ion-icon class="icon-small" name="checkmark-outline"></ion-icon>
+                            ელექტრონული მენიუ
+                        </li>
+                        <li>
+                            <ion-icon class="icon-small" name="close-outline"></ion-icon>
+                            მომხმარებლების მენეჯმენტი
+                        </li>
+                        <li>
+                            <ion-icon class="icon-small" name="checkmark-outline"></ion-icon>
+                            ელექტრონული გადახდის სისტემა
+                        </li>
+                        <li>
+                            <ion-icon class="icon-small" name="close-outline"></ion-icon>
+                            თანამშრომლების მართვის სისტემა
+                        </li>
+                        <li>
+                            <ion-icon class="icon-small" name="close-outline"></ion-icon>
+                            {'suggestion-ად ამოგდება (რეკლამა)'}
                         </li>
                     </ul>
                 </div>

@@ -22,7 +22,7 @@
 }
 .fch li{
     color: #ccc;
-    margin-left: 10px;
+    margin-right: 10px;
     margin-top: 40px;
 }
 .fch li a{
@@ -46,4 +46,48 @@
     font-size: 90%;
     margin-top: 50px;
     padding-bottom: 50px;
+}
+
+
+
+
+@media only screen and (max-width: 1200px){
+
+}
+
+/* small tablets to big tablets: from 768 px to 1023px */
+
+@media only screen and (max-width: 1023px){
+
+}
+
+/* small phones to small tablets: from 480 px to 767px */
+
+@media only screen and (max-width: 767px){
+    .footer{
+        flex-direction: column;
+        align-items: center;
+    }
+    .fch {
+        display: flex;
+        list-style: none;
+        margin-left: 0px;
+    }
+    .sch {
+        display: flex;
+        list-style: none;
+        margin-right: 0px;
+    }
+}
+
+/* small phones: from 0 px to 480px */
+
+@media only screen and (max-width: 480px){
+    .footer li a{
+        font-size: 15px;
+    }
+    .last-list p{
+        font-size: 14px;
+    }
+
 }

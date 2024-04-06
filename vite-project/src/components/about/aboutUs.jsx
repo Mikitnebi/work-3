@@ -22,111 +22,142 @@ export default function AboutUs() {
       <Waypoint onEnter={handleRow1Enter}>
         <div className={`about-us-section ${isRow1Visible ? 'animate__animated animate__fadeInUp' : ''}`} style={{ transition: 'opacity 1s, transform 2s' }}>
 
-        <div class="flip-card">
-    <div class="flip-card-inner">
-        <div class="flip-card-front">
-            <p class="title-flip">დაჯავშნის სისტემა</p>
-            <p className='about-us-icons'> 
-            <ion-icon name="bookmark-outline" ></ion-icon>
-            </p>
-        </div>
-        <div class="flip-card-back">
-          <div className='backside-about-us'> 
-          <p>1. კაროჩე, ...</p>
-            <p>2. ხოდა, ...</p>
-            <p>3. პატამუჩტა, ...</p>
-          </div>
-            
-        </div>
+        <div class="card1">
+
+        <div class="align">
+        <span class="red"></span>
+        <span class="red"></span>
+        <span class="red"></span>
     </div>
+    <h1>რეზერვაცია</h1>
+    
+    <p>
+        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Unde explicabo enim rem odio assumenda?
+    </p>
 </div>
-<div class="flip-card">
-    <div class="flip-card-inner">
-        <div class="flip-card-front">
-            <p class="title-flip">მაგიდების მენეჯმენტი</p>
-            <p className='about-us-icons'>
-            <ion-icon name="grid-outline"></ion-icon> 
-            </p>
-        </div>
-        <div class="flip-card-back">
-            <div className='backside-about-us'> 
-          <p>1. კაროჩე, ...</p>
-            <p>2. ხოდა, ...</p>
-            <p>3. პატამუჩტა, ...</p>
-          </div>
-        </div>
-    </div>
+
+
+<div class="card1">
+
+
+<div class="align">
+<span class="red"></span>
+<span class="red"></span>
+<span class="red"></span>
 </div>
-<div class="flip-card">
-    <div class="flip-card-inner">
-        <div class="flip-card-front">
-            <p class="title-flip">ელ-მენიუ</p>
-            <p className='about-us-icons'> 
-            <ion-icon name="restaurant-outline"></ion-icon>
-            </p>
-        </div>
-        <div class="flip-card-back">
-            <div className='backside-about-us'> 
-          <p>1. კაროჩე, ...</p>
-            <p>2. ხოდა, ...</p>
-            <p>3. პატამუჩტა, ...</p>
-          </div>
-        </div>
-    </div>
+
+    <h1>მაგიდების მენეჯმენტი</h1>
+    <p>
+        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Unde explicabo enim rem odio assumenda?
+    </p>
 </div>
-<div class="flip-card">
-    <div class="flip-card-inner">
-        <div class="flip-card-front">
-            <p class="title-flip">QR-კოდები</p>
-            <p className='about-us-icons'> 
-            <ion-icon name="qr-code-outline"></ion-icon>
-            </p>
-        </div>
-        <div class="flip-card-back">
-            <div className='backside-about-us'> 
-          <p>1. კაროჩე, ...</p>
-            <p>2. ხოდა, ...</p>
-            <p>3. პატამუჩტა, ...</p>
-          </div>
-        </div>
-    </div>
+
+
+<div class="card1">
+
+
+<div class="align">
+<span class="red"></span>
+<span class="red"></span>
+<span class="red"></span>
 </div>
-          {/* <div className="col span-1-of-4 box">
-            <ion-icon name="infinite-outline" className="icon-big"></ion-icon>
-            <h3 className="aboutH3">Up to 365 days/year</h3>
-            <p>
-              Never cook again! We really mean that. Our subscription plans include
-              up to 365 days/year coverage. You can also choose to order more
-              flexibly if that's your style.
-            </p>
-          </div>
-          <div className="col span-1-of-4 box">
-            <ion-icon name="stopwatch-outline" className="icon-big"></ion-icon>
-            <h3 className="aboutH3">Ready in 20 minutes</h3>
-            <p>
-              You're only twenty minutes away from your delicious and super healthy meals delivered right to your home. We work with the best chefs in each town to ensure that you're 100% happy.
-            </p>
-          </div>
-          <div className="col span-1-of-4 box">
-            <ion-icon name="nutrition-outline" className="icon-big"></ion-icon>
-            <h3 className="aboutH3">100% organic</h3>
-            <p>
-              All our vegetables are fresh, organic and local. Animals are raised
-              without added hormones or antibiotics. Good for your health, the
-              environment, and it also tastes better!
-            </p>
-          </div>
-          <div className="col span-1-of-4 box">
-            <ion-icon name="cart-outline" className="icon-big"></ion-icon>
-            <h3 className="aboutH3">Order anything</h3>
-            <p>
-              We don't limit your creativity, which means you can order whatever
-              you feel like. You can also choose from our menu containing over 100
-              delicious meals. It's up to you!
-            </p>
-          </div> */}
+    <h1>ელ-მენიუ</h1>
+    <p>
+        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Unde explicabo enim rem odio assumenda?
+    </p>
+</div>
+
+
+<div class="card1">
+
+
+<div class="align">
+<span class="red"></span>
+<span class="red"></span>
+<span class="red"></span>
+</div>
+
+    <h1>qr-კოდები</h1>
+    <p>
+        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Unde explicabo enim rem odio assumenda?
+    </p>
+</div>
+   
         </div>
       </Waypoint>
     </section>
   );
 }
+
+
+
+
+// <div class="flip-card">
+// <div class="flip-card-inner">
+//     <div class="flip-card-front">
+//         <p class="title-flip">დაჯავშნის სისტემა</p>
+//         <p className='about-us-icons'> 
+//         <ion-icon name="bookmark-outline" ></ion-icon>
+//         </p>
+//     </div>
+//     <div class="flip-card-back">
+//       <div className='backside-about-us'> 
+//       <p>1. კაროჩე, ...</p>
+//         <p>2. ხოდა, ...</p>
+//         <p>3. პატამუჩტა, ...</p>
+//       </div>
+        
+//     </div>
+// </div>
+// </div>
+// <div class="flip-card">
+// <div class="flip-card-inner">
+//     <div class="flip-card-front">
+//         <p class="title-flip">მაგიდების მენეჯმენტი</p>
+//         <p className='about-us-icons'>
+//         <ion-icon name="grid-outline"></ion-icon> 
+//         </p>
+//     </div>
+//     <div class="flip-card-back">
+//         <div className='backside-about-us'> 
+//       <p>1. კაროჩე, ...</p>
+//         <p>2. ხოდა, ...</p>
+//         <p>3. პატამუჩტა, ...</p>
+//       </div>
+//     </div>
+// </div>
+// </div>
+// <div class="flip-card">
+// <div class="flip-card-inner">
+//     <div class="flip-card-front">
+//         <p class="title-flip">ელ-მენიუ</p>
+//         <p className='about-us-icons'> 
+//         <ion-icon name="restaurant-outline"></ion-icon>
+//         </p>
+//     </div>
+//     <div class="flip-card-back">
+//         <div className='backside-about-us'> 
+//       <p>1. კაროჩე, ...</p>
+//         <p>2. ხოდა, ...</p>
+//         <p>3. პატამუჩტა, ...</p>
+//       </div>
+//     </div>
+// </div>
+// </div>
+// <div class="flip-card">
+// <div class="flip-card-inner">
+//     <div class="flip-card-front">
+//         <p class="title-flip">QR-კოდები</p>
+//         <p className='about-us-icons'> 
+//         <ion-icon name="qr-code-outline"></ion-icon>
+//         </p>
+//     </div>
+//     <div class="flip-card-back">
+//         <div className='backside-about-us'> 
+//       <p>1. კაროჩე, ...</p>
+//         <p>2. ხოდა, ...</p>
+//         <p>3. პატამუჩტა, ...</p>
+//       </div>
+//     </div>
+// </div>
+// </div>

@@ -15,12 +15,13 @@
 /* Style the section */
 .section-features {
   background-color: #f4f4f4;
-  padding: 0px 0;
+  padding: 0px 1%;
   text-align: center;
   display: flex;
   flex-direction: column;
-  height: 100vh;
-
+  height: 120vh;
+  align-items: center;
+justify-content: space-around;
 }
 
 /* Style the heading */
@@ -28,13 +29,13 @@
   font-size: 2.3em;
   margin-bottom: 20px;
   color: #420d16;
+  margin-top: 5%;
 }
 
 /* Style the long copy */
 .section-features .long-copy {
   font-size: 1.2em;
   color: #420d16;
-  margin-bottom: 20px;
 }
 
 .about-us-section{
@@ -42,13 +43,13 @@
   width: 100%;
   align-items: center;
   justify-content: space-around;
-  height: 50%;
+  height: 45%;
 }
 
-.flip-card {
+/* .flip-card {
   background-color: transparent;
-  width: 20%;
-  height: 90%;
+  width: 22%;
+  height: 110%;
   font-family: sans-serif;
 }
 
@@ -104,30 +105,215 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
+  align-items: center;
   width: 100%;
   height: 100%;
   -webkit-backface-visibility: hidden;
   backface-visibility: hidden;
-  border: 1px solid #831a29 ;
+  border: 1px solid #fffefe ;
   border-radius: 1rem;
 }
 
 .flip-card-front {
-  background: linear-gradient(120deg, rgba(107,22,35,1) 18%, rgb(134, 28, 44) 53%, rgba(88,18,29,1) 96%);
+  background: linear-gradient(120deg, rgba(107,22,35,1) 18%, rgba(107,22,35,1) 53%, rgba(107,22,35,1) 96%);
 
   color: wheat;
+  border: 2px solid #efe4e6;
 }
 
 .flip-card-back {
-  background: linear-gradient(60deg, rgba(107,22,35,1) 18%, rgba(163,34,53,1) 53%, rgba(88,18,29,1) 96%);
+  background: linear-gradient(60deg, rgba(107,22,35,1) 18%, rgba(107,22,35,1) 53%, rgba(107,22,35,1) 96%);
 
   color: white;
   transform: rotateY(180deg);
+} */
+
+
+
+.card1 {
+  width:  22%;
+  height: 35%;
+  padding: 0.5rem;
+  background: #8C1D2F;
+  border-radius: 8px;
+  backdrop-filter: blur(5px);
+  border-bottom: 3px solid rgba(255, 255, 255, 0.440);
+  border-left: 2px  rgba(255, 255, 255, 0.545) outset;
+  box-shadow: -40px 50px 30px rgba(0, 0, 0, 0.280);
+  transform: skewX(5deg);
+  transition: .4s;
+  overflow: hidden;
+  color: white;
+}
+
+.card1:hover {
+  height: 100%;
+  transform: skew(0deg);
+}
+
+.align {
+  padding: 1rem;
+  display: flex;
+  flex-direction: row;
+  gap: 5px;
+  align-self: flex-start;
+}
+
+.red {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: #fffada;
+  box-shadow: -5px 5px 5px rgba(0, 0, 0, 0.280);
+}
+
+.yellow {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: #ffbd44;
+  box-shadow: -5px 5px 5px rgba(0, 0, 0, 0.280);
+}
+
+.green {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: #00ca4e;
+  box-shadow: -5px 5px 5px rgba(0, 0, 0, 0.280);
+}
+
+.card1 h1 {
+  text-align: center;
+  color: white;
+  text-shadow: -10px 5px 10px rgba(0, 0, 0, 0.573);
+  font-size: 15px;
+  margin: 1.4rem;
+
 }
 
 
 
+@media only screen and (max-width: 1200px){
+  .flip-card {
+    width: 23%;
+    height: 90%;
+    font-family: sans-serif;
+  }
+  .section-features{
+    justify-content: space-around;
+    height: 100vh;
+  }
 
+  .title-flip {
+    font-size: 1em;
+    font-weight: 800;
 
+  }
+  .section-features .aboutH2 {
+    font-size: 3rem;
+  }
+  .section-features .long-copy {
+    font-size: 1.8em;
+  }
+  }
+  
+  /* small tablets to big tablets: from 768 px to 1023px */
+  
+  @media only screen and (max-width: 1023px){
+    .section-features .aboutH2 {
+      font-size: 1.8rem;
+    }
+    .section-features .long-copy {
+      font-size: 1em;
+    }
+    .about-us-section{
+      display: grid;
+      grid-template-columns: repeat(2, 1fr); /* Two columns with equal width */
+      grid-gap: 10%; /* Adjust the gap between items */  
+      width: 100%; 
+      height: 90%;
+    }
+    .flip-card {
+      width: 80%;
+      height: 95%;
+      font-family: sans-serif;
+      margin: 0 auto;
+    }
+    .section-features {
+      height: 120vh;
+    }
 
+    .title-flip {
+      font-size: 1em;
+      font-weight: 800;
+
+    }
+    
+  }
+  
+  /* small phones to small tablets: from 480 px to 767px */
+  
+  @media only screen and (max-width: 767px){
+    .section-features .aboutH2 {
+      font-size: 1.6rem;
+    }
+    .section-features .long-copy {
+      font-size: 0.9em;
+    }
+
+    .title-flip {
+      font-size: 0.8em;
+      font-weight: 800;
+
+    }
+
+    .about-us-section{
+      display: grid;
+      grid-template-columns: repeat(2, 1fr); /* Two columns with equal width */
+      grid-gap: 10%; /* Adjust the gap between items */  
+      width: 100%; 
+      height: 90%;
+    }
+    .flip-card {
+      width: 80%;
+      height: 90%;
+      font-family: sans-serif;
+      margin: 0 auto;
+    }
+  }
+  
+  /* small phones: from 0 px to 480px */
+  
+  @media only screen and (max-width: 480px){
+    .about-us-section{
+      display: grid;
+      grid-template-columns: repeat(1, 1fr); /* Two columns with equal width */
+      grid-gap: 5%; /* Adjust the gap between items */  
+      width: 80%; 
+      height: 100%;
+      margin-bottom: 5%;
+      margin-top: 5%;
+
+    }
+    .flip-card {
+      height: 100%;
+    }
+    .section-features {
+      height: 200vh;
+    }
+    .section-features .aboutH2 {
+      font-size: 1.4rem;
+    }
+    .section-features .long-copy {
+      font-size: 0.7em;
+    }
+
+    .title-flip {
+      font-size: 0.8em;
+      font-weight: 800;
+
+    }
+
+  }
 

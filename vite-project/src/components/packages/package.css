@@ -1,10 +1,10 @@
 .section-plans{
     background-color: white;
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
     flex-direction: column;
     width: 100%;
-    height: 100vh;
+    height: 140vh;
     padding-bottom: 20px;
     overflow: hidden;
     opacity: 0.9;
@@ -15,6 +15,7 @@
     background-color: #fff;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     transition: transform 0.3s ease;
+    height: 100%;
 }
 
 .row2{
@@ -77,11 +78,10 @@ h1{
     letter-spacing: 1px;
 }
 h2{
-    font-size: 180%;
-    word-spacing: 2px;
-    text-align: center;
-    margin-bottom: 30px;
-    letter-spacing: 1px;
+    font-size: 2.3em;
+    margin-bottom: 20px;
+    color: #420d16;
+    margin: 0 auto;
 }
 h2::after{
     display: block;
@@ -136,4 +136,122 @@ h3{
     width: 30%;
     align-items: center;
     justify-content: center;
+    box-shadow: 0 8px 14px 0 rgba(0,0,0,0.2);
+    height: auto;
+    
   }
+
+
+  
+
+
+@media only screen and (max-width: 1200px){
+
+}
+
+/* small tablets to big tablets: from 768 px to 1023px */
+
+@media only screen and (max-width: 1023px){
+  .section-plans h2 {
+    font-size: 1.8rem;
+  }
+
+  .plan-price{ 
+    font-size: 240%;
+  }
+  .plan-price span{
+    font-size: 40%;
+    font-weight: 300;
+}
+.plan-price-meal{
+    font-size: 70%;
+    color: wheat;
+}
+h3{
+    font-size: 100%;
+    margin-bottom: 15px;
+}
+.plan-box ul li{
+    padding: 5px 0;
+    font-size: 14px;
+}
+}
+
+/* small phones to small tablets: from 480 px to 767px */
+
+@media only screen and (max-width: 767px){
+  .section-plans h2 {
+    font-size: 1.6rem;
+  }
+  .row2{
+   flex-direction: column;
+    width: 100%; 
+    height: 90%;
+    margin-top: 0%;
+
+  }
+  .section-plans{
+    height: 320vh;
+  }
+
+  .plan-price{ 
+    font-size: 220%;
+  }
+  .plan-price span{
+    font-size: 40%;
+    font-weight: 300;
+}
+.plan-price-meal{
+    font-size: 60%;
+    color: wheat;
+}
+h3{
+    font-size: 90%;
+    margin-bottom: 15px;
+}
+.plan-box ul li{
+    padding: 5px 0;
+    font-size: 15px;
+}
+.col3{
+    width: 90%;
+    margin-bottom: 1%;
+}
+.btn {
+    text-decoration: none;
+    padding: 10px 20px;
+    display: inline-block;
+    margin-top: 0%;
+    margin-bottom: 0%;
+
+    border-radius: 25px;
+    font-size: 1rem;
+    transition: background-color 0.3s ease;
+  }
+}
+
+/* small phones: from 0 px to 480px */
+
+@media only screen and (max-width: 480px){
+  .row2{
+    flex-direction: column;
+
+    width: 100%; 
+    height: 0%;
+    margin-bottom: 0%;
+    margin-top: 0%;
+  }
+
+  .section-plans {
+    height: auto;
+  }
+  .section-plans h2 {
+    font-size: 1.2rem;
+  }
+  .col3{
+    width: 90%;
+
+    height: 28%;
+    
+  }
+}

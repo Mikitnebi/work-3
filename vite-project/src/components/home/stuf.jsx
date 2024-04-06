@@ -1,6 +1,6 @@
 import { NavLink, useLocation, useParams } from 'react-router-dom'
 import './homePage.css'
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { limitRecipeTitle } from '../../utils';
 
 
@@ -10,6 +10,44 @@ export default function StuffHomePage () {
     const [isOpenSideBar, setIsOpenSideBar] = useState(true);
     const params = useParams();
     const location = useLocation();
+    const [staffMembers, setStaffMembers] = useState(
+        localStorage.getItem('staffMembers')
+            ? JSON.parse(localStorage.getItem('staffMembers'))
+            : [
+                { id: 1, englishName: 'John Doe', georgianName: 'ჯონ დოუ', role: 'Manager', mobileNumber: '123456789', email: 'john@example.com', isEditing: false },
+                { id: 2, englishName: 'Jane Smith', georgianName: 'ჯეინ სმითი', role: 'Waiter', mobileNumber: '987654321', email: 'jane@example.com', isEditing: false }
+            ]
+    );
+    
+
+    // Save data to local storage whenever staff members change
+    useEffect(() => {
+        localStorage.setItem('staffMembers', JSON.stringify(staffMembers));
+    }, [staffMembers]);
+
+    const [newMember, setNewMember] = useState(null);
+    const [validationErrors, setValidationErrors] = useState({});
+
+    const isValidEnglishName = (name) => {
+        return /^[a-zA-Z\s]+$/.test(name.trim());
+    };
+    
+    const isValidGeorgianName = (name) => {
+        return /^[ა-ჰ\s]+$/.test(name.trim());
+    };
+    
+    const isValidRole = (role) => {
+        return typeof role === 'string' && role.trim() !== '';
+    };
+    
+    const isValidPhoneNumber = (number) => {
+        return /^\d+$/.test(number.trim());
+    };
+    
+    const isValidEmail = (email) => {
+        return /\S+@\S+\.\S+/.test(email.trim());
+    };
+    
 
     const handleMouseEnter = (index) => {
         setHoveredIndex(index);
@@ -19,6 +57,135 @@ export default function StuffHomePage () {
         setHoveredIndex(null);
     };
 
+    const toggleEdit = (index) => {
+        const updatedMembers = staffMembers.map((member, i) => {
+            if (i === index) {
+                return { ...member, isEditing: !member.isEditing, originalDetails: { ...member } }; // Save original details
+            }
+            return member;
+        });
+        setStaffMembers(updatedMembers);
+    };
+    
+    const cancelEdit = (index) => {
+        const updatedMembers = staffMembers.map((member, i) => {
+            if (i === index) {
+                return { ...member.originalDetails, isEditing: false }; // Restore original details and set isEditing to false
+            }
+            return member;
+        });
+        setStaffMembers(updatedMembers);
+    };
+    
+    const saveNewMember = () => {
+        if (!newMember) return;
+    
+        const { englishName, georgianName, role, mobileNumber, email } = newMember;
+        const errors = [];
+    
+        if (!isValidEnglishName(englishName)) {
+            errors.push('English name must contain only English letters and cannot be empty.');
+        }
+        if (!isValidGeorgianName(georgianName)) {
+            errors.push('Georgian name must contain only Georgian letters and cannot be empty.');
+        }
+        if (!isValidRole(role)) {
+            errors.push('Role must be a non-empty string.');
+        }
+        if (!isValidPhoneNumber(mobileNumber)) {
+            errors.push('Phone number must contain only numbers and cannot be empty.');
+        }
+        if (!isValidEmail(email)) {
+            errors.push('Email must be in a valid format and cannot be empty.');
+        }
+    
+        if (errors.length > 0) {
+            // Notify user of validation errors
+            alert('Validation failed for the following reasons:\n\n' + errors.join('\n'));
+            return;
+        }
+    
+        // Save new member if no validation errors
+        const updatedNewMember = { ...newMember, isEditing: false };
+        setStaffMembers([...staffMembers, updatedNewMember]);
+        setNewMember(null); // Reset newMember state after adding
+    };
+    
+
+    const saveEdit = (index) => {
+        const memberToUpdate = staffMembers[index];
+        const { englishName, georgianName, role, mobileNumber, email } = memberToUpdate;
+        const errors = [];
+    
+        if (!isValidEnglishName(englishName)) {
+            errors.push('English name must contain only English letters and cannot be empty.');
+        }
+        if (!isValidGeorgianName(georgianName)) {
+            errors.push('Georgian name must contain only Georgian letters and cannot be empty.');
+        }
+        if (!isValidRole(role)) {
+            errors.push('Role must be a non-empty string.');
+        }
+        if (!isValidPhoneNumber(mobileNumber)) {
+            errors.push('Phone number must contain only numbers and cannot be empty.');
+        }
+        if (!isValidEmail(email)) {
+            errors.push('Email must be in a valid format and cannot be empty.');
+        }
+    
+        if (errors.length > 0) {
+            // Notify user of validation errors
+            alert('Validation failed for the following reasons:\n\n' + errors.join('\n'));
+            return;
+        }
+    
+        // Save changes if no validation errors
+        const updatedMembers = staffMembers.map((member, i) => {
+            if (i === index) {
+                return { ...member, isEditing: false, originalDetails: null };
+            }
+            return member;
+        });
+        setStaffMembers(updatedMembers);
+    };
+    
+    
+    
+
+    const handleInputChange = (field, value, index) => {
+        const updatedMembers = staffMembers.map((member, i) => {
+            if (i === index) {
+                return { ...member, [field]: value };
+            }
+            return member;
+        });
+        setStaffMembers(updatedMembers);
+    };
+
+    const addStaffMember = () => {
+        setNewMember({ id: Date.now(), englishName: '', georgianName: '', role: '', mobileNumber: '', email: '', isEditing: true });
+    };
+
+    const cancelAddMember = () => {
+        setNewMember(null);
+    };
+
+    // const saveNewMember = () => {
+    //     if (newMember) {
+    //         // Set isEditing to false for the new member
+    //         const updatedNewMember = { ...newMember, isEditing: false };
+    //         setStaffMembers([...staffMembers, updatedNewMember]);
+    //         setNewMember(null); // Reset newMember state after adding
+    //     }
+    // };
+    
+    const deleteMember = (index) => {
+        const updatedMembers = [...staffMembers];
+        updatedMembers.splice(index, 1);
+        setStaffMembers(updatedMembers);
+      
+    };
+    
     return (
         <div className={`homePage-container ${isOpenSideBar ? 'sidebar-open' : 'sidebar-closed'}`}>
         <img className='home-paige-logo' src="../../../public/img/Group4.png" alt="" />
@@ -378,7 +545,183 @@ export default function StuffHomePage () {
             </div>
             </nav>
 
-            <div className='content-container'></div>
-        </div>
+            <div className='content-container'>
+                {/* Table for staff management */}
+                <div className='table-container'>
+                {!newMember && (
+    <button className='add-new-member' onClick={addStaffMember} > 
+        <ion-icon name="add-outline"></ion-icon>
+        თანამშრომლის დამატება
+    </button>
+)}
+                <table>
+                    <thead>
+                        <tr>
+                            <th>{"სახელი (ინგლისურად)"}</th>
+                            <th>{"სახელი (ქართულად)"}</th>
+                            <th>თანამდებობა</th>
+                            <th>ტელ.ნომერი</th>
+                            <th>ელ-ფოსტა</th>
+                            <th>{"ცვლილება"}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {staffMembers.map((member, index) => (
+                            <tr key={index}>
+                                <td>
+                                    {member.isEditing ? (
+                                        <input 
+                                        className="staff-input"
+                                            type="text"
+                                            value={member.englishName}
+                                            onChange={(e) => handleInputChange('englishName', e.target.value, index)}
+                                        />
+                                    ) : (
+                                        member.englishName
+                                    )}
+                                </td>
+                                <td>
+                                    {member.isEditing ? (
+                                        <input 
+                                        className="staff-input"
+                                            type="text"
+                                            value={member.georgianName}
+                                            onChange={(e) => handleInputChange('georgianName', e.target.value, index)}
+                                        />
+                                    ) : (
+                                        member.georgianName
+                                    )}
+                                </td>
+                                <td>
+                                    {member.isEditing ? (
+                                        <input 
+                                        className="staff-input"
+                                            type="text"
+                                            value={member.role}
+                                            onChange={(e) => handleInputChange('role', e.target.value, index)}
+                                        />
+                                    ) : (
+                                        member.role
+                                    )}
+                                </td>
+                                <td>
+                                    {member.isEditing ? (
+                                        <input 
+                                        className="staff-input"
+                                            type="number"
+                                            value={member.mobileNumber}
+                                            onChange={(e) => handleInputChange('mobileNumber', e.target.value, index)}
+                                        />
+                                    ) : (
+                                        member.mobileNumber
+                                    )}
+                                </td>
+                                <td>
+                                    {member.isEditing ? (
+                                        <input 
+                                        className="staff-input"
+                                            type="email"
+                                            value={member.email}
+                                            onChange={(e) => handleInputChange('email', e.target.value, index)}
+                                        />
+                                    ) : (
+                                        member.email
+                                    )}
+                                </td>
+                                <td style={{width:'25%'}}>
+                                    <div style={{display:'flex',width:'100%',alignItems:'center',justifyContent:'center'}}>
+                                    {(member.isEditing)? (
+                                        <>
+                                            <button className="staff-buttons" onClick={() => saveEdit(index)}>                 
+                                                <ion-icon name="checkmark-outline"></ion-icon>
+                                                შენახვა
+                                            </button>
+                                            <button className="staff-buttons" onClick={() => cancelEdit(index)}>    
+                                                <ion-icon name="close-outline"></ion-icon>
+                                                გამოსვლა
+                                            </button>
+                                        </>
+                                    ) : (
+                                        <>
+                                         <button className="staff-buttons" onClick={() => toggleEdit(index)}>
+                                            <ion-icon name="create-outline"></ion-icon>
+                                            შეცვლა
+                                        </button>
+                                        <button className="staff-buttons" onClick={() => deleteMember(index)}>
+                <ion-icon name="trash-outline"></ion-icon>
+                წაშლა
+            </button>
+                                        </>
+                                       
+                                    )}
+                                    </div>
+                                    
+                                </td>
+                            </tr>
+                        ))}
+                        {(newMember) && (
+                            <tr>
+                                <td>
+                                    <input 
+                                    className="staff-input"
+                                        type="text"
+                                        value={newMember.englishName}
+                                        onChange={(e) => setNewMember({ ...newMember, englishName: e.target.value })}
+                                    />
+                                </td>
+                                <td>
+                                    <input 
+                                    className="staff-input"
+                                        type="text"
+                                        value={newMember.georgianName}
+                                        onChange={(e) => setNewMember({ ...newMember, georgianName: e.target.value })}
+                                    />
+                                </td>
+                                <td>
+                                    <input 
+                                    className="staff-input"
+                                        type="text"
+                                        value={newMember.role}
+                                        onChange={(e) => setNewMember({ ...newMember, role: e.target.value })}
+                                    />
+                                </td>
+                                <td>
+                                    <input 
+                                    className="staff-input"
+                                        type="number"
+                                        value={newMember.mobileNumber}
+                                        onChange={(e) => setNewMember({ ...newMember, mobileNumber: e.target.value })}
+                                    />
+                                </td>
+                                <td>
+                                    <input 
+                                    className="staff-input"
+                                        type="email"
+                                        value={newMember.email}
+                                        onChange={(e) => setNewMember({ ...newMember, email: e.target.value })}
+                                    />
+                                </td>
+                                <td>
+                                <div style={{display:'flex',width:'100%',alignItems:'center',justifyContent:'center'}}>
+                                <button className="staff-buttons" onClick={saveNewMember}>
+                                        <ion-icon name="checkmark-outline"></ion-icon>
+                                        შენახვა
+                                    </button>
+                                    <button className="staff-buttons" onClick={cancelAddMember}> 
+                                    <ion-icon name="close-outline"></ion-icon>
+                                    გამოსვლა</button>
+                                </div>
+                                   
+                                </td>
+                            </tr>
+                        )}
+                    </tbody>
+                </table>
+                </div>
+                
+
+
+            </div>
+        </div>        
     );
 }

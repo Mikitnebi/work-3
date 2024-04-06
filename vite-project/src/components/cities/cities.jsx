@@ -28,7 +28,7 @@ export default function Cities ( ) {
   <div class="wave"></div>
   <div class="wave"></div>
   <div class="wave"></div>
-  
+   
 
       
   <img className="cities-img1" src="../public/picasso.png" alt="" />

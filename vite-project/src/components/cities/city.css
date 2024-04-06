@@ -19,8 +19,8 @@
 
 .section-cities {
     /* background-image: url("../public/რუკა2.png"); */
-    height: 100vh;
-    background-color: #dfc7cb;
+    height: 110vh;
+    background-color: #AF9096;
     background-size: 100% 100%; /* or 100% 100% */
     background-position: center;
     background-attachment: fixed;
@@ -31,14 +31,13 @@
  
 
 
-h2{
+.section-cities h2{
     font-size: 30px;
   word-spacing: 2px;
   text-align: center;
   margin-top: 50px;
   letter-spacing: 1px;
   color: white;
-  font-weight: bolder;
 }
 
 
@@ -49,7 +48,7 @@ h2{
 .cities-div{
 	display: flex;
 	width: 100%;
-	height: 70%;
+	height: 65%;
 	align-items: center;
 	justify-content: space-around;
 }
@@ -263,3 +262,258 @@ h2{
 	  transform: rotate(360deg);
 	}
   }
+
+
+  
+
+@media only screen and (max-width: 1200px){
+	.e-card {
+		width: 23%;
+		height: 45%;
+		font-family: sans-serif;
+	  }
+	.cities-img1{
+		position: absolute;
+		width: 100%;
+		height: auto;
+		bottom: 0%;
+		left: 50%;
+		transform: translate(-50%, 0%);
+	  }
+	
+	  .cities-img2{
+		position: absolute;
+		width: 70%;
+		height: auto;
+		bottom: 0%;
+		left: 50%;
+		transform: translate(-50%, 0%);
+	  }
+	
+	
+	  .cities-img3{
+		position: absolute;
+		width: 50%;
+		height: auto;
+		bottom: 0%;
+		left: 50%;
+		transform: translate(-50%, 10%);
+	  }
+}
+
+/* small tablets to big tablets: from 768 px to 1023px */
+
+@media only screen and (max-width: 1023px){
+ .section-cities h2 {
+	font-size: 1.8rem;
+  }
+
+  .e-card {
+	width: 23%;
+	height: 45%;
+	font-family: sans-serif;
+  }
+  .section-cities {
+	height: 120vh;
+  }
+  .cities-div{
+	margin-top: 10%;
+  }
+
+  .cities-img1{
+	position: absolute;
+	width: 90%;
+	height: auto;
+	bottom: 0%;
+	left: 50%;
+	transform: translate(-50%, 0%);
+  }
+
+  .cities-img2{
+	position: absolute;
+	width: 60%;
+	height: auto;
+	bottom: 0%;
+	left: 50%;
+	transform: translate(-50%, 0%);
+  }
+
+
+  .cities-img3{
+	position: absolute;
+	width: 45%;
+	height: auto;
+	bottom: 0%;
+	left: 50%;
+	transform: translate(-50%, 10%);
+  }
+
+  .wave {
+	position: absolute;
+	width: 540px;
+	height: 600px;
+	opacity: 0.6;
+	left: 0;
+	top: 0;
+	margin-left: -50%;
+	margin-top: -70%;
+
+  }
+
+}
+
+/* small phones to small tablets: from 480 px to 767px */
+
+@media only screen and (max-width: 767px){
+	.section-cities h2 {
+		font-size: 1.6rem;
+	  }
+	
+	  .section-cities {
+		height: 240vh;
+	  }
+	
+	.cities-div{
+		flex-direction: column;
+		width: 100%; 
+		height: 85%;
+	  }
+	  .e-card {
+		width: 50%;
+		height: 80%;
+		font-family: sans-serif;
+		margin: 2% auto;
+	  }
+	  
+	  .cities-img1{
+		position: absolute;
+		width: 80%;
+		height: auto;
+		bottom: 0%;
+		left: 50%;
+		transform: translate(-50%, 10%);
+	  }
+	
+	  .cities-img2{
+		position: absolute;
+		width: 50%;
+		height: auto;
+		bottom: 0%;
+		left: 50%;
+		transform: translate(-50%, 0%);
+	  }
+	
+	
+	  .cities-img3{
+		position: absolute;
+		width: 40%;
+		height: auto;
+		bottom: 0%;
+		left: 50%;
+		transform: translate(-50%, 10%);
+	  }
+	  .wave {
+		position: absolute;
+		width: 900px;
+		height: 680px;
+		opacity: 0.6;
+		left: 0;
+		top: 0;
+		margin-left: -70%;
+		margin-top: -30%;
+	
+	  }
+ 
+}
+@media only screen and (max-width: 600px){
+	.wave {
+		position: absolute;
+		width: 760px;
+		height: 710px;
+		opacity: 0.6;
+		left: 0;
+		top: 0;
+		margin-left: -66%;
+		margin-top: -50%;
+	  }
+	  .cities-img1{
+		position: absolute;
+		width: 100%;
+		height: auto;
+		bottom: 0%;
+		left: 50%;
+		transform: translate(-50%, 10%);
+	  }
+	
+	  .cities-img2{
+		position: absolute;
+		width: 70%;
+		height: auto;
+		bottom: 0%;
+		left: 50%;
+		transform: translate(-50%, 0%);
+	  }
+	
+	
+	  .cities-img3{
+		position: absolute;
+		width: 50%;
+		height: auto;
+		bottom: 0%;
+		left: 50%;
+		transform: translate(-50%, 10%);
+	  }
+}
+/* small phones: from 0 px to 480px */
+
+@media only screen and (max-width: 480px){
+
+
+
+ .section-cities h2 {
+	font-size: 1.4rem;
+  }
+  .section-cities {
+	height: 200vh;
+  }
+
+.cities-div{
+	flex-direction: column;
+	width: 100%; 
+	height: 85%;
+  }
+  .e-card {
+	width: 60%;
+	height: 70%;
+	font-family: sans-serif;
+	margin: 4% auto;
+  }
+  .cities-img1{
+	position: absolute;
+	width: 95%;
+	height: auto;
+	bottom: 0%;
+	left: 50%;
+	transform: translate(-50%, 10%);
+  }
+
+  .cities-img2{
+	position: absolute;
+	width: 60%;
+	height: auto;
+	bottom: 0%;
+	left: 50%;
+	transform: translate(-50%, 0%);
+  }
+
+
+  .cities-img3{
+	position: absolute;
+	width: 40%;
+	height: auto;
+	bottom: 0%;
+	left: 50%;
+	transform: translate(-50%, 10%);
+  }
+}
+
