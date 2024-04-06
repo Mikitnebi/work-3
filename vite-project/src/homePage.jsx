@@ -271,7 +271,7 @@ export default function HomePage() {
           </ul>
           <ul className="ul-tt">
               <>
-                <ScrollLink
+                {/* <ScrollLink
                   className="register1"
                   to="home"
                   onClick={() => setIsOpenRegistration(true)}
@@ -281,7 +281,7 @@ export default function HomePage() {
                   duration={500}
                 >
                   Sign Up
-                </ScrollLink>
+                </ScrollLink> */}
                 
               </>
             
@@ -290,7 +290,7 @@ export default function HomePage() {
 
 
         
-        <Link
+        {/* <Link
           className={`book-button ${animationClass}`}
           // to="table"
           onClick={() => {setIsOpenRegistration(true); setIsLoginOrRegistration(true)}}
@@ -298,7 +298,7 @@ export default function HomePage() {
 
         >
             დარეგისტრირდი
-        </Link>
+        </Link> */}
         
 
         <LoginModal open={isOpenLogin} onClose={() => setIsOpenLogin(false)}>
