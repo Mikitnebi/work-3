@@ -78,7 +78,7 @@ export default function HomePage() {
           loop
           playsInline
           // Specify the path to your video file
-          src="../dist/pexels-c-technical-6839664(Original)_1.mp4"
+          src="../public/pexels-c-technical-6839664(Original)_1.mp4"
         />
               <div className="line"></div>
 
