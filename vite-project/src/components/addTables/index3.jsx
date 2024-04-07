@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import Select from 'react-select';
-import './Tables.css';
+// import './Tables.css';
 import { ResizableBox } from 'react-resizable'; // Import ResizableBox
 
 
