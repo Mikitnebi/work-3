@@ -4,11 +4,11 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background-Color: rgba(62, 61, 61, 0.7);
+    background-color: rgba(62, 61, 61, 0.7);
     background-size: cover;
     background-position: center;
     background-attachment: fixed;
-    z-Index: 1000;
+    z-index: 1000;
 }
 .modal-styles{
     width: 50%;
@@ -17,10 +17,10 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    background-Color: #D9D9D9;
+    background-color: #D9D9D9;
     padding: 30px;
     padding-top: 35px;
-    z-Index: 1000;
+    z-index: 1000;
     scrollbar-width: none;
     border-radius: 5px;
     /* border: 2px solid red; */

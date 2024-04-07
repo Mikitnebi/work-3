@@ -4,8 +4,8 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background-Color: rgba(0, 0, 0, .7);
-    z-Index: 1000;
+    background-color: rgba(0, 0, 0, .7);
+    z-index: 1000;
 }
 .modal-stylesTables{
     position: fixed;
@@ -14,7 +14,7 @@
     transform: translate(-50%, -50%);
     padding: 30px;
     padding-top: 35px;
-    z-Index: 1000;
+    z-index: 1000;
     width: 50%;
     height: 85%;
     border-radius: 5px;
@@ -79,8 +79,8 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background-Color: rgba(0, 0, 0, .7);
-    z-Index: 1000;
+    background-color: rgba(0, 0, 0, .7);
+    z-index: 1000;
 }
 .modal-stylesManu{
     position: fixed;
@@ -89,7 +89,7 @@
     transform: translate(-50%, -50%);
     /* padding: 30px;
     padding-top: 35px; */
-    z-Index: 1000;
+    z-index: 1000;
     width: 50%;
     height: 85%;
     border-radius: 5px;

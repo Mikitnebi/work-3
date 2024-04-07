@@ -89,7 +89,7 @@ ion-icon{
     color: #777;
     display: block;
     margin-bottom: 50px;
-    font-Family: 'YourCustomFont, sans-serif'
+    font-family: 'YourCustomFont, sans-serif'
 }
 .form-control-first input{
     border: 0.5px solid #8C1D2F;
@@ -133,7 +133,7 @@ ion-icon{
   height: 40px;
   padding: 5px;
   border-radius: 5px;
-  font-Family: 'YourCustomFont, sans-serif';
+  font-family: 'YourCustomFont, sans-serif';
   position: relative;
   display: flex;
   justify-content: center;

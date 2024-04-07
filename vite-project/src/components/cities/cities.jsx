@@ -31,7 +31,7 @@ export default function Cities ( ) {
    
 
       
-  <img className="cities-img1" src="../public/picasso.png" alt="" />
+  <img className="cities-img1" src="../dist/picasso.png" alt="" />
   
       
       <div class="infotop">
@@ -54,7 +54,7 @@ export default function Cities ( ) {
   <div class="wave"></div>
   
 
-  <img className="cities-img2" src="../public/andza.png" alt="" />
+  <img className="cities-img2" src="../dist/andza.png" alt="" />
 
 
       <div class="infotop">
@@ -76,7 +76,7 @@ export default function Cities ( ) {
   <div class="wave"></div>
   <div class="wave"></div>
   
-  <img className="cities-img3" src="../public/ანბანი.png" alt="" />
+  <img className="cities-img3" src="../dist/ანბანი.png" alt="" />
 
 
       <div class="infotop">

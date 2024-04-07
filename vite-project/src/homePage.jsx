@@ -78,7 +78,7 @@ export default function HomePage() {
           loop
           playsInline
           // Specify the path to your video file
-          src="../public/pexels-c-technical-6839664(Original)_1.mp4"
+          src="../dist/pexels-c-technical-6839664(Original)_1.mp4"
         />
               <div className="line"></div>
 
@@ -92,7 +92,7 @@ export default function HomePage() {
             duration={500}
           >
             <div className="title">
-              <img src={!p ? "../public/loglight(1).png" : "../public/img/Group4.png"} alt="Logo" className="header__logo" />
+              <img src={!p ? "../dist/loglight(1).png" : "../dist/img/Group4.png"} alt="Logo" className="header__logo" />
               <span>Mikitani</span>
             </div>
           </ScrollLink>
@@ -271,7 +271,7 @@ export default function HomePage() {
           </ul>
           <ul className="ul-tt">
               <>
-                {/* <ScrollLink
+                <ScrollLink
                   className="register1"
                   to="home"
                   onClick={() => setIsOpenRegistration(true)}
@@ -281,7 +281,7 @@ export default function HomePage() {
                   duration={500}
                 >
                   Sign Up
-                </ScrollLink> */}
+                </ScrollLink>
                 
               </>
             
@@ -290,7 +290,7 @@ export default function HomePage() {
 
 
         
-        {/* <Link
+        <Link
           className={`book-button ${animationClass}`}
           // to="table"
           onClick={() => {setIsOpenRegistration(true); setIsLoginOrRegistration(true)}}
@@ -298,7 +298,7 @@ export default function HomePage() {
 
         >
             დარეგისტრირდი
-        </Link> */}
+        </Link>
         
 
         <LoginModal open={isOpenLogin} onClose={() => setIsOpenLogin(false)}>

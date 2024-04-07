@@ -4,8 +4,8 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background-Color: rgba(62, 61, 61, 0.7);
-    z-Index: 1000;
+    background-color: rgba(62, 61, 61, 0.7);
+    z-index: 1000;
 }
 .modal-styles22{
     width: 50%;
@@ -14,10 +14,10 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    background-Color: #C6B0B4;
+    ;
     padding: 30px;
     padding-top: 35px;
-    z-Index: 1000;
+    z-index: 1000;
     scrollbar-width: none;
     border-radius: 5px;
 display: flex;
@@ -134,7 +134,7 @@ overflow: scroll;
       .button-flex-book {
         display:flex;
         width: 80%;
-        justify-Content: space-between;
+        justify-content: space-between;
         position: absolute;
         bottom: 0;
         left: 10%;

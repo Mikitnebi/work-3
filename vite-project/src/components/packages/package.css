@@ -63,7 +63,7 @@
 }
 
 h1,h2,h3{
-    Font-family: 'Lato','sans-serif','Arial';
+    font-family: 'Lato','sans-serif','Arial';
     font-weight: 300;
     text-transform: uppercase;
 }

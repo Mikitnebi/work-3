@@ -44,7 +44,7 @@ ion-icon{
     color: black;
     display: block;
     margin-bottom: 5px;
-    font-Family: 'YourCustomFont, sans-serif'
+    font-family: 'YourCustomFont, sans-serif'
 }
 .form-control-first input{
     border: 0.5px solid #8C1D2F;
