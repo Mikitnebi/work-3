@@ -323,9 +323,15 @@ justify-content: space-around;
       margin-top: 5%;
 
     }
-    .flip-card {
-      height: 100%;
+    .card1 {
+      width: 80%;
     }
+    .card1 .card1-div {
+      margin-bottom: 13%;
+      margin-top: 13%;
+      height: 60%;
+    }
+    
     .section-features {
       height: 200vh;
     }

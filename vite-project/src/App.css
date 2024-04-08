@@ -350,17 +350,17 @@ nav ion-icon{
   position: relative;
   display: none;
   flex-direction: column;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
   list-style: none;
 cursor: pointer;
 width: 20%;
 margin-right: 3%;
-margin-top: 10%;
+margin-top: 20%;
 }
 .ul-tt-1-bar li{
   text-decoration: none;
-  margin-bottom: 10px;
+  margin-bottom: 20px;
 }
 .close-icon{
 position: absolute;
@@ -453,15 +453,19 @@ top: 0;  visibility: hidden;
 .nonStick .ul-tt-1-bar{
   display: flex;
 }
+
 .nonStick .open-icon{
   visibility: visible;
 }
+
 .nonStick .close-icon{
   visibility: visible;
 }
+
 .title{
   font-size: 15px;
 }
+
 .register,.enter,.requests,.favorites,.home,.book,.login-nav,.register1{
   font-size: 15px;
 }
@@ -483,6 +487,16 @@ color: #8C1D2F;
   display: none;
 
 }
+.ul-tt-1-bar{
+
+  width: 25%;
+  margin-right: 3%;
+  margin-top: 30%;
+  }
+  .ul-tt-1-bar li{
+    text-decoration: none;
+    margin-bottom: 20%;
+  }
 }
 
 /* small phones: from 0 px to 480px */
@@ -498,12 +512,22 @@ color: #8C1D2F;
   .stick .login-nav,.stick .register,.stick .register1,.stick .slash,.stick .requests,.stick .favorites,.stick .home,.stick .book,.stick .title span ,.stick .ul-tt,.stick .ul-tt-1 span,.stick .usernameForShow{
     color: black;
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-    font-size: 12px;
+    font-size: 10px;
   }
   .title{
     font-size: 13px;
   }
   .register,.enter,.requests,.favorites,.home,.book,.login-nav,.register1{
     font-size: 13px;
+  }
+  .ul-tt-1-bar{
+
+  width: 30%;
+  margin-right: 3%;
+  margin-top: 40%;
+  }
+  .ul-tt-1-bar li{
+    text-decoration: none;
+    margin-bottom: 25%;
   }
 }
