@@ -191,7 +191,7 @@ h3{
 
   }
   .section-plans{
-    height: 320vh;
+    height: 300vh;
   }
 
   .plan-price{ 
@@ -235,15 +235,14 @@ h3{
 @media only screen and (max-width: 480px){
   .row2{
     flex-direction: column;
+     width: 100%; 
+     height: 90%;
+     margin-top: 0%;
+ 
+   }
 
-    width: 100%; 
-    height: 0%;
-    margin-bottom: 0%;
-    margin-top: 0%;
-  }
-
-  .section-plans {
-    height: auto;
+  .section-plans{
+    height: 300vh;
   }
   .section-plans h2 {
     font-size: 1.2rem;
@@ -251,7 +250,7 @@ h3{
   .col3{
     width: 90%;
 
-    height: 28%;
+    height: auto;
     
   }
 }
