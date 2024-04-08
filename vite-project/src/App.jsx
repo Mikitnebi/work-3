@@ -92,8 +92,7 @@ function App() {
   
     </header> */}
 
-<img src="../public/portrait-of-random-person-on-leafy-background-8xtpcwzjlw7vbi63.jpg" alt="" />
-{/* 
+
           <Routes>
             <Route path='/finalRegistration' element={<LastRegistration/>}/>
             <Route path='/home' element={<MainScreen stateRestaurant={stateRestaurant}/>}/>
@@ -117,7 +116,7 @@ function App() {
 
 
 
-          </Routes> */}
+          </Routes>
           
     </StoreContextRecipe.Provider>
 

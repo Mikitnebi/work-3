@@ -92,7 +92,7 @@ export default function HomePage() {
             duration={500}
           >
             <div className="title">
-              <img src={!p ? "../public/loglight(1).png" : "../public/img/Group4.png"} alt="Logo" className="header__logo" />
+              <img src={!p ? "../public/img/loglight(1).png" : "../public/img/Group4.png"} alt="Logo" className="header__logo" />
               <span>Mikitani</span>
             </div>
           </ScrollLink>
