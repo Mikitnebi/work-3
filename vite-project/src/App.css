@@ -156,7 +156,7 @@ font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
   position: relative;
 }
 .background-video {
-  position: absolute; /* Position the video absolutely within the header */
+  position: fixed; /* Position the video absolutely within the header */
   top: 0;
   left: 0;
   width: 100%; /* Make the video cover the entire header width */
