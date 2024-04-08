@@ -503,7 +503,7 @@ color: #8C1D2F;
 
 @media only screen and (max-width: 480px){
   .title img{
-    width: 25px;
+    width: 30px;
   }
   .line{
     display: none;
