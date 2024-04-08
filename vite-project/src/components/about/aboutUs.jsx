@@ -28,12 +28,18 @@ export default function AboutUs() {
         <span class="red"></span>
         <span class="red"></span>
         <span class="red"></span>
+    </div> 
+    <div className='card1-div'>
+    <ion-icon name="bookmark-outline" ></ion-icon>
+     <h1>რეზერვაცია</h1>
     </div>
-    <h1>რეზერვაცია</h1>
-    
-    <p>
+
+<div>
+<p>
         Lorem ipsum, dolor sit amet consectetur adipisicing elit. Unde explicabo enim rem odio assumenda?
     </p>
+</div>
+  
 </div>
 
 
@@ -45,11 +51,17 @@ export default function AboutUs() {
 <span class="red"></span>
 <span class="red"></span>
 </div>
+<div className='card1-div'>
+         <ion-icon name="grid-outline"></ion-icon> 
 
-    <h1>მაგიდების მენეჯმენტი</h1>
-    <p>
+<h1>მაგიდების მენეჯმენტი</h1>
+</div>
+
+<div>
+<p>
         Lorem ipsum, dolor sit amet consectetur adipisicing elit. Unde explicabo enim rem odio assumenda?
     </p>
+</div>
 </div>
 
 
@@ -61,10 +73,15 @@ export default function AboutUs() {
 <span class="red"></span>
 <span class="red"></span>
 </div>
-    <h1>ელ-მენიუ</h1>
-    <p>
+<div className='card1-div'>
+<ion-icon name="qr-code-outline"></ion-icon>
+<h1>ელ-მენიუ</h1>
+</div>
+<div>
+<p>
         Lorem ipsum, dolor sit amet consectetur adipisicing elit. Unde explicabo enim rem odio assumenda?
     </p>
+</div>
 </div>
 
 
@@ -76,11 +93,16 @@ export default function AboutUs() {
 <span class="red"></span>
 <span class="red"></span>
 </div>
+<div className='card1-div'>
+<ion-icon name="qr-code-outline"></ion-icon>
+<h1>qr-კოდები</h1>
 
-    <h1>qr-კოდები</h1>
-    <p>
+</div>
+<div>
+<p>
         Lorem ipsum, dolor sit amet consectetur adipisicing elit. Unde explicabo enim rem odio assumenda?
     </p>
+</div>
 </div>
    
         </div>

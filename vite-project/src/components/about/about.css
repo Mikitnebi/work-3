@@ -132,7 +132,7 @@ justify-content: space-around;
 
 .card1 {
   width:  22%;
-  height: 35%;
+  height: 70%;
   padding: 0.5rem;
   background: #8C1D2F;
   border-radius: 8px;
@@ -144,8 +144,15 @@ justify-content: space-around;
   transition: .4s;
   overflow: hidden;
   color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
 }
-
+.card1 ion-icon{
+  color: wheat;
+  font-size: 200%;
+}
 .card1:hover {
   height: 100%;
   transform: skew(0deg);
@@ -157,8 +164,15 @@ justify-content: space-around;
   flex-direction: row;
   gap: 5px;
   align-self: flex-start;
+  height: 20%;
 }
-
+.card1 p{
+ 
+  font-size: 15px;
+}
+.card1 div:last-child{
+  height: 25%;
+}
 .red {
   width: 10px;
   height: 10px;
@@ -183,33 +197,34 @@ justify-content: space-around;
   box-shadow: -5px 5px 5px rgba(0, 0, 0, 0.280);
 }
 
-.card1 h1 {
-  text-align: center;
-  color: white;
-  text-shadow: -10px 5px 10px rgba(0, 0, 0, 0.573);
+.card1 .card1-div {
+  margin-bottom: 20%;
+  margin-top: 20%;
+  height: 60%;
+}
+
+.card1-div h1{
   font-size: 15px;
-  margin: 1.4rem;
+  text-shadow: -10px 5px 10px rgba(0, 0, 0, 0.573);
+  color: white;
+  text-align: center;
 
 }
 
 
 
 @media only screen and (max-width: 1200px){
-  .flip-card {
-    width: 23%;
-    height: 90%;
-    font-family: sans-serif;
-  }
+
   .section-features{
     justify-content: space-around;
     height: 100vh;
   }
-
-  .title-flip {
-    font-size: 1em;
-    font-weight: 800;
-
+  .card1 .card1-div {
+    margin-bottom: 22%;
+    margin-top: 22%;
+    height: 60%;
   }
+
   .section-features .aboutH2 {
     font-size: 3rem;
   }
@@ -234,22 +249,32 @@ justify-content: space-around;
       width: 100%; 
       height: 90%;
     }
-    .flip-card {
-      width: 80%;
-      height: 95%;
+    .card1 {
+      width: 60%;
+      height: 55%;
       font-family: sans-serif;
       margin: 0 auto;
     }
     .section-features {
       height: 120vh;
     }
-
-    .title-flip {
-      font-size: 1em;
-      font-weight: 800;
-
+    .card1 .card1-div {
+      margin-bottom: 17%;
+      margin-top: 17%;
+      height: 60%;
     }
     
+    .card1-div h1{
+      font-size: 13px;
+      text-shadow: -10px 5px 10px rgba(0, 0, 0, 0.573);
+      color: white;
+      text-align: center;
+    
+    }.card1 p{
+ 
+      font-size: 14px;
+    }
+   
   }
   
   /* small phones to small tablets: from 480 px to 767px */
@@ -275,11 +300,13 @@ justify-content: space-around;
       width: 100%; 
       height: 90%;
     }
-    .flip-card {
-      width: 80%;
-      height: 90%;
-      font-family: sans-serif;
-      margin: 0 auto;
+
+    .card1 div:last-child{
+      height: 30%;
+    }
+    .card1 p{
+ 
+      font-size: 12px;
     }
   }
   
@@ -289,7 +316,7 @@ justify-content: space-around;
     .about-us-section{
       display: grid;
       grid-template-columns: repeat(1, 1fr); /* Two columns with equal width */
-      grid-gap: 5%; /* Adjust the gap between items */  
+      grid-gap: 2%; /* Adjust the gap between items */  
       width: 80%; 
       height: 100%;
       margin-bottom: 5%;
