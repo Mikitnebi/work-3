@@ -289,7 +289,7 @@ export default function HomePage() {
         </nav>
 
 
-        
+        <div className='button-div-home'>
         <Link
           className={`book-button ${animationClass}`}
           // to="table"
@@ -299,6 +299,9 @@ export default function HomePage() {
         >
             დარეგისტრირდი
         </Link>
+        <img src="../public/press-button.png" alt="" />
+        </div>
+        
         
 
         <LoginModal open={isOpenLogin} onClose={() => setIsOpenLogin(false)}>

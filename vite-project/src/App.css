@@ -67,34 +67,7 @@ letter-spacing: 5px;
 font-size: 30px;
 font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
-.book-button {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: absolute;
-  top: 70%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 200px;
-  height: 40px;
-  outline: none;
-  background-color: #8C1D2F;
-  border: 1px solid #8C1D2F;
-  border-radius: 10px;
-  color: white;
-  text-decoration: none;
-  font-size: 15px;
-  letter-spacing: 1px;
-  transition: transform 0.3s; /* Apply transition to transform property */
-  opacity: 0.8;
-}
 
-.book-button:hover {
-  transform: translate(-50%, -50%) scale(1.15); /* Combine transformations */
-  color: white;
-  opacity: 1;
-
-}
 
 
 
@@ -214,6 +187,50 @@ font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 .register:hover,.register1:hover,.requests:hover,.favorites:hover,.home:hover,.book:hover,.login-nav:hover{
   transition: 0.3s;
   color: #8C1D2F;
+}
+.book-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+ 
+  width: 200px;
+  height: 40px;
+  outline: none;
+  background-color: #8C1D2F;
+  border: 1px solid #8C1D2F;
+  border-radius: 10px;
+  color: white;
+  text-decoration: none;
+  font-size: 15px;
+  letter-spacing: 1px;
+  transition: transform 0.3s; /* Apply transition to transform property */
+  opacity: 0.7;
+}
+
+.book-button:hover {
+  color: white;
+  opacity: 1;
+
+}
+.button-div-home:hover{
+  transform: translate(-50%, -50%) scale(1.15); /* Combine transformations */
+transition: 0.3s;
+}
+.button-div-home{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: 70%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.button-div-home img{
+  width: 40px;
+  height: auto;
+  margin-top: 1%;
+  
 }
 .stick{
   position: fixed;
@@ -424,10 +441,7 @@ top: 0;  visibility: hidden;
     display: flex;
     align-items: center;
     justify-content: center;
-    position: absolute;
-    top: 65%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+
     width: 200px;
     height: 40px;
     font-size: 15px;
