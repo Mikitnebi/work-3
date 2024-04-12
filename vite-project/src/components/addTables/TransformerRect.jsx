@@ -6,7 +6,7 @@ const TransformableRectangle = ({isEdit , shapeProps, isSelected, onSelect, onCh
   const trRef = useRef();
 
   useEffect(() => {
-    if (isSelected) {
+    if (isSelected && isEdit && trRef.current) {
       // Attach transformer manually when the shape is selected
       trRef.current.nodes([shapeRef.current]);
       trRef.current.getLayer().batchDraw();
@@ -53,7 +53,7 @@ const TransformableRectangle = ({isEdit , shapeProps, isSelected, onSelect, onCh
         fillPatternRepeat={fillPatternRepeat}
 
         />
-      {isSelected && (
+      {isSelected && isEdit && (
         <Transformer
           ref={trRef}
           boundBoxFunc={(oldBox, newBox) => {

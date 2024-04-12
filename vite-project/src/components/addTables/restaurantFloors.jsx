@@ -745,9 +745,9 @@ loadImageArrayGrey2()
 
   yourBackgroundImage.src = '../../../public/flooraxali.png';
 
-  backgroundImage.src = '../../../public/light33.png';
-  backgroundImage1.src = '../../../public/light21.png';
-  backgroundImage2.src = '../../../public/Rectangle70.png';
+  // backgroundImage.src = '../../../public/light33.png';
+  // backgroundImage1.src = '../../../public/light21.png';
+  // backgroundImage2.src = '../../../public/Rectangle70.png';
 
 
   const options = ["ჩვეულებრივი მაგიდა","დარბაზის მაგიდა","მაგიდა კუპეში",'მაგიდა ღიაცისქვეშ','მაგიდა ტერასაზე','ფაცხა',"დამატებითი ოფცია"];
@@ -889,7 +889,7 @@ console.log(shapes)
 
       </div>
 
-      <Stage style={{ position: "absolute", left: '1%', marginTop: '10%', }}  backgroundImage={backgroundImage} width={extractWidth(selectWidth)*3.4} height={extractWidth(selectHeight)*4.6} onClick={handleStageClick} onTouchEnd={handleStageClick}>
+      <Stage style={{ position: "absolute", left: '1%', marginTop: '10%', }}  width={extractWidth(selectWidth)*3.4} height={extractWidth(selectHeight)*4.6} onClick={handleStageClick} onTouchEnd={handleStageClick}>
         <Layer>
           {/* {renderGrid()} */}
       <Rect
@@ -911,6 +911,7 @@ console.log(shapes)
               <React.Fragment key={index}>
                 {shape.type === 'rectangle' && (
                  <TransformableRectangle
+                 isEdit={true}
                  shapeProps={shape}
                  isSelected={isSelected}
                  onSelect={() => handleShapeClick(index)}
@@ -926,6 +927,8 @@ console.log(shapes)
                 {shape.type === 'circle' && (
                   
                   <TransformableCircle
+                  isEdit={true}
+
                  shapeProps={shape}
                  isSelected={isSelected}
                  onSelect={() => handleShapeClick(index)}
@@ -943,6 +946,8 @@ console.log(shapes)
 
                 {shape.type === 'square' && (
                    <TransformableThird
+                   isEdit={true}
+
                    shapeProps={shape}
                    isSelected={isSelected}
                    onSelect={() => handleShapeClick(index)}
@@ -957,6 +962,8 @@ console.log(shapes)
 
               {shape.type === 'ladder' && (
                   <TransformableLedder
+                  isEdit={true}
+
                   shapeProps={shape}
                   isSelected={isSelected}
                   onSelect={() => handleShapeClick(index)}
@@ -972,6 +979,8 @@ console.log(shapes)
 
 {shape.type === 'door' && (
                   <TransformableDoor
+                  isEdit={true}
+
                   shapeProps={shape}
                   isSelected={isSelected}
                   onSelect={() => handleShapeClick(index)}

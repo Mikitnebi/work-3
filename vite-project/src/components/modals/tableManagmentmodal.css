@@ -243,3 +243,55 @@
   width: 40%;
   justify-content: space-between;
  }
+
+ .doYouHave-modal{
+  position: absolute;
+  width: 70%;
+height: auto;
+display: flex;
+align-items: center;
+justify-content: center;
+}
+.doYouHave-modal div{
+  border: 1.5px solid #58121D;
+padding: 5%;
+border-radius: 10px;
+font-family: "YourCustomFont";
+width: 100%;
+display: flex;
+align-items: center;
+justify-content: space-between;
+background-color: #C6B0B4;
+
+}
+
+.doYouHave-modal div span:first-child{
+  border: 1.5px solid #8C1D2F;
+  padding: 5px;
+  border-radius: 5px;
+  color: white;
+  background-color: #8C1D2F;
+  height: auto;
+  cursor: pointer;
+  margin-right: 2%;
+}
+
+
+.doYouHave-modal div span:last-child{
+  cursor: pointer;
+
+  border: 1.5px solid #181516;
+  padding: 5px;
+  border-radius: 5px;
+  color: white;
+  background-color: #181516;
+  height: auto;
+}
+
+.doYouHave-modal ion-icon{
+  color: #58121D;
+  position: absolute;
+  top: 1%;
+  right: 1%;
+  cursor: pointer;
+}

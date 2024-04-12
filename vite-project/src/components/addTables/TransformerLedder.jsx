@@ -6,7 +6,7 @@ const TransformableLedder = ({isEdit, shapeProps, isSelected, onSelect, onChange
   const trRef = useRef();
 
   useEffect(() => {
-    if (isSelected) {
+    if (isSelected && isEdit && trRef.current) {
       // Attach transformer manually when the shape is selected
       trRef.current.nodes([shapeRef.current]);
       trRef.current.getLayer().batchDraw();
@@ -54,7 +54,7 @@ const TransformableLedder = ({isEdit, shapeProps, isSelected, onSelect, onChange
         stroke={stroke}
         strokeWidth={strokeWidth}
       />
-      {isSelected && (
+      {isSelected && isEdit && (
         <Transformer
           ref={trRef}
           boundBoxFunc={(oldBox, newBox) => {

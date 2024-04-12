@@ -46,7 +46,7 @@ export default function Help () {
 <ul> 
             <div className='restaurant-image-name'>
                 <div>
-                <img className='restaurant-image' src="../../../public/jason-leung-poI7DelFiVA-unsplash.jpg" alt="" />
+                <img className='restaurant-image' src="../../../public/custom-restaurant-tables-david-stine+4.jpg" alt="" />
 
                 </div>
                 <div>
@@ -62,10 +62,10 @@ export default function Help () {
             to="/homePage/tables"
             style={({ isActive }) => {
                 return isActive ? {
-                    backgroundColor: "#D9D9D9",
+                    backgroundColor: "#58121D",
                     borderTopLeftRadius: '10px',
                     borderBottomLeftRadius: '10px',
-                    color: '#8C1D2F',
+                    color: '#ffffff',
                     fontWeight: '700'
                 } : null
             }}
@@ -78,7 +78,7 @@ export default function Help () {
                 className='homePage-images'
                 src={
                     hoveredIndex === 1 || location.pathname === "/homePage/tables"
-                        ? "../../../public/homePage/მაგიდებიწ.png"
+                        ? "../../../public/homePage/მაგიდებით.png"
                         : "../../../public/homePage/მაგიდებით.png"
                 }
                 alt=""
@@ -92,10 +92,10 @@ export default function Help () {
                     to="/homePage/menu"
                     style={({ isActive }) => {
                         return isActive ? {
-                            backgroundColor: "#D9D9D9",
+                            backgroundColor: "#58121D",
                             borderTopLeftRadius: '10px',
                             borderBottomLeftRadius: '10px',
-                            color: '#8C1D2F',
+                            color: '#ffffff',
                             fontWeight: '700'
                         } : null
                     }}
@@ -107,7 +107,7 @@ export default function Help () {
                 className='homePage-images' 
                 src={
                     hoveredIndex === 2 || location.pathname === "/homePage/menu"
-                        ? "../../../public/homePage/მენიუწ.png"
+                        ? "../../../public/homePage/მენიუთ.png"
                         : "../../../public/homePage/მენიუთ.png"
                 }
                 alt="" 
@@ -122,10 +122,10 @@ export default function Help () {
                     to="/homePage/stuff"
                     style={({ isActive }) => {
                 return isActive ? {
-                    backgroundColor: "#D9D9D9",
+                    backgroundColor: "#58121D",
                     borderTopLeftRadius: '10px',
                     borderBottomLeftRadius: '10px',
-                    color: '#8C1D2F',
+                    color: '#ffffff',
                     fontWeight: '700'
                 } : null
             }}
@@ -137,7 +137,7 @@ export default function Help () {
                 className='homePage-images' 
                 src={
                     hoveredIndex === 3 || location.pathname === "/homePage/stuff"
-                        ? "../../../public/homePage/სტაფიწ.png"
+                        ? "../../../public/homePage/სტაფით.png"
                         : "../../../public/homePage/სტაფით.png"
                 }
                 alt="" 
@@ -154,10 +154,10 @@ export default function Help () {
                     to="/homePage/statistics"
                     style={({ isActive }) => {
                 return isActive ? {
-                    backgroundColor: "#D9D9D9",
+                    backgroundColor: "#58121D",
                     borderTopLeftRadius: '10px',
                     borderBottomLeftRadius: '10px',
-                    color: '#8C1D2F',
+                    color: '#ffffff',
                     fontWeight: '700'
                 } : null
             }}
@@ -169,7 +169,7 @@ export default function Help () {
                 className='homePage-images' 
                 src={
                     hoveredIndex === 4 || location.pathname === "/homePage/statistics"
-                        ? "../../../public/homePage/სტატისტიკაწ.png"
+                        ? "../../../public/homePage/სტატისტიკათ.png"
                         : "../../../public/homePage/სტატისტიკათ.png"
                 }
                 alt="" 
@@ -186,10 +186,10 @@ export default function Help () {
                     to="/homePage/offers"
                     style={({ isActive }) => {
                 return isActive ? {
-                    backgroundColor: "#D9D9D9",
+                    backgroundColor: "#58121D",
                     borderTopLeftRadius: '10px',
                     borderBottomLeftRadius: '10px',
-                    color: '#8C1D2F',
+                    color: '#ffffff',
                     fontWeight: '700'
                 } : null
             }}
@@ -201,7 +201,7 @@ export default function Help () {
                 className='homePage-images' 
                 src={
                     hoveredIndex === 5 || location.pathname === "/homePage/offers"
-                        ? "../../../public/homePage/აქციებიწ.png"
+                        ? "../../../public/homePage/აქციებით.png"
                         : "../../../public/homePage/აქციებით.png"
                 }
                 alt="" 
@@ -218,10 +218,10 @@ export default function Help () {
                     to="/homePage/discounts"
                     style={({ isActive }) => {
                 return isActive ? {
-                    backgroundColor: "#D9D9D9",
+                    backgroundColor: "#58121D",
                     borderTopLeftRadius: '10px',
                     borderBottomLeftRadius: '10px',
-                    color: '#8C1D2F',
+                    color: '#ffffff',
                     fontWeight: '700'
                 } : null
             }}
@@ -233,7 +233,7 @@ export default function Help () {
                 className='homePage-images' 
                 src={
                     hoveredIndex === 6 || location.pathname === "/homePage/discounts"
-                        ? "../../../public/homePage/სეილწ.png"
+                        ? "../../../public/homePage/სეილთ.png"
                         : "../../../public/homePage/სეილთ.png"
                 }
                 alt="" 
@@ -250,10 +250,10 @@ export default function Help () {
                     to="/homePage/distribution"
                     style={({ isActive }) => {
                 return isActive ? {
-                    backgroundColor: "#D9D9D9",
+                    backgroundColor: "#58121D",
                     borderTopLeftRadius: '10px',
                     borderBottomLeftRadius: '10px',
-                    color: '#8C1D2F',
+                    color: '#ffffff',
                     fontWeight: '700'
                 } : null
             }}
@@ -265,7 +265,7 @@ export default function Help () {
                 className='homePage-images' 
                 src={
                     hoveredIndex === 7 || location.pathname === "/homePage/distribution"
-                        ? "../../../public/homePage/დისტრწ.png"
+                        ? "../../../public/homePage/დისტრთ.png"
                         : "../../../public/homePage/დისტრთ.png"
                 }
                 alt="" 
@@ -282,10 +282,10 @@ export default function Help () {
                     to="/homePage/myProfile"
                     style={({ isActive }) => {
                 return isActive ? {
-                    backgroundColor: "#D9D9D9",
+                    backgroundColor: "#58121D",
                     borderTopLeftRadius: '10px',
                     borderBottomLeftRadius: '10px',
-                    color: '#8C1D2F',
+                    color: '#ffffff',
                     fontWeight: '700'
                 } : null
             }}
@@ -297,7 +297,7 @@ export default function Help () {
                 className='homePage-images' 
                 src={
                     hoveredIndex === 8 || location.pathname === "/homePage/myProfile"
-                        ? "../../../public/homePage/accountw.png"
+                        ? "../../../public/homePage/accountt.png"
                         : "../../../public/homePage/accountt.png"
                 }
                 alt="" 
@@ -314,10 +314,10 @@ export default function Help () {
                     to="/homePage/help"
                     style={({ isActive }) => {
                 return isActive ? {
-                    backgroundColor: "#D9D9D9",
+                    backgroundColor: "#58121D",
                     borderTopLeftRadius: '10px',
                     borderBottomLeftRadius: '10px',
-                    color: '#8C1D2F',
+                    color: '#ffffff',
                     fontWeight: '700'
                 } : null
             }}
@@ -329,7 +329,7 @@ export default function Help () {
                 className='homePage-images' 
                 src={
                     hoveredIndex === 9 || location.pathname === "/homePage/help"
-                        ? "../../../public/homePage/დახმარებაწ.png"
+                        ? "../../../public/homePage/დახმარებათ.png"
                         : "../../../public/homePage/დახმარებათ.png"
                 }
                 alt="" 
@@ -346,10 +346,10 @@ export default function Help () {
                     to="/homePage/settings"
                     style={({ isActive }) => {
                 return isActive ? {
-                    backgroundColor: "#D9D9D9",
+                    backgroundColor: "#58121D",
                     borderTopLeftRadius: '10px',
                     borderBottomLeftRadius: '10px',
-                    color: '#8C1D2F',
+                    color: '#ffffff',
                     fontWeight: '700'
                 } : null
             }}
@@ -361,7 +361,7 @@ export default function Help () {
                 className='homePage-images' 
                 src={
                     hoveredIndex === 10 || location.pathname === "/homePage/settings"
-                        ? "../../../public/homePage/სეთინგსწ.png"
+                        ? "../../../public/homePage/სეთინგსთ.png"
                         : "../../../public/homePage/სეთინგსთ.png"
                 }
                 alt="" 

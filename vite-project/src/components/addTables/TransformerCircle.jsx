@@ -6,7 +6,7 @@ const TransformableCircle = ({isEdit, shapeProps, isSelected, onSelect, onChange
   const trRef = useRef();
 
   useEffect(() => {
-    if (isSelected) {
+    if (isSelected && isEdit && trRef.current) {
       // Attach transformer manually when the shape is selected
       trRef.current.nodes([shapeRef.current]);
       trRef.current.getLayer().batchDraw();
@@ -95,7 +95,7 @@ const TransformableCircle = ({isEdit, shapeProps, isSelected, onSelect, onChange
 
 
       />
-      {isSelected && (
+      {isSelected && isEdit && (
         <Transformer
           ref={trRef}
           boundBoxFunc={(oldBox, newBox) => {

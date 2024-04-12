@@ -28,7 +28,8 @@ export default function TableManagment () {
   const [activeOption, setActiveOption] = useState(0);
   const { stateRecipe,dispatchRecipe } = useContext(StoreContextRecipe);
   const [isChangable,setIsChangable] = useState(false)
-
+  const [originalData, setOriginalData] = useState(null);
+  const [changedData, setChangedData] = useState(null);
   const handleOptionClick = (index) => {
     setActiveOption(index);
   };
@@ -56,7 +57,7 @@ export default function TableManagment () {
       second: '2-digit',
     });
 console.log(location.pathname)
-
+const [selectedTableNumber,setSelectedTableNumber] = useState(null)
 const [floors, setFloors] = useState([{ id: uuidv4(), name: 'Floor 1', shapes: [] }]);
 const [currentFloorIndex, setCurrentFloorIndex] = useState(0);
 const [selectedShapeIndex, setSelectedShapeIndex] = useState(null);
@@ -143,7 +144,7 @@ const handleStageClick = (e) => {
 
     if(clickedShape.attrs.x == 30 || clickedShape.attrs.x == 30){
       setSelectedShapeIndex(null);
-
+      console.log('null-stage') 
     } else
     if (
       clickedShape &&
@@ -162,13 +163,15 @@ const handleStageClick = (e) => {
           colorIndex: shapes[shapeIndex].colorIndex || 0,
           isForReservation: shapes[shapeIndex].isForReservation || true,
           rotation: shapes[shapeIndex].rotation || 0,
-          isFree: shapes[shapeIndex].isFree || true,
+          isFree: shapes[shapeIndex].isFree ,
 
 
         });
         setSelectedShapeIndex(shapeIndex);
       }
     } else {
+      console.log('null-stage') 
+
       setSelectedShapeIndex(null);
     }
   }
@@ -291,7 +294,7 @@ const addShape = (shapeType) => {
     colorIndex:0,
     isForReservation:true,
     rotation: 0,
-    isFree:true
+    isFree:true 
 
   });
 };
@@ -315,6 +318,8 @@ const handleShapeDragEnd = (index, newProps) => {
   });
 };
 
+const [selectedTableFree,setSelectedTableFree] = useState(true)
+
 const handleShapeClick = (index) => {
 
   setSelectedShapeIndex(index);
@@ -335,7 +340,14 @@ const handleShapeClick = (index) => {
 
 
   });
-  setIsOpenRegistration(true)
+  if(isChangable){
+    setIsOpenRegistration(true)
+
+  } else {
+    setSelectedTableNumber(shape.tableNumber)
+    setIsOpenSideBar(false)
+    setSelectedTableFree(shape.isFree)
+  }
   
 };
 
@@ -348,6 +360,8 @@ const handleTableDetailsChange = (field, value) => {
     ...prevDetails,
     [field]: value,
   }));
+
+  // console.log(selectedShapeDetails)
 
   // If the changed field is width or height, update the selected shape
   if (field === 'width' || field === 'height') {
@@ -388,11 +402,10 @@ const deleteFloor = () => {
     alert('ბოლო განყოფილებას ვერწაშლით');
   }
 };
-const handleSaveTable = () => {
-  const { tableNumber, maxPeopleAmount, minPeopleAmount, selectedTag, width, height,type,colorIndex,isForReservation,rotation,isFree } = selectedShapeDetails;
-console.log(isForReservation)
+const handleSaveTable = (mode) => {
+  const { tableNumber, maxPeopleAmount, minPeopleAmount, selectedTag, width, height, type, colorIndex, isForReservation, rotation, isFree } = selectedShapeDetails;
   const currentShape = shapes[selectedShapeIndex];
-
+console.log(isFree)
   // Check if table number is modified
   if (tableNumber !== currentShape.tableNumber) {
     // Check if table number is unique across all floors
@@ -403,12 +416,12 @@ console.log(isForReservation)
     if (!isTableNumberUnique) {
       alert('Table number is already used. Please enter a unique table number.');
       return;
-    }
+    } 
   }
 
   if (!selectedTag || selectedTag.length === 0) {
     alert('Please select at least one tag.');
-    return;
+    return; 
   }
 
   // Validate maxPeopleAmount and minPeopleAmount
@@ -450,12 +463,27 @@ console.log(isForReservation)
   setFloors((prevFloors) => {
     const newFloors = [...prevFloors];
     newFloors[currentFloorIndex] = { ...currentFloor, shapes: newShapes };
+    // Save updated version of floors to local storage
+    if(mode == 3){
+      localStorage.setItem('restaurantFloors', JSON.stringify(newFloors));
+
+    }
     return newFloors;
   });
 
-  setSelectedShapeIndex(null);
-  setIsOpenRegistration(false)
+  // Save updated version of floors to local storage
+  // localStorage.setItem('restaurantFloors', JSON.stringify(floors));
+
+  if (mode == 1) {
+    // Mode 1 logic (if any)
+  } else {
+    setSelectedShapeIndex(null);
+    setIsOpenRegistration(false);
+  }
+
+  console.log(floors);
 };
+
 
 
 
@@ -534,8 +562,8 @@ const renderTableNumbers = () => {
 
 
 const handleTableNumberClick = (index) => {
-  console.log('Table number clicked:', index);
-  console.log('Selected shape details:', shapes[index]);
+  // console.log('Table number clicked:', index);
+  // console.log('Selected shape details:', shapes[index]);
   // Continue with your existing logic
   setSelectedShapeIndex(index);
   const shape = shapes[index];
@@ -591,8 +619,10 @@ const handleFinalSave = () => {
     alert('Please add tables to all floors.');
     return;
   }
+  // console.log(floors)
   saveToLocalStorage();
 setIsChangable(false)
+setSelectedTableNumber(null)
   // Perform your final save logic here
 };
 
@@ -602,7 +632,13 @@ useEffect(() => {
   // Load data from local storage on component mount
   loadFromLocalStorage();
 }, []); // Empty dependency array ensures this effect runs only once on mount
+useEffect(() => {
 
+  if(selectedShapeIndex == null && !isOpenSideBar && !isChangable){
+    setIsOpenSideBar(true)
+    console.log(11)
+  }
+}, [selectedShapeIndex]);
 useEffect(() => {
   // Update selectedShapeDetails when selectedShapeIndex changes
   if (selectedShapeIndex !== null) {
@@ -942,9 +978,9 @@ loadImageArrayGrey2Taken()
 
 
 
-const backgroundImage = new Image();
-const backgroundImage1 = new Image();
-const backgroundImage2 = new Image();
+// const backgroundImage = new Image();
+// const backgroundImage1 = new Image();
+// const backgroundImage2 = new Image();
 const backgroundImage3 = new Image();
 const backgroundImage4 = new Image();
 
@@ -955,9 +991,9 @@ const yourBackgroundImage = new Image();
 
 yourBackgroundImage.src = '../../../public/flooraxali.png';
 
-backgroundImage.src = '../../../public/light33.png';
-backgroundImage1.src = '../../../public/light21.png';
-backgroundImage2.src = '../../../public/Rectangle70.png';
+// backgroundImage.src = '../../../public/light33.png';
+// backgroundImage1.src = '../../../public/light21.png';
+// backgroundImage2.src = '../../../public/Rectangle70.png';
 
 
 const options = ["ჩვეულებრივი მაგიდა","დარბაზის მაგიდა","მაგიდა კუპეში",'მაგიდა ღიაცისქვეშ','მაგიდა ტერასაზე','ფაცხა',"დამატებითი ოფცია"];
@@ -996,30 +1032,76 @@ const handleOptionChange1 = (selectedValue) => {
     default:
       return;
   }
+  setSelectedShapeDetails((prevDetails) => ({
+    ...prevDetails,
+    colorIndex: newColorIndex,
+  }));
 
-  const newShapes = shapes.map((shape, index) => {
-    if (index === selectedShapeIndex) {
-      return {
-        ...shape,
-        colorIndex: newColorIndex
-      };
-    }
-    return shape;
-  });
+  // const newShapes = shapes.map((shape, index) => {
+  //   if (index === selectedShapeIndex) {
+  //     return {
+  //       ...shape,
+  //       colorIndex: newColorIndex
+  //     };
+  //   }
+  //   return shape;
+  // });
 
-  setFloors((prevFloors) => {
-    const newFloors = [...prevFloors];
-    newFloors[currentFloorIndex] = { ...currentFloor, shapes: newShapes };
-    return newFloors;
-  });
+  // setFloors((prevFloors) => {
+  //   const newFloors = [...prevFloors];
+  //   newFloors[currentFloorIndex] = { ...currentFloor, shapes: newShapes };
+  //   return newFloors;
+  // });
 };
 
 
 // console.log(floors[currentFloorIndex].name)
 // console.log(selectHeight)
-console.log(shapes)
+// console.log(stateRecipe.requests)
+console.log(selectedShapeIndex)
 
 
+// Function to duplicate data when user clicks on "შეცვლა" button
+const handleEditButtonClick = () => {
+  // Store the original data in the originalData state
+  setOriginalData({ floors, currentFloorIndex });
+  // Duplicate the original data to the changedData state
+  setChangedData({ floors: [...floors], currentFloorIndex });
+  console.log(changedData)
+
+  // Enable editing mode
+  setIsChangable(true);
+  setIsOpenSideBar(false);
+};
+
+// Function to switch back to original data when user clicks on "გამოსვლა" button
+const handleCancelButtonClick = () => {
+  // Restore original data
+  setFloors(originalData.floors);
+  setCurrentFloorIndex(originalData.currentFloorIndex);
+  // Disable editing mode
+  setIsChangable(false);
+  setIsOpenSideBar(true);
+};
+
+// Function to save changes when user clicks on "შენახვა" button
+const handleSaveButtonClick = () => {
+  // Save changes made to the changedData state
+  // console.log(changedData)
+  // setFloors(changedData.floors);
+  // setCurrentFloorIndex(changedData.currentFloorIndex);
+  handleFinalSave();
+  // Disable editing mode
+  setIsChangable(false);
+  setIsOpenSideBar(true);
+};
+
+useEffect(()=>{
+console.log(floors)
+
+},floors)
+
+const [isQuestion,setIsQuestion] = useState(false)
     return (
       <div className={`homePage-container ${isOpenSideBar ? 'sidebar-open' : 'sidebar-closed'}`}>
       <img style={{zIndex:'2000'}} className='home-paige-logo' src="../../../public/img/Group4.png" alt="" />
@@ -1043,7 +1125,7 @@ console.log(shapes)
 <ul> 
             <div className='restaurant-image-name'>
                 <div>
-                <img className='restaurant-image' src="../../../public/jason-leung-poI7DelFiVA-unsplash.jpg" alt="" />
+                <img className='restaurant-image' src="../../../public/custom-restaurant-tables-david-stine+4.jpg" alt="" />
 
                 </div>
                 <div>
@@ -1059,10 +1141,10 @@ console.log(shapes)
             to="/homePage/tables"
             style={({ isActive }) => {
                 return isActive ? {
-                    backgroundColor: "#D9D9D9",
+                    backgroundColor: "#58121D",
                     borderTopLeftRadius: '10px',
                     borderBottomLeftRadius: '10px',
-                    color: '#8C1D2F',
+                    color: '#ffffff',
                     fontWeight: '700'
                 } : null
             }}
@@ -1075,7 +1157,7 @@ console.log(shapes)
                 className='homePage-images'
                 src={
                     hoveredIndex === 1 || location.pathname === "/homePage/tables"
-                        ? "../../../public/homePage/მაგიდებიწ.png"
+                        ? "../../../public/homePage/მაგიდებით.png"
                         : "../../../public/homePage/მაგიდებით.png"
                 }
                 alt=""
@@ -1089,10 +1171,10 @@ console.log(shapes)
                     to="/homePage/menu"
                     style={({ isActive }) => {
                         return isActive ? {
-                            backgroundColor: "#D9D9D9",
+                            backgroundColor: "#58121D",
                             borderTopLeftRadius: '10px',
                             borderBottomLeftRadius: '10px',
-                            color: '#8C1D2F',
+                            color: '#ffffff',
                             fontWeight: '700'
                         } : null
                     }}
@@ -1104,7 +1186,7 @@ console.log(shapes)
                 className='homePage-images' 
                 src={
                     hoveredIndex === 2 || location.pathname === "/homePage/menu"
-                        ? "../../../public/homePage/მენიუწ.png"
+                        ? "../../../public/homePage/მენიუთ.png"
                         : "../../../public/homePage/მენიუთ.png"
                 }
                 alt="" 
@@ -1119,10 +1201,10 @@ console.log(shapes)
                     to="/homePage/stuff"
                     style={({ isActive }) => {
                 return isActive ? {
-                    backgroundColor: "#D9D9D9",
+                    backgroundColor: "#58121D",
                     borderTopLeftRadius: '10px',
                     borderBottomLeftRadius: '10px',
-                    color: '#8C1D2F',
+                    color: '#ffffff',
                     fontWeight: '700'
                 } : null
             }}
@@ -1134,7 +1216,7 @@ console.log(shapes)
                 className='homePage-images' 
                 src={
                     hoveredIndex === 3 || location.pathname === "/homePage/stuff"
-                        ? "../../../public/homePage/სტაფიწ.png"
+                        ? "../../../public/homePage/სტაფით.png"
                         : "../../../public/homePage/სტაფით.png"
                 }
                 alt="" 
@@ -1151,10 +1233,10 @@ console.log(shapes)
                     to="/homePage/statistics"
                     style={({ isActive }) => {
                 return isActive ? {
-                    backgroundColor: "#D9D9D9",
+                    backgroundColor: "#58121D",
                     borderTopLeftRadius: '10px',
                     borderBottomLeftRadius: '10px',
-                    color: '#8C1D2F',
+                    color: '#ffffff',
                     fontWeight: '700'
                 } : null
             }}
@@ -1166,7 +1248,7 @@ console.log(shapes)
                 className='homePage-images' 
                 src={
                     hoveredIndex === 4 || location.pathname === "/homePage/statistics"
-                        ? "../../../public/homePage/სტატისტიკაწ.png"
+                        ? "../../../public/homePage/სტატისტიკათ.png"
                         : "../../../public/homePage/სტატისტიკათ.png"
                 }
                 alt="" 
@@ -1183,10 +1265,10 @@ console.log(shapes)
                     to="/homePage/offers"
                     style={({ isActive }) => {
                 return isActive ? {
-                    backgroundColor: "#D9D9D9",
+                    backgroundColor: "#58121D",
                     borderTopLeftRadius: '10px',
                     borderBottomLeftRadius: '10px',
-                    color: '#8C1D2F',
+                    color: '#ffffff',
                     fontWeight: '700'
                 } : null
             }}
@@ -1198,7 +1280,7 @@ console.log(shapes)
                 className='homePage-images' 
                 src={
                     hoveredIndex === 5 || location.pathname === "/homePage/offers"
-                        ? "../../../public/homePage/აქციებიწ.png"
+                        ? "../../../public/homePage/აქციებით.png"
                         : "../../../public/homePage/აქციებით.png"
                 }
                 alt="" 
@@ -1215,10 +1297,10 @@ console.log(shapes)
                     to="/homePage/discounts"
                     style={({ isActive }) => {
                 return isActive ? {
-                    backgroundColor: "#D9D9D9",
+                    backgroundColor: "#58121D",
                     borderTopLeftRadius: '10px',
                     borderBottomLeftRadius: '10px',
-                    color: '#8C1D2F',
+                    color: '#ffffff',
                     fontWeight: '700'
                 } : null
             }}
@@ -1230,7 +1312,7 @@ console.log(shapes)
                 className='homePage-images' 
                 src={
                     hoveredIndex === 6 || location.pathname === "/homePage/discounts"
-                        ? "../../../public/homePage/სეილწ.png"
+                        ? "../../../public/homePage/სეილთ.png"
                         : "../../../public/homePage/სეილთ.png"
                 }
                 alt="" 
@@ -1247,10 +1329,10 @@ console.log(shapes)
                     to="/homePage/distribution"
                     style={({ isActive }) => {
                 return isActive ? {
-                    backgroundColor: "#D9D9D9",
+                    backgroundColor: "#58121D",
                     borderTopLeftRadius: '10px',
                     borderBottomLeftRadius: '10px',
-                    color: '#8C1D2F',
+                    color: '#ffffff',
                     fontWeight: '700'
                 } : null
             }}
@@ -1262,7 +1344,7 @@ console.log(shapes)
                 className='homePage-images' 
                 src={
                     hoveredIndex === 7 || location.pathname === "/homePage/distribution"
-                        ? "../../../public/homePage/დისტრწ.png"
+                        ? "../../../public/homePage/დისტრთ.png"
                         : "../../../public/homePage/დისტრთ.png"
                 }
                 alt="" 
@@ -1279,10 +1361,10 @@ console.log(shapes)
                     to="/homePage/myProfile"
                     style={({ isActive }) => {
                 return isActive ? {
-                    backgroundColor: "#D9D9D9",
+                    backgroundColor: "#58121D",
                     borderTopLeftRadius: '10px',
                     borderBottomLeftRadius: '10px',
-                    color: '#8C1D2F',
+                    color: '#ffffff',
                     fontWeight: '700'
                 } : null
             }}
@@ -1294,7 +1376,7 @@ console.log(shapes)
                 className='homePage-images' 
                 src={
                     hoveredIndex === 8 || location.pathname === "/homePage/myProfile"
-                        ? "../../../public/homePage/accountw.png"
+                        ? "../../../public/homePage/accountt.png"
                         : "../../../public/homePage/accountt.png"
                 }
                 alt="" 
@@ -1311,10 +1393,10 @@ console.log(shapes)
                     to="/homePage/help"
                     style={({ isActive }) => {
                 return isActive ? {
-                    backgroundColor: "#D9D9D9",
+                    backgroundColor: "#58121D",
                     borderTopLeftRadius: '10px',
                     borderBottomLeftRadius: '10px',
-                    color: '#8C1D2F',
+                    color: '#ffffff',
                     fontWeight: '700'
                 } : null
             }}
@@ -1326,7 +1408,7 @@ console.log(shapes)
                 className='homePage-images' 
                 src={
                     hoveredIndex === 9 || location.pathname === "/homePage/help"
-                        ? "../../../public/homePage/დახმარებაწ.png"
+                        ? "../../../public/homePage/დახმარებათ.png"
                         : "../../../public/homePage/დახმარებათ.png"
                 }
                 alt="" 
@@ -1343,10 +1425,10 @@ console.log(shapes)
                     to="/homePage/settings"
                     style={({ isActive }) => {
                 return isActive ? {
-                    backgroundColor: "#D9D9D9",
+                    backgroundColor: "#58121D",
                     borderTopLeftRadius: '10px',
                     borderBottomLeftRadius: '10px',
-                    color: '#8C1D2F',
+                    color: '#ffffff',
                     fontWeight: '700'
                 } : null
             }}
@@ -1358,7 +1440,7 @@ console.log(shapes)
                 className='homePage-images' 
                 src={
                     hoveredIndex === 10 || location.pathname === "/homePage/settings"
-                        ? "../../../public/homePage/სეთინგსწ.png"
+                        ? "../../../public/homePage/სეთინგსთ.png"
                         : "../../../public/homePage/სეთინგსთ.png"
                 }
                 alt="" 
@@ -1376,9 +1458,14 @@ console.log(shapes)
             </div>
         </nav>
         <div style={{position:'relative'}} className='content-container'>
-          <div style={(isOpenSideBar || isChangable)  ? {display:'none'} : null} className='reservations-bar'>
 
-                  <div className='reservation-types'>
+          <div style={(isOpenSideBar || isChangable)  ? {display:'none'} : null} className='reservations-bar'>
+                  {
+                    !selectedTableNumber && 
+                    <>
+                      <ion-icon onClick={()=>{setIsOpenSideBar(!isOpenSideBar);setSelectedTableNumber(null)}}  size='medium' name="close"></ion-icon>
+                      
+<div className='reservation-types'>
                     
                     <div 
                       style={activeOption == 0 ? {color:'white'} : {color:"#C6B0B4"}} 
@@ -1399,7 +1486,7 @@ console.log(shapes)
                       მოთხოვნები
                     </div>
                   </div>
-                  <div>
+                  <div className='reservations-list'>
                   {stateRecipe.requests
       .filter(request => (activeOption == 0 ? request.status : !request.status)) // Filter out items with status false
       .map((request, index) => (
@@ -1418,6 +1505,66 @@ console.log(shapes)
         />
       ))}
                   </div>
+                    </>
+                  }
+                  {
+                    (selectedTableNumber && selectedShapeIndex!=null) && 
+                    <>
+                     <div className='table-number-bar'>
+                    მაგიდის ნომერი - 
+                    <span>{selectedTableNumber}</span>
+                  </div>
+
+                    <ion-icon onClick={()=>{setIsOpenSideBar(!isOpenSideBar);setSelectedTableNumber(null)}}  size='medium' name="close"></ion-icon>
+                    <button onClick={()=>{
+                      setIsQuestion(true)
+                      setIsOpenRegistration(true)
+                      const newIsFree = !shapes[selectedShapeIndex].isFree;
+                      handleTableDetailsChange('isFree', newIsFree);
+                      }}>
+                        {
+                          shapes[selectedShapeIndex].isFree ? 
+                          "ანგარიშის გახსნა" :
+                          "ანგარიშის დახურვა"
+                        }
+                      </button>
+                    <div className='reservation-types'>
+                    
+                    <div 
+                      style={activeOption == 0 ? {color:'white'} : {color:"#C6B0B4"}} 
+                      onClick={() => handleOptionClick(0)}
+                    >
+                      მაგიდის ჯავშნები
+                    </div>
+                    
+                  </div>
+                  <div className='reservations-list'>
+                  {stateRecipe.requests
+      .filter(request => (
+        // (activeOption === 0 ? request.status : !request.status) &&
+        request.tableNumber == selectedTableNumber
+    ))
+    .map((request, index) => (
+        <BookCard
+            key={index}
+            name={request.name}
+            person={request.person}
+            aditional={request.aditional}
+            data={formattedDate}
+            img={request.img}
+            id={request.id}
+            status={request.status}
+            position={request.position}
+            tableNumber={request.tableNumber}
+            tableTags={request.tableTags}
+        />
+    ))}
+    
+                  </div>
+                 
+                    </>
+                  }
+                  
           </div>
           {
             isChangable ?
@@ -1442,7 +1589,7 @@ console.log(shapes)
       <input
       className='floor-name'
         type="text"
-        value={floorNames[currentFloorIndex]}
+        value={floors[currentFloorIndex].name}
         onChange={e => handleFloorNameChange(index, e.target.value)}
         placeholder='სართულის სახელი'
       
@@ -1453,9 +1600,10 @@ console.log(shapes)
 
           <FloorSelector floors={floors} currentFloorIndex={currentFloorIndex} onChange={setCurrentFloorIndex} />
         {/* <button className='final-save' onClick={handleFinalSave}>Final Save</button> */}
-        <button onClick={()=>{ setIsChangable(!isChangable)}} className='managment-save'>გამოსვლა</button>
+        {/* <button onClick={()=>{ setIsChangable(!isChangable);setSelectedTableNumber(null)}} className='managment-save'>გამოსვლა</button> */}
 
-        <button onClick={handleFinalSave} className='managment-save'>შენახვა</button>
+        <button onClick={handleFinalSave} className='managment-save'>დასრულება</button>
+
 
       </div>
             </div> :
@@ -1464,11 +1612,11 @@ console.log(shapes)
 
 <div style={!isOpenSideBar? {width:'70%',justifyContent:'space-evenly' } : null}  className='table-managment-top-buttons'>
             {
-              isOpenSideBar &&             <button onClick={()=>{ setIsOpenSideBar(!isOpenSideBar)}}>ჯავშნები</button>
+              isOpenSideBar &&             <button onClick={()=>{ setIsOpenSideBar(!isOpenSideBar);setSelectedTableNumber(null)}}>ჯავშნები</button>
 
             }
             <FloorSelector floors={floors} currentFloorIndex={currentFloorIndex} onChange={setCurrentFloorIndex} />
-             <button onClick={()=>{ setIsChangable(!isChangable);setIsOpenSideBar(!isOpenSideBar)}} >
+            <button onClick={()=>{ setIsChangable(!isChangable);setIsOpenSideBar(false)}} >
              შეცვლა
               
               </button>
@@ -1476,7 +1624,7 @@ console.log(shapes)
           }
           
      
-        <Stage style={{ position: "absolute", right: '5%', top:"8%", }}   width={extractWidth(selectWidth)*3.4} height={extractWidth(selectHeight)*4.6} onClick={handleStageClick} onTouchEnd={handleStageClick}>
+        <Stage style={{ position: "absolute", right: '5%', top:"8%", }}   width={extractWidth(selectWidth)*3.4} height={extractWidth(selectHeight)*4.4} onClick={handleStageClick} onTouchEnd={handleStageClick}>
         <Layer>
           {/* {renderGrid()} */}
       <Rect
@@ -1576,7 +1724,7 @@ console.log(shapes)
                 />
                 )}
 
-                {isSelected && (
+                {isSelected  && (
                   <Transformer
                   anchorSize={6}
                   borderEnabled={false}
@@ -1598,7 +1746,25 @@ console.log(shapes)
       </Stage>
 
 
-      <TableMenegmentModal       isEdit={!isChangable} handleOptionChange1={handleOptionChange1} options={options} handleCancelTable={handleCancelTable} handleDeleteTable={handleDeleteTable} handleSaveTable={handleSaveTable} shapes={shapes} selectedShapeIndex={selectedShapeIndex} selectWidth={selectWidthPortal} handleTableDetailsChange={handleTableDetailsChange} selectedShapeDetails={selectedShapeDetails}  open={isOpenRegistration} onClose={() => setIsOpenRegistration(false)}/>
+      <TableMenegmentModal 
+        handleFinalSave={handleFinalSave}
+        setSelectedTableNumber={setSelectedTableNumber} 
+        setIsOpenRegistration={setIsOpenRegistration}  
+        isQuestion={isQuestion}  
+        setIsQuestion={setIsQuestion}    
+        isEdit={!isChangable} 
+        handleOptionChange1={handleOptionChange1} 
+        options={options} 
+        handleCancelTable={handleCancelTable} 
+        handleDeleteTable={handleDeleteTable} 
+        handleSaveTable={handleSaveTable} 
+        shapes={shapes} 
+        selectedShapeIndex={selectedShapeIndex} 
+        selectWidth={selectWidthPortal} 
+        handleTableDetailsChange={handleTableDetailsChange} 
+        selectedShapeDetails={selectedShapeDetails}  
+        open={isOpenRegistration} 
+        onClose={() => {setIsOpenRegistration(false);setIsQuestion(false)}}/>
 
 
      
