@@ -508,11 +508,10 @@ const handleDeleteTable = () => {
   setIsOpenRegistration(false)
 };
 
-
 const FloorSelector = ({ floors, currentFloorIndex, onChange }) => (
-  <select style={{borderWidth:'2px', borderRadius:'5px',width:'30%',height:'100%',backgroundColor:'#C6B0B4',color:'#8C1D2F'}} value={currentFloorIndex} onChange={(e) => onChange(parseInt(e.target.value))}>
+  <select style={{borderWidth:'2px', borderRadius:'5px',width:'30%',height:'100%',backgroundColor:'#C6B0B4',color:'#8C1D2F',fontFamily: 'YourCustomFont, sans-serif'}} value={currentFloorIndex} onChange={(e) => onChange(parseInt(e.target.value))}>
     {floors.map((floor, index) => (
-      <option  key={floor.id} value={index}>
+      <option   key={floor.id} value={index}>
         {floors[index].name}
       </option>
     ))}
@@ -1581,12 +1580,19 @@ const [isQuestion,setIsQuestion] = useState(false)
 
       <div style={{  display: 'flex',width:'60%',alignItems:'center',height:'40%' }}>
 
-        <button onClick={addFloor} className='addFloor-managment'>სართულის დამატება</button>
-        <button onClick={deleteFloor} className='deleteFloor-managment'>სართულის წაშლა</button>
+        <button style={{fontFamily: 'YourCustomFont, sans-serif'}} onClick={addFloor} className='addFloor-managment'>
+          სართულის დამატება
+          <ion-icon  name="add-outline"></ion-icon>
+          </button>
+        <button style={{fontFamily: 'YourCustomFont, sans-serif'}} onClick={deleteFloor} className='deleteFloor-managment'>
+          სართულის წაშლა
+          <ion-icon name="trash-outline"></ion-icon>
+          </button>
         {floors.map((floor, index) => (
   <div key={floor.id}>
     {currentFloorIndex === index && (
       <input
+      style={{fontFamily: 'YourCustomFont, sans-serif'}}
       className='floor-name'
         type="text"
         value={floors[currentFloorIndex].name}
@@ -1602,7 +1608,8 @@ const [isQuestion,setIsQuestion] = useState(false)
         {/* <button className='final-save' onClick={handleFinalSave}>Final Save</button> */}
         {/* <button onClick={()=>{ setIsChangable(!isChangable);setSelectedTableNumber(null)}} className='managment-save'>გამოსვლა</button> */}
 
-        <button onClick={handleFinalSave} className='managment-save'>დასრულება</button>
+        <button       style={{fontFamily: 'YourCustomFont, sans-serif'}}
+ onClick={handleFinalSave} className='managment-save'>დასრულება</button>
 
 
       </div>
@@ -1612,11 +1619,11 @@ const [isQuestion,setIsQuestion] = useState(false)
 
 <div style={!isOpenSideBar? {width:'70%',justifyContent:'space-evenly' } : null}  className='table-managment-top-buttons'>
             {
-              isOpenSideBar &&             <button onClick={()=>{ setIsOpenSideBar(!isOpenSideBar);setSelectedTableNumber(null)}}>ჯავშნები</button>
+              isOpenSideBar &&             <button style={{fontFamily: 'YourCustomFont, sans-serif'}} onClick={()=>{ setIsOpenSideBar(!isOpenSideBar);setSelectedTableNumber(null)}}>ჯავშნები</button>
 
             }
             <FloorSelector floors={floors} currentFloorIndex={currentFloorIndex} onChange={setCurrentFloorIndex} />
-            <button onClick={()=>{ setIsChangable(!isChangable);setIsOpenSideBar(false)}} >
+            <button style={{fontFamily: 'YourCustomFont, sans-serif'}} onClick={()=>{ setIsChangable(!isChangable);setIsOpenSideBar(false)}} >
              შეცვლა
               
               </button>

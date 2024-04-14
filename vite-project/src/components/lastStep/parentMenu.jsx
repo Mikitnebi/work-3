@@ -159,12 +159,12 @@ const ParentMenu = ({ menuData, handleMoveSelectedItems,parentMenu, setParentMen
     <div className="last-step-parent">
       <div  className="menu-flex-parent">
 
-        <button className="move_parent" onClick={() => submit()}>მონიშნულის გადატანა</button>
+        <button style={{fontFamily: 'YourCustomFont, sans-serif'}} className="move_parent" onClick={() => submit()}>მონიშნულის გადატანა</button>
 
         <div className="menu-grid-parent" style={{ marginLeft: '-12%', marginTop: '7%' }}>
           {menuData.map((section, sectionIndex) => (
             <div className="menu-section" key={sectionIndex}>
-              <h3>
+              <h3 style={{fontFamily: 'YourCustomFont, sans-serif'}}>
               <div style={{ display: 'inline-block', position: 'relative',       marginRight:'5px'}}>
   <input
     style={{
@@ -200,7 +200,7 @@ const ParentMenu = ({ menuData, handleMoveSelectedItems,parentMenu, setParentMen
 
                 {section.title}
               </h3>
-              <h3>{section.georgianTitle}</h3>
+              <h3 style={{fontFamily: 'YourCustomFont, sans-serif'}}>{section.georgianTitle}</h3>
               <ul className="ul-last">
                 {section.items.map((item, itemIndex) => (
                   <li key={itemIndex}>
@@ -250,12 +250,12 @@ const ParentMenu = ({ menuData, handleMoveSelectedItems,parentMenu, setParentMen
 
 
                   
-                      <h4>{item.name}</h4>
-                      <h4>{item.georgianName}</h4>
+                      <h4 style={{fontFamily: 'YourCustomFont, sans-serif',marginBottom:'2%',marginTop:'2%'}}>{item.name}</h4>
+                      <h4 style={{fontFamily: 'YourCustomFont, sans-serif',marginBottom:'2%',marginTop:'2%'}}>{item.georgianName}</h4>
 
-                      <p>Price: {item.price}</p>
-                      <p>Description: {item.description}</p>
-                      <p>Georgian Description: {item.georgianDescription}</p>
+                      <p style={{fontFamily: 'YourCustomFont, sans-serif',marginBottom:'2%',marginTop:'2%'}}>Price: {item.price}</p>
+                      <p style={{fontFamily: 'YourCustomFont, sans-serif',marginBottom:'2%',marginTop:'2%'}}>Description: {item.description}</p>
+                      <p style={{fontFamily: 'YourCustomFont, sans-serif',marginBottom:'2%',marginTop:'2%'}}>Georgian Description: {item.georgianDescription}</p>
 
                       {/* Rendering Ingredients and Georgian Ingredients as Select components */}
                       <Select
@@ -270,6 +270,9 @@ const ParentMenu = ({ menuData, handleMoveSelectedItems,parentMenu, setParentMen
                             '&:hover': {
                               borderColor: '#8C1D2F', // Change border color on hover
                             },
+                            marginBottom:'2%',
+                            marginTop:'2%',
+                            fontFamily: 'YourCustomFont, sans-serif',
                             width: '270px',
                             backgroundColor: '#D9D9D9',
                             outline: 'none', // Remove default outline,
@@ -300,6 +303,8 @@ const ParentMenu = ({ menuData, handleMoveSelectedItems,parentMenu, setParentMen
                             '&:hover': {
                               borderColor: '#8C1D2F', // Change border color on hover
                             },
+                            marginBottom:'2%',marginTop:'2%',
+                            fontFamily: 'YourCustomFont, sans-serif',
                             width: '270px',
                             backgroundColor: '#D9D9D9',
                             outline: 'none', // Remove default outline,
@@ -319,7 +324,7 @@ const ParentMenu = ({ menuData, handleMoveSelectedItems,parentMenu, setParentMen
                         isDisabled
                       />
 
-                      <img style={{ width: '30px', height: '30px', borderRadius: '20px' }} src={item.image} alt={item.name} />
+                      <img style={{ width: '30px', height: '30px', borderRadius: '20px' }} src={"../public/jay-wennington-N_Y88TWmGwA-unsplash.jpg"} alt={item.name} />
                     </div>
                   </li>
                 ))}

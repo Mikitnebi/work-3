@@ -1,7 +1,7 @@
 import { NavLink, useLocation, useParams } from 'react-router-dom';
 import './homePage.css';
 import { limitRecipeTitle } from '../../utils';
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import * as yup from "yup";
 import RegistrationModal from "../modals/registrationModal";
 import { FinalChecker } from "../finalChecker";
@@ -60,6 +60,26 @@ export default function MenuHomePage() {
       
     
       ]);
+      const sectionRefs = useRef({});
+
+      const scrollToSection = (georgianTitle) => {
+        const sectionRef = sectionRefs[georgianTitle];
+        if (sectionRef) {
+          sectionRef.scrollIntoView({ behavior: "smooth" });
+        }
+      };
+      const [activeTitle, setActiveTitle] = useState('');
+
+      const handleTitleClick = (georgianTitle) => {
+        setActiveTitle(georgianTitle);
+        const sectionIndex = menuSections.findIndex(section => section.georgianTitle === georgianTitle);
+        if (sectionIndex !== -1) {
+          const sectionElement = document.getElementById(`menu-section-${sectionIndex}`);
+          if (sectionElement) {
+            sectionElement.scrollIntoView({ behavior: 'smooth' });
+          }
+        }
+      };
     const isParent1 = true;
     const [hoveredIndex, setHoveredIndex] = useState(null);
     const [isOpenSideBar, setIsOpenSideBar] = useState(true);
@@ -596,7 +616,7 @@ const handleChange = () => {
   // Copy the current state of menuSections to menuSections1
   setMenuSections1(JSON.parse(JSON.stringify(menuSections)));
 };
-
+console.log(menuSections)
     return (
         <div className={`homePage-container ${isOpenSideBar ? 'sidebar-open' : 'sidebar-closed'}`}>
             <nav className='side-NavBar'>
@@ -956,46 +976,65 @@ const handleChange = () => {
             <MenuManagmentDishModal menuSections={menuSections} setMenuSections={setMenuSections} handleFinalSave={handleFinalSave} simpleErrors={simpleErrors} updateMenuItemForModal={updateMenuItemForModal} selectedItemIndex={selectedItemIndex} selectedSectionIndex={selectedSectionIndex} setSelectedItem1={setSelectedItem1}  selectedItem1={selectedItem1} open={isOpenRegistration} onClose={() => setIsOpenRegistration(false)}/>
 
 
-            <div className='menu-managment-buttons'>
                 {
                     isEdit ?
                     <div className='menu-managment-buttons1' >
                     {
                         isParent1 ? 
-                        <div style={{width:'100%',display:'flex'}}>
-                         <button onClick={() => setIsOpenParentMenu(true)}>მშობელი ფილიალის მენიუ</button>
+                        < >
+                         <button className='mshobeli' style={{fontFamily: 'YourCustomFont, sans-serif'}}  onClick={() => setIsOpenParentMenu(true)}>
+                          მშობელი ფილიალის მენიუ
+                          <ion-icon name="home-outline"></ion-icon>
+                          </button>
                        
-                         <button  onClick={addMenuSection}>
+                         <button style={{fontFamily: 'YourCustomFont, sans-serif'}}    onClick={addMenuSection}>
                            სექციის დამატება
+                           <ion-icon name="add-outline"></ion-icon>
                          </button>
                                
-                         <button    onClick={()=>submit()}>
+                         <button className='mshobeli' style={{fontFamily: 'YourCustomFont, sans-serif'}}     onClick={()=>submit()}>
                          კერძის / სექციის დაბრუნება 
+                         <ion-icon name="arrow-undo-outline"></ion-icon>
                          </button>
-                            </div>  
+                            </>  
                              :
-  <button  onClick={addMenuSection}>
+  <button  onClick={addMenuSection} style={{fontFamily: 'YourCustomFont, sans-serif'}}  >
     სექციის დამატება
+    <ion-icon name="add-outline"></ion-icon>
+
   </button>    
 
                     }
-                    <button onClick={handleCancel}>
+                    <button onClick={handleCancel} style={{fontFamily: 'YourCustomFont, sans-serif'}}  >
                         გამოსვლა
+                        <ion-icon name="close-outline"></ion-icon>
                     </button>
-                    <button onClick={()=>handleFinalSave(false)}>
+                    <button onClick={()=>handleFinalSave(false)} style={{fontFamily: 'YourCustomFont, sans-serif'}}  >
                         შენახვა
+                        <ion-icon name="checkmark-outline"></ion-icon>
                     </button>
                     
                     </div>
                     :
-                    <div className='menu-managment-buttons1'>
-                    <button onClick={handleChange}>
+                    <div className='menu-managment-buttons1-change'>
+                    <button  onClick={handleChange} style={{fontFamily: 'YourCustomFont, sans-serif'}}  >
                         შეცვლა
+                        <ion-icon name="create-outline"></ion-icon>
                     </button>
                     </div>
                 }
-                    
+
+                <div className='manu-managment-titles'>
+                {menuSections.map((section, sectionIndex) => (
+                  <div onClick={() => {handleTitleClick(section.georgianTitle);scrollToSection(section.georgianTitle)}} 
+                  style={{ borderBottom: activeTitle === section.georgianTitle ? '1.5px solid #58121D' : '',fontFamily: 'YourCustomFont, sans-serif' }}>
+                    {
+                      section?.georgianTitle
+                    }
+                  </div>
+                  ))}
                 </div>
+                    
             <div className="last-step-managment">
     
         <ParentMenuModal open={isOpenParentMenu} onClose={() => setIsOpenParentMenu(false)}>
@@ -1070,7 +1109,7 @@ menuData={menuData} close={ setIsOpenParentMenu }/>
                   // }}
                 >
 
-          <div className="menu-section-modal" key={sectionIndex}>
+          <div  className="menu-section-modal" ref={(ref) => (sectionRefs[section.georgianTitle] = ref)} key={sectionIndex}>
 
                
          
@@ -1083,9 +1122,16 @@ menuData={menuData} close={ setIsOpenParentMenu }/>
           {!section.parent   ?
             isThereAnySelectedLeft(section) ?
             <>
-            <div className="sectionHead" >
-            <label style={{fontSize:'13px'}} htmlFor={`sectionTitle-${sectionIndex}`}>სექცია ინგლისურად:</label>
+            {
+              isEdit &&
+<div className="sectionHead" >
+              {
+                isEdit && 
+                <label style={{fontSize:'13px',fontFamily: 'YourCustomFont, sans-serif'}} htmlFor={`sectionTitle-${sectionIndex}`}>სექცია ინგლისურად:</label>
+
+              }
             <input
+            style={{fontFamily: 'YourCustomFont, sans-serif'}}
               type="text"
               placeholder="Section Title"
               value={section.title}
@@ -1134,14 +1180,22 @@ menuData={menuData} close={ setIsOpenParentMenu }/>
                   checked={!isSectionInSelectedSections(section)}
                 /> */}
             </div>
+            }
+            
 
             <div className="sectionHead" >
-            <label style={{fontSize:'13px'}} htmlFor={`GeorgianSectionTitle-${sectionIndex}`}>სექცია ქართულად:</label>
+              {
+                isEdit && 
+                <label style={{fontSize:'13px',fontFamily: 'YourCustomFont, sans-serif'}} htmlFor={`GeorgianSectionTitle-${sectionIndex}`}>სექცია ქართულად:</label>
+
+              }
+            {/* <label style={{fontSize:'13px'}} htmlFor={`GeorgianSectionTitle-${sectionIndex}`}>სექცია ქართულად:</label> */}
             <input
               type="text"
               placeholder="სექცია ქართულად"
               value={section.georgianTitle}
               disabled={true}
+              style={!isEdit ? {backgroundColor:'transparent',color:'black',fontFamily: 'YourCustomFont, sans-serif'} :{fontFamily: 'YourCustomFont, sans-serif'}}
             />
             </div>
             
@@ -1149,10 +1203,17 @@ menuData={menuData} close={ setIsOpenParentMenu }/>
               </> 
               :
               <>
+              {
+                isEdit && 
               <div className="sectionHead" >
-                <label style={{fontSize:'13px'}} htmlFor={`sectionTitle-${sectionIndex}`}>სექცია ინგლისურად:</label>
+                {
+                  isEdit && 
+                  <label style={{fontSize:'13px',fontFamily: 'YourCustomFont, sans-serif'}} htmlFor={`sectionTitle-${sectionIndex}`}>სექცია ინგლისურად:</label>
+
+                }
 
               <input
+              style={{fontFamily: 'YourCustomFont, sans-serif'}}
               disabled={!isEdit}
               type="text"
               placeholder="Section Title"
@@ -1163,10 +1224,17 @@ menuData={menuData} close={ setIsOpenParentMenu }/>
               id={`sectionTitle-${sectionIndex}`}
             />
             </div>
+              }
+              
             <div className="sectionHead" >
-            <label  style={{fontSize:'13px'}} htmlFor={`GeorgianSectionTitle-${sectionIndex}`}>სექცია ქართულად:</label>
+              {
+                isEdit &&
+                <label  style={{fontSize:'13px',fontFamily: 'YourCustomFont, sans-serif'}} htmlFor={`GeorgianSectionTitle-${sectionIndex}`}>სექცია ქართულად:</label>
+
+              }
             <input
               disabled={!isEdit}
+              style={!isEdit ? {backgroundColor:'transparent',color:'black',fontFamily: 'YourCustomFont, sans-serif',fontSize:'16px'} : {fontFamily: 'YourCustomFont, sans-serif'}}
 
               type="text"
               placeholder="სექცია ქართულად"
@@ -1183,10 +1251,17 @@ menuData={menuData} close={ setIsOpenParentMenu }/>
             :
             isThereAnySelectedLeft(section) ?
             <>
-            <div className="sectionHead" >
-            <label style={{fontSize:'13px'}} htmlFor={`sectionTitle-${sectionIndex}`}>სექცია ინგლისურად:</label>
+            {
+              isEdit && 
+<div className="sectionHead" >
+              {
+                isEdit &&
+                <label style={{fontSize:'13px',fontFamily: 'YourCustomFont, sans-serif'}} htmlFor={`sectionTitle-${sectionIndex}`}>სექცია ინგლისურად:</label>
+
+              }
 
             <input
+            style={{fontFamily: 'YourCustomFont, sans-serif'}}
               type="text"
               placeholder="Section Title"
               value={section.title}
@@ -1233,10 +1308,18 @@ menuData={menuData} close={ setIsOpenParentMenu }/>
                   checked={!isSectionInSelectedSections(section)}
                 /> */}
             </div>
+            }
+            
 
             <div className="sectionHead" >
-            <label style={{fontSize:'13px'}} htmlFor={`GeorgianSectionTitle-${sectionIndex}`}>სექცია ქართულად:</label>
+              {
+                isEdit &&
+                <label style={{fontSize:'13px',fontFamily: 'YourCustomFont, sans-serif'}} htmlFor={`GeorgianSectionTitle-${sectionIndex}`}>სექცია ქართულად:</label>
+
+              }
             <input
+                          style={!isEdit ? {backgroundColor:'transparent',color:'black',fontFamily: 'YourCustomFont, sans-serif',fontSize:'16px'} : {fontFamily: 'YourCustomFont, sans-serif'}}
+
               type="text"
               placeholder="სექცია ქართულად"
               value={section.georgianTitle}
@@ -1247,12 +1330,18 @@ menuData={menuData} close={ setIsOpenParentMenu }/>
               </> 
               :
               <>
-              <div className="sectionHead" >
-              <label style={{fontSize:'13px'}} htmlFor={`sectionTitle-${sectionIndex}`}>სექცია ინგლისურად:</label>
+              {
+                isEdit && 
+                <div className="sectionHead" >
+                {
+                  isEdit &&
+                  <label style={{fontSize:'13px',fontFamily: 'YourCustomFont, sans-serif'}} htmlFor={`sectionTitle-${sectionIndex}`}>სექცია ინგლისურად:</label>
+
+                }
 
               <input
               disabled={!isEdit}
-
+                style={{fontFamily: 'YourCustomFont, sans-serif'}}
               type="text"
               placeholder="Section Title"
               value={section.title}
@@ -1261,10 +1350,18 @@ menuData={menuData} close={ setIsOpenParentMenu }/>
               }
             />
             </div>
+              }
+              
 
             <div className="sectionHead" >
-            <label style={{fontSize:'13px'}} htmlFor={`GeorgianSectionTitle-${sectionIndex}`}>სექცია ქართულად:</label>
-            <input              
+              {
+                isEdit &&
+                <label style={{fontSize:'13px',fontFamily: 'YourCustomFont, sans-serif'}} htmlFor={`GeorgianSectionTitle-${sectionIndex}`}>სექცია ქართულად:</label>
+
+              }
+            <input   
+                          style={!isEdit ? {backgroundColor:'transparent',color:'black',fontFamily: 'YourCustomFont, sans-serif',fontSize:'16px'} : {fontFamily: 'YourCustomFont, sans-serif'}}
+           
               disabled={!isEdit}
               type="text"
               placeholder="სექცია ქართულად"
@@ -1279,17 +1376,17 @@ menuData={menuData} close={ setIsOpenParentMenu }/>
             </>
             }
             
-            <ul className="ul-last">
+            <ul className="ul-last-managment">
                 {
                     !isEdit ? 
                     section.items.map((item, itemIndex) => (
-             <div onClick={()=>{console.log(5),setIsOpenRegistration(true);setSelectedItem1(item);setSelectedItemIndex(itemIndex);setSelectedSectionIndex(sectionIndex);}} className='menu-item-managment'>
+             <div onClick={()=>{console.log(item),setIsOpenRegistration(true);setSelectedItem1(item);setSelectedItemIndex(itemIndex);setSelectedSectionIndex(sectionIndex);}} className='menu-item-managment'>
                 <figure>
                     <img src="../../../public/first/მაგიდა2,1.0.png" alt="" />
                 </figure>
                 <div>
-                    <h3>{item.name}</h3>
-                    <h3>{`ფასი-${item.price}₾ `}</h3>
+                    <h3 style={{fontFamily: 'YourCustomFont, sans-serif'}}>{item.name}</h3>
+                    <h3 style={{fontFamily: 'YourCustomFont, sans-serif'}}>{`ფასი-${item.price}₾ `}</h3>
                 </div>
              </div>
 
@@ -1313,12 +1410,13 @@ menuData={menuData} close={ setIsOpenParentMenu }/>
                           >
 
                   <div className="menu-item">
-                  <label  htmlFor={`dishName-${sectionIndex}-${itemIndex}`}>კერძის ინგლისური სახელი:</label>
+                  <label style={{fontFamily: 'YourCustomFont, sans-serif'}} htmlFor={`dishName-${sectionIndex}-${itemIndex}`}>კერძის ინგლისური სახელი:</label>
 
                     <input
                       type="text"
                       placeholder="კერძის ინგლისური სახელი"
                       value={item.name}
+                      style={{fontFamily: 'YourCustomFont, sans-serif'}}
                       onChange={(e) =>
                         updateMenuItem(
                           sectionIndex,
@@ -1335,9 +1433,10 @@ menuData={menuData} close={ setIsOpenParentMenu }/>
                         შეიყვანეთ კერძის სახელი ინგლისურად
                       </div>
                     }
-                    <label  htmlFor={`georgianDishName-${sectionIndex}-${itemIndex}`}>კერძის ქართული სახელი:</label>
+                    <label style={{fontFamily: 'YourCustomFont, sans-serif'}}  htmlFor={`georgianDishName-${sectionIndex}-${itemIndex}`}>კერძის ქართული სახელი:</label>
 
                     <input
+                    style={{fontFamily: 'YourCustomFont, sans-serif'}}
   type="text"
   placeholder="კერძის ქართული სახელი"
   value={item.georgianName}
@@ -1356,9 +1455,10 @@ menuData={menuData} close={ setIsOpenParentMenu }/>
     შეიყვანეთ კერძი ქართულად
   </div>
 }
-            <label  htmlFor={`DishPrice-${sectionIndex}-${itemIndex}`}>კერძის ფასი:</label>
+            <label style={{fontFamily: 'YourCustomFont, sans-serif'}}  htmlFor={`DishPrice-${sectionIndex}-${itemIndex}`}>კერძის ფასი:</label>
 
                     <input
+                    style={{fontFamily: 'YourCustomFont, sans-serif'}}
                       type="number"
                       placeholder="კერძის ფასი"
                       value={item.price}
@@ -1377,11 +1477,12 @@ menuData={menuData} close={ setIsOpenParentMenu }/>
                         შეიყვანეთ კერძის ფასი
                       </div>
                     }
-                    <label  htmlFor={`DishDescription-${sectionIndex}-${itemIndex}`}>კერძის აღწერა ინგლისურად:</label>
+                    <label style={{fontFamily: 'YourCustomFont, sans-serif'}}  htmlFor={`DishDescription-${sectionIndex}-${itemIndex}`}>კერძის აღწერა ინგლისურად:</label>
 
                   <textarea className="menuTextArea"
   placeholder="კერძის აღწერა ინგლისურად"
   value={item.description}
+  style={{fontFamily: 'YourCustomFont, sans-serif'}}
   onChange={(e) =>
     updateMenuItem(
       sectionIndex,
@@ -1397,9 +1498,10 @@ menuData={menuData} close={ setIsOpenParentMenu }/>
     შეიყვანეთ კერძის აღწერა ინგლისურად
   </div>
 }
-<label  htmlFor={`GeorgianDishDescription-${sectionIndex}-${itemIndex}`}>კერძის აღწერა ქართულად:</label>
+<label  style={{fontFamily: 'YourCustomFont, sans-serif'}} htmlFor={`GeorgianDishDescription-${sectionIndex}-${itemIndex}`}>კერძის აღწერა ქართულად:</label>
 
 <textarea className="menuTextArea"
+style={{fontFamily: 'YourCustomFont, sans-serif'}}
   placeholder="კერძის აღწერა ქართულად"
   value={item.georgianDescription}
   onChange={(e) =>
@@ -1417,7 +1519,7 @@ menuData={menuData} close={ setIsOpenParentMenu }/>
     შეიყვანეთ კერძის აღწერა ქართულად
   </div>
 }
-<label  htmlFor={`ingredients-${sectionIndex}-${itemIndex}`}>ინგრედიენტები:</label>
+<label style={{fontFamily: 'YourCustomFont, sans-serif'}}  htmlFor={`ingredients-${sectionIndex}-${itemIndex}`}>ინგრედიენტები:</label>
 
 <Select
         value={item.ingredients}
@@ -1437,6 +1539,10 @@ menuData={menuData} close={ setIsOpenParentMenu }/>
             '&:hover': {
               borderColor: '#8C1D2F', // Change border color on hover
             },
+           margintop: '2%',
+           marginBottom: '2%',
+           fontFamily: 'YourCustomFont, sans-serif',
+
             width: '270px',
             backgroundColor: '#D9D9D9',
             outline: 'none', // Remove default outline,
@@ -1447,10 +1553,14 @@ menuData={menuData} close={ setIsOpenParentMenu }/>
           multiValue: (baseStyles) => ({
             ...baseStyles,
             backgroundColor: '#C6B0B4', // Set the background color for added tags
+            fontFamily: 'YourCustomFont, sans-serif',
+
           }),
           dropdownIndicator: (baseStyles, state) => ({
             ...baseStyles,
             color: state.isFocused ? '#8C1D2F' : '#8C1D2F', // Change the color when focused
+            fontFamily: 'YourCustomFont, sans-serif',
+
           }),
         }}
         id={`ingredients-${sectionIndex}-${itemIndex}`}
@@ -1476,7 +1586,7 @@ menuData={menuData} close={ setIsOpenParentMenu }/>
     შეიყვანეთ ინგრედიენტები
   </div>
 }
-<label  htmlFor={`GeorgianIngredients-${sectionIndex}-${itemIndex}`}>ინგრედიენტები ქართულად:</label>
+<label style={{fontFamily: 'YourCustomFont, sans-serif'}}  htmlFor={`GeorgianIngredients-${sectionIndex}-${itemIndex}`}>ინგრედიენტები ქართულად:</label>
 
 
 <Select
@@ -1497,6 +1607,10 @@ menuData={menuData} close={ setIsOpenParentMenu }/>
             '&:hover': {
               borderColor: '#8C1D2F', // Change border color on hover
             },
+            margintop: '2%',
+            marginBottom: '2%',
+
+           fontFamily: 'YourCustomFont, sans-serif',
             width: '270px',
             backgroundColor: '#D9D9D9',
             outline: 'none', // Remove default outline,
@@ -1538,9 +1652,10 @@ menuData={menuData} close={ setIsOpenParentMenu }/>
     შეიყვანეთ ინგრედიენტები ქართულად
   </div>
 }
-<label  htmlFor={`image-${sectionIndex}-${itemIndex}`}>კერძის ფოტო:</label>
+<label  style={{fontFamily: 'YourCustomFont, sans-serif'}} htmlFor={`image-${sectionIndex}-${itemIndex}`}>კერძის ფოტო:</label>
 
                     <input
+                    style={{fontFamily: 'YourCustomFont, sans-serif'}}
                     id={`image-${sectionIndex}-${itemIndex}`}
                       type="file"
                       accept=".jpg, .jpeg, .png, .gif"
@@ -1578,6 +1693,7 @@ menuData={menuData} close={ setIsOpenParentMenu }/>
                       <div className="error-message">შეიყვანეთ კერძის ფოტო</div>
                     }
                     <button
+                      style={{fontFamily: 'YourCustomFont, sans-serif'}}
                       className="delete-item-button"
                       onClick={() => deleteMenuItem(sectionIndex, itemIndex)}
                     >
@@ -1652,9 +1768,10 @@ menuData={menuData} close={ setIsOpenParentMenu }/>
                           )}
                         /> */}
                     <div className="menu-item">
-                    <label  htmlFor={`dishName-${sectionIndex}-${itemIndex}`}>კერძის სახელი:</label>
+                    <label style={{fontFamily: 'YourCustomFont, sans-serif'}}  htmlFor={`dishName-${sectionIndex}-${itemIndex}`}>კერძის სახელი:</label>
   
                       <input
+                        style={{fontFamily: 'YourCustomFont, sans-serif'}}
                         type="text"
                         placeholder="Dish Name"
                         value={item.name}
@@ -1665,7 +1782,10 @@ menuData={menuData} close={ setIsOpenParentMenu }/>
                           Dish Name is required
                         </div>
                       }
+                          <label style={{fontFamily: 'YourCustomFont, sans-serif'}}  htmlFor={`georgianDishName-${sectionIndex}-${itemIndex}`}>კერძის ქართული სახელი:</label>
+
                         <input
+                        style={{fontFamily: 'YourCustomFont, sans-serif'}}
                           type="text"
                           placeholder="კერძის ქართული სახელი"
                           value={item.georgianName}
@@ -1678,9 +1798,10 @@ menuData={menuData} close={ setIsOpenParentMenu }/>
                         </div>
                       }
                       
-                       <label  htmlFor={`DishPrice-${sectionIndex}-${itemIndex}`}>კერძის ფასი:</label>
+                       <label  style={{fontFamily: 'YourCustomFont, sans-serif'}} htmlFor={`DishPrice-${sectionIndex}-${itemIndex}`}>კერძის ფასი:</label>
   
                       <input
+                      style={{fontFamily: 'YourCustomFont, sans-serif'}}
                         type="number"
                         placeholder="Dish Price"
                         value={item.price}
@@ -1691,9 +1812,10 @@ menuData={menuData} close={ setIsOpenParentMenu }/>
                           Dish Price is required
                         </div>
                       }
-                      <label  htmlFor={`DishDescription-${sectionIndex}-${itemIndex}`}>კერძის ინგლისური აღწერა:</label>
+                      <label  style={{fontFamily: 'YourCustomFont, sans-serif'}} htmlFor={`DishDescription-${sectionIndex}-${itemIndex}`}>კერძის ინგლისური აღწერა:</label>
   
                     <textarea className="menuTextArea"
+                    style={{fontFamily: 'YourCustomFont, sans-serif'}}
     placeholder="Dish Description"
     value={item.description}
     disabled={true}
@@ -1703,20 +1825,21 @@ menuData={menuData} close={ setIsOpenParentMenu }/>
       Dish Description is required
     </div>
   }
-  <label  htmlFor={`GeorgianDishDescription-${sectionIndex}-${itemIndex}`}>კერძის აღწერა ქართულად:</label>
+  <label style={{fontFamily: 'YourCustomFont, sans-serif'}}  htmlFor={`GeorgianDishDescription-${sectionIndex}-${itemIndex}`}>კერძის აღწერა ქართულად:</label>
   
   <textarea className="menuTextArea"
+  style={{fontFamily: 'YourCustomFont, sans-serif'}}
     placeholder="კერძის აღწერა ქართულად"
     value={item.georgianDescription}
     id={`GeorgianDishDescription-${sectionIndex}-${itemIndex}`}
     disabled={true}
   />
   {simpleErrors[`itemGeorgianDescription${sectionIndex}-${itemIndex}`] && 
-    <div className="error-message">
+    <div  className="error-message">
       Georgian Dish Description is required
     </div>
   }
-  <label  htmlFor={`ingredients-${sectionIndex}-${itemIndex}`}>ინგრედიენტები ინგლისურად:</label>
+  <label style={{fontFamily: 'YourCustomFont, sans-serif'}}  htmlFor={`ingredients-${sectionIndex}-${itemIndex}`}>ინგრედიენტები ინგლისურად:</label>
   
                       <Select
                           isMulti
@@ -1730,6 +1853,10 @@ menuData={menuData} close={ setIsOpenParentMenu }/>
                               '&:hover': {
                                 borderColor: '#8C1D2F', // Change border color on hover
                               },
+                              margintop: '2%',
+                              marginBottom: '2%',
+
+                              fontFamily: 'YourCustomFont, sans-serif',
                               width: '270px',
                               backgroundColor: '#D9D9D9',
                               outline: 'none', // Remove default outline,
@@ -1763,7 +1890,7 @@ menuData={menuData} close={ setIsOpenParentMenu }/>
       Ingredients are required
     </div>
   }
-  <label  htmlFor={`GeorgianIngredients-${sectionIndex}-${itemIndex}`}>ინგრედიენტები ქართულად:</label>
+  <label style={{fontFamily: 'YourCustomFont, sans-serif'}}  htmlFor={`GeorgianIngredients-${sectionIndex}-${itemIndex}`}>ინგრედიენტები ქართულად:</label>
   
   <Select
                           isMulti
@@ -1777,6 +1904,10 @@ menuData={menuData} close={ setIsOpenParentMenu }/>
                               '&:hover': {
                                 borderColor: '#8C1D2F', // Change border color on hover
                               },
+                              margintop: '2%',
+                              marginBottom: '2%',
+
+                              fontFamily: 'YourCustomFont, sans-serif',
                               width: '270px',
                               backgroundColor: '#D9D9D9',
                               outline: 'none', // Remove default outline,
@@ -1810,9 +1941,9 @@ menuData={menuData} close={ setIsOpenParentMenu }/>
     </div>
   }
         <div style={{display:'flex',justifyContent:'space-around',alignItems:'center',marginTop:'5%'}}>
-        <label  htmlFor={`image-${sectionIndex}-${itemIndex}`}>კერძის ფოტო:</label>
+        <label style={{fontFamily: 'YourCustomFont, sans-serif'}}  htmlFor={`image-${sectionIndex}-${itemIndex}`}>კერძის ფოტო:</label>
   
-        <img style={{width:'30px',height:'30px', borderRadius:'20px'}} src={item.image} alt={item.name} />
+        <img style={{width:'30px',height:'30px', borderRadius:'20px'}} src={"../public/jay-wennington-N_Y88TWmGwA-unsplash.jpg"} alt={item.name} />
   
         </div>
           
@@ -1824,24 +1955,7 @@ menuData={menuData} close={ setIsOpenParentMenu }/>
               ))
                 }
               
-              {
-                isEdit ? <>
-                <button
-              className="add-item-button"
-              onClick={() => addMenuItem(sectionIndex)}
-            >
-              კერძის დამატება
-            </button>
-
-            
-          <button
-            className="delete-section-button"
-            onClick={() => deleteMenuSection(sectionIndex)}
-          >
-            სექციის წაშლა
-          </button>
-                </> : null
-}
+    
 {combinedErrors[`sectionTitle${sectionIndex}`] && (
               <div className="error-message2">
                 {combinedErrors[`sectionTitle${sectionIndex}`]}
@@ -1860,7 +1974,29 @@ menuData={menuData} close={ setIsOpenParentMenu }/>
             </ul>
            
 
-       
+            {
+                isEdit ?
+                 <div className='manu-managment-edit-buttons'>
+                <button
+              className="add-item-button"
+              onClick={() => addMenuItem(sectionIndex)}
+              style={{fontFamily: 'YourCustomFont, sans-serif'}}
+            >
+              კერძის დამატება
+            </button>
+
+            
+            {isThereAnySelectedLeft(section) ? null : (
+          <button
+            className="delete-section-button"
+            onClick={() => deleteMenuSection(sectionIndex)}
+            style={{fontFamily: 'YourCustomFont, sans-serif'}}
+          >
+            სექციის წაშლა
+          </button>
+        )}
+                </div> : null
+}
         
             
           </div>

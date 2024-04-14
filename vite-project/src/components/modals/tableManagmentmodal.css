@@ -1,3 +1,9 @@
+@import url('https://fonts.googleapis.com/css?family=Poppins:200,300,400,500,600,700,800,900&display=swap');
+
+@font-face {
+  font-family: YourCustomFont;
+  src: url('../../../public/fonts/bpg_nino_mtavruli_bold.ttf') format('truetype');
+}
 .overlay-styleTables{
     position: fixed;
     top: 0;

@@ -6,6 +6,8 @@ import { limitRecipeTitle } from '../../utils';
 
 
 export default function StuffHomePage () {
+    const [searchQuery, setSearchQuery] = useState('');
+    const [filteredMembers, setFilteredMembers] = useState([]);
     const [hoveredIndex, setHoveredIndex] = useState(null);
     const [isOpenSideBar, setIsOpenSideBar] = useState(true);
     const params = useParams();
@@ -24,6 +26,198 @@ export default function StuffHomePage () {
     useEffect(() => {
         localStorage.setItem('staffMembers', JSON.stringify(staffMembers));
     }, [staffMembers]);
+// Update the useEffect hook to log filteredMembers
+useEffect(() => {
+    if (searchQuery.trim() === '') {
+        // If search query is empty, display all members
+        setFilteredMembers(staffMembers);
+    } else {
+        // Filter staff members based on the search query
+        const filtered = staffMembers.filter(member =>
+            member.englishName.toLowerCase().includes(searchQuery.toLowerCase()) ||
+            member.georgianName.includes(searchQuery)
+        );
+        setFilteredMembers(filtered);
+    }
+}, [searchQuery, staffMembers]);
+
+
+// Log filteredMembers to the console
+console.log(filteredMembers);
+
+    
+    const handleSearchInputChange = event => {
+        setSearchQuery(event.target.value);
+    };
+
+    // Rendering logic for table rows
+    const renderTableRows = () => {
+        return (
+            <tbody>
+                {filteredMembers.map((member, index) => (
+                    <tr key={index}>
+                        <td style={{fontFamily: 'YourCustomFont, sans-serif'}}>
+                            {member.isEditing ? (
+                                <input 
+                                style={{fontFamily: 'YourCustomFont, sans-serif'}}
+                                    className="staff-input"
+                                    type="text"
+                                    value={member.englishName}
+                                    onChange={(e) => handleInputChange('englishName', e.target.value, index)}
+                                />
+                            ) : (
+                                member.englishName
+                            )}
+                        </td>
+                        <td style={{fontFamily: 'YourCustomFont, sans-serif'}}>
+                            {member.isEditing ? (
+                                <input 
+                                style={{fontFamily: 'YourCustomFont, sans-serif'}}
+                                    className="staff-input"
+                                    type="text"
+                                    value={member.georgianName}
+                                    onChange={(e) => handleInputChange('georgianName', e.target.value, index)}
+                                />
+                            ) : (
+                                member.georgianName
+                            )}
+                        </td>
+                        <td style={{fontFamily: 'YourCustomFont, sans-serif'}}>
+                            {member.isEditing ? (
+                                <input 
+                                style={{fontFamily: 'YourCustomFont, sans-serif'}}
+                                    className="staff-input"
+                                    type="text"
+                                    value={member.role}
+                                    onChange={(e) => handleInputChange('role', e.target.value, index)}
+                                />
+                            ) : (
+                                member.role
+                            )}
+                        </td>
+                        <td style={{fontFamily: 'YourCustomFont, sans-serif'}}>
+                            {member.isEditing ? (
+                                <input 
+                                style={{fontFamily: 'YourCustomFont, sans-serif'}}
+                                    className="staff-input"
+                                    type="number"
+                                    value={member.mobileNumber}
+                                    onChange={(e) => handleInputChange('mobileNumber', e.target.value, index)}
+                                />
+                            ) : (
+                                member.mobileNumber
+                            )}
+                        </td>
+                        <td style={{fontFamily: 'YourCustomFont, sans-serif'}}>
+                            {member.isEditing ? (
+                                <input 
+                                style={{fontFamily: 'YourCustomFont, sans-serif'}}
+                                    className="staff-input"
+                                    type="email"
+                                    value={member.email}
+                                    onChange={(e) => handleInputChange('email', e.target.value, index)}
+                                />
+                            ) : (
+                                member.email
+                            )}
+                        </td>
+                        <td style={{width:'25%',fontFamily: 'YourCustomFont, sans-serif'}}>
+                            <div style={{display:'flex',width:'100%',alignItems:'center',justifyContent:'center'}}>
+                                {(member.isEditing)? (
+                                    <>
+                                        <button style={{fontFamily: 'YourCustomFont, sans-serif'}} className="staff-buttons" onClick={() => saveEdit(index)}>                 
+                                            <ion-icon name="checkmark-outline"></ion-icon>
+                                            შენახვა
+                                        </button>
+                                        <button style={{fontFamily: 'YourCustomFont, sans-serif'}}  className="staff-buttons" onClick={() => cancelEdit(index)}>    
+                                            <ion-icon name="close-outline"></ion-icon>
+                                            გამოსვლა
+                                        </button>
+                                    </>
+                                ) : (
+                                    <>
+                                        <button style={{fontFamily: 'YourCustomFont, sans-serif'}}  className="staff-buttons" onClick={() => toggleEdit(index)}>
+                                            <ion-icon name="create-outline"></ion-icon>
+                                            შეცვლა
+                                        </button>
+                                        <button style={{fontFamily: 'YourCustomFont, sans-serif'}}  className="staff-buttons" onClick={() => deleteMember(index)}>
+                                            <ion-icon name="trash-outline"></ion-icon>
+                                            წაშლა
+                                        </button>
+                                    </>
+                                )}
+                            </div>
+                        </td>
+                    </tr>
+                ))}
+                {newMember && (
+                    <tr>
+                        <td>
+                            <input 
+                            style={{fontFamily: 'YourCustomFont, sans-serif'}}
+                                className="staff-input"
+                                type="text"
+                                value={newMember.englishName}
+                                onChange={(e) => setNewMember({ ...newMember, englishName: e.target.value })}
+                            />
+                        </td>
+                        <td>
+                            <input 
+                            style={{fontFamily: 'YourCustomFont, sans-serif'}}
+                                className="staff-input"
+                                type="text"
+                                value={newMember.georgianName}
+                                onChange={(e) => setNewMember({ ...newMember, georgianName: e.target.value })}
+                            />
+                        </td>
+                        <td>
+                            <input 
+                            style={{fontFamily: 'YourCustomFont, sans-serif'}}
+                                className="staff-input"
+                                type="text"
+                                value={newMember.role}
+                                onChange={(e) => setNewMember({ ...newMember, role: e.target.value })}
+                            />
+                        </td>
+                        <td>
+                            <input 
+                            style={{fontFamily: 'YourCustomFont, sans-serif'}}
+                                className="staff-input"
+                                type="number"
+                                value={newMember.mobileNumber}
+                                onChange={(e) => setNewMember({ ...newMember, mobileNumber: e.target.value })}
+                            />
+                        </td>
+                        <td>
+                            <input 
+                            style={{fontFamily: 'YourCustomFont, sans-serif'}}
+                                className="staff-input"
+                                type="email"
+                                value={newMember.email}
+                                onChange={(e) => setNewMember({ ...newMember, email: e.target.value })}
+                            />
+                        </td>
+                        <td>
+                            <div style={{display:'flex',width:'100%',alignItems:'center',justifyContent:'center'}}>
+                                <button style={{fontFamily: 'YourCustomFont, sans-serif'}} className="staff-buttons" onClick={saveNewMember}>
+                                    <ion-icon name="checkmark-outline"></ion-icon>
+                                    შენახვა
+                                </button>
+                                <button style={{fontFamily: 'YourCustomFont, sans-serif'}} className="staff-buttons" onClick={cancelAddMember}>
+                                    <ion-icon name="close-outline"></ion-icon>
+                                    გამოსვლა
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                )}
+            </tbody>
+        );
+    };
+    
+    
+    
+    
 
     const [newMember, setNewMember] = useState(null);
     const [validationErrors, setValidationErrors] = useState({});
@@ -165,6 +359,7 @@ export default function StuffHomePage () {
     const addStaffMember = () => {
         setNewMember({ id: Date.now(), englishName: '', georgianName: '', role: '', mobileNumber: '', email: '', isEditing: true });
     };
+    
 
     const cancelAddMember = () => {
         setNewMember(null);
@@ -548,29 +743,46 @@ export default function StuffHomePage () {
             <div className='content-container'>
                 {/* Table for staff management */}
                 <div className='table-container'>
-                {!newMember && (
-    <button className='add-new-member' onClick={addStaffMember} > 
+<div className='add-button-div'>
+    <div>
+    <input
+                type="text"
+                placeholder='მოძებნე თანამშრომელი'
+                value={searchQuery}
+                onChange={handleSearchInputChange}
+            />    </div>
+{!newMember && (
+    <button style={{fontFamily: 'YourCustomFont, sans-serif'}} className='add-new-member' onClick={addStaffMember} > 
         <ion-icon name="add-outline"></ion-icon>
         თანამშრომლის დამატება
     </button>
 )}
+<div>
+    <label style={{fontFamily: 'YourCustomFont, sans-serif'}} htmlFor="">თანამშრომლების რაოდენობა</label>
+    <span>{staffMembers.length}</span>
+</div>
+
+</div>
+
                 <table>
                     <thead>
                         <tr>
-                            <th>{"სახელი (ინგლისურად)"}</th>
-                            <th>{"სახელი (ქართულად)"}</th>
-                            <th>თანამდებობა</th>
-                            <th>ტელ.ნომერი</th>
-                            <th>ელ-ფოსტა</th>
-                            <th>{"ცვლილება"}</th>
+                            <th style={{fontFamily: 'YourCustomFont, sans-serif'}}>{"სახელი (ინგლისურად)"}</th>
+                            <th style={{fontFamily: 'YourCustomFont, sans-serif'}}>{"სახელი (ქართულად)"}</th>
+                            <th style={{fontFamily: 'YourCustomFont, sans-serif'}}>თანამდებობა</th>
+                            <th style={{fontFamily: 'YourCustomFont, sans-serif'}}>ტელ.ნომერი</th>
+                            <th style={{fontFamily: 'YourCustomFont, sans-serif'}}>ელ-ფოსტა</th>
+                            <th style={{fontFamily: 'YourCustomFont, sans-serif'}}>{"ცვლილება"}</th>
                         </tr>
                     </thead>
-                    <tbody>
-                        {staffMembers.map((member, index) => (
-                            <tr key={index}>
+                    {renderTableRows()}
+
+                        {/* {staffMembers.map((member, index) => (
+                            <tr style={{fontFamily: 'YourCustomFont, sans-serif'}} key={index}>
                                 <td>
                                     {member.isEditing ? (
-                                        <input 
+                                        <input
+                                        style={{fontFamily: 'YourCustomFont, sans-serif'}} 
                                         className="staff-input"
                                             type="text"
                                             value={member.englishName}
@@ -582,7 +794,8 @@ export default function StuffHomePage () {
                                 </td>
                                 <td>
                                     {member.isEditing ? (
-                                        <input 
+                                        <input
+                                        style={{fontFamily: 'YourCustomFont, sans-serif'}} 
                                         className="staff-input"
                                             type="text"
                                             value={member.georgianName}
@@ -594,7 +807,8 @@ export default function StuffHomePage () {
                                 </td>
                                 <td>
                                     {member.isEditing ? (
-                                        <input 
+                                        <input
+                                        style={{fontFamily: 'YourCustomFont, sans-serif'}} 
                                         className="staff-input"
                                             type="text"
                                             value={member.role}
@@ -606,7 +820,8 @@ export default function StuffHomePage () {
                                 </td>
                                 <td>
                                     {member.isEditing ? (
-                                        <input 
+                                        <input
+                                        style={{fontFamily: 'YourCustomFont, sans-serif'}} 
                                         className="staff-input"
                                             type="number"
                                             value={member.mobileNumber}
@@ -618,7 +833,8 @@ export default function StuffHomePage () {
                                 </td>
                                 <td>
                                     {member.isEditing ? (
-                                        <input 
+                                        <input
+                                        style={{fontFamily: 'YourCustomFont, sans-serif'}} 
                                         className="staff-input"
                                             type="email"
                                             value={member.email}
@@ -629,25 +845,25 @@ export default function StuffHomePage () {
                                     )}
                                 </td>
                                 <td style={{width:'25%'}}>
-                                    <div style={{display:'flex',width:'100%',alignItems:'center',justifyContent:'center'}}>
+                                    <div style={{display:'flex',width:'100%',alignItems:'center',justifyContent:'center',fontFamily: 'YourCustomFont, sans-serif'}}>
                                     {(member.isEditing)? (
                                         <>
-                                            <button className="staff-buttons" onClick={() => saveEdit(index)}>                 
+                                            <button style={{fontFamily: 'YourCustomFont, sans-serif'}} className="staff-buttons" onClick={() => saveEdit(index)}>                 
                                                 <ion-icon name="checkmark-outline"></ion-icon>
                                                 შენახვა
                                             </button>
-                                            <button className="staff-buttons" onClick={() => cancelEdit(index)}>    
+                                            <button style={{fontFamily: 'YourCustomFont, sans-serif'}} className="staff-buttons" onClick={() => cancelEdit(index)}>    
                                                 <ion-icon name="close-outline"></ion-icon>
                                                 გამოსვლა
                                             </button>
                                         </>
                                     ) : (
                                         <>
-                                         <button className="staff-buttons" onClick={() => toggleEdit(index)}>
+                                         <button style={{fontFamily: 'YourCustomFont, sans-serif'}} className="staff-buttons" onClick={() => toggleEdit(index)}>
                                             <ion-icon name="create-outline"></ion-icon>
                                             შეცვლა
                                         </button>
-                                        <button className="staff-buttons" onClick={() => deleteMember(index)}>
+                                        <button style={{fontFamily: 'YourCustomFont, sans-serif'}} className="staff-buttons" onClick={() => deleteMember(index)}>
                 <ion-icon name="trash-outline"></ion-icon>
                 წაშლა
             </button>
@@ -663,6 +879,7 @@ export default function StuffHomePage () {
                             <tr>
                                 <td>
                                     <input 
+                                    style={{fontFamily: 'YourCustomFont, sans-serif'}}
                                     className="staff-input"
                                         type="text"
                                         value={newMember.englishName}
@@ -671,6 +888,7 @@ export default function StuffHomePage () {
                                 </td>
                                 <td>
                                     <input 
+                                    style={{fontFamily: 'YourCustomFont, sans-serif'}}
                                     className="staff-input"
                                         type="text"
                                         value={newMember.georgianName}
@@ -678,7 +896,7 @@ export default function StuffHomePage () {
                                     />
                                 </td>
                                 <td>
-                                    <input 
+                                    <input style={{fontFamily: 'YourCustomFont, sans-serif'}}
                                     className="staff-input"
                                         type="text"
                                         value={newMember.role}
@@ -687,6 +905,7 @@ export default function StuffHomePage () {
                                 </td>
                                 <td>
                                     <input 
+                                    style={{fontFamily: 'YourCustomFont, sans-serif'}}
                                     className="staff-input"
                                         type="number"
                                         value={newMember.mobileNumber}
@@ -695,6 +914,7 @@ export default function StuffHomePage () {
                                 </td>
                                 <td>
                                     <input 
+                                    style={{fontFamily: 'YourCustomFont, sans-serif'}}
                                     className="staff-input"
                                         type="email"
                                         value={newMember.email}
@@ -703,19 +923,18 @@ export default function StuffHomePage () {
                                 </td>
                                 <td>
                                 <div style={{display:'flex',width:'100%',alignItems:'center',justifyContent:'center'}}>
-                                <button className="staff-buttons" onClick={saveNewMember}>
+                                <button style={{fontFamily: 'YourCustomFont, sans-serif'}} className="staff-buttons" onClick={saveNewMember}>
                                         <ion-icon name="checkmark-outline"></ion-icon>
                                         შენახვა
                                     </button>
-                                    <button className="staff-buttons" onClick={cancelAddMember}> 
+                                    <button  style={{fontFamily: 'YourCustomFont, sans-serif'}} className="staff-buttons" onClick={cancelAddMember}> 
                                     <ion-icon name="close-outline"></ion-icon>
                                     გამოსვლა</button>
                                 </div>
                                    
                                 </td>
                             </tr>
-                        )}
-                    </tbody>
+                        )} */}
                 </table>
                 </div>
                 

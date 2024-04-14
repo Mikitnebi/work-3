@@ -195,8 +195,11 @@ bottom: -20%;
   .button-details{
     width: 50%;
     outline: none;
-    padding: 5px;
+    padding: 7px;
     border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
   .button1{
@@ -215,6 +218,20 @@ bottom: -20%;
     background-color: #000000A8;
     border: 0.5px solid #000000A8;
     color: white;
+  }
+  .button1 ion-icon{
+    color: white;
+    margin-left: 10%;
+  }
+  .button2 ion-icon{
+    color: black;
+    margin-left: 5%;
+
+  }
+  .button3 ion-icon{
+    color: white;
+    margin-left: 15%;
+
   }
 
 

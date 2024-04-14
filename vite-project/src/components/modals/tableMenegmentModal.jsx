@@ -88,34 +88,39 @@ export default function TableMenegmentModal({handleFinalSave,setSelectedTableNum
               {
                           selectedShapeDetails.type != 'ladder' && selectedShapeDetails.type != 'door' ?
                   <>
-                   <label style={{color:"#8C1D2F",fontSize:'18px',fontWeight:'400'}}>
+                   <label style={{color:"#8C1D2F",fontSize:'18px',fontFamily: 'YourCustomFont, sans-serif'}}>
                 მაგიდის ნომერი:
                 <input
+                                style={{fontFamily: 'YourCustomFont, sans-serif'}}
+
                 disabled={isEdit}
                   type="number"
                   value={selectedShapeDetails.tableNumber}
                   onChange={(e) => handleTableDetailsChange('tableNumber', e.target.value)}
                 />
               </label>
-              <label>
+              <label                 style={{fontFamily: 'YourCustomFont, sans-serif'}}>
                 მაქსიმალური ტევადობა:
                 <input
+                style={{fontFamily: 'YourCustomFont, sans-serif'}}
                       disabled={isEdit}
                   type="number"
                   value={selectedShapeDetails.maxPeopleAmount}
                   onChange={(e) => handleTableDetailsChange('maxPeopleAmount', e.target.value)}
                 />
               </label>
-              <label>
+              <label                 style={{fontFamily: 'YourCustomFont, sans-serif'}}>
                 მინიმალური ტევადობა:
                 <input
+                                style={{fontFamily: 'YourCustomFont, sans-serif'}}
+
                       disabled={isEdit}
                   type="number"
                   value={selectedShapeDetails.minPeopleAmount}
                   onChange={(e) => handleTableDetailsChange('minPeopleAmount', e.target.value)}
                 />
               </label>
-              <label style={{display:'flex',flexDirection:'column', width:'100%' ,alignItems:'flex-start' }}>
+              <label style={{display:'flex',flexDirection:'column', width:'100%' ,alignItems:'flex-start',fontFamily: 'YourCustomFont, sans-serif' }}>
                 მაგიდის ტეგი:
           <Select
           isDisabled={isEdit}
@@ -134,6 +139,7 @@ export default function TableMenegmentModal({handleFinalSave,setSelectedTableNum
                 '&:hover': {
                   borderColor: '#8C1D2F', // Change border color on hover
                 },
+                fontFamily: 'YourCustomFont, sans-serif',
                 width: selectWidth,
                 backgroundColor: '#D9D9D9',
                 outline: 'none', // Remove default outline,
@@ -159,7 +165,7 @@ export default function TableMenegmentModal({handleFinalSave,setSelectedTableNum
           
               {
                                 selectedShapeDetails.type != 'ladder' && selectedShapeDetails.type != 'door' ?
-          <label style={{display:'flex',flexDirection:'column', width:'100%' ,alignItems:'flex-start' }}>
+          <label style={{display:'flex',flexDirection:'column', width:'100%' ,alignItems:'flex-start',fontFamily: 'YourCustomFont, sans-serif' }}>
             მაგიდის ტიპი
           <SelectInput isEdit={!isEdit} defaultValue={options[selectedShapeDetails.colorIndex]} options={options} onChange={handleOptionChange1} />
           
@@ -168,7 +174,7 @@ export default function TableMenegmentModal({handleFinalSave,setSelectedTableNum
               {
                           selectedShapeDetails.type != 'ladder' && selectedShapeDetails.type != 'door' ?
                           <>
-                          <label style={{display:'flex', width:'100%' ,alignItems:'center',justifyContent:'flex-start' }}>
+                          <label style={{display:'flex', width:'100%' ,alignItems:'center',justifyContent:'flex-start',fontFamily: 'YourCustomFont, sans-serif' }}>
                           მაგიდა დაჯავშნისთვისაა ?
                           
                     
@@ -202,17 +208,32 @@ export default function TableMenegmentModal({handleFinalSave,setSelectedTableNum
                     selectedShapeDetails.type != 'ladder' && selectedShapeDetails.type != 'door' ?
           <>
           
-          <button  className='button-details button1' onClick={handleSaveTable}>შენახვა</button>
-              <button  className='button-details button2' onClick={handleCancelTable}>გამოსვლა</button>
+          <button style={{fontFamily: 'YourCustomFont, sans-serif'}}  className='button-details button1' onClick={handleSaveTable}>
+            შენახვა
+            <ion-icon name="checkmark-outline"></ion-icon>
+            </button>
+              <button style={{fontFamily: 'YourCustomFont, sans-serif'}}   className='button-details button2' onClick={handleCancelTable}>
+                გამოსვლა
+                <ion-icon name="arrow-undo-outline"></ion-icon>
+                </button>
               {
-                !isEdit &&     <button  className='button-details button3' onClick={handleDeleteTable}>წაშლა</button>
+                !isEdit &&     <button  style={{fontFamily: 'YourCustomFont, sans-serif'}}  className='button-details button3' onClick={handleDeleteTable}>
+                  წაშლა 
+                <ion-icon name="trash-outline"></ion-icon>
+                </button>
           
               }    </> 
               :
               <div style={{display:'flex', width:'100%', justifyContent:'space-between',height:"100%",alignItems:'center'}}>
-              <button style={{ width:'40%'}} className='button-details button2' onClick={handleCancelTable}>გამოსვლა</button>
+              <button style={{ width:'40%',fontFamily: 'YourCustomFont, sans-serif'}} className='button-details button2' onClick={handleCancelTable}>
+                გამოსვლა
+                <ion-icon name="arrow-undo-outline"></ion-icon>
+                </button>
               {
-                !isEdit &&     <button style={{ width:'40%'}} className='button-details button3' onClick={handleDeleteTable}>წაშლა</button>
+                !isEdit &&     <button style={{ width:'40%',fontFamily: 'YourCustomFont, sans-serif'}} className='button-details button3' onClick={handleDeleteTable}>
+                  წაშლა
+                  <ion-icon name="trash-outline"></ion-icon>
+                </button>
           
               }
               </div>

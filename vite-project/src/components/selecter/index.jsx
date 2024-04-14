@@ -11,7 +11,7 @@ const SelectInput = ({ isEdit, options, defaultValue, onChange,type }) => {
   };
 
   return (
-    <select disabled={!isEdit} style={type ? {color:"black"} : null} value={selectedOption} onChange={handleOptionChange}>
+    <select disabled={!isEdit} style={type ? {color:"black",fontFamily: 'YourCustomFont, sans-serif'} : {fontFamily: 'YourCustomFont, sans-serif'}} value={selectedOption} onChange={handleOptionChange}>
       {options.map((option, index) => (
         <option key={index} value={option}>
           {option}

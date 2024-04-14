@@ -83,7 +83,9 @@ const handleCancel = () => {
             <div className='item-photo'>
     
             </div>
-            <div className='manu-modal-isEdit'>
+            {
+              !selectedItem1?.parent &&
+<div className='manu-modal-isEdit'>
               {
                 isEdit ?
                 <div>
@@ -101,6 +103,8 @@ const handleCancel = () => {
               }
              
             </div>
+            }
+            
             <div className="menu-item-modal">
               <div>
               <label  htmlFor={`dishName-${selectedSectionIndex}-${selectedItemIndex}`}>ინგლისური სახელი:</label>
