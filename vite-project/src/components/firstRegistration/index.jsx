@@ -213,45 +213,45 @@ const navigation = useNavigate()
             propertyId: "number",
             value: date.card
         })
-        // axios
-        // .post("http://54.93.212.178/Anonymous/RestaurantIntro",{
-        //     businessNameGeo:date.name1,
-        //     businessNameEng:date.name,
-        //     phoneNumber:date.card+"",
-        //     emailAddress:date.email,
-        //     regionId:1
-        // })            .then(response =>{
-        //         console.log(response)
-        //         console.log('good');
+        axios
+        .post("http://54.93.212.178/Anonymous/RestaurantIntro",{
+            businessNameGeo:date.name1,
+            businessNameEng:date.name,
+            phoneNumber:date.card+"",
+            emailAddress:date.email,
+            regionId:1
+        })            .then(response =>{
+                console.log(response)
+                console.log('good');
 
-        //         dispatchUser({
-        //     type: "changeUserInformation",
-        //     propertyId: "isRegistered",
-        //     value: true
-        // })
-        // // setPast('company')
-        // openPincode(true);
-        // // setIsOpenPincode(true);
-        // // setInformation(true);
+                dispatchUser({
+            type: "changeUserInformation",
+            propertyId: "isRegistered",
+            value: true
+        })
+        // setPast('company')
+        openPincode(true);
+        // setIsOpenPincode(true);
+        // setInformation(true);
 
 
          
             
-        //     // RESTAURANT_WITH_THIS_MAIL_ALREADY_EXISTED
-        //     })
-        //     .catch(error =>{
-        //         console.log(error.response.data.errorType);
-        //         console.log('error');
-        //         if(error.response.data.errorType === "RESTAURANT_WITH_THIS_MAIL_ALREADY_EXISTED"){
-        //             setIsUsed(true)
-        //         } else {
-        //             setIsUsed(false)
-        //         }
-        //     })
-        //     .finally(() => {
-        //         setIsLoading(false);
+            // RESTAURANT_WITH_THIS_MAIL_ALREADY_EXISTED
+            })
+            .catch(error =>{
+                console.log(error.response.data.errorType);
+                console.log('error');
+                if(error.response.data.errorType === "RESTAURANT_WITH_THIS_MAIL_ALREADY_EXISTED"){
+                    setIsUsed(true)
+                } else {
+                    setIsUsed(false)
+                }
+            })
+            .finally(() => {
+                setIsLoading(false);
                 
-        //     });
+            });
        
 
 
