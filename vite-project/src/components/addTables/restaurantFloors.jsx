@@ -433,9 +433,8 @@ const RestaurantFloor = ({ prevStep, nextStep,setStep }) => {
     setSelectedShapeIndex(null);
   };
 
-
   const FloorSelector = ({ floors, currentFloorIndex, onChange }) => (
-    <select style={{borderWidth:'2px', borderRadius:'20px',width:'100%',backgroundColor:'#C6B0B4',color:'#8C1D2F'}} value={currentFloorIndex} onChange={(e) => onChange(parseInt(e.target.value))}>
+    <select style={{borderWidth:'2px',fontFamily: 'YourCustomFont, sans-serif', borderRadius:'20px',width:'100%',backgroundColor:'#C6B0B4',color:'#8C1D2F'}} value={currentFloorIndex} onChange={(e) => onChange(parseInt(e.target.value))}>
       {floors.map((floor, index) => (
         <option  key={floor.id} value={index}>
           {floors[index].name}
@@ -865,15 +864,16 @@ console.log(shapes)
 
       <div style={{ position: 'absolute', right: '0%', top: '13%', display: 'flex',width:'50%',alignItems:'center' }}>
 
-        <button onClick={addFloor} className='addFloor'>სართულის დამატება</button>
-        <button onClick={deleteFloor} className='deleteFloor'>სართულის წაშლა</button>
+        <button style={{fontFamily: 'YourCustomFont, sans-serif'}} onClick={addFloor} className='addFloor'>სართულის დამატება</button>
+        <button style={{fontFamily: 'YourCustomFont, sans-serif'}} onClick={deleteFloor} className='deleteFloor'>სართულის წაშლა</button>
         {floors.map((floor, index) => (
   <div key={floor.id}>
     {currentFloorIndex === index && (
       <input
+      style={{fontFamily: 'YourCustomFont, sans-serif'}}
       className='floor-name'
         type="text"
-        value={floorNames[index]}
+        value={floors[currentFloorIndex].name}
         onChange={e => handleFloorNameChange(index, e.target.value)}
         placeholder='სართულის სახელი'
       
@@ -1017,36 +1017,39 @@ console.log(shapes)
       {selectedShapeIndex !== null && (
         
           
-        
+
   <div className="details-form">
     {
                 selectedShapeDetails.type != 'ladder' && selectedShapeDetails.type != 'door' ?
         <>
-         <label style={{color:"#8C1D2F",fontSize:'18px',fontWeight:'400'}}>
+         <label style={{color:"#8C1D2F",fontSize:'18px',fontFamily: 'YourCustomFont, sans-serif'}}>
       მაგიდის ნომერი:
       <input
+      style={{fontFamily: 'YourCustomFont, sans-serif'}}
         type="number"
         value={selectedShapeDetails.tableNumber}
         onChange={(e) => handleTableDetailsChange('tableNumber', e.target.value)}
       />
     </label>
-    <label>
+    <label style={{fontFamily: 'YourCustomFont, sans-serif'}}> 
       მაქსიმალური ტევადობა:
       <input
+      style={{fontFamily: 'YourCustomFont, sans-serif'}}
         type="number"
         value={selectedShapeDetails.maxPeopleAmount}
         onChange={(e) => handleTableDetailsChange('maxPeopleAmount', e.target.value)}
       />
     </label>
-    <label>
+    <label style={{fontFamily: 'YourCustomFont, sans-serif'}}>
       მინიმალური ტევადობა:
       <input
+      style={{fontFamily: 'YourCustomFont, sans-serif'}}
         type="number"
         value={selectedShapeDetails.minPeopleAmount}
         onChange={(e) => handleTableDetailsChange('minPeopleAmount', e.target.value)}
       />
     </label>
-    <label style={{display:'flex',flexDirection:'column', width:'100%' ,alignItems:'flex-start' }}>
+    <label style={{display:'flex',flexDirection:'column', width:'100%' ,alignItems:'flex-start',fontFamily: 'YourCustomFont, sans-serif' }}>
       მაგიდის ტეგი:
 <Select
   value={selectedShapeDetails.selectedTag}
@@ -1088,7 +1091,7 @@ console.log(shapes)
 
     {
                       selectedShapeDetails.type != 'ladder' && selectedShapeDetails.type != 'door' ?
-<label style={{display:'flex',flexDirection:'column', width:'100%' ,alignItems:'flex-start' }}>
+<label  style={{display:'flex',flexDirection:'column', width:'100%' ,alignItems:'flex-start',fontFamily: 'YourCustomFont, sans-serif' }}>
   მაგიდის ტიპი
 <SelectInput isEdit={true} defaultValue={options[selectedShapeDetails.colorIndex]} options={options} onChange={handleOptionChange1} />
 
@@ -1096,7 +1099,7 @@ console.log(shapes)
     }
     {
                 selectedShapeDetails.type != 'ladder' && selectedShapeDetails.type != 'door' ?
-                <label style={{display:'flex', width:'100%' ,alignItems:'center',justifyContent:'flex-start' }}>
+                <label style={{display:'flex', width:'100%' ,alignItems:'center',justifyContent:'flex-start',fontFamily: 'YourCustomFont, sans-serif' }}>
                 მაგიდა დაჯავშნისთვისაა ?
                 
           
@@ -1123,14 +1126,26 @@ console.log(shapes)
     {
           selectedShapeDetails.type != 'ladder' && selectedShapeDetails.type != 'door' ?
 <>
-<button  className='button-details button1' onClick={handleSaveTable}>Save Table</button>
-    <button  className='button-details button2' onClick={handleCancelTable}>Cancel</button>
-    <button  className='button-details button3' onClick={handleDeleteTable}>Delete Table</button>
+<button style={{fontFamily: 'YourCustomFont, sans-serif'}}  className='button-details1 button1' onClick={handleSaveTable}>
+            შენახვა
+            <ion-icon name="checkmark-outline"></ion-icon>
+            </button>
+            <button style={{fontFamily: 'YourCustomFont, sans-serif'}}   className='button-details1 button2' onClick={handleCancelTable}>
+                გამოსვლა
+                <ion-icon name="arrow-undo-outline"></ion-icon>
+                </button>
+                <button  style={{fontFamily: 'YourCustomFont, sans-serif'}}  className='button-details1 button3' onClick={handleDeleteTable}>
+                  წაშლა 
+                <ion-icon name="trash-outline"></ion-icon>
+                </button>
+{/* <button style={{fontFamily: 'YourCustomFont, sans-serif'}}  className='button-details button1' onClick={handleSaveTable}>მაგიდის შენახვა</button> */}
+    {/* <button style={{fontFamily: 'YourCustomFont, sans-serif'}}  className='button-details button2' onClick={handleCancelTable}>გამოსვლა</button> */}
+    {/* <button style={{fontFamily: 'YourCustomFont, sans-serif'}}  className='button-details button3' onClick={handleDeleteTable}>წაშლა</button> */}
     </> 
     :
     <div style={{display:'flex', width:'100%', justifyContent:'space-between'}}>
-    <button style={{ width:'30%'}} className='button-details button2' onClick={handleCancelTable}>Cancel</button>
-    <button style={{ width:'30%'}} className='button-details button3' onClick={handleDeleteTable}>Delete ladder</button>
+    <button style={{ width:'30%',fontFamily: 'YourCustomFont, sans-serif'}} className='button-details button2' onClick={handleCancelTable}>გამოსვლა</button>
+    <button style={{ width:'30%',fontFamily: 'YourCustomFont, sans-serif'}} className='button-details button3' onClick={handleDeleteTable}>წაშლა</button>
     </div>
     }
 
@@ -1138,8 +1153,10 @@ console.log(shapes)
   </div>
 )}
 <div className='tablesLastDiv'>
-<button onClick={(e) => prevStep()} className='addFloor1'>უკან</button>
-<button onClick={handleFinalSave} className='addFloor1'>შემდეგი</button>
+<button       style={{fontFamily: 'YourCustomFont, sans-serif'}}
+ onClick={(e) => prevStep()} className='addFloor1'>უკან</button>
+<button       style={{fontFamily: 'YourCustomFont, sans-serif'}}
+ onClick={handleFinalSave} className='addFloor1'>შემდეგი</button>
 
 </div>
           <div  className='footerTables'>

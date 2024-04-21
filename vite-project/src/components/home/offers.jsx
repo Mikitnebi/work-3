@@ -1,7 +1,8 @@
-import { NavLink, useLocation, useParams } from 'react-router-dom'
+import { NavLink, useLocation, useNavigate, useParams } from 'react-router-dom'
 import './homePage.css'
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import { limitRecipeTitle } from '../../utils';
+import { StoreContextRecipe } from "../../App";
 
 
 
@@ -10,7 +11,9 @@ export default function Offers () {
     const [isOpenSideBar, setIsOpenSideBar] = useState(true);
     const params = useParams();
     const location = useLocation();
+    const { paymentInformation,setPaymentInformation } = useContext(StoreContextRecipe);
 
+const Navigate = useNavigate()
     const handleMouseEnter = (index) => {
         setHoveredIndex(index);
     };
@@ -378,7 +381,101 @@ export default function Offers () {
             </div>
             </nav>
 
-            <div className='content-container'></div>
+            <div className='content-container'>
+
+                <div className='aqciebi-div'>
+                    
+ <div class="flip-card">
+ <div class="flip-card-inner">
+     <div class="flip-card-front">
+         <p style={{fontFamily: 'YourCustomFont, sans-serif'}} class="title-flip">მიკიტანი გირჩევთ</p>
+         <p className='about-us-icons'> 
+         <ion-icon size="large" name="shield-checkmark-outline"></ion-icon>
+         </p>
+     </div>
+     <div class="flip-card-back">
+        <p style={{fontFamily: 'YourCustomFont, sans-serif'}}>{"“მიკიტანი გირჩევთ” რესტორნებს აძლევს საშუალებას, მათი პროდუქცია მომხმარებელთან მთავარ გვერდზე, თავშივე გამოჩნდეს."}</p>
+       
+       
+       <div className='backside-about-us'> 
+       <span style={{fontFamily: 'YourCustomFont, sans-serif'}}>
+        მიმოხილვა
+        <ion-icon name="eye-outline"></ion-icon>
+         </span>
+            <button onClick={()=> {
+            Navigate('/Payment')
+            setPaymentInformation({
+                title:'მიკიტანი გირჩევთ',
+                body:'“მიკიტანი გირჩევთ” რესტორნებს აძლევს საშუალებას, მათი პროდუქცია მომხმარებელთან მთავარ გვერდზე, თავშივე გამოჩნდეს.'
+            })
+        }} 
+            style={{fontFamily: 'YourCustomFont, sans-serif'}}>ყიდვა</button>
+       </div>
+        
+     </div>
+ </div>
+ </div>
+ <div class="flip-card">
+ <div class="flip-card-inner">
+     <div class="flip-card-front">
+         <p style={{fontFamily: 'YourCustomFont, sans-serif'}} class="title-flip">კორპორატიულებისთვის</p>
+         <p className='about-us-icons'>
+         <ion-icon size="large" name="people-outline"></ion-icon>
+         </p>
+     </div>
+     <div class="flip-card-back">
+        <p style={{fontFamily: 'YourCustomFont, sans-serif'}}>{"კორპორატიული შეკვეთებისას შეგეძლებათ  მომხმარებლებს შესათავაზოთ სპეციალური აქცია"}</p>
+       
+       
+       <div className='backside-about-us'> 
+       <span style={{fontFamily: 'YourCustomFont, sans-serif'}}>
+        მიმოხილვა
+        <ion-icon name="eye-outline"></ion-icon>
+         </span>
+            <button onClick={()=> {
+            Navigate('/Payment')
+            setPaymentInformation({
+                title:'კორპორატიულებისთვის',
+                body:'კორპორატიული შეკვეთებისას შეგეძლებათ  მომხმარებლებს შესათავაზოთ სპეციალური აქცია'
+            })
+        }}  style={{fontFamily: 'YourCustomFont, sans-serif'}}>ყიდვა</button>
+       </div>
+        
+     </div>
+ </div>
+ </div>
+ <div class="flip-card">
+ <div class="flip-card-inner">
+     <div class="flip-card-front">
+         <p style={{fontFamily: 'YourCustomFont, sans-serif'}} class="title-flip">ფასდაკლებები კერძებზე</p>
+         <p className='about-us-icons'> 
+         <ion-icon size="large" name="cash-outline"></ion-icon>
+         </p>
+     </div>
+     <div class="flip-card-back">
+        <p style={{fontFamily: 'YourCustomFont, sans-serif'}}>{"კერძებზე შეგეძლებათ სპეციალური ფასდაკლებების შეთავაზება თქვენი მომხმარებლებისთვის."}</p>
+       
+       
+       <div className='backside-about-us'> 
+       <span style={{fontFamily: 'YourCustomFont, sans-serif'}}>
+        მიმოხილვა
+        <ion-icon name="eye-outline"></ion-icon>
+         </span>
+            <button onClick={()=> {
+            Navigate('/Payment')
+            setPaymentInformation({
+                title:'ფასდაკლებები კერძებზე',
+                body:'კერძებზე შეგეძლებათ სპეციალური ფასდაკლებების შეთავაზება თქვენი მომხმარებლებისთვის.'
+            })
+        }}  style={{fontFamily: 'YourCustomFont, sans-serif'}}>ყიდვა</button>
+       </div>
+        
+     </div>
+ </div>
+ </div>
+
+                </div>
+            </div>
         </div>
     );
 }

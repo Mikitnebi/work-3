@@ -1,7 +1,7 @@
 import "./information.css"
 
 
-export const Information =({close}) =>{
+export const Information =({close,setIsOpenLogin,setIsOpenRegistration}) =>{
 
 
     
@@ -13,9 +13,11 @@ export const Information =({close}) =>{
             <p style={{fontSize:'24px', fontWeight:'400'}}>We will definitely contact you within an hour and go through the final details with you</p>
             <button onClick={(e) =>{
                 close(false);
+                setIsOpenLogin(false)
+                setIsOpenRegistration(false)
             }} className="information-button">OK</button>
         </div>
        
-    )
+    ) 
 }
 

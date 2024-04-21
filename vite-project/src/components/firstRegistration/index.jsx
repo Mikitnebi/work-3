@@ -20,6 +20,8 @@ export const RegisterCompany = ({setIsLoginOrRegistration,onClose,openPincode, s
     const {dispatchUser,stateUser } = useContext(StoreContextRecipe);
     const [isLoading, setIsLoading] = useState(false);
     const [isUsed,setIsUsed] = useState(false)
+    const [isChecked, setIsChecked] = useState(false);
+    const [isError,setIsError] = useState(false)
 const navigation = useNavigate()
     const options = ['თბილისი', 'ქუთაისი', 'ბათუმი',"თელავი","ზუგდიდი","მცხეთა","მესტია","სიღნაღი","სხვა"];
     // const [region, setRegion] = useState('');
@@ -119,15 +121,16 @@ const navigation = useNavigate()
         .required('Company name is required'),
 
         email: yup.string().email().required(),
+        card: yup.number().typeError("Phone number must be a number").required("phone number is required"),
+
         // password: yup.string().min(5).max(10).required(),
         // confirmPassword: yup
         //   .string()
         //   .oneOf([yup.ref("password"), null], "Passwords don't match")
         //   .required(),
-        checkbox: yup.boolean().oneOf([true], "You must accept the terms and conditions"),
+        // checkbox: yup.boolean().oneOf([true], "You must accept the terms and conditions"),
         // checkbox1: yup.boolean(),
         // location:yup.string().max(30).required(),
-        card: yup.number().typeError("Phone number must be a number").required("phone number is required"),
 
       });
     
@@ -138,8 +141,15 @@ const navigation = useNavigate()
         resolver: yupResolver(selectedSchema),
       });
     var isOption = true
-   
+   const navigate = useNavigate()
     const onSubmit = (date) =>{
+        console.log(isChecked)
+        console.log(isError)
+        if(!isChecked){
+            setIsError(true)
+        } else {
+
+        
        
         setIsLoading(true)
         // dispatchUser({
@@ -181,74 +191,76 @@ const navigation = useNavigate()
             
         // onClose()
         // openPincode(true);
-        axios
-        .post("http://54.93.212.178/Anonymous/RestaurantIntro",{
-            businessNameGeo:date.name1,
-            businessNameEng:date.name,
-            phoneNumber:date.card+"",
-            emailAddress:date.email,
-            regionId:1
-        })            .then(response =>{
-                console.log(response)
-                console.log('good');
 
-                dispatchUser({
-            type: "changeUserInformation",
-            propertyId: "isRegistered",
-            value: true
-        })
-        // setPast('company')
-        openPincode(true);
-        // setIsOpenPincode(true);
-        // setInformation(true);
 
         dispatchUser({
             type: "changeUserInformation",
-            propertyId: "password",
-            value: date.password
+            propertyId: "name",
+            value: date.name
         })
-         dispatchUser({
-                type: "changeUserInformation",
-                propertyId: "name",
-                value: date.name
-            })
-            dispatchUser({
-                type: "changeUserInformation",
-                propertyId: "name1",
-                value: date.name1
-            })
-            dispatchUser({
-                type: "changeUserInformation",
-                propertyId: "email",
-                value: date.email
-            })
-            dispatchUser({
-                type: "changeUserInformation",
-                propertyId: "number",
-                value: date.card
-            })
+        dispatchUser({
+            type: "changeUserInformation",
+            propertyId: "name1",
+            value: date.name1
+        })
+        dispatchUser({
+            type: "changeUserInformation",
+            propertyId: "email",
+            value: date.email
+        })
+        dispatchUser({
+            type: "changeUserInformation",
+            propertyId: "number",
+            value: date.card
+        })
+        // axios
+        // .post("http://54.93.212.178/Anonymous/RestaurantIntro",{
+        //     businessNameGeo:date.name1,
+        //     businessNameEng:date.name,
+        //     phoneNumber:date.card+"",
+        //     emailAddress:date.email,
+        //     regionId:1
+        // })            .then(response =>{
+        //         console.log(response)
+        //         console.log('good');
+
+        //         dispatchUser({
+        //     type: "changeUserInformation",
+        //     propertyId: "isRegistered",
+        //     value: true
+        // })
+        // // setPast('company')
+        // openPincode(true);
+        // // setIsOpenPincode(true);
+        // // setInformation(true);
+
+
+         
             
-            // RESTAURANT_WITH_THIS_MAIL_ALREADY_EXISTED
-            })
-            .catch(error =>{
-                console.log(error.response.data.errorType);
-                console.log('error');
-                if(error.response.data.errorType === "RESTAURANT_WITH_THIS_MAIL_ALREADY_EXISTED"){
-                    setIsUsed(true)
-                } else {
-                    setIsUsed(false)
-                }
-            })
-            .finally(() => {
-                setIsLoading(false);
+        //     // RESTAURANT_WITH_THIS_MAIL_ALREADY_EXISTED
+        //     })
+        //     .catch(error =>{
+        //         console.log(error.response.data.errorType);
+        //         console.log('error');
+        //         if(error.response.data.errorType === "RESTAURANT_WITH_THIS_MAIL_ALREADY_EXISTED"){
+        //             setIsUsed(true)
+        //         } else {
+        //             setIsUsed(false)
+        //         }
+        //     })
+        //     .finally(() => {
+        //         setIsLoading(false);
                 
-            });
+        //     });
        
 
 
            
             // console.log(stateUser.name)
             // navigation('/home')
+        }
+        navigate("/finalRegistration")
+
     }
 
    
@@ -269,15 +281,15 @@ const navigation = useNavigate()
    
     <div className="conteiner">
         <div className='auth-name-register'>
-            <h3 >შექმენი შენი რესტორნის ანგარიში</h3>
+            <h3 style={{fontFamily: 'YourCustomFont, sans-serif'}} >შექმენი შენი რესტორნის ანგარიში</h3>
 
         </div>
 
         <form onSubmit={handleSubmit(onSubmit)} action="" className="form" id="form" >
 
         <div class="coolinput1">
-            <label for="input" class="text">კომპანიის სახელი ქართულად   <ion-icon  name="person"></ion-icon></label>
-            <input type="text" placeholder="შეიყვანეთ კომპანიის სახელი ქართულად" name="input" class="input"  {...register("name")}/>
+            <label style={{fontFamily: 'YourCustomFont, sans-serif'}} for="input" class="text">კომპანიის სახელი ქართულად   <ion-icon  name="person"></ion-icon></label>
+            <input style={{fontFamily: 'YourCustomFont, sans-serif'}} type="text" placeholder="შეიყვანეთ კომპანიის სახელი ქართულად" name="input" class="input"  {...register("name")}/>
             <small>{ errors.name?.message }</small>
 
         </div>
@@ -290,8 +302,8 @@ const navigation = useNavigate()
             </div> */}
 
         <div class="coolinput1">
-            <label for="input" class="text">კომპანიის სახელი ინგლისურად   <ion-icon  name="person"></ion-icon></label>
-            <input type="text" placeholder="შეიყვანეთ კომპანიის სახელი ინგლისურად" name="input" class="input"  {...register("name1")}/>
+            <label style={{fontFamily: 'YourCustomFont, sans-serif'}} for="input" class="text">კომპანიის სახელი ინგლისურად   <ion-icon  name="person"></ion-icon></label>
+            <input style={{fontFamily: 'YourCustomFont, sans-serif'}} type="text" placeholder="შეიყვანეთ კომპანიის სახელი ინგლისურად" name="input" class="input"  {...register("name1")}/>
             <small>{ errors.name1?.message }</small>
 
         </div>
@@ -308,8 +320,8 @@ const navigation = useNavigate()
 
 
         <div class="coolinput1">
-            <label for="input" class="text">იმეილი   <ion-icon  name="mail"></ion-icon></label>
-            <input type="email" placeholder="შეიყვანეთ კომპანიის იმეილი" name="input" class="input"  {...register("email")}/>
+            <label style={{fontFamily: 'YourCustomFont, sans-serif'}} for="input" class="text">იმეილი   <ion-icon  name="mail"></ion-icon></label>
+            <input style={{fontFamily: 'YourCustomFont, sans-serif'}} type="email" placeholder="შეიყვანეთ კომპანიის იმეილი" name="input" class="input"  {...register("email")}/>
             <small>{errors.email?.message }</small>
                 {
                     isUsed ?                 
@@ -331,8 +343,8 @@ const navigation = useNavigate()
             </div> */}
 
         <div class="coolinput1">
-            <label for="input" class="text">კომპანიის ნომერი   <ion-icon  name="call"></ion-icon></label>
-            <input type="number" placeholder="შეიყვანეთ კომპანიის ნომერი" name="input" class="input"  {...register("card")}/>
+            <label style={{fontFamily: 'YourCustomFont, sans-serif'}} for="input" class="text">კომპანიის ნომერი   <ion-icon  name="call"></ion-icon></label>
+            <input style={{fontFamily: 'YourCustomFont, sans-serif'}} type="number" placeholder="შეიყვანეთ კომპანიის ნომერი" name="input" class="input"  {...register("card")}/>
             <small>{errors.card?.message }</small>
 
         </div>
@@ -347,7 +359,7 @@ const navigation = useNavigate()
 
             
             <div className="form-control">
-                <label  style={{fontWeight:'700'}}> ქალაქი    <ion-icon name="earth"></ion-icon> </label>
+                <label style={{fontFamily: 'YourCustomFont, sans-serif'}}  > ქალაქი    <ion-icon name="earth"></ion-icon> </label>
                 <SelectInput isEdit={true} type={true} defaultValue="თბილისი" options={options} onChange={handleOptionChange} />
 
                 {/* <label > City/Region    <ion-icon name="earth"></ion-icon>
@@ -389,10 +401,50 @@ const navigation = useNavigate()
                 </label>
             </div> */}
             <div className="form-control2">
-                <label > I agree to the Terms and Conditions
-                    <input type="checkbox" id="checkbox"  {...register("checkbox")}/>
-                </label>
-                <small>{errors.checkbox?.message }</small>
+                <label style={{fontFamily: 'YourCustomFont, sans-serif'}} > I agree to the Terms and Conditions
+                <div style={{ display: 'inline-block', position: 'relative',       marginLeft:'5px'}}>
+  <input
+    style={{
+      width: '20px',
+      height: '20px',
+      margin: 0,
+      padding: 0,
+      position: 'absolute',
+      opacity: 0,
+      cursor: 'pointer',
+    }}
+    type="checkbox"
+    onChange={() => {
+        if(isChecked){
+            setIsError(true)
+            setIsChecked(false)
+        } else {
+            setIsError(false)
+            setIsChecked(true)
+        }
+    }}
+    defaultChecked={isChecked}
+  />
+  <div
+    style={{
+      width: '20px',
+      height: '20px',
+      backgroundColor: isChecked ? '#8C1D2F' : 'transparent',
+      border: '1px solid #8C1D2F',
+      borderRadius: '4px',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      cursor: 'pointer',
+    }}
+  >
+    {isChecked && <div style={{ color: 'white' }}>✓</div>}
+  </div>
+</div>                  </label>
+{
+    isError && <small>{"You must accept the terms and conditions"}</small>
+
+}
             </div>
             
             <button type="submit" disabled={isLoading}>

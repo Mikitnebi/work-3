@@ -424,7 +424,14 @@ const addData = () => {
             </nav>
 
             <div className='content-container'>
-            <VictoryChart
+                <div style={{fontSize:'20px',marginTop:'2%',display:'flex',alignItems:'center',justifyContent:'center',flexDirection:'column',width:'100%'}}>
+                    <h3 style={{fontFamily: 'YourCustomFont, sans-serif'}}>სტატისტიკური მონაცემები არ შედის თქვენ მიერ არჩეულ პაკეტში</h3>
+                    <button className='updatePackage' style={{fontFamily: 'YourCustomFont, sans-serif'}}>გააუმჯობესე პაკეტი</button>
+
+                </div>
+                <img className='noStatisticForYou' src="../../../public/upgrade1.png" alt="" />
+
+            {/* <VictoryChart
                     width={620}
                     height={400}
                     scale={{ x: "linear", y: "linear" }}
@@ -458,7 +465,7 @@ const addData = () => {
                         tickFormat={(t) => `${t}`} // Custom tick format for customer count
                     />
                 </VictoryChart>
-      <button onClick={addData}>Add Data</button>
+      <button onClick={addData}>Add Data</button> */}
         </div>   </div>
     );
 }

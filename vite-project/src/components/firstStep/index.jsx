@@ -292,73 +292,42 @@ const georgianLettersWithSpacesAndTabsRegex = /^[\u10A0-\u10FF0-9 \t_-]+$/;
   // console.log(stateRestaurant)
 
   const onSubmit = (data) => {
-    // console.log(musicStartHour)
-    // console.log(musicStartMinute)
-    // console.log(musicEndHour)
-    // console.log(musicEndMinute)
-
-    // if(stateRestaurant.is24){
-    //   kitchenStartHour=24
-    //   kitchenEndHour=24
-    //   kitchenStartMinute=0
-    //   kitchenEndMinute=0
-    // }
-    // else{
-    //   [kitchenStartHour,kitchenStartMinute]= data.kitchenStart.split(":")
-    //   [kitchenEndMinute,kitchenEndMinute] =  data.kitchenEnd.split(":")
-    // }
-    // if(stateRestaurant.is24Hall){
-    //   hallStartHour=24
-    //   hallEndHour=24
-    //   hallStartMinute=0
-    //   hallEndHour=0
-    // }
-    // else{
-    //  [hallStartHour, hallStartMinute] = data.hallStart.split(":");
-    //  [hallEndHour, hallEndMinute] =   data.hallEnd.split(":");
-    // }
-
-
-    // axios
-    //     .post("http://3.66.89.33/Restaurant/registration/StarterInfo",{
-    //       locationX: Lng.current,
-    //       locationY: Lat.current,
-    //       address: formattedAddressRef.current,
-    //       businessTypeId: 0,
-    //       coupeQuantity: data.cupeQuantity,
-    //       tableQuantity: data.tableQuantity,
-    //       terraceQuantity: data.terraceQuantity,
-    //       hallStartHour: hallStartHour*1,
-    //       hallEndHour: hallEndHour*1,
-    //       hallStartMinute: hallStartMinute*1,
-    //       hallEndMinute: hallEndMinute*1,
-    //       kitchenStartHour: kitchenStartHour*1,
-    //       kitchenEndHour: kitchenEndHour*1,
-    //       kitchenStartMinute: kitchenEndMinute*1,
-    //       kitchenEndMinute: kitchenEndMinute*1,
-    //       musicStartHour: musicStartHour*1,
-    //       musicEndHour: musicEndHour*1,
-    //       musicStartMinute: musicStartMinute*1,
-    //       musicEndMinute: musicEndMinute*1,
-    //       forCorporateEvents: stateRestaurant.corporative,
-    //       description: data.description,
-    //       activeStatusId: 1,
-    //       twoStepAuth: stateRestaurant.doubleSecurity
-    //     })
-    //     .then(response =>{
+    axios
+        .post("http://54.93.212.178/Restaurant/CreateOrUpdate/Info",{
+          locationX: Lng.current,
+          locationY: Lat.current,
+          address: data.adressGeorgian,
+          addressEng:data.adressEnglish,
+          businessTypeId: 0,
+  priceTypeId: 0,
+  regionId: 0,
+  hasCoupe: stateRestaurant?.isCupe,
+  hasTerrace: stateRestaurant?.isTerace,
+  hallStartTime: timeValueHall,
+  hallEndTime: timeValueHallEnd,
+  kitchenStartTime: timeValueKitchen,
+  kitchenEndTime: timeValueKitchenEnd,
+  musicStartTime: timeValueMusic,
+  musicEndTime: timeValueMusicEnd,
+  activeStatusId: 0,
+  forCorporateEvents: stateRestaurant?.corporative,
+  descriptionGeo: data?.descriptionGeo,
+  descriptionEng: data?.description
+        })
+        .then(response =>{
             
    
-        // })
-        // .catch(error =>{
-        //     console.log(error);
+        })
+        .catch(error =>{
+            console.log(error);
            
-        // })
-        // .finally(() => {
-        //     console.log(stateRestaurant)
+        })
+        .finally(() => {
+            console.log(stateRestaurant)
 
-        // });
+        });
 
-// console.log(timeValueHall)
+console.log(timeValueHall)
 
 
 
@@ -430,13 +399,13 @@ const georgianLettersWithSpacesAndTabsRegex = /^[\u10A0-\u10FF0-9 \t_-]+$/;
           value: data.adressEnglish,
         });
 
-        if(
-          (((!timeValueHall || !timeValueHallEnd) && !stateRestaurant.is24Hall) || ((!timeValueKitchen || !timeValueKitchenEnd) && !stateRestaurant.is24) || ((!time)))
+        // if(
+        //   (((!timeValueHall || !timeValueHallEnd) && !stateRestaurant.is24Hall) || ((!timeValueKitchen || !timeValueKitchenEnd) && !stateRestaurant.is24) || ((!timeValueMusic || !timeValueMusicEnd) && !stateRestaurant.is24Music) )
           
-        ){
+        // ){
           nextStep();
 
-        }
+        // }
 
        }
 

@@ -379,7 +379,66 @@ export default function Settings () {
             </div>
             </nav>
 
-            <div className='content-container'></div>
+            <div className='content-container'>
+                <div className='package-div-managment'>
+                    <div>
+                        <h3 style={{fontFamily: 'YourCustomFont, sans-serif'}}>ჩემი პაკეტი</h3>
+                    </div>
+                    <div className='package-managment'>
+                        <div>
+                            <h3 style={{fontFamily: 'YourCustomFont, sans-serif'}}>პრემიუმი</h3>
+                            <h3 style={{fontFamily: 'YourCustomFont, sans-serif'}}>500 ₾</h3>
+                        </div>
+                        <div>
+                    <ul> 
+                        <li style={{fontFamily: 'YourCustomFont, sans-serif',listStyle:'none'}}>
+                            <ion-icon class="icon-small" name="checkmark-outline"></ion-icon>
+                            მაგიდების მენეჯმენტი
+                        </li>
+                        <li style={{fontFamily: 'YourCustomFont, sans-serif',listStyle:'none'}}>
+                            <ion-icon class="icon-small" name="checkmark-outline"></ion-icon>
+                            სტატისტიკური ანალიზი
+                        </li>
+                        <li style={{fontFamily: 'YourCustomFont, sans-serif',listStyle:'none'}}>
+                            <ion-icon class="icon-small" name="checkmark-outline"></ion-icon>
+                            რეზერვაცია
+                        </li>
+                        <li style={{fontFamily: 'YourCustomFont, sans-serif',listStyle:'none'}}>
+                            <ion-icon class="icon-small" name="checkmark-outline"></ion-icon>
+                            დისტრიბუცია
+                        </li>
+                        <li style={{fontFamily: 'YourCustomFont, sans-serif',listStyle:'none'}}>
+                            <ion-icon class="icon-small" name="checkmark-outline"></ion-icon>
+                            აქციების მართვის სისტემა
+                        </li>
+                        <li style={{fontFamily: 'YourCustomFont, sans-serif',listStyle:'none'}}>
+                            <ion-icon class="icon-small" name="checkmark-outline"></ion-icon>
+                            ელექტრონული მენიუ
+                        </li>
+                        <li style={{fontFamily: 'YourCustomFont, sans-serif',listStyle:'none'}}>
+                            <ion-icon class="icon-small" name="checkmark-outline"></ion-icon>
+                            მომხმარებლების მენეჯმენტი
+                        </li>
+                        <li style={{fontFamily: 'YourCustomFont, sans-serif',listStyle:'none'}}>
+                            <ion-icon class="icon-small" name="checkmark-outline"></ion-icon>
+                            ელექტრონული გადახდის სისტემა
+                        </li>
+                        <li style={{fontFamily: 'YourCustomFont, sans-serif',listStyle:'none'}}>
+                            <ion-icon class="icon-small" name="checkmark-outline"></ion-icon>
+                            თანამშრომლების მართვის სისტემა
+                        </li>
+                        <li style={{fontFamily: 'YourCustomFont, sans-serif',listStyle:'none'}}>
+                            <ion-icon class="icon-small" name="checkmark-outline"></ion-icon>
+                            {'suggestion-ად ამოგდება (რეკლამა)'}
+                        </li>
+                    </ul>
+                </div>
+                    </div>
+                    <div className='packageButtonDiv'>
+                        <button style={{fontFamily: 'YourCustomFont, sans-serif'}}>შეცვლა</button>
+                    </div>
+                </div>
+            </div>
         </div>
     );
 }

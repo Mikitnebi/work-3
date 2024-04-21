@@ -193,13 +193,24 @@ bottom: -20%;
   }
 
   .button-details{
-    width: 50%;
+    width: 40%;
     outline: none;
-    padding: 7px;
+    padding: 1% 10%;
+    padding-top: 1.5%;
     border-radius: 20px;
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: space-between;
+  }
+  .button-details1{
+    width: 60%;
+    outline: none;
+    padding: 1% 10%;
+    padding-top: 1.5%;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
   }
 
   .button1{
@@ -221,16 +232,20 @@ bottom: -20%;
   }
   .button1 ion-icon{
     color: white;
-    margin-left: 10%;
+    /* margin-left: 10%; */
+    font-size: 17px;
+    margin-bottom: 5%;
   }
   .button2 ion-icon{
     color: black;
-    margin-left: 5%;
+    /* margin-left: 5%; */
+    margin-bottom: 5%;
 
   }
   .button3 ion-icon{
     color: white;
-    margin-left: 15%;
+    /* margin-left: 15%; */
+    margin-bottom: 5%;
 
   }
 

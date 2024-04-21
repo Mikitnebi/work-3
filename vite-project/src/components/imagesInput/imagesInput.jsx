@@ -70,7 +70,7 @@ export default function ImagesInput({setStep, prevStep, nextStep }) {
       <div {...getRootProps()} className="dropzone">
         <input {...getInputProps()} />
         <ion-icon size={'large'} name="cloud-upload-outline"></ion-icon> 
-        <p>ატვირთე ფოტო</p>
+        <p style={{fontFamily: 'YourCustomFont, sans-serif'}}>ატვირთე ფოტო</p>
         {imagePreviews[fieldName] && (
           <div className="image-preview">
             <img src={imagePreviews[fieldName]} alt={`Preview `} />
@@ -137,8 +137,8 @@ export default function ImagesInput({setStep, prevStep, nextStep }) {
       </div>
       <form onSubmit={handleSubmit(onSubmit)} className="formImages" id="form">
         <div className="FirstPartImages">
-        <div className="form-controlImages">
-          <span style={{fontFamily: 'YourCustomFont, sans-serif',fontSize:'13px',color:'#8C1D2F'}}>მთავარი სურათი</span>
+        <div style={{position:'relative'}} className="form-controlImages">
+          <span style={{fontFamily: 'YourCustomFont, sans-serif',fontSize:'13px',color:'#8C1D2F',position:'absolute',top:"-10%"}}>მთავარი სურათი</span>
           {renderDropzone("image1")}
 
         </div>
@@ -182,9 +182,9 @@ export default function ImagesInput({setStep, prevStep, nextStep }) {
         </div>
       
         <div style={{display:'flex', width:'100%', justifyContent:'space-between',alignItems:'center',marginTop:'0%',marginBottom:'1%'}}>
-        <button onClick={prevStep} className="imageButtonSubmit" >უკან</button>
+        <button style={{fontFamily: 'YourCustomFont, sans-serif'}} onClick={prevStep} className="imageButtonSubmit" >უკან</button>
 
-        <button className="imageButtonSubmit" type="submit">შემდეგი</button>
+        <button style={{fontFamily: 'YourCustomFont, sans-serif'}} className="imageButtonSubmit" type="submit">შემდეგი</button>
 
         </div>
       </form>

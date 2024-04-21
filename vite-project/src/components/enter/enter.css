@@ -19,7 +19,7 @@
 
 }
 .enter-box::-webkit-scrollbar {
-    width: 2px; 
+    width: 1px; 
     border-radius: 1px;
   }
   
@@ -42,7 +42,6 @@
 
 .auth-name h3{
     font-size: 24;
-    font-weight: 800;
 }
 
 .form{
@@ -162,7 +161,6 @@ input:-webkit-autofill::first-line {
 .orRegistrationText{
     margin-top: 0;
     font-size: 20;
-    font-weight: 700;
 }
 .orRegistration{
     display: flex;
@@ -244,7 +242,6 @@ input:-webkit-autofill::first-line {
   .coolinput1 label.text {
     font-size: 0.9rem;
     color: #8C1D2F;
-    font-weight: 700;
     position: relative;
     top: 0.5rem;
     margin: 0 0 0 7px;
@@ -254,7 +251,7 @@ input:-webkit-autofill::first-line {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin-right: 5px; /* Add a margin to the right of the label text */
+    margin-right: 5px; 
 
   }
   .coolinput1 label.text ion-icon {
@@ -278,4 +275,39 @@ input:-webkit-autofill::first-line {
     color: #ee0f35;
    margin-top: 1%;
     font-size: 12px;
+}
+
+.payment-button{
+    width: 60%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #AF9096;
+    padding: 5px;
+    padding-top: 10px;
+    padding-left: 10px;
+    padding-right: 10px;
+    border-radius: 20px;
+    margin: 2% 0;
+}
+.payment-button:hover{
+    transform: scale(1.1);
+    transition: 0.3s;
+    cursor: pointer;
+}
+.payment-button span{
+    font-size: 30px;
+}
+.payment-button div{
+    width: 30%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.payment-button div h3{
+    margin-bottom: -5%;
+}
+.payment-button div ion-icon{
+    color: #53111c;
 }

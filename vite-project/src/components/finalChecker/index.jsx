@@ -85,9 +85,9 @@ export const FinalChecker = ({onClose,setCheck}) =>{
    
     
     
-    return (
+    return ( 
    
-    <div className="enter-box1">
+    <div className="enter-box2">
           <div className='auth-name1'>
     <h3 >გაიარე ავტორიზაცია</h3>
 

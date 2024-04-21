@@ -182,8 +182,8 @@ const navigation = useNavigate()
  
     </div>
         </div>
-        <div className='first-tags'>
-          <h3>სამზარეულოს ტიპი:</h3>
+        <div style={{fontFamily: 'YourCustomFont, sans-serif'}} className='first-tags'>
+          <h3 style={{fontFamily: 'YourCustomFont, sans-serif',marginBottom:'-0%'}}>სამზარეულოს ტიპი:</h3>
         <Select
           value={selectedTags}
           onChange={handleTagSelection}
@@ -197,6 +197,7 @@ const navigation = useNavigate()
               '&:hover': {
                 borderColor: '#8C1D2F', // Change border color on hover
               },
+              fontFamily: 'YourCustomFont, sans-serif',
               width: selectWidth,
               backgroundColor: '#D9D9D9',
               outline: 'none', // Remove default outline,
@@ -217,8 +218,8 @@ const navigation = useNavigate()
         </div>
 
 
-        <div className='second-tags'>
-          <h3>მუსიკის ტიპი:</h3>
+        <div style={{fontFamily: 'YourCustomFont, sans-serif'}} className='second-tags'>
+          <h3 style={{fontFamily: 'YourCustomFont, sans-serif',marginBottom:'-0%'}}>მუსიკის ტიპი:</h3>
         <Select
           value={selectedTags1}
           onChange={handleTagSelection1}
@@ -232,12 +233,15 @@ const navigation = useNavigate()
               '&:hover': {
                 borderColor: '#8C1D2F', // Change border color on hover
               },
+              fontFamily: 'YourCustomFont, sans-serif',
+
               width: selectWidth,
               backgroundColor: '#D9D9D9',
               outline: 'none', // Remove default outline,
               border: '1px solid #8C1D2F',
               // This line disable the blue border
               boxShadow: 'none',
+
             }),
             multiValue: (baseStyles) => ({
               ...baseStyles,
@@ -246,14 +250,15 @@ const navigation = useNavigate()
             dropdownIndicator: (baseStyles, state) => ({
               ...baseStyles,
               color: state.isFocused ? '#8C1D2F' : '#8C1D2F', // Change the color when focused
+              
             }),
           }}
         />
         </div>
 
 
-        <div className='third-tags'>
-        <h3>გარემოს დახასითება:</h3>
+        <div style={{fontFamily: 'YourCustomFont, sans-serif'}} className='third-tags'>
+        <h3 style={{fontFamily: 'YourCustomFont, sans-serif',marginBottom:'-0%'}}>გარემოს დახასითება:</h3>
 
         <Select
           value={selectedTags2}
@@ -268,6 +273,8 @@ const navigation = useNavigate()
               '&:hover': {
                 borderColor: '#8C1D2F', // Change border color on hover
               },
+              fontFamily: 'YourCustomFont, sans-serif',
+
               width: selectWidth,
               backgroundColor: '#D9D9D9',
               outline: 'none', // Remove default outline,
@@ -289,14 +296,14 @@ const navigation = useNavigate()
 
         <div style={{position:'absolute',bottom:"12%",left:"8%",display:'flex', width:'50%', justifyContent:'space-around',alignItems:'',}}>
           
-        <button onClick={prevStep} className="imageButtonSubmit" >უკან</button>
+        <button style={{fontFamily: 'YourCustomFont, sans-serif'}} onClick={prevStep} className="imageButtonSubmit" >უკან</button>
 
-        <button onClick={handleComplete} className="final-save-button-last" type="submit">დასრულება</button>
+        <button  style={{fontFamily: 'YourCustomFont, sans-serif'}} onClick={handleComplete} className="final-save-button-last" type="submit">დასრულება</button>
 
         </div>
         <img style={{position:"absolute",width:'20%',bottom:"10%",right:'5%'}} src="../../../public/cozy.png" alt="Main Logo" />
 
-             <div className='footerLast'>
+             <div style={{zIndex:'-1'}} className='footerLast'>
     <h3 >powered by MIKITANI</h3>
     <h3>2024</h3>
     

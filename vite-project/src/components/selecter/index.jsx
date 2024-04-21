@@ -1,8 +1,14 @@
+import { StoreContextRecipe } from '../../App';
 import './select.css';
-import React, { useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 
-const SelectInput = ({ isEdit, options, defaultValue, onChange,type }) => {
+const SelectInput = ({ isEdit, options, defaultValue, onChange, type }) => {
+  
   const [selectedOption, setSelectedOption] = useState(defaultValue || '');
+
+  // useEffect(() => {
+  //   setSelectedOption(defaultValue || ''); // Update selected option when default value changes
+  // }, [defaultValue]);
 
   const handleOptionChange = (event) => {
     const selectedValue = event.target.value;
@@ -11,13 +17,11 @@ const SelectInput = ({ isEdit, options, defaultValue, onChange,type }) => {
   };
 
   return (
-    <select disabled={!isEdit} style={type ? {color:"black",fontFamily: 'YourCustomFont, sans-serif'} : {fontFamily: 'YourCustomFont, sans-serif'}} value={selectedOption} onChange={handleOptionChange}>
+    <select disabled={!isEdit} style={type ? { color: "black", fontFamily: 'YourCustomFont, sans-serif' } : { fontFamily: 'YourCustomFont, sans-serif' }} value={selectedOption} onChange={handleOptionChange}>
       {options.map((option, index) => (
         <option key={index} value={option}>
           {option}
         </option>
-
-        
       ))}
     </select>
   );

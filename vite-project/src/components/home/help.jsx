@@ -19,6 +19,12 @@ export default function Help () {
     const handleMouseLeave = () => {
         setHoveredIndex(null);
     };
+    const [isOpen,setIsOpen] = useState(false)
+    const [isOpen1,setIsOpen1] = useState(false)
+    const [isOpen2,setIsOpen2] = useState(false)
+    const [isOpen3,setIsOpen3] = useState(false)
+    const [isOpen4,setIsOpen4] = useState(false)
+    const [isOpen5,setIsOpen5] = useState(false)
 
     return (
         <div className={`homePage-container ${isOpenSideBar ? 'sidebar-open' : 'sidebar-closed'}`}>
@@ -379,7 +385,139 @@ export default function Help () {
             </div>
             </nav>
 
-            <div className='content-container'></div>
+            <div className='content-container'>
+                    <img className='chat-image' src="../../../ბოტი1.png" alt="" />
+                <div className='questions-div'>
+                    <div>
+                        <h3  style={{fontFamily: 'YourCustomFont, sans-serif',color:'black',fontSize:'15px'}}>ხშირად დასმული შეკითხვები:</h3>
+                        <div className='questions'>
+                            <div onClick={()=> {
+                                setIsOpen(!isOpen)
+                                setIsOpen1(false)
+                                setIsOpen2(false)
+                                setIsOpen3(false)
+                                setIsOpen4(false)
+
+                                }}>
+                                {
+                                    isOpen ? 
+                                    <ion-icon name="remove-outline"></ion-icon> 
+                                   :
+                                    <ion-icon name="add-outline"></ion-icon>
+
+                                }
+                                <h3 style={{fontFamily: 'YourCustomFont, sans-serif'}}>როგორ შევცვალო პაკეტი?</h3>
+                            </div>
+                            {
+                                isOpen && 
+                                <p style={{fontFamily: 'YourCustomFont, sans-serif'}}>შედით თქვენს ანგარიშში, გადადით პაკეტის შეცვლაში და აირჩიეთ სხვა პაკეტი, შეძენის შემდეგ თქვენი პაკეტი ავტომატურად განახლდება</p>
+                            }
+                        </div>
+                        <div className='questions'>
+                            <div onClick={()=> {
+                                setIsOpen(false)
+                                setIsOpen1(!isOpen1)
+                                setIsOpen2(false)
+                                setIsOpen3(false)
+                                setIsOpen4(false)
+
+                                }}>
+                            {
+                                    isOpen1 ? 
+                                    <ion-icon name="remove-outline"></ion-icon> 
+                                   :
+                                    <ion-icon name="add-outline"></ion-icon>
+
+                                } 
+                               <h3 style={{fontFamily: 'YourCustomFont, sans-serif'}}>რა დადებითი აქვს პრემიუმ პაკეტს?</h3>
+                            </div>
+                            {
+                                isOpen1 && 
+                                <p style={{fontFamily: 'YourCustomFont, sans-serif'}}>პრემიუმ პაკეტით თქვენ შეგიძლიათ ისარგებლოთ ჩვენ მიერ შემოთავაზებული ყველა სერვისით.</p>
+                            }
+                        </div>
+                        <div className='questions'>
+                            <div onClick={()=> {
+                                setIsOpen(false)
+                                setIsOpen1(false)
+                                setIsOpen2(!isOpen2)
+                                setIsOpen3(false)
+                                setIsOpen4(false)
+
+                                }}>
+                            {
+                                    isOpen2 ? 
+                                    <ion-icon name="remove-outline"></ion-icon> 
+                                   :
+                                    <ion-icon name="add-outline"></ion-icon>
+
+                                } 
+                                   <h3 style={{fontFamily: 'YourCustomFont, sans-serif'}}>რას მოიაზრებს რეკლამა?</h3>
+                            </div>
+                            {
+                                isOpen2 && 
+                                <p style={{fontFamily: 'YourCustomFont, sans-serif'}}>რეკლამა მოიაზრებს სამ პაკეტს: “მიკიტანი გირჩევთ”, კორპორატიულ აქციებსა და კერძებზე აქციებს, დამატებითი ინფორმაციისთვის, გთხოვთ გაეცნოთ რეკლამების გვერდს.</p>
+                            }
+                        </div>
+                        <div className='questions'>
+                            <div onClick={()=> {
+                                setIsOpen(false)
+                                setIsOpen1(false)
+                                setIsOpen2(false)
+                                setIsOpen3(!isOpen3)
+                                setIsOpen4(false)
+
+                                }}>
+                            {
+                                    isOpen3 ? 
+                                    <ion-icon name="remove-outline"></ion-icon> 
+                                   :
+                                    <ion-icon name="add-outline"></ion-icon>
+
+                                }  
+                                  <h3 style={{fontFamily: 'YourCustomFont, sans-serif'}}>როგორ შევცვალო პირადი მონაცემები?</h3>
+                            </div>
+                            {
+                                isOpen3 && 
+                                <p style={{fontFamily: 'YourCustomFont, sans-serif'}}>გადადი “ჩემი ანგარიშის” გვერდზე და შეცვალე მომხმარებლის სახელი ან პაროლი</p>
+                            }
+                        </div>
+                        <div className='questions'>
+                            <div onClick={()=> {
+                                setIsOpen(false)
+                                setIsOpen1(false)
+                                setIsOpen2(false)
+                                setIsOpen3(false)
+                                setIsOpen4(!isOpen4)
+
+                                }}>
+                            {
+                                    isOpen4 ? 
+                                    <ion-icon name="remove-outline"></ion-icon> 
+                                   :
+                                    <ion-icon name="add-outline"></ion-icon>
+
+                                }   
+                                 <h3 style={{fontFamily: 'YourCustomFont, sans-serif'}}>როგორ გავაუქმო გამოწერა?</h3>
+                            </div>
+                            {
+                                isOpen4 && 
+                                <p style={{fontFamily: 'YourCustomFont, sans-serif'}}>დაგვიკავშირდით ნომერზე ან მოგვწერეთ შეტყობინება და ჩვენ მალე დაგიკავშირდებით</p>
+                            }
+                        </div>
+                    </div>
+                    <div>
+                        <h3 style={{fontFamily: 'YourCustomFont, sans-serif',fontSize:'15px'}}>საკონტაქტო ინფორმაცია</h3>
+                        <div className='sssf' style={{display:'flex'}}>
+                        <ion-icon name="call-outline"></ion-icon>
+                        <ion-icon name="mail-outline"></ion-icon>
+                        <ion-icon name="logo-instagram"></ion-icon>
+                        <ion-icon name="logo-facebook"></ion-icon>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
         </div>
     );
 }

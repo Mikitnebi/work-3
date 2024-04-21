@@ -37,6 +37,7 @@ import ProfileHomePage from './components/home/profile';
 import Help from './components/home/help';
 import Settings from './components/home/settings';
 import * as signalR from "@microsoft/signalr";
+import Payment from './components/paYment';
 
 export const StoreContextRecipe = createContext({});
 
@@ -83,10 +84,11 @@ function App() {
   //   }
   // }, [connection]);
 
+  const [paymentInformation, setPaymentInformation] = useState({ title: '', body: '' });
 
   return (
     <>
-    <StoreContextRecipe.Provider value={{isSearchVisible, setIsSearchVisible,stateRestaurant, dispatchRestaurant,stateUser, dispatchUser, stateRecipe, dispatchRecipe}}>
+    <StoreContextRecipe.Provider value={{paymentInformation,setPaymentInformation,isSearchVisible, setIsSearchVisible,stateRestaurant, dispatchRestaurant,stateUser, dispatchUser, stateRecipe, dispatchRecipe}}>
 
    {/* <header  className='restaurant-interface'>
   
@@ -100,6 +102,7 @@ function App() {
             <Route path='/book' element={<Reservations/>}/>
             <Route path='/table' element={<Tables/>}/>
             <Route path='/' element={<HomePage/>}/>
+            <Route path='/Payment' element={<Payment/>}/>
 
 
             <Route path='/homePage/tables' element={<TableManagment/>}/>

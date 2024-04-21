@@ -393,7 +393,7 @@ z-index: 200;
     width: fit-content;
   }
   
-  .coolinput input[type=text].input,.coolinput textarea[type=text].input {
+  .coolinput input[type=text].input,.coolinput textarea[type=text].input,.coolinput input[type=email].input , .coolinput input[type=number].input {
     padding: 11px 10px;
     font-size: 0.75rem;
     border: 1px #8C1D2F solid;
@@ -401,7 +401,7 @@ z-index: 200;
     background: #D9D9D9;
   }
   
-  .coolinput input[type=text].input:focus, .coolinput textarea[type=text].input:focus{
+  .coolinput input[type=text].input:focus, .coolinput textarea[type=text].input:focus,.coolinput input[type=email].input:focus, .coolinput input[type=number].input:focus{
     outline: none;
   }
 

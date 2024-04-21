@@ -167,6 +167,7 @@ justify-content: flex-end;
     height: auto;
     right: 2%;
     bottom: 4%;
+    z-index: 1000;
 }
 
 
@@ -604,8 +605,14 @@ th {
     right: 0%;
     display: flex;
     align-items: center;
-    justify-content: space-around;
+    justify-content: space-between;
     width: 100%;
+  }
+  .add-button-div div:first-child {
+    width: 35%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
   .add-button-div div:first-child input{
@@ -617,7 +624,10 @@ border-radius: 5px;
   }
 
   .add-button-div div:last-child{
-    width: 30%;
+    width: 35%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
   .add-button-div div:last-child span{
@@ -789,4 +799,305 @@ border-radius: 5px;
 
 .manu-managment-titles::-webkit-scrollbar-track {
   background-color: rgba(255, 255, 255, 0.1); 
+}
+.noStatisticForYou{
+  width: 60%;
+  height: auto;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+
+}
+
+
+.updatePackage{
+  outline: none;
+  border: 1px solid #58121D;
+  padding: 10px;
+  border-radius: 5px;
+  width: 20%;
+  font-size: 17px;
+  z-index: 10000;
+}
+
+.updatePackage:hover{
+  background-color: #58121D;
+  color: white;
+  transition: 0.3s;
+  transform: scale(1.1);
+}
+
+
+.flip-card {
+  background-color: transparent;
+  width: 26%;
+  height: 60%;
+  perspective: 1000px;
+  font-family: sans-serif;
+}
+
+.title {
+  font-size: 1.5em;
+  font-weight: 900;
+  text-align: center;
+  margin: 0;
+}
+
+.flip-card-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  transition: transform 0.8s;
+  transform-style: preserve-3d;
+}
+
+.flip-card:hover .flip-card-inner {
+  transform: rotateY(180deg);
+}
+
+.flip-card-front, .flip-card-back {
+  box-shadow: 0 8px 14px 0 rgba(0,0,0,0.2);
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  border-radius: 1rem;
+}
+.flip-card-back{
+  justify-content: space-around;
+}
+.backside-about-us{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+}
+.backside-about-us ion-icon{
+  color: white;
+  margin-left: 2%;
+  margin-top: -4%;
+}
+.backside-about-us span{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+.backside-about-us button{
+  width: 30%;
+  margin-top: 3%;
+  border-radius: 5px;
+  outline: none;
+  border: none;
+  padding: 5px;
+  background-color: #231F20;
+  color: white;
+}
+.backside-about-us button:hover{
+  transform: scale(1.1);
+  transition: 0.3s;
+}
+.flip-card-front {
+  background: linear-gradient(120deg, #C6B0B4 60%, #C6B0B4 88%,
+     #C6B0B4 40%, #58121D 48%);
+  color: black;
+}
+
+.flip-card-back {
+  background: linear-gradient(120deg, #58121D 60%, #58121D 88%,
+     #58121D 40%, #58121D 48%);
+  color: white;
+  transform: rotateY(180deg);
+}
+
+.aqciebi-div{
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  position: absolute;
+  top: 50%;
+  left:50%;
+  transform: translate(-50%,-50%);
+}
+
+.content-container::-webkit-scrollbar {
+  width: 5px; 
+  border-radius: 2px;
+  height: 5px;
+}
+
+.content-container::-webkit-scrollbar-thumb {
+  background-color: #853240; 
+  border-radius: 2px;
+}
+
+.content-container::-webkit-scrollbar-track {
+  background-color: rgba(255, 255, 255, 0.1); 
+}
+
+.sidebar-closed .content-container .chat-image{
+
+  width: 35%;
+}
+.chat-image{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(30%,-40%);
+  width: 350px;
+  height: auto;
+}
+
+.questions-div{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
+  height: 100%;
+  width: 70%;
+  margin-left: 5%;
+  padding-top: 10%;
+  padding-bottom: 4%;
+  
+}
+.questions-div div:first-child{
+  width: 100%;
+  color: #58121D;
+}
+.questions-div div:first-child p{
+  color: black;
+  font-size: 14px;
+  width: 70%;
+  margin-bottom: 3%;
+}
+
+.questions{
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+.questions div{
+  display: flex;
+  width: 100%;
+  cursor: pointer;
+
+}
+
+.questions ion-icon{
+  margin-top: -0.5%;
+  margin-right: 2%;
+  cursor: pointer;
+  color: #58121D;
+
+}
+
+.sssf{
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.sssf ion-icon{
+  font-size: 35px;
+  color: #58121D;
+}
+
+
+.package-div-managment{
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  padding: 5% 0;
+}
+
+.package-div-managment h3{
+  font-size: 23px;
+  cursor: pointer;
+}
+
+.package-managment{
+  width: 70%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 80%;
+}
+.package-managment div{
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  width: 45%;
+}
+.package-managment div h3{
+  color: white;
+  cursor: pointer;
+}
+.package-managment div:first-child{
+  background-color: #231F20;
+  height: 100%;
+display: flex;
+flex-direction: column;
+align-items: center;
+justify-content: center;
+border-radius: 5px;
+}
+.package-managment div:first-child:hover{
+  transform: scale(1.05);
+  transition: 0.3s;
+}
+
+.package-managment div:last-child{
+  border: 1px solid #231F20;
+  height: 100%;
+display: flex;
+flex-direction: column;
+align-items: center;
+justify-content: center;
+border-radius: 5px;
+}
+
+.package-managment div:last-child ul{
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-around;
+  cursor: pointer;
+}
+
+.package-managment div:last-child ul li:hover{
+  transform: scale(1.05);
+  transition: 0.3s;
+}
+
+.package-div-managment button{
+  outline: none;
+  border-radius: 5px;
+  padding: 10px;
+  padding-left: 50px;
+  padding-right: 50px;
+  color: #231F20;
+  width: 100%;
+  border: 1px solid #231F20;
+}
+.package-div-managment button:hover{
+  border: 1px solid #58121D;
+  background-color: #58121D;
+  color: white;
+  transform: scale(1.15);
+  transition: 0.3s;
+}
+.packageButtonDiv{
+margin-top: 2%;
 }

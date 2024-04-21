@@ -325,7 +325,7 @@ export default function HomePage() {
         </PinModal>
 
         <InformationModal open={isOpenInformation} onClose={() => setIsOpenInformation(false)}>
-          <Information setInformation={setIsOpenInformation} close={setIsOpenInformation} />
+          <Information  setIsOpenLogin={setIsOpenLogin}  setIsOpenRegistration={setIsOpenRegistration} setInformation={setIsOpenInformation} close={setIsOpenInformation} />
         </InformationModal>
 
         <Waypoint

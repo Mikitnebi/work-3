@@ -17,7 +17,7 @@ export const PinCode =({close,isPut, parent,setInformation}) =>{
   const [isVerify, setIsVerify] = useState(false);
   const [otp, setOtp] = useState(new Array(4).fill(""));
   const [timer, setTimer] = useState(180); // 3 minutes in seconds
-  const inputRefs = useRef([]);
+  const inputRefs = useRef([]); 
 
     const handleChange = (element, index) => {
         if (isNaN(element.value)) return false;
@@ -131,14 +131,15 @@ export const PinCode =({close,isPut, parent,setInformation}) =>{
             <div className="pincodeTitle">
             <img  className='logoInPincode' src="../../../public/img/Group4.png" alt="Main Logo" />
 
-                <h3>შეამოწმეთ თქვენი ელ-ფოსტა და</h3>
-                <h3>ჩაწერეთ მიღებული კოდი</h3>
+                <h3 style={{fontFamily: 'YourCustomFont, sans-serif'}}>შეამოწმეთ თქვენი ელ-ფოსტა და</h3>
+                <h3 style={{fontFamily: 'YourCustomFont, sans-serif'}}>ჩაწერეთ მიღებული კოდი</h3>
             </div>
             {/* <ion-icon size={"large"} name="arrow-down-outline"></ion-icon> */}
-            <div className="input-div">
+            <div  className="input-div">
               {otp.map((data, index) => {
                 return (
                   <input
+                  style={{fontFamily: 'YourCustomFont, sans-serif'}}
                     className="otp-field"
                     type="text"
                     name="otp"
@@ -161,11 +162,12 @@ export const PinCode =({close,isPut, parent,setInformation}) =>{
             </div>
     
             <div className="button-div1">
-            <div className={timer === 0 ? "redFrame1" : "timer"}>
+            <div style={{fontFamily: 'YourCustomFont, sans-serif'}} className={timer === 0 ? "redFrame1" : "timer"}>
           კოდი ვალიდურია - {timer === 0 ? "Time's up!" : `${Math.floor(timer / 60)}:${timer % 60 < 10 ? `0${timer % 60}` : timer % 60}`}
         </div>
 <button
   type="submit"
+  style={{fontFamily: 'YourCustomFont, sans-serif'}}
   className="btn-pincode1"
   onClick={(e) => onSubmit()}
   disabled={isLoading || timer === 0}>
@@ -182,8 +184,9 @@ export const PinCode =({close,isPut, parent,setInformation}) =>{
  
             <div className="button-div">
            
-              <p className="cantFindIt">არ მოგსვლიათ კოდი?</p>
+              <p style={{fontFamily: 'YourCustomFont, sans-serif'}} className="cantFindIt">არ მოგსვლიათ კოდი?</p>
               <button
+              style={{fontFamily: 'YourCustomFont, sans-serif'}}
                 type="submit"
                 className="btn-pincode"
                 onClick={(e) => sendAgain()}

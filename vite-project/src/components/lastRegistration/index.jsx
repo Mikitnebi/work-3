@@ -100,11 +100,11 @@ export const LastRegistration = function () {
     return (
 
         <section  className='last-registration'>
-            <button className='button-x-last' onClick={(e) => navigate("/home")} ><ion-icon className='icon-modal' size='large' name="close"></ion-icon></button>
+            <button className='button-x-last' onClick={(e) => navigate("/homePage/tables")} ><ion-icon className='icon-modal' size='large' name="close"></ion-icon></button>
           
            {
-            // !isChecked ? <FinalChecker setCheck={setIsChecked}/> : 
-            // <>
+            !isChecked ? <FinalChecker setCheck={setIsChecked}/> : 
+            <>
             <div>
             {step === 1 && (
               <FirstStep
@@ -179,7 +179,7 @@ export const LastRegistration = function () {
       
             {/* You can add more navigation buttons and logic as needed */}
           </div>
-          // </>
+           </>
            }  
            
         </section>
