@@ -78,7 +78,7 @@ export default function HomePage() {
           loop
           playsInline
           // Specify the path to your video file
-          src="../public/pexels-c-technical-6839664(Original)_1.mp4"
+          src="pexels-c-technical-6839664(Original)_1.mp4"
         />
               <div className="line"></div>
 
@@ -92,7 +92,7 @@ export default function HomePage() {
             duration={500}
           >
             <div className="title">
-              <img src={!p ? "../public/img/loglight(1).png" : "../public/img/Group4.png"} alt="Logo" className="header__logo" />
+              <img src={!p ? "public/img/loglight(1).png" : "public/img/Group4.png"} alt="Logo" className="header__logo" />
               <span>Mikitani</span>
             </div>
           </ScrollLink>

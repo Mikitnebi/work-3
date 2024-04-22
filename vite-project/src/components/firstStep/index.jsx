@@ -31,6 +31,15 @@ import { TimeField } from '@mui/x-date-pickers/TimeField';
 // import "@reach/combobox/styles.css";
 
 export const FirstStep = function ({setStep, chooseStep, nextStep }) {
+  const [accessToken, setAccessToken] = useState('');
+
+  useEffect(() => {
+      // Fetch the access token from local storage on component mount
+      const token = localStorage.getItem('accessToken');
+      if (token) {
+          setAccessToken(token);
+      }
+  }, []);
   const [street, setStreet] = useState('');
 
   const [isOpenMap, setIsOpenMap] = useState(false);
@@ -298,24 +307,29 @@ const georgianLettersWithSpacesAndTabsRegex = /^[\u10A0-\u10FF0-9 \t_-]+$/;
           locationY: Lat.current,
           address: data.adressGeorgian,
           addressEng:data.adressEnglish,
-          businessTypeId: 0,
-  priceTypeId: 0,
-  regionId: 0,
+          businessTypeId: 1,
+  priceTypeId: 1,
+  regionId: 1,
   hasCoupe: stateRestaurant?.isCupe,
   hasTerrace: stateRestaurant?.isTerace,
-  hallStartTime: timeValueHall,
-  hallEndTime: timeValueHallEnd,
-  kitchenStartTime: timeValueKitchen,
-  kitchenEndTime: timeValueKitchenEnd,
-  musicStartTime: timeValueMusic,
-  musicEndTime: timeValueMusicEnd,
+  hallStartTime: "2024-04-21T07:11:00.000Z",
+  hallEndTime: "2024-04-21T07:11:00.000Z",
+  kitchenStartTime: "2024-04-21T07:11:00.000Z",
+  kitchenEndTime: "2024-04-21T07:11:00.000Z",
+  musicStartTime: "2024-04-21T07:11:00.000Z",
+  musicEndTime: "2024-04-21T07:11:00.000Z",
   activeStatusId: 0,
   forCorporateEvents: stateRestaurant?.corporative,
   descriptionGeo: data?.descriptionGeo,
   descriptionEng: data?.description
+        },
+        {
+          headers: {
+            'Authorization': `${accessToken}`
+          }
         })
         .then(response =>{
-            
+            console.log(response)
    
         })
         .catch(error =>{
@@ -327,7 +341,25 @@ const georgianLettersWithSpacesAndTabsRegex = /^[\u10A0-\u10FF0-9 \t_-]+$/;
 
         });
 
-console.log(timeValueHall)
+console.log('locationX:', Lng.current,
+  'locationY:', Lat.current,
+  'address:', data.adressGeorgian,
+  'addressEng:',data.adressEnglish,
+  'businessTypeId:', 1,
+'priceTypeId:', 1,
+'regionId:', 1,
+'hasCoupe:', stateRestaurant?.isCupe,
+'hasTerrace:', stateRestaurant?.isTerace,
+'hallStartTime:', timeValueHall,
+'hallEndTime:', "2024-04-21T07:11:00.000Z",
+'kitchenStartTime:', "2024-04-21T07:11:00.000Z",
+'kitchenEndTime:', "2024-04-21T07:11:00.000Z",
+'musicStartTime:', "2024-04-21T07:11:00.000Z",
+'musicEndTime:', "2024-04-21T07:11:00.000Z",
+'activeStatusId:', 0,
+'forCorporateEvents:', stateRestaurant?.corporative,
+'descriptionGeo:', data?.descriptionGeo,
+'descriptionEng:', data?.description)
 
 
 
@@ -399,14 +431,15 @@ console.log(timeValueHall)
           value: data.adressEnglish,
         });
 
-        // if(
-        //   (((!timeValueHall || !timeValueHallEnd) && !stateRestaurant.is24Hall) || ((!timeValueKitchen || !timeValueKitchenEnd) && !stateRestaurant.is24) || ((!timeValueMusic || !timeValueMusicEnd) && !stateRestaurant.is24Music) )
+        if(
+          !(((!timeValueHall || !timeValueHallEnd) && !stateRestaurant.is24Hall) || ((!timeValueKitchen || !timeValueKitchenEnd) && !stateRestaurant.is24) || ((!timeValueMusic || !timeValueMusicEnd) && !stateRestaurant.is24Music) )
           
-        // ){
+        ){
           nextStep();
 
-        // }
-
+        }
+        console.log(data)
+        console.log(timeValueHall)
        }
 
     // if (data.image1[0]) {
