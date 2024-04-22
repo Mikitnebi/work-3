@@ -456,7 +456,7 @@ const navigation = useNavigate()
                     "Register"
                 )}
             </button>        </form>
-            <img onClick={()=> setIsLoginOrRegistration(false)} className='logoRegistrationForRegistartion' src="public/img/Group4.png" alt="Main Logo" />
+            <img onClick={()=> setIsLoginOrRegistration(false)} className='logoRegistrationForRegistartion' src="img/Group4.png" alt="Main Logo" />
 
     </div>
         

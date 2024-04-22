@@ -229,7 +229,7 @@ export const MainLogin = ({onClose,setIsLoginOrRegistration}) =>{
             <button onClick={()=>setIsLoginOrRegistration(true)} className='orRegistrationButton' >
                 Registration
             </button>
-            <img className='logoRegistration' src="public/img/Group4.png" alt="Main Logo" />
+            <img className='logoRegistration' src="img/Group4.png" alt="Main Logo" />
     </div>
         
     )

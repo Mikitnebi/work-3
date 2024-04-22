@@ -31,7 +31,7 @@ export default function Cities ( ) {
    
 
       
-  <img className="cities-img1" src="public/picasso.png" alt="" />
+  <img className="cities-img1" src="picasso.png" alt="" />
   
       
       <div class="infotop">
@@ -54,7 +54,7 @@ export default function Cities ( ) {
   <div class="wave"></div>
   
 
-  <img className="cities-img2" src="public/andza.png" alt="" />
+  <img className="cities-img2" src="andza.png" alt="" />
 
 
       <div class="infotop">
@@ -76,7 +76,7 @@ export default function Cities ( ) {
   <div class="wave"></div>
   <div class="wave"></div>
   
-  <img className="cities-img3" src="public/ანბანი.png" alt="" />
+  <img className="cities-img3" src="ანბანი.png" alt="" />
 
 
       <div class="infotop">
@@ -99,7 +99,7 @@ export default function Cities ( ) {
       
         {/* <div class="card">
   <div class="first-content">
-  <img className="cities-img1" src="public/andza.png" alt="" />
+  <img className="cities-img1" src="andza.png" alt="" />
   </div>
   <div class="second-content">
                 <div class="city-features">
@@ -120,7 +120,7 @@ export default function Cities ( ) {
 </div>
 <div class="card">
   <div class="first-content">
-    <img className="cities-img" src="public/picasso.png" alt="" />
+    <img className="cities-img" src="picasso.png" alt="" />
   </div>
   <div class="second-content">
                 <div class="city-features">
@@ -141,7 +141,7 @@ export default function Cities ( ) {
 </div>
 <div class="card">
   <div class="first-content">
-  <img className="cities-img1" src="public/ანბანი.png" alt="" />
+  <img className="cities-img1" src="ანბანი.png" alt="" />
   </div>
   <div class="second-content">
                 <div class="city-features">
