@@ -307,17 +307,17 @@ const georgianLettersWithSpacesAndTabsRegex = /^[\u10A0-\u10FF0-9 \t_-]+$/;
           locationY: Lat.current,
           address: data.adressGeorgian,
           addressEng:data.adressEnglish,
-          businessTypeId: 1,
-  priceTypeId: 1,
-  regionId: 1,
+          businessTypeId: stateRestaurant?.restaurantTypeId,
+  priceTypeId: stateRestaurant?.priceID,
+  regionId: stateRestaurant?.restaurantRegionId,
   hasCoupe: stateRestaurant?.isCupe,
   hasTerrace: stateRestaurant?.isTerace,
-  hallStartTime: "2024-04-21T07:11:00.000Z",
-  hallEndTime: "2024-04-21T07:11:00.000Z",
-  kitchenStartTime: "2024-04-21T07:11:00.000Z",
-  kitchenEndTime: "2024-04-21T07:11:00.000Z",
-  musicStartTime: "2024-04-21T07:11:00.000Z",
-  musicEndTime: "2024-04-21T07:11:00.000Z",
+  hallStartTime: !stateRestaurant.is24Hall ? `${timeValueHall.format('HH:mm:ss')}` : null,
+  hallEndTime: !stateRestaurant.is24Hall ? `${timeValueHallEnd.format('HH:mm:ss')}` : null,
+  kitchenStartTime: !stateRestaurant.is24 ? `${timeValueKitchen.format('HH:mm:ss')}` : null,
+  kitchenEndTime: !stateRestaurant.is24 ? `${timeValueKitchenEnd.format('HH:mm:ss')}` : null,
+  musicStartTime: !stateRestaurant.is24Music ? `${timeValueMusic.format('HH:mm:ss')}` : null,
+  musicEndTime: !stateRestaurant.is24Music ? `${timeValueMusicEnd.format('HH:mm:ss')}` : null,
   activeStatusId: 0,
   forCorporateEvents: stateRestaurant?.corporative,
   descriptionGeo: data?.descriptionGeo,
@@ -325,7 +325,7 @@ const georgianLettersWithSpacesAndTabsRegex = /^[\u10A0-\u10FF0-9 \t_-]+$/;
         },
         {
           headers: {
-            'Authorization': `${accessToken}`
+            'Authorization':`bearer ${accessToken}`
           }
         })
         .then(response =>{
@@ -340,26 +340,6 @@ const georgianLettersWithSpacesAndTabsRegex = /^[\u10A0-\u10FF0-9 \t_-]+$/;
             console.log(stateRestaurant)
 
         });
-
-console.log('locationX:', Lng.current,
-  'locationY:', Lat.current,
-  'address:', data.adressGeorgian,
-  'addressEng:',data.adressEnglish,
-  'businessTypeId:', 1,
-'priceTypeId:', 1,
-'regionId:', 1,
-'hasCoupe:', stateRestaurant?.isCupe,
-'hasTerrace:', stateRestaurant?.isTerace,
-'hallStartTime:', timeValueHall,
-'hallEndTime:', "2024-04-21T07:11:00.000Z",
-'kitchenStartTime:', "2024-04-21T07:11:00.000Z",
-'kitchenEndTime:', "2024-04-21T07:11:00.000Z",
-'musicStartTime:', "2024-04-21T07:11:00.000Z",
-'musicEndTime:', "2024-04-21T07:11:00.000Z",
-'activeStatusId:', 0,
-'forCorporateEvents:', stateRestaurant?.corporative,
-'descriptionGeo:', data?.descriptionGeo,
-'descriptionEng:', data?.description)
 
 
 
@@ -439,7 +419,7 @@ console.log('locationX:', Lng.current,
 
         }
         console.log(data)
-        console.log(timeValueHall)
+        console.log(timeValueHall.format('HH:mm:ss'))
        }
 
     // if (data.image1[0]) {

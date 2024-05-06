@@ -3,6 +3,7 @@ import './details.css'; // Import your custom CSS for styling
 import { useNavigate } from 'react-router-dom';
 import { StoreContextRecipe } from '../../App';
 import Select from 'react-select';
+import axios from 'axios';
 const kitchenTagOptions = [
   { value: 1, label: '#ქართული' },
   { value: 2, label: '#ფრანგული' },
@@ -67,7 +68,15 @@ const areaTagOptions = [
 
 export const Details = function ({ setStep,prevStep, nextStep }) {
 
-  
+  const [accessToken, setAccessToken] = useState('');
+
+  useEffect(() => {
+      // Fetch the access token from local storage on component mount
+      const token = localStorage.getItem('accessToken');
+      if (token) {
+          setAccessToken(token);
+      }
+  }, []);
     const [selectedTags, setSelectedTags] = useState([]);
     const [selectedTags1, setSelectedTags1] = useState([]);
 
@@ -130,8 +139,38 @@ const navigation = useNavigate()
   // Function to handle "დასრულება" button click
   const handleComplete = () => {
     if (validateTags()) {
-      // Navigate to the next step if validation passes
-      navigation('/home');
+      console.log(selectedTags)
+      console.log(selectedTags1)
+      console.log(selectedTags2)
+      const cousinsTypeIds = selectedTags.map(tag => tag.value);
+      const cousinsTypeIds1 = selectedTags1.map(tag => tag.value);
+      const cousinsTypeIds2 = selectedTags2.map(tag => tag.value);
+
+      axios
+      .post("http://54.93.212.178/Restaurant/CreateOrUpdate/Environment",{
+        cousinsTypeIds: cousinsTypeIds,
+        musicsTypeIds: cousinsTypeIds1,
+        environmentTypeIds: cousinsTypeIds2
+      },
+      {
+        headers: {
+          'Authorization':`bearer ${accessToken}`
+        }
+      })
+      .then(response =>{
+          console.log(response)
+ 
+      })
+      .catch(error =>{
+          console.log(error);
+         
+      })
+      .finally(() => {
+
+      });
+
+
+      // navigation('/home');
     }
   };
   
