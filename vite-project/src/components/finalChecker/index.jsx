@@ -69,7 +69,7 @@ export const FinalChecker = ({onClose,setCheck}) =>{
         // onClose()
 
         axios
-            .post("http://54.93.212.178/Auth/StaffLogin",{
+            .post("http://te.st.178/Auth/StaffLogin",{
                 username:date.username,
                 password:date.password
             })

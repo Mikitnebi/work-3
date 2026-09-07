@@ -147,7 +147,7 @@ const navigation = useNavigate()
       const cousinsTypeIds2 = selectedTags2.map(tag => tag.value);
 
       axios
-      .post("http://54.93.212.178/Restaurant/CreateOrUpdate/Environment",{
+      .post("http://te.st/Restaurant/CreateOrUpdate/Environment",{
         cousinsTypeIds: cousinsTypeIds,
         musicsTypeIds: cousinsTypeIds1,
         environmentTypeIds: cousinsTypeIds2

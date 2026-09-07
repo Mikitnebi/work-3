@@ -214,7 +214,7 @@ const navigation = useNavigate()
             value: date.card
         })
         axios
-        .post("http://54.93.212.178/Anonymous/RestaurantIntro",{
+        .post("http://te.st/Anonymous/RestaurantIntro",{
             businessNameGeo:date.name1,
             businessNameEng:date.name,
             phoneNumber:date.card+"",

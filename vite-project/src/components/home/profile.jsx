@@ -111,7 +111,7 @@ export default function ProfileHomePage () {
     const { stateRestaurant, dispatchRestaurant,dispatchUser,stateUser } = useContext(StoreContextRecipe);
     // console.log(stateUser)
     const { isLoaded } = useLoadScript({
-      googleMapsApiKey: "AIzaSyDmynewxrPLU4NW_x_8tg_FggEq62mc9MI",
+      googleMapsApiKey: "test",
       libraries: LIBRARIES, // Add "places" library here
   
     });
@@ -119,7 +119,7 @@ export default function ProfileHomePage () {
     // if (!isLoaded) return <div>Loading...</div>;
     // return <Map />;
   
-  const GEOCODING_API_KEY = "AIzaSyDf4PZPy98nRtr-8mo2LPwq9wzHjC2TpDU";
+  const GEOCODING_API_KEY = "te.st";
   
   const formattedAddressRef = useRef(stateRestaurant.location || null);
   const Lng = useRef(stateRestaurant.lng || null);

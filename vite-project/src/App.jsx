@@ -66,7 +66,6 @@ function App() {
   
   // useEffect(() => {
   //   const newConnection = new signalR.HubConnectionBuilder()
-  //     .withUrl("http://54.93.212.178/systemHub") // URL of your SignalR hub
   //     .build();
 
   //   setConnection(newConnection);

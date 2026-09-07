@@ -71,7 +71,7 @@ export const PinCode =({close,isPut, parent,setInformation}) =>{
         // close(false)
         // setIsVerify(true);
         axios.
-            post("http://54.93.212.178/Anonymous/RestaurantIntro/VerifyOtp/Email",{
+            post("http://te.st/Anonymous/RestaurantIntro/VerifyOtp/Email",{
                 email:stateUser.email,
                 otp:combineStrings(otp)+""
             })
@@ -97,7 +97,7 @@ export const PinCode =({close,isPut, parent,setInformation}) =>{
         setTimer(180);
 
         axios
-        .post("http://54.93.212.178/Anonymous/RestaurantIntro",
+        .post("http://te.st/Anonymous/RestaurantIntro",
         {
             businessNameGeo:stateUser.name1,
             businessNameEng:stateUser.name,

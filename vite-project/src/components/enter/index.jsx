@@ -41,7 +41,7 @@ export const Enter = ({onClose}) =>{
         setIsLoading(true);
 
         axios
-            .post("http://3.66.89.33/Auth/customer-login",{
+            .post("http://te.st/Auth/customer-login",{
                 emailAddress:date.email,
                 password:date.password
             })

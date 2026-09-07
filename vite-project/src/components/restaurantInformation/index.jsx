@@ -44,7 +44,7 @@ const navigate = useNavigate()
   
     const { isSearchVisible, setIsSearchVisible,stateRestaurant, dispatchRestaurant,stateUser, dispatchUser, stateRecipe, dispatchRecipe } = useContext(StoreContextRecipe);
     const { isLoaded } = useLoadScript({
-      googleMapsApiKey: "AIzaSyDmynewxrPLU4NW_x_8tg_FggEq62mc9MI",
+      googleMapsApiKey: "test",
       libraries: ["places"], // Add "places" library here
   
     });
@@ -52,7 +52,7 @@ const navigate = useNavigate()
     // if (!isLoaded) return <div>Loading...</div>;
     // return <Map />;
   
-  const GEOCODING_API_KEY = "AIzaSyDf4PZPy98nRtr-8mo2LPwq9wzHjC2TpDU";
+  const GEOCODING_API_KEY = "test";
   
   const formattedAddressRef = useRef(stateRestaurant.location || null);
   const Lng = useRef(stateRestaurant.lng || null);
@@ -348,7 +348,6 @@ const navigate = useNavigate()
   
   
       // axios
-      //     .post("http://3.66.89.33/Restaurant/registration/StarterInfo",{
       //       locationX: Lng.current,
       //       locationY: Lat.current,
       //       address: formattedAddressRef.current,

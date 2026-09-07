@@ -66,7 +66,6 @@ export default function ParentChecker ({onClose,setIsParent}) {
         // onClose()
 
         // axios
-        //     .post("http://3.66.89.33/Auth/customer-login",{
         //         emailAddress:date.email,
         //         password:date.password
         //     })

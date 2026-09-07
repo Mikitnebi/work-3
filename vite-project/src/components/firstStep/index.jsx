@@ -54,7 +54,7 @@ export const FirstStep = function ({setStep, chooseStep, nextStep }) {
 
   const { stateRestaurant, dispatchRestaurant } = useContext(StoreContextRecipe);
   const { isLoaded } = useLoadScript({
-    googleMapsApiKey: "AIzaSyDmynewxrPLU4NW_x_8tg_FggEq62mc9MI",
+    googleMapsApiKey: "test",
     libraries: ["places"], // Add "places" library here
 
   });
@@ -62,7 +62,7 @@ export const FirstStep = function ({setStep, chooseStep, nextStep }) {
   // if (!isLoaded) return <div>Loading...</div>;
   // return <Map />;
 
-const GEOCODING_API_KEY = "AIzaSyDf4PZPy98nRtr-8mo2LPwq9wzHjC2TpDU";
+const GEOCODING_API_KEY = "test-dasd";
 
 const formattedAddressRef = useRef(stateRestaurant.location || null);
 const Lng = useRef(stateRestaurant.lng || null);
@@ -302,7 +302,7 @@ const georgianLettersWithSpacesAndTabsRegex = /^[\u10A0-\u10FF0-9 \t_-]+$/;
 
   const onSubmit = (data) => {
     axios
-        .post("http://54.93.212.178/Restaurant/CreateOrUpdate/Info",{
+        .post("http://te.st/Restaurant/CreateOrUpdate/Info",{
           locationX: Lng.current,
           locationY: Lat.current,
           address: data.adressGeorgian,
